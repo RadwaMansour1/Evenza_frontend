@@ -1,29 +1,29 @@
 <nav class="bg-white shadow-sm">
-  <div class="pl-0 pr-4 mx-auto max-w-7xl sm:pl-0 sm:pr-6 lg:pl-0 lg:pr-8">
+  <div class="pl-6 pr-4 mx-auto max-w-7xl sm:pl-4 sm:pr-6 lg:pl-0 lg:pr-8">
     <div class="flex items-center justify-between h-16">
       <!-- Logo -->
       <div class="flex items-center space-x-2">
-        <span class="pt-1.5 text-xl text-purple-600">
+        <span class="pt-1.5 text-2xl text-purple-500">
           <ng-icon name="heroCalendarDays" />
         </span>
-        <span class="text-xl font-bold text-purple-600">Evenza</span>
+        <span class="text-2xl font-bold text-purple-500">Evenza</span>
       </div>
       <!-- Hamburger -->
       <div class="md:hidden me-5">
         <button
           (click)="toggleMenu()"
           aria-label="Toggle menu"
-          class="text-gray-700 hover:text-purple-600 focus:outline-none"
+          class="text-gray-700 hover:text-purple-500 focus:outline-none"
         >
           <ng-icon
             name="heroBars3"
-            class="text-xl text-gray-700 group-hover:text-purple-600"
+            class="text-xl text-gray-700 group-hover:text-purple-500"
             *ngIf="!isMenuOpen"
           ></ng-icon>
           <ng-icon
             name="heroXMark"
             *ngIf="isMenuOpen"
-            class="text-xl text-gray-700 group-hover:text-purple-600"
+            class="text-xl text-gray-700 group-hover:text-purple-500"
           >
           </ng-icon>
         </button>
@@ -34,7 +34,7 @@
         <a
           *ngFor="let link of navLinks"
           [href]="link.href"
-          class="text-sm font-medium text-gray-900 hover:text-purple-600"
+          class="text-base font-medium text-gray-900 hover:text-purple-500"
         >
           {{ link.label }}
         </a>
@@ -46,7 +46,7 @@
           <input
             type="text"
             placeholder="Search events..."
-            class="w-full pl-10 pr-10 py-1.5 rounded-md border border-gray-300 text-sm placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-purple-500 focus:border-purple-500"
+            class="w-full pl-10 pr-10 py-1.5 rounded-md border border-gray-300 text-base placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-purple-500 focus:border-purple-500 focus:shadow-md hover:ring-1 hover:ring-purple-500 hover:border-purple-500 hover:shadow-md transition-all duration-200"
           />
           <div
             class="pt-1 absolute text-gray-400 transform -translate-y-1/2 left-2 top-1/2 pointer-events-none"
@@ -57,7 +57,7 @@
 
         <!-- User -->
         <button
-          class="px-2 py-1 border border-gray-300 rounded-md hover:border-purple-500 group"
+          class="px-2 pt-1 pb-0.5 border border-gray-300 rounded-md hover:border-purple-500 hover:border-2 group"
         >
           <span
             class="text-gray-700 transition-all duration-200 group-hover:text-purple-600"
@@ -68,7 +68,7 @@
 
         <!-- Love -->
         <button
-          class="px-2 py-1 border border-gray-300 rounded-md hover:border-purple-500 group"
+          class="px-2 pt-1 pb-0.5 border border-gray-300 rounded-md hover:border-purple-500 hover:border-2 group"
         >
           <span
             class="text-gray-700 transition-all duration-200 group-hover:text-purple-600"
@@ -79,7 +79,7 @@
 
         <!-- MyTickets -->
         <button
-          class="px-2 py-1 border border-gray-300 rounded-md hover:border-purple-500 group"
+          class="px-2 pt-1 pb-0.5 border border-gray-300 rounded-md hover:border-purple-500 hover:border-2 group"
         >
           <span
             class="text-gray-700 transition-all duration-200 group-hover:text-purple-600"
@@ -98,7 +98,7 @@
           <input
             type="text"
             placeholder="Search events..."
-            class="w-full py-2 pl-10 pr-10 text-sm placeholder-gray-400 border border-gray-300 rounded-md focus:ring-purple-500 focus:border-purple-500"
+            class="w-full py-2 pl-10 pr-10 text-base placeholder-gray-400 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-purple-500 focus:border-purple-500 focus:shadow-md hover:ring-1 hover:ring-purple-500 hover:border-purple-500 hover:shadow-md transition-all duration-200"
           />
           <div
             class="absolute text-gray-400 transform -translate-y-1/2 left-8 top-1/2"
@@ -111,7 +111,7 @@
         <a
           *ngFor="let link of navLinks"
           [href]="link.href"
-          class="block px-4 py-1 text-sm font-medium text-gray-900 hover:text-purple-600"
+          class="block px-4 py-2 text-base font-medium text-gray-900 hover:text-purple-500"
         >
           {{ link.label }}
         </a>
@@ -120,36 +120,36 @@
         <hr class="my-4 border-gray-300" />
 
         <!-- Login/Register and User Links with Icons -->
-        <div class="flex flex-col px-4 pt-2 pb-4 space-y-3">
+        <div class="flex flex-col px-4 pt-2 pb-4 space-y-4">
           <!-- Wrap with group to apply hover effect to both text and icon -->
-          <div class="flex items-center group hover:text-purple-600">
+          <div class="flex items-center group hover:text-purple-500">
             <ng-icon
               name="heroUser"
-              class="text-gray-700 me-2 group-hover:text-purple-600"
+              class="text-gray-700 me-2 group-hover:text-purple-500"
             />
             <span
-              class="text-sm font-medium text-gray-900 group-hover:text-purple-600"
+              class="text-base font-medium text-gray-900 group-hover:text-purple-500"
               >Login/Register</span
             >
           </div>
 
-          <div class="flex items-center group hover:text-purple-600">
+          <div class="flex items-center group hover:text-purple-500">
             <ng-icon
               name="heroHeart"
-              class="text-gray-700 me-2 group-hover:text-purple-600"
+              class="text-gray-700 me-2 group-hover:text-purple-500"
             />
             <span
-              class="text-sm font-medium text-gray-900 group-hover:text-purple-600"
+              class="text-base font-medium text-gray-900 group-hover:text-purple-500"
               >Favorites</span
             >
           </div>
-          <div class="flex items-center group hover:text-purple-600">
+          <div class="flex items-center group hover:text-purple-500 pb-5">
             <ng-icon
               name="heroTicket"
-              class="text-gray-700 me-2 group-hover:text-purple-600"
+              class="text-gray-700 me-2 group-hover:text-purple-500"
             />
             <span
-              class="text-sm font-medium text-gray-900 group-hover:text-purple-600"
+              class="text-sm font-medium text-gray-900 group-hover:text-purple-500"
               >My Tickets</span
             >
           </div>
