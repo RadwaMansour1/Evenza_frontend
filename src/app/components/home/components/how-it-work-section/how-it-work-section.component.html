@@ -1,0 +1,30 @@
+<section class="py-16 bg-gray-50 min-h-screen">
+  <div class="max-w-7xl mx-auto px-4 text-center">
+    <h2 class="text-3xl font-bold text-gray-800 mb-2">How It Works</h2>
+    <p class="text-gray-500 mb-10">
+      Booking tickets on Evenza is quick and easy. Here's how it works in a few
+      simple steps.
+    </p>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+      <div
+        *ngFor="let step of steps; let i = index"
+        class="bg-white p-6 rounded-xl shadow-sm group hover:shadow-md transition-all duration-300 cursor-pointer text-center"
+      >
+        <!-- Step Icon -->
+        <div
+          class="w-12 h-12 rounded-full text-center flex items-center justify-center mx-auto mb-4 group-hover:scale-110 group-hover:animate-bounce transition-all duration-300"
+          [ngClass]="[step.bgColor, step.textColor]"
+        >
+          <ng-icon [name]="step.icon"></ng-icon>
+        </div>
+
+        <!-- Step Title -->
+        <h3 class="text-lg font-semibold text-gray-900">{{ step.title }}</h3>
+
+        <!-- Step Description -->
+        <p class="text-sm text-gray-500 mt-2">{{ step.description }}</p>
+      </div>
+    </div>
+  </div>
+</section>

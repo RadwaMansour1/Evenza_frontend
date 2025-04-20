@@ -2,19 +2,39 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { EventCardComponent } from './components/event-card/event-card.component';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { featherArrowRight } from '@ng-icons/feather-icons';
+import { heroChevronRight } from '@ng-icons/heroicons/outline';
 
 @Component({
   selector: 'app-featured-events-section',
   imports: [CommonModule, EventCardComponent, NgIcon],
   templateUrl: './featured-events-section.component.html',
-  providers: [provideIcons({ featherArrowRight })],
+  providers: [provideIcons({ heroChevronRight })],
 })
 export class FeaturedEventsSectionComponent {
-viewAllEvents() {
-throw new Error('Method not implemented.');
-}
+  viewAllEvents() {
+    throw new Error('Method not implemented.');
+  }
   featuredEvents = [
+    {
+      image:
+        'https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=2670&auto=format&fit=crop',
+      category: 'Concert',
+      title: 'Music Festival 2025',
+      date: 'June 15–18, 2025',
+      time: '5:00 PM',
+      location: 'Central Park, New York City',
+      price: 199,
+    },
+    {
+      image:
+        'https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=2670&auto=format&fit=crop',
+      category: 'Concert',
+      title: 'Music Festival 2025',
+      date: 'June 15–18, 2025',
+      time: '5:00 PM',
+      location: 'Central Park, New York City',
+      price: 199,
+    },
     {
       image:
         'https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=2670&auto=format&fit=crop',
@@ -37,7 +57,7 @@ throw new Error('Method not implemented.');
     },
     {
       image:
-        'https://images.unsplash.com/photo-1549921296-3a4b3b2ecede?q=80&w=2670&auto=format&fit=crop',
+        'https://images.unsplash.com/photo-1503095396549-807759245b35?q=80&w=2671&auto=format&fit=crop',
       category: 'Theater',
       title: 'Shakespeare in the Park',
       date: 'August 5, 2025',

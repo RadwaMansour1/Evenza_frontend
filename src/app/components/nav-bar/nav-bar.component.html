@@ -1,4 +1,4 @@
-<nav class="bg-white shadow-sm">
+<nav class="bg-white shadow-sm fixed top-0 w-full z-50">
   <div class="pl-6 pr-4 mx-auto max-w-7xl sm:pl-4 sm:pr-6 lg:pl-0 lg:pr-8">
     <div class="flex items-center justify-between h-16">
       <!-- Logo -->
@@ -120,30 +120,29 @@
         <hr class="my-4 border-gray-300" />
 
         <!-- Login/Register and User Links with Icons -->
-        <div class="flex flex-col px-4 pt-2 pb-4 space-y-4">
-          <!-- Wrap with group to apply hover effect to both text and icon -->
+        <div class="flex flex-col px-4 pt-2 pb-4 space-y-3">
           <div class="flex items-center group hover:text-purple-500">
             <ng-icon
               name="heroUser"
               class="text-gray-700 me-2 group-hover:text-purple-500"
             />
             <span
-              class="text-base font-medium text-gray-900 group-hover:text-purple-500"
+              class="text-sm font-medium text-gray-900 group-hover:text-purple-500"
               >Login/Register</span
             >
           </div>
 
           <div class="flex items-center group hover:text-purple-500">
             <ng-icon
-              name="heroWallet"
+              name="heroHeart"
               class="text-gray-700 me-2 group-hover:text-purple-500"
             />
             <span
-              class="text-base font-medium text-gray-900 group-hover:text-purple-500"
-              >My Wallet</span
+              class="text-sm font-medium text-gray-900 group-hover:text-purple-500"
+              >Favorites</span
             >
           </div>
-          <div class="flex items-center group hover:text-purple-500 pb-5">
+          <div class="flex items-center group hover:text-purple-500">
             <ng-icon
               name="heroTicket"
               class="text-gray-700 me-2 group-hover:text-purple-500"

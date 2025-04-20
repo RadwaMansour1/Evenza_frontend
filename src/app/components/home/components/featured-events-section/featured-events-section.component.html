@@ -1,4 +1,4 @@
-<section class="py-16 bg-white min-h-screen">
+<section class="py-16 bg-gray-50 min-h-screen">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex justify-between items-center mb-6">
       <div>
@@ -12,7 +12,10 @@
         class="px-4 py-2 text-black-600 border border-gray-400 rounded-md hover:bg-purple-500 hover:text-white transition-all duration-300"
         (click)="viewAllEvents()"
       >
-        View all events <span class="ms-2"><ng-icon name="featherArrowRight" /></span>
+        <div class="flex items-center gap-2">
+          <span>View all events</span>
+          <span class="ms-2 inline-flex items-center"><ng-icon name="heroChevronRight" /></span>
+        </div>
       </button>
     </div>
 
