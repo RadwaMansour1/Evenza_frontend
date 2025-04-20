@@ -1,0 +1,24 @@
+<section class="py-16 bg-white min-h-screen">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center mb-6">
+      <div>
+        <p class="text-3xl font-bold text-gray-900">Featured Events</p>
+        <p class="mt-2 text-lg text-gray-500">
+          Discover the hottest tickets and most anticipated events happening
+          soon.
+        </p>
+      </div>
+      <button
+        class="px-4 py-2 text-black-600 border border-gray-400 rounded-md hover:bg-purple-500 hover:text-white transition-all duration-300"
+        (click)="viewAllEvents()"
+      >
+        View all events <span class="ms-2"><ng-icon name="featherArrowRight" /></span>
+      </button>
+    </div>
+
+    <div class="grid md:grid-cols-4 sm:grid-cols-2 gap-6">
+      <app-event-card *ngFor="let event of featuredEvents" [event]="event">
+      </app-event-card>
+    </div>
+  </div>
+</section>

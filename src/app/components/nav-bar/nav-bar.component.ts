@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { NgIcon, provideIcons, provideNgIconsConfig } from '@ng-icons/core';
 import {
   heroTicket,
-  heroHeart,
+  heroWallet,
   heroUser,
   heroCalendarDays,
   heroBars3,
@@ -19,7 +19,7 @@ import {
   providers: [
     provideIcons({
       heroTicket,
-      heroHeart,
+      heroWallet,
       heroUser,
       heroCalendarDays,
       heroBars3,
@@ -38,8 +38,9 @@ export class NavBarComponent {
     { label: 'All Events', href: '#' },
     { label: 'Concerts', href: '#' },
     { label: 'Conferences', href: '#' },
-    { label: 'Theater', href: '#' },
     { label: 'Sports', href: '#' },
+    { label: 'About', href: '#' },
+    { label: 'FAQs', href: '#' },
   ];
 
   toggleMenu() {

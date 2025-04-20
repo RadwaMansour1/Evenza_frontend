@@ -1,0 +1,45 @@
+<div
+  class="border border-purple-200 rounded-lg overflow-hidden shadow hover:shadow-lg transition duration-300"
+>
+  <img
+    [src]="event.image"
+    class="h-40 w-full object-cover hover:scale-110 transition-all duration-300"
+    alt="Event Image"
+  />
+  <div class="p-4">
+    <div class="flex justify-between items-center mb-2">
+      <span
+        class="px-2 py-1 text-xs rounded-full bg-purple-100 text-purple-600 font-medium"
+        >{{ event.category }}</span
+      >
+      <span
+        class="px-2 py-1 text-xs rounded-full bg-orange-100 text-orange-600 font-medium"
+        >Featured</span
+      >
+    </div>
+    <h3 class="text-lg font-semibold text-gray-900">{{ event.title }}</h3>
+    <p class="text-sm text-gray-600 mt-1 flex items-center gap-1">
+      <span class="me-1 text-purple-500"
+        ><ng-icon name="featherCalendar"
+      /></span>
+      {{ event.date }}
+    </p>
+    <p class="text-sm text-gray-600 mt-1 flex items-center gap-1">
+      <span class="me-1 text-purple-500"><ng-icon name="featherClock" /></span>
+      {{ event.time }}
+    </p>
+    <p class="text-sm text-gray-600 mt-1 flex items-center gap-1">
+      <span class="me-1 text-purple-500"><ng-icon name="featherMapPin" /></span>
+      {{ event.location }}
+    </p>
+
+    <div class="mt-4 flex justify-between items-center">
+      <span class="font-bold text-gray-900">${{ event.price }}</span>
+      <button
+        class="bg-purple-500 text-white text-sm px-3 py-1 rounded-md hover:bg-purple-600 shadow-md hover:shadow-lg transition-all duration-300"
+      >
+        Book Now
+      </button>
+    </div>
+  </div>
+</div>
