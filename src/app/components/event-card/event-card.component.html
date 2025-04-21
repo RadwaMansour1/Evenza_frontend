@@ -1,22 +1,17 @@
 <div
-  class="border border-gray-200 rounded-lg shadow-sm overflow-hidden bg-white flex flex-col h-full"
+  class="border border-gray-200 rounded-lg shadow-sm overflow-hidden bg-white flex flex-col h-full group hover:scale-105 transition-all duration-600 ease-in-out"
 >
   <div class="relative">
     <img
       [src]="event.imageUrl"
       [alt]="event.title"
-      class="w-full h-48 object-cover"
+      class="w-full h-48 object-cover group-hover:scale-105 transition-all duration-600 ease-in-out"
     />
     <span
       class="absolute top-2 left-2 inline-block bg-purple-600 text-white px-2.5 py-0.5 rounded-full text-xs font-semibold"
     >
       {{ event.category }}
     </span>
-    <button
-      class="absolute top-2 right-2 p-1.5 bg-white/80 rounded-full text-gray-600 hover:text-red-500 hover:bg-white focus:outline-none"
-    >
-      <ng-icon name="featherHeart" size="1em"></ng-icon>
-    </button>
   </div>
 
   <div class="p-4 flex flex-col flex-grow">
@@ -28,27 +23,21 @@
     </h3>
     <div class="text-sm text-gray-600 space-y-1 mb-3">
       <p class="flex items-center gap-2">
-        <ng-icon
-          name="featherCalendar"
-          size="1em"
-          class="text-gray-500 flex-shrink-0"
-        ></ng-icon>
+        <span class="text-purple-600">
+          <ng-icon name="featherCalendar" size="1em"></ng-icon>
+        </span>
         <span>{{ formattedDate }}</span>
       </p>
       <p class="flex items-center gap-2">
-        <ng-icon
-          name="featherClock"
-          size="1em"
-          class="text-gray-500 flex-shrink-0"
-        ></ng-icon>
+        <span class="text-purple-600">
+          <ng-icon name="featherClock" size="1em"></ng-icon>
+        </span>
         <span>{{ event.time }}</span>
       </p>
       <p class="flex items-center gap-2">
-        <ng-icon
-          name="featherMapPin"
-          size="1em"
-          class="text-gray-500 flex-shrink-0"
-        ></ng-icon>
+        <span class="text-purple-600">
+          <ng-icon name="featherMapPin" size="1em"></ng-icon>
+        </span>
         <span>{{ event.location }}, {{ event.city }}</span>
       </p>
     </div>
