@@ -5,10 +5,11 @@ import { TranslateModule } from '@ngx-translate/core';
 import { NavBarComponent } from "./components/nav-bar/nav-bar.component";
 import { FooterComponent } from "./components/footer/footer.component";
 import { HomeComponent } from "./components/home/home.component";
+import { EventDetailsComponent } from "./components/event-details/event-details.component";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, TranslateModule, NavBarComponent, FooterComponent, HomeComponent],
+  imports: [RouterOutlet, TranslateModule, NavBarComponent, FooterComponent, HomeComponent, EventDetailsComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 
