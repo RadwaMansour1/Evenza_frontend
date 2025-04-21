@@ -1,0 +1,48 @@
+<section class="bg-gray-50 mx-auto">
+  <div class="mx-auto px-4 pt-26 pb-20 sm:px-10 lg:px-20">
+    <h1 class="text-3xl font-bold text-black mb-6 flex items-center gap-2">
+      <span class="text-purple-600">
+        <ng-icon name="featherFilter" size="0.8em"></ng-icon>
+      </span>
+      All Events
+    </h1>
+
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+      <aside class="md:col-span-1">
+        <app-event-filters
+          [categories]="categories"
+          [cities]="cities"
+          (filtersChanged)="onFiltersChanged($event)"
+          (resetFilters)="onResetFilters()"
+        ></app-event-filters>
+      </aside>
+
+      <main class="md:col-span-3">
+        <div *ngIf="filteredEvents$ | async as events; else loading">
+          <div
+            *ngIf="events.length > 0; else noResults"
+            class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+          >
+            <app-event-card
+              *ngFor="let event of events"
+              [event]="event"
+            ></app-event-card>
+          </div>
+          <ng-template #noResults>
+            <div
+              class="text-center py-16 px-6 bg-white rounded-lg border border-gray-200 shadow-sm"
+            >
+              <h3 class="text-lg font-medium text-gray-900">No Events Found</h3>
+              <p class="mt-1 text-sm text-gray-500">
+                Try adjusting your filters.
+              </p>
+            </div>
+          </ng-template>
+        </div>
+        <ng-template #loading>
+          <div class="text-center py-16">Loading events...</div>
+        </ng-template>
+      </main>
+    </div>
+  </div>
+</section>
