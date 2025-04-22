@@ -14,13 +14,13 @@ export interface Ticket {
 }
 
 export interface Event {
-  id: string; // Representing the MongoDB `_id` field as a string
+  _id: string; // Representing the MongoDB `_id` field as a string
   title: string;
   description: string;
   date: string; // You can use `Date` but it would be best to handle it as string when parsing JSON
   time: string;
   location: Location;
-  categories: string[];
+  category: string;
   ticketsAvailable: Ticket[];
   isFree: boolean;
   imageUrl: string;
@@ -28,21 +28,24 @@ export interface Event {
 }
 
 export interface FilterCriteria {
-  searchTerm?: string | null;
-  category?: string | null; // 'All' or specific category
+  search?: string | null;
+  category?: string | null;
   minPrice?: number | null;
   maxPrice?: number | null;
   isFree?: boolean | null;
-  city?: string | null; // 'All' or specific city
-  dateFrom?: string | null; // YYYY-MM-DD
-  dateTo?: string | null; // YYYY-MM-DD
+  city?: string | null;
+  dateFrom?: string | null;
+  dateTo?: string | null;
   sortBy?: 'date' | 'price' | 'title' | null;
   sortOrder?: 'asc' | 'desc' | null;
 }
 
-// Add sample categories and cities if needed for dropdowns
 export const EVENT_CATEGORIES = [
   'All',
+  'Music',
+  'Art',
+  'Business',
+  'Tech',
   'Concert',
   'Conference',
   'Theater',

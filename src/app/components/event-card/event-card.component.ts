@@ -9,11 +9,11 @@ import {
   featherMapPin,
   featherHeart,
 } from '@ng-icons/feather-icons';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-event-card',
-  standalone: true,
-  imports: [CommonModule, NgIconComponent],
+  imports: [CommonModule, NgIconComponent,RouterModule],
   templateUrl: './event-card.component.html',
   viewProviders: [
     provideIcons({

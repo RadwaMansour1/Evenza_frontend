@@ -41,11 +41,11 @@ export class EventFiltersComponent implements OnInit, OnDestroy {
     this.detectScreenSize();
     window.addEventListener('resize', this.detectScreenSize.bind(this));
     this.filterForm = this.fb.group({
-      searchTerm: [''],
+      search: [''],
       category: ['All'],
       minPrice: [null],
       maxPrice: [null],
-      isFree: [false],
+      isFree: [null],
       city: ['All'],
       dateFrom: [null],
       dateTo: [null],
@@ -71,11 +71,11 @@ export class EventFiltersComponent implements OnInit, OnDestroy {
   }
   onResetFilters(): void {
     this.filterForm.reset({
-      searchTerm: '',
+      search: '',
       category: 'All',
       minPrice: null,
       maxPrice: null,
-      isFree: false,
+      isFree: null,
       city: 'All',
       dateFrom: null,
       dateTo: null,

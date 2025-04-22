@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterModule, RouterOutlet } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
@@ -18,7 +18,8 @@ import { AllEventsComponent } from './components/all-events/all-events.component
     HomeComponent,
     EventDetailsComponent,
     AllEventsComponent,
-  ],
+    RouterModule
+],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
