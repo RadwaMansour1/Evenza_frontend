@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { EventCardComponent } from './components/event-card/event-card.component';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { heroChevronRight } from '@ng-icons/heroicons/outline';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-featured-events-section',
@@ -11,20 +12,9 @@ import { heroChevronRight } from '@ng-icons/heroicons/outline';
   providers: [provideIcons({ heroChevronRight })],
 })
 export class FeaturedEventsSectionComponent {
-  viewAllEvents() {
-    throw new Error('Method not implemented.');
-  }
+
+  constructor(private router: Router) {}
   featuredEvents = [
-    {
-      image:
-        'https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=2670&auto=format&fit=crop',
-      category: 'Concert',
-      title: 'Music Festival 2025',
-      date: 'June 15–18, 2025',
-      time: '5:00 PM',
-      location: 'Central Park, New York City',
-      price: 199,
-    },
     {
       image:
         'https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=2670&auto=format&fit=crop',
@@ -66,4 +56,7 @@ export class FeaturedEventsSectionComponent {
       price: 49,
     },
   ];
+  viewAllEvents() {
+    this.router.navigate(['/events']);
+  }
 }

@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { NgIcon, provideIcons, provideNgIconsConfig } from '@ng-icons/core';
 import {
   heroTicket,
@@ -13,7 +14,7 @@ import {
 
 @Component({
   selector: 'app-nav-bar',
-  imports: [CommonModule, NgIcon],
+  imports: [CommonModule, NgIcon,RouterModule],
   standalone: true,
   templateUrl: './nav-bar.component.html',
   providers: [
@@ -35,12 +36,12 @@ export class NavBarComponent {
   isMenuOpen = false;
 
   navLinks = [
-    { label: 'All Events', href: '#' },
-    { label: 'Concerts', href: '#' },
-    { label: 'Conferences', href: '#' },
-    { label: 'Sports', href: '#' },
-    { label: 'About', href: '#' },
-    { label: 'FAQs', href: '#' },
+    { label: 'Home', href: '/' },
+    { label: 'All Events', href: '/events' },
+    { label: 'Concerts', href: '/events?category=concerts' },
+    { label: 'Conferences', href: '/events?category=conferences' },
+    { label: 'About', href: '/about' },
+    { label: 'FAQs', href: '/faqs' },
   ];
 
   toggleMenu() {
