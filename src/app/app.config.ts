@@ -12,7 +12,7 @@ import {
 } from '@angular/common/http';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { provideNgIconsConfig } from '@ng-icons/core';
+
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -31,5 +31,7 @@ export const appConfig: ApplicationConfig = {
     ),
     provideRouter(routes),
     provideHttpClient(withInterceptorsFromDi()),
+    // provideStore(appStore),
+    // provideEffects([EventEffects]),
   ],
 };

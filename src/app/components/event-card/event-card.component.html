@@ -1,16 +1,17 @@
 <div
-  class="border border-gray-200 rounded-lg shadow-sm overflow-hidden bg-white flex flex-col h-full group hover:scale-105 transition-all duration-600 ease-in-out"
+  class="border border-gray-200 rounded-lg shadow-sm overflow-hidden bg-white flex flex-col h-full group hover:scale-105 transition-all duration-500 ease-in-out"
 >
   <div class="relative">
     <img
       [src]="event.imageUrl"
       [alt]="event.title"
-      class="w-full h-48 object-cover group-hover:scale-105 transition-all duration-600 ease-in-out"
+      class="w-full h-48 object-cover group-hover:scale-105 transition-all duration-500 ease-in-out"
     />
     <span
+      *ngIf="event.categories?.length"
       class="absolute top-2 left-2 inline-block bg-purple-600 text-white px-2.5 py-0.5 rounded-full text-xs font-semibold"
     >
-      {{ event.category }}
+      {{ event.categories[0] }}
     </span>
   </div>
 
@@ -38,7 +39,7 @@
         <span class="text-purple-600">
           <ng-icon name="featherMapPin" size="1em"></ng-icon>
         </span>
-        <span>{{ event.location }}, {{ event.city }}</span>
+        <span>{{ event.location.address }}, {{ event.location.city }}</span>
       </p>
     </div>
 
@@ -46,7 +47,7 @@
       class="mt-auto flex justify-between items-center pt-3 border-t border-gray-100"
     >
       <p class="text-xl font-bold text-gray-800">
-        {{ event.isFree ? "Free" : "$" + event.price }}
+        {{ event.isFree ? 'Free' : ('$' + getLowestTicketPrice(event)) }}
       </p>
       <button
         class="px-4 py-1.5 bg-purple-600 text-white rounded-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition duration-150 ease-in-out text-sm font-medium"

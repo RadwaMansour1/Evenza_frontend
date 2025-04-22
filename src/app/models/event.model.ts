@@ -1,17 +1,30 @@
 // src/app/models/event.model.ts
+export interface Location {
+  address: string;
+  city: string;
+  coordinates?: {
+    latitude: number;
+    longitude: number;
+  };
+}
+export interface Ticket {
+  level: 'silver' | 'golden' | 'platinum';
+  price: number;
+  quantity: number;
+}
 
 export interface Event {
-  id: string;
+  id: string; // Representing the MongoDB `_id` field as a string
   title: string;
-  imageUrl: string;
-  category: string; // e.g., 'Concert', 'Conference', 'Theater', 'Sports'
-  date: string; // Ideally use Date object, but string for simplicity here (e.g., '2025-07-15')
-  time: string; // e.g., '12:00 PM - 11:00 PM'
-  city: string;
-  location: string; // More specific venue
-  price: number; // Price in USD or appropriate currency
+  description: string;
+  date: string; // You can use `Date` but it would be best to handle it as string when parsing JSON
+  time: string;
+  location: Location;
+  categories: string[];
+  ticketsAvailable: Ticket[];
   isFree: boolean;
-  description?: string; // Optional
+  imageUrl: string;
+  organizerId: number;
 }
 
 export interface FilterCriteria {
@@ -44,4 +57,4 @@ export const EVENT_CITIES = [
   'London',
   'Paris',
   'Online',
-]; // Add more as needed
+];

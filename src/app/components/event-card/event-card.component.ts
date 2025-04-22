@@ -40,4 +40,9 @@ export class EventCardComponent {
       return this.event.date; // Fallback
     }
   }
+  getLowestTicketPrice(event: Event): number {
+    if (!event.ticketsAvailable || event.ticketsAvailable.length === 0)
+      return 0;
+    return Math.min(...event.ticketsAvailable.map((t) => t.price));
+  }
 }

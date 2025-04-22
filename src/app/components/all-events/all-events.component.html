@@ -6,7 +6,6 @@
       </span>
       All Events
     </h1>
-
     <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
       <aside class="md:col-span-1">
         <app-event-filters
@@ -18,30 +17,22 @@
       </aside>
 
       <main class="md:col-span-3">
-        <div *ngIf="filteredEvents$ | async as events; else loading">
-          <div
-            *ngIf="events.length > 0; else noResults"
-            class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
-          >
-            <app-event-card
-              *ngFor="let event of events"
-              [event]="event"
-            ></app-event-card>
-          </div>
-          <ng-template #noResults>
-            <div
-              class="text-center py-16 px-6 bg-white rounded-lg border border-gray-200 shadow-sm"
-            >
-              <h3 class="text-lg font-medium text-gray-900">No Events Found</h3>
-              <p class="mt-1 text-sm text-gray-500">
-                Try adjusting your filters.
-              </p>
-            </div>
-          </ng-template>
+        @if (!(loading )) { @if (allEvents.length > 0) {
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          @for (event of allEvents; track $index) {
+          <app-event-card [event]="event"></app-event-card>
+          }
         </div>
-        <ng-template #loading>
-          <div class="text-center py-16">Loading events...</div>
-        </ng-template>
+        } @else {
+        <div
+          class="text-center py-16 px-6 bg-white rounded-lg border border-gray-200 shadow-sm"
+        >
+          <h3 class="text-lg font-medium text-gray-900">No Events Found</h3>
+          <p class="mt-1 text-sm text-gray-500">Try adjusting your filters.</p>
+        </div>
+        } }@else {
+        <div class="text-center py-16">Loading events...</div>
+        }
       </main>
     </div>
   </div>
