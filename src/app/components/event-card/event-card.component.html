@@ -1,0 +1,60 @@
+<a [routerLink]="['/events', event._id]" class="block">
+  <div
+    class="border border-gray-200 rounded-lg shadow-sm overflow-hidden bg-white flex flex-col h-full group hover:scale-105 transition-all duration-500 ease-in-out"
+  >
+    <div class="relative">
+      <img
+        [src]="event.imageUrl"
+        [alt]="event.title"
+        class="w-full h-48 object-cover group-hover:scale-105 transition-all duration-500 ease-in-out"
+      />
+      <span
+        class="absolute top-2 left-2 inline-block bg-purple-600 text-white px-2.5 py-0.5 rounded-full text-xs font-semibold"
+      >
+        {{ event.category }}
+      </span>
+    </div>
+
+    <div class="p-4 flex flex-col flex-grow">
+      <h3
+        class="text-lg font-semibold text-gray-800 mb-2 truncate"
+        [title]="event.title"
+      >
+        {{ event.title }}
+      </h3>
+      <div class="text-sm text-gray-600 space-y-1 mb-3">
+        <p class="flex items-center gap-2">
+          <span class="text-purple-600">
+            <ng-icon name="featherCalendar" size="1em"></ng-icon>
+          </span>
+          <span>{{ formattedDate }}</span>
+        </p>
+        <p class="flex items-center gap-2">
+          <span class="text-purple-600">
+            <ng-icon name="featherClock" size="1em"></ng-icon>
+          </span>
+          <span>{{ event.time }}</span>
+        </p>
+        <p class="flex items-center gap-2">
+          <span class="text-purple-600">
+            <ng-icon name="featherMapPin" size="1em"></ng-icon>
+          </span>
+          <span>{{ event.location.address }}, {{ event.location.city }}</span>
+        </p>
+      </div>
+
+      <div
+        class="mt-auto flex justify-between items-center pt-3 border-t border-gray-100"
+      >
+        <p class="text-xl font-bold text-gray-800">
+          {{ event.isFree ? "Free" : "$" + getLowestTicketPrice(event) }}
+        </p>
+        <button
+          class="px-4 py-1.5 bg-purple-600 text-white rounded-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition duration-150 ease-in-out text-sm font-medium"
+        >
+          Book Now
+        </button>
+      </div>
+    </div>
+  </div>
+</a>

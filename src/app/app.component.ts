@@ -1,12 +1,25 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterModule, RouterOutlet } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { PaymentComponent } from "./components/payment/payment.component";
-import { RefundComponent } from "./components/refund/refund.component";
+import { TranslateModule } from '@ngx-translate/core';
+import { NavBarComponent } from './components/nav-bar/nav-bar.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { HomeComponent } from './components/home/home.component';
+import { EventDetailsComponent } from './components/event-details/event-details.component';
+import { AllEventsComponent } from './components/all-events/all-events.component';
 
 @Component({
   selector: 'app-root',
-  imports: [PaymentComponent, RefundComponent],
+  imports: [
+    RouterOutlet,
+    TranslateModule,
+    NavBarComponent,
+    FooterComponent,
+    HomeComponent,
+    EventDetailsComponent,
+    AllEventsComponent,
+    RouterModule
+],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
