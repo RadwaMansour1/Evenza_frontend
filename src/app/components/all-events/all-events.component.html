@@ -31,13 +31,18 @@
           <p class="mt-1 text-sm text-gray-500">Try adjusting your filters.</p>
         </div>
         } }@else {
-        <div class="text-center py-16">Loading events...</div>
+        <div class="w-full h-[60vh] flex justify-center items-center">
+          <div
+            class="animate-spin rounded-full h-16 w-16 border-4 border-purple-400 border-t-transparent"
+          ></div>
+        </div>
+        <!-- <div class="text-center py-16">Loading events...</div> -->
         } @if ( showPagination() ) {
         <div class="flex justify-center mt-10 space-x-2">
           <button
             (click)="onPageChange(currentPage - 1)"
             [disabled]="currentPage === 1"
-            class="px-4 py-1.5 border rounded-md bg-white text-gray-700 disabled:opacity-50  hover:bg-orange-500 hover:text-white transition-all duration-300 ease-in-out"
+            class="px-4 py-1.5 border rounded-md bg-white text-gray-700 disabled:opacity-50 hover:bg-orange-500 hover:text-white transition-all duration-300 ease-in-out"
           >
             Previous
           </button>

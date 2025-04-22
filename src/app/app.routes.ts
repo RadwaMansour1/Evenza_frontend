@@ -20,9 +20,4 @@ export const routes: Routes = [
     title: 'Event Details',
     component: EventDetailsComponent,
   },
-  {
-    path: '**',
-    title: 'Page Not Found',
-    // component: NotFoundComponent,
-  }
 ];

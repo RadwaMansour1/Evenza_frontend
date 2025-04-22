@@ -7,6 +7,8 @@ import { FooterComponent } from './components/footer/footer.component';
 import { HomeComponent } from './components/home/home.component';
 import { EventDetailsComponent } from './components/event-details/event-details.component';
 import { AllEventsComponent } from './components/all-events/all-events.component';
+import { PaymentComponent } from "./components/payment/payment.component";
+import { RefundComponent } from "./components/refund/refund.component";
 
 @Component({
   selector: 'app-root',
@@ -15,10 +17,7 @@ import { AllEventsComponent } from './components/all-events/all-events.component
     TranslateModule,
     NavBarComponent,
     FooterComponent,
-    HomeComponent,
-    EventDetailsComponent,
-    AllEventsComponent,
-    RouterModule
+    RouterModule,
 ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
