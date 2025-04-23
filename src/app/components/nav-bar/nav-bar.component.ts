@@ -14,10 +14,11 @@ import {
   heroGlobeEuropeAfrica,
 } from '@ng-icons/heroicons/outline';
 import { LanguageService } from '../../services/language/language.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-nav-bar',
-  imports: [CommonModule, NgIcon, RouterModule],
+  imports: [CommonModule, NgIcon, RouterModule, TranslateModule],
   standalone: true,
   templateUrl: './nav-bar.component.html',
   providers: [
@@ -42,12 +43,12 @@ export class NavBarComponent {
   isMenuUserOpen = false;
 
   navLinks = [
-    { label: 'Home', href: '/' },
-    { label: 'All Events', href: '/events' },
-    { label: 'Concerts', href: '/events?category=concerts' },
-    { label: 'Conferences', href: '/events?category=conferences' },
-    { label: 'About', href: '/about' },
-    { label: 'FAQs', href: '/faqs' },
+    { label: 'home.navbar.home', href: '/' },
+    { label: 'home.navbar.events', href: '/events' },
+    // { label: 'Concerts', href: '/events?category=concerts' },
+    // { label: 'Conferences', href: '/events?category=conferences' },
+    { label: 'home.navbar.about', href: '/about' },
+    { label: 'home.navbar.FAQs', href: '/faqs' },
   ];
   currentLang: 'en' | 'ar' = 'en';
   constructor(private languageService: LanguageService) {

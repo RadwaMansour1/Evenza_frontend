@@ -1,5 +1,18 @@
 {
   "home": {
-    "welcome": "welcome"
+    "navbar": {
+      "title": "Evenza",
+      "home": "Home",
+      "events": "Events",
+      "about": "About",
+      "contact": "Contact",
+      "login": "Login",
+      "register": "Register",
+      "logout": "Logout",
+      "myWallet": "Wallet",
+      "myTickets": "My Tickets",
+      "search": "Search events...",
+      "FAQs": "FAQs"
+    }
   }
 }
