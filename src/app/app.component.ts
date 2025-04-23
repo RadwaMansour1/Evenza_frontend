@@ -22,7 +22,6 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
     FooterComponent,
     RouterModule,
   ],
-  // imports: [NotFoundComponent, AboutComponent, OrderComponent, PaymentComponent, RefundComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
