@@ -104,9 +104,13 @@
           [href]="mapUrl"
           target="_blank"
           rel="noopener noreferrer"
-          class="inline-flex items-center gap-2 px-5 py-2.5 bg-orange-500 text-white rounded-md hover:bg-orange-600 transition duration-200 font-medium"
+          class="inline-flex items-center gap-2 px-5 py-2.5 bg-orange-500 group text-white rounded-md hover:bg-orange-600 transition duration-200 font-medium"
         >
-          <ng-icon name="featherMapPin" size="1.1em" />
+          <ng-icon
+            name="featherMapPin"
+            class="group-hover:animate-bounce"
+            size="1.1em"
+          />
           Get Directions
         </a>
       </div>
@@ -124,9 +128,14 @@
         <button
           type="button"
           (click)="getTicketNow()"
-          class="px-6 py-3 bg-orange-500 text-white rounded-md hover:bg-orange-600 transition duration-200 ease-in-out font-medium w-full"
+          class=" flex items-center justify-center gap-2 px-6 py-3 bg-orange-500 text-white group rounded-md hover:bg-orange-600 transition duration-200 ease-in-out font-medium w-full"
         >
-          Get Ticket Now
+          <ng-icon
+            name="heroTicket"
+            class="group-hover:animate-bounce"
+            size="1.3em"
+          />
+          <span class="ms-1">Get Ticket Now</span>
         </button>
 
         <!-- Share Button -->
@@ -193,9 +202,13 @@
             <button
               type="button"
               [routerLink]="['/events', event._id, 'order']"
-              class="flex-1 flex items-center justify-center gap-2 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition duration-150 ease-in-out font-semibold"
+              class="flex-1 flex items-center justify-center gap-2 py-3 group bg-purple-600 text-white rounded-lg hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition duration-150 ease-in-out font-semibold"
             >
-              <ng-icon name="heroTicket" size="1.28em" />
+              <ng-icon
+                name="heroTicket"
+                class="group-hover:animate-bounce"
+                size="1.28em"
+              />
               <span class="ms-1">Book Tickets</span>
             </button>
 
