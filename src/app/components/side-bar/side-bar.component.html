@@ -13,8 +13,7 @@
                 <span class="ms-3 text-black">Account</span>
              </a>
           </li>
-
-
+          
           <li>
              <a routerLink="/profile/help-center" routerLinkActive="active"  class="flex items-center p-2 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-white group">
                 <span class="flex-1 ms-3 whitespace-nowrap text-black">Help</span>
@@ -39,8 +38,15 @@
                 <span class="flex-1 ms-3 whitespace-nowrap text-black">Profile Settings</span>
              </a>
           </li>
+
+          <div class="flex items-center justify-start mt-4 mb-4">
+             <button 
+             (click)="signOut()"
+             type="button" class="cursor-pointer inline-flex items-start px-4 py-2 text-sm font-medium text-white bg-[#7E69AB] border border-gray-300 rounded-lg hover:bg-[#7E69AB] focus:outline-none focus:ring-2 focus:ring-gray-200 dark:bg-[#7E69AB] dark:hover:bg-[#7E69AB] dark:focus:ring-[#7E69AB]">
+                Sign Out
+             </button>
+          </div>
        </ul>
-       <li>
-      </div>
+   </div>
 </aside>
             

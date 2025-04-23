@@ -49,13 +49,13 @@ export const routes: Routes = [
     path: 'login',
     component: LoginComponent,
     title: 'Login',
-    canActivate: [redirectIfLoggedInGuard],
+    canActivate: [],
   },
   {
     path: 'signup',
     component: SignupComponent,
     title: 'Signup',
-    canActivate: [redirectIfLoggedInGuard],
+    canActivate: [],
   },
   {
     path: 'verify-email',
@@ -67,13 +67,13 @@ export const routes: Routes = [
     path: 'forgot-password',
     component: ForgotPasswordComponent,
     title: 'Forgot Password',
-    canActivate: [redirectIfLoggedInGuard],
+    canActivate: [],
   },
   {
     path: 'reset-password',
     component: ResetPasswordComponent,
     title: 'Reset Password',
-    canActivate: [redirectIfLoggedInGuard],
+    canActivate: [],
   },
   {
     path: 'select-role',
@@ -84,7 +84,7 @@ export const routes: Routes = [
   {
     path: 'profile',
     component: ProfileComponent,
-    canActivate: [authGuard],
+    canActivate: [],
     children: [
       {
         path: 'personal-information',

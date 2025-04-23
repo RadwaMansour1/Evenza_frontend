@@ -89,7 +89,7 @@
           <button
             (click)="toggleUserMenu()"
             type="button"
-            class="px-2 pt-1 pb-0.5 rounded-md hover:bg-purple-600 group hover:text-white transition-all duration-300"
+            class="cursor-pointer px-2 pt-1 pb-0.5 rounded-md hover:bg-purple-600 group hover:text-white transition-all duration-300"
             id="user-menu-button"
             [attr.aria-expanded]="isMenuUserOpen"
             aria-haspopup="true"
@@ -109,16 +109,16 @@
             aria-labelledby="user-menu-button"
           >
             <a
-              href="#"
-              class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+              routerLink="/login"
+              class="cursor-pointer block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
               role="menuitem"
               (click)="closeUserMenu()"
             >
               {{ "home.navbar.login" | translate }}
             </a>
             <a
-              href="#"
-              class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+              routerLink="/signup"
+              class="cursor-pointer block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
               role="menuitem"
               (click)="closeUserMenu()"
             >

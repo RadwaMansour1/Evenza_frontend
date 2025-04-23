@@ -2,8 +2,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Profile } from '../models/profile.model';
-import { appendIfExists } from '../helpers/form-data.util';
+import { Profile } from '../../models/profile.model';
+import { appendIfExists } from '../../helpers/form-data.util';
 
 @Injectable({
   providedIn: 'root',

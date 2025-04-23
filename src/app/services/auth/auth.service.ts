@@ -145,5 +145,13 @@ export class AuthService {
   resendCode(email: string) {
     return this.http.post(`${this.apiUrl}/auth/resend-code`, { email });
   }
+
+  logout() {
+    localStorage.removeItem('userToken');
+    localStorage.removeItem('userData');
+    sessionStorage.removeItem('userToken');
+    sessionStorage.removeItem('userData');
+    this.router.navigate(['/login']);
+  }
   
 }

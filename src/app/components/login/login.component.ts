@@ -7,10 +7,12 @@ import { LoginRequest } from '../../models/login.model';
 import { CommonModule } from '@angular/common';
 import { NgIconsModule } from '@ng-icons/core';
 import { AuthService } from '../../services/auth/auth.service';
+import { TranslateModule } from '@ngx-translate/core';
+import { LanguageService } from '../../services/language/language.service';
 
 @Component({
   selector: 'app-login',
-  imports: [ RouterModule,ReactiveFormsModule,CommonModule,NgIconsModule],
+  imports: [ RouterModule,ReactiveFormsModule,CommonModule,NgIconsModule,TranslateModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
@@ -19,8 +21,11 @@ export class LoginComponent implements OnInit {
   errorMessage: string | null = null;
   successMessage: string | null = null;
   signInForm: FormGroup;
+  currentLang: 'en' | 'ar' = 'en';
+  textArray = 'Evenza'.split('');
 
-  constructor(private fb: FormBuilder,private authService: AuthService) {
+  constructor(private fb: FormBuilder,private authService: AuthService,private languageService: LanguageService) {
+    this.currentLang = this.languageService.getCurrentLanguage();
     this.signInForm = this.fb.group({
       email: ['',[Validators.required, Validators.email]],
       password: ['',[Validators.required, Validators.minLength(8)]],
@@ -59,6 +64,10 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  toggleLanguage() {
+    this.currentLang = this.currentLang === 'en' ? 'ar' : 'en';
+    this.languageService.switchLanguage(this.currentLang);
+  }
 
   private decodeToken(token: string): any {
     if (!token || typeof token !== 'string' || token.split('.').length !== 3) {
