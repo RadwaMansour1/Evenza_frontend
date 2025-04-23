@@ -5,6 +5,18 @@ import { HomeComponent } from './components/home/home.component';
 import { OrderComponent } from './components/order/order.component';
 import { AboutComponent } from './components/about/about.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { LoginComponent } from './components/login/login.component';
+import { redirectIfLoggedInGuard } from './guards/redirectIfLoggedIn.guard';
+import { SignupComponent } from './components/signup/signup.component';
+import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
+import { TermsConditionsComponent } from './components/terms-conditions/terms-conditions.component';
+import { HelpCenterComponent } from './components/help-center/help-center.component';
+import { PersonalInformationComponent } from './components/personal-information/personal-information.component';
+import { authGuard } from './guards/auth.guard';
+import { ProfileComponent } from './components/profile/profile.component';
+import { SelectRoleComponent } from './components/select-role/select-role.component';
 
 export const routes: Routes = [
   {
@@ -37,5 +49,65 @@ export const routes: Routes = [
     path: '**',
     title: 'Page Not Found',
     component: NotFoundComponent,
+  },
+  {
+    path: 'login',
+    component: LoginComponent,
+    title: 'Login',
+    canActivate: [redirectIfLoggedInGuard],
+  },
+  {
+    path: 'signup',
+    component: SignupComponent,
+    title: 'Signup',
+    canActivate: [redirectIfLoggedInGuard],
+  },
+  {
+    path: 'verify-email',
+    component: VerifyEmailComponent,
+    title: 'Verify Email',
+    canActivate: [],
+  },
+  {
+    path: 'forgot-password',
+    component: ForgotPasswordComponent,
+    title: 'Forgot Password',
+    canActivate: [redirectIfLoggedInGuard],
+  },
+  {
+    path: 'reset-password',
+    component: ResetPasswordComponent,
+    title: 'Reset Password',
+    canActivate: [redirectIfLoggedInGuard],
+  },
+  {
+    path: 'select-role',
+    component: SelectRoleComponent,
+    title: 'Select Role',
+    canActivate: [],
+  },
+  {
+    path: 'profile',
+    component: ProfileComponent,
+    canActivate: [authGuard],
+    children: [
+      {
+        path: 'personal-information',
+        component: PersonalInformationComponent,
+        title: 'Personal Information',
+      },
+      {
+        path: 'help-center',
+        component: HelpCenterComponent,
+        title: 'Help Center',
+      },
+    ],
+  },
+
+  // Publicly accessible
+  {
+    path: 'terms-condition',
+    component: TermsConditionsComponent,
+    title: 'Terms and Conditions',
   },
 ];

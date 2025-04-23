@@ -1,0 +1,10 @@
+button{
+    cursor: pointer;
+}
+/* example for spiner for testing */
+.loader {
+    border-width: 2px;
+    border-color: #e81212;
+    border-right-color: transparent;
+  }
+  
