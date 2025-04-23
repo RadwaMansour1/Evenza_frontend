@@ -1,10 +1,11 @@
 <!-- Hero section -->
-  <section class="mt-16 text-white py-16 md:py-28 bg-gradient-to-r from-[rgb(149,99,246)] to-[rgb(213,80,240)]">
-
+<section class="mt-16 text-white py-16 md:py-28 bg-gradient-to-r from-[rgb(149,99,246)] to-[rgb(213,80,240)]">
   <div class="max-w-3xl mx-auto text-center px-4">
-    <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">About Evenza</h1>
+    <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+      {{ 'about.hero.title' | translate }}
+    </h1>
     <p class="text-lg md:text-xl text-white/90 mb-8">
-      We're on a mission to make event booking seamless, secure, and accessible for everyone.
+      {{ 'about.hero.description' | translate }}
     </p>
   </div>
 </section>
@@ -13,16 +14,16 @@
 <section class="py-16 md:py-24">
   <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
     <div>
-      <h2 class="text-3xl font-bold mb-6">Our Story</h2>
+      <h2 class="text-3xl font-bold mb-6">
+        {{ 'about.story.title' | translate }}
+      </h2>
       <div class="space-y-4 text-gray-600">
-        <p>
-          Evenza started with the question: Why isn't booking events easier in a digital age? What began as frustration evolved into a vision for a smarter, seamless way to connect people with events they love.        </p>
-        <p>
-          It grew into a platform focused on creating a better experience for discovering and booking events.        </p>
-        <p>
-          Today, Evenza helps millions discover and book events, making the experience easy and joyful.     </div>
+        <p>{{ 'about.story.paragraph1' | translate }}</p>
+        <p>{{ 'about.story.paragraph2' | translate }}</p>
+        <p>{{ 'about.story.paragraph3' | translate }}</p>
+      </div>
       <button class="mt-6 bg-purple-500 hover:bg-purple-600 text-white px-6 py-2 rounded">
-        Join Our Team
+        {{ 'about.story.joinButton' | translate }}
       </button>
     </div>
     <div class="aspect-video bg-gray-200 rounded-lg overflow-hidden">
@@ -39,10 +40,8 @@
 <section class="py-16 md:py-24 bg-gray-100">
   <div class="max-w-7xl mx-auto px-4">
     <div class="text-center max-w-3xl mx-auto mb-12">
-      <h2 class="text-3xl font-bold mb-4">Our Values</h2>
-      <p class="text-gray-600">
-        These core principles guide everything we do at Evenza, from how we build our platform to how we interact with our users and partners.
-      </p>
+      <h2 class="text-3xl font-bold mb-4">{{ 'about.values.title' | translate }}</h2>
+      <p class="text-gray-600">{{ 'about.values.description' | translate }}</p>
     </div>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -50,8 +49,8 @@
         <div class="h-12 w-12 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center mb-4 text-xl">
           <ng-icon [name]="value.icon" class="w-10 h-10 stroke-[2.5] text-purple-600"></ng-icon>
         </div>
-        <h3 class="text-xl font-semibold mb-2">{{ value.title }}</h3>
-        <p class="text-gray-600">{{ value.description }}</p>
+        <h3 class="text-xl font-semibold mb-2">{{ 'about.values.list.' + value.key + '.title' | translate }}</h3>
+        <p class="text-gray-600">{{ 'about.values.list.' + value.key + '.description' | translate }}</p>
       </div>
     </div>
   </div>
@@ -61,10 +60,8 @@
 <section class="py-16 md:py-24">
   <div class="max-w-7xl mx-auto px-4">
     <div class="text-center max-w-3xl mx-auto mb-12">
-      <h2 class="text-3xl font-bold mb-4">Meet Our Team</h2>
-      <p class="text-gray-600">
-        The passionate people behind Evenza who work every day to bring amazing events to your fingertips.
-      </p>
+      <h2 class="text-3xl font-bold mb-4">{{ 'about.team.title' | translate }}</h2>
+      <p class="text-gray-600">{{ 'about.team.description' | translate }}</p>
     </div>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
@@ -83,6 +80,4 @@
   </div>
 </section>
 
-
 <app-add-review></app-add-review>
-

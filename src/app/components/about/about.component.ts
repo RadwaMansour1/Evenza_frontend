@@ -3,10 +3,11 @@ import { Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { heroUser, heroCalendar, heroTicket, heroShieldCheck, heroGlobeAlt, heroHeart } from '@ng-icons/heroicons/outline';
 import { AddReviewComponent } from '../add-review/add-review.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-about',
-  imports: [CommonModule, NgIcon, AddReviewComponent],
+  imports: [CommonModule, NgIcon, AddReviewComponent, TranslateModule],
   templateUrl: './about.component.html',
   viewProviders:[provideIcons({heroUser, heroCalendar, heroTicket, heroShieldCheck, heroGlobeAlt, heroHeart})]
 })
@@ -39,37 +40,16 @@ export class AboutComponent {
     }
   ];
 
+
   values = [
-    {
-      title: "User-Focused Experience",
-      description: "We put our users first in everything we do, creating intuitive experiences that make booking events simple and enjoyable.",
-      icon: "heroUser"
-    },
-    {
-      title: "Quality Events",
-      description: "We carefully curate and verify all events on our platform to ensure they meet our high standards of quality and authenticity.",
-      icon: "heroCalendar"
-    },
-    {
-      title: "Transparent Pricing",
-      description: "We believe in clear, upfront pricing with no hidden fees, so you always know exactly what you're paying for.",
-      icon: "heroTicket"
-    },
-    {
-      title: "Security & Trust",
-      description: "Your security is paramount. We use industry-leading encryption and fraud detection to keep your data and transactions safe.",
-      icon: "heroShieldCheck"
-    },
-    {
-      title: "Global Perspective",
-      description: "We embrace diversity and inclusion, showcasing events from cultures and communities around the world.",
-      icon: "heroGlobeAlt"
-    },
-    {
-      title: "Community Support",
-      description: "We donate a portion of our proceeds to support arts education and cultural programs in underserved communities.",
-      icon:  "heroHeart"
-    }
+    { key: 'user', icon: 'heroUser' },
+    { key: 'quality', icon: 'heroCalendar' },
+    { key: 'pricing', icon: 'heroTicket' },
+    { key: 'security', icon: 'heroShieldCheck' },
+    { key: 'global', icon: 'heroGlobeAlt' },
+    { key: 'community', icon: 'heroHeart' },
   ];
+
+
 
 }

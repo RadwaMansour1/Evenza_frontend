@@ -9,11 +9,14 @@ import {
 import { EventService } from '../../services/event/event.service';
 import { CommonModule } from '@angular/common';
 import { Event, Ticket } from '../../models/event.model';
+import { OrderService } from '../../services/order/order.service';
+// import { UserService } from '../../services/user/user.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-order',
   standalone: true,
-  imports: [NgIcon, RouterModule, CommonModule],
+  imports: [NgIcon, RouterModule, CommonModule, TranslateModule],
   templateUrl: './order.component.html',
   viewProviders: [provideIcons({ heroTicket, heroCalendar, heroInformationCircle })],
 })
@@ -26,7 +29,9 @@ export class OrderComponent implements OnInit{
 
   constructor(
     private route: ActivatedRoute,
-    private eventService: EventService
+    private eventService: EventService,
+    // private userService: UserService,
+    private orderService: OrderService
   ) {}
 
   ngOnInit() :void{
@@ -85,5 +90,50 @@ export class OrderComponent implements OnInit{
   get subtotal() {
     return this.selectedTicket ? this.selectedTicket.price * this.quantity : 0;
   }
+
+  // Handle proceeding to the payment screen
+  // continueToPayment() {
+  //   const user = this.userService.getCurrentUser();
+
+  //   if (!user || !user._id) {
+  //     alert('User not logged in');
+  //     return;
+  //   }
+
+  //   if (!this.event || !this.selectedTicket || this.quantity < 1) {
+  //     alert('Please select ticket and quantity');
+  //     return;
+  //   }
+
+  //   const itemTotalPrice = this.selectedTicket.price * this.quantity;
+
+  //   const orderPayload = {
+  //     userId: user._id,
+  //     itemTotalPrice,
+  //     countOfTickets: this.quantity,
+  //     orderDetails: [
+  //       {
+  //         eventId: this.event._id,
+  //         level: this.selectedTicket.level,
+  //         numberOfTickets: this.quantity,
+  //         totalPrice: itemTotalPrice,
+  //       },
+  //     ],
+  //   };
+
+  //   // Call createOrder method from OrderService to create the order
+  //   this.orderService.createOrder(orderPayload).subscribe({
+  //     next: (res) => {
+  //       const orderId = res.data._id;
+  //       this.router.navigate(['/payment', orderId]); // Navigate to the payment page
+  //     },
+  //     error: (err) => {
+  //       console.error('Failed to create order:', err);
+  //       alert('Error creating order. Please try again.');
+  //     },
+  //   });
+  // }
+
+
 }
 

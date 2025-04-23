@@ -1,18 +1,20 @@
 <!-- CTA -->
 <section class="py-16 text-white bg-gradient-to-r from-[rgb(149,99,246)] to-[rgb(213,80,240)]">
   <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
-    <div class="max-w-xl mb-8 md:mb-0">
+    <div class="max-w-xl mb-8 md:mb-0 text-center md:text-left">
       <h2 class="text-3xl md:text-4xl font-bold mb-4">
-        Ready to Experience Amazing Events?
+        {{ 'addReview.cta.title' | translate }}
       </h2>
       <p class="text-white/80 text-lg">
-        Join thousands of users who are discovering and booking events with Evenza.
+        {{ 'addReview.cta.description' | translate }}
       </p>
     </div>
 
     <!-- Form for Review -->
     <div class="max-w-md w-full bg-white p-6 rounded-lg shadow-md">
-      <h3 class="text-xl font-semibold mb-4 text-[rgb(213,80,240)]">Rate and Share Your Review</h3>
+      <h3 class="text-xl font-semibold mb-4 text-[rgb(213,80,240)]">
+        {{ 'addReview.form.title' | translate }}
+      </h3>
       <form (ngSubmit)="submitReview()" #reviewForm="ngForm">
         <!-- Rating stars -->
         <div class="flex items-center mb-4">
@@ -24,17 +26,19 @@
                 'text-gray-300': star > rating
               }"
               class="w-6 h-6 cursor-pointer">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499l2.376 4.813 5.313.772-3.845 3.748.907 5.292-4.751-2.5-4.751 2.5.907-5.292-3.845-3.748 5.313-.772L11.48 3.5z" />
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M11.48 3.499l2.376 4.813 5.313.772-3.845 3.748.907 5.292-4.751-2.5-4.751 2.5.907-5.292-3.845-3.748 5.313-.772L11.48 3.5z" />
             </svg>
           </ng-container>
         </div>
 
         <textarea name="review" [(ngModel)]="review"
           class="w-full h-32 p-4 border border-gray-300 bg-gray-50 text-gray-800 placeholder-gray-500 rounded-lg resize-none mb-4 focus:outline-none focus:ring-0 focus:border-transparent"
-          placeholder="Write your review here..." required></textarea>
+          [placeholder]="'addReview.form.placeholder' | translate" required></textarea>
 
-        <button type="submit" class="w-full bg-[rgb(213,80,240)] text-white px-6 py-3 rounded-lg hover:bg-[rgb(149,99,246)] text-lg">
-          Submit Your Rating and Review
+        <button type="submit"
+          class="w-full bg-[rgb(213,80,240)] text-white px-6 py-3 rounded-lg hover:bg-[rgb(149,99,246)] text-lg">
+          {{ 'addReview.form.submit' | translate }}
         </button>
       </form>
     </div>
