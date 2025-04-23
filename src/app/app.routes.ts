@@ -46,11 +46,6 @@ export const routes: Routes = [
     component:AboutComponent,
   },
   {
-    path: '**',
-    title: 'Page Not Found',
-    component: NotFoundComponent,
-  },
-  {
     path: 'login',
     component: LoginComponent,
     title: 'Login',
@@ -110,4 +105,9 @@ export const routes: Routes = [
     component: TermsConditionsComponent,
     title: 'Terms and Conditions',
   },
+  {
+    path: '**',
+    title: 'Page Not Found',
+    component: NotFoundComponent,
+  }
 ];
