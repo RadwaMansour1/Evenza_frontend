@@ -9,6 +9,9 @@ import { EventDetailsComponent } from './components/event-details/event-details.
 import { AllEventsComponent } from './components/all-events/all-events.component';
 import { PaymentComponent } from "./components/payment/payment.component";
 import { RefundComponent } from "./components/refund/refund.component";
+import { OrderComponent } from './components/order/order.component';
+import { AboutComponent } from './components/about/about.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 
 @Component({
   selector: 'app-root',
@@ -18,7 +21,8 @@ import { RefundComponent } from "./components/refund/refund.component";
     NavBarComponent,
     FooterComponent,
     RouterModule,
-],
+  ],
+  // imports: [NotFoundComponent, AboutComponent, OrderComponent, PaymentComponent, RefundComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })

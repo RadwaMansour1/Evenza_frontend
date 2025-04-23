@@ -1,10 +1,11 @@
 import { Component, Input } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { featherMapPin,featherClock, featherCalendar } from '@ng-icons/feather-icons';
 
 @Component({
   selector: 'app-event-card',
-  imports: [NgIcon],
+  imports: [NgIcon, RouterModule],
   templateUrl: './event-card.component.html',
   providers: [provideIcons({ featherClock,featherMapPin, featherCalendar })],
 })
