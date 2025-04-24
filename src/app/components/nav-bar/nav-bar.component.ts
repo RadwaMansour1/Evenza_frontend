@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Component, HostListener } from '@angular/core';
+import { RouterLinkActive, RouterModule } from '@angular/router';
 import { NgIcon, provideIcons, provideNgIconsConfig } from '@ng-icons/core';
 import {
   heroTicket,
@@ -18,7 +18,13 @@ import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-nav-bar',
-  imports: [CommonModule, NgIcon, RouterModule, TranslateModule],
+  imports: [
+    CommonModule,
+    NgIcon,
+    RouterModule,
+    TranslateModule,
+    RouterLinkActive,
+  ],
   standalone: true,
   templateUrl: './nav-bar.component.html',
   providers: [
@@ -41,7 +47,6 @@ import { TranslateModule } from '@ngx-translate/core';
 export class NavBarComponent {
   isMenuOpen = false;
   isMenuUserOpen = false;
-
   navLinks = [
     { label: 'home.navbar.home', href: '/' },
     { label: 'home.navbar.events', href: '/events' },
@@ -49,6 +54,19 @@ export class NavBarComponent {
     // { label: 'Conferences', href: '/events?category=conferences' },
     { label: 'home.navbar.about', href: '/about' },
     { label: 'home.navbar.FAQs', href: '/faqs' },
+  ];
+
+  navItems = [
+    {
+      route: '/my-wallet',
+      name: 'home.navbar.myWallet',
+      icon: 'heroWallet',
+    },
+    {
+      route: '/my-tickets',
+      name: 'home.navbar.myTickets',
+      icon: 'heroTicket',
+    },
   ];
   currentLang: 'en' | 'ar' = 'en';
   constructor(private languageService: LanguageService) {
@@ -63,16 +81,27 @@ export class NavBarComponent {
     this.currentLang = this.currentLang === 'en' ? 'ar' : 'en';
     this.languageService.switchLanguage(this.currentLang);
   }
-
-  // Method to toggle the state
   toggleUserMenu() {
     this.isMenuOpen = !this.isMenuOpen;
     console.log('Menu toggled. isMenuOpen:', this.isMenuOpen);
   }
-
-  // Optional: Method to close the menu (e.g., called on link click)
   closeUserMenu() {
     this.isMenuOpen = false;
     console.log('Menu closed.');
+  }
+  @HostListener('document:click', ['$event'])
+  clickOutside(event: MouseEvent) {
+    const menuButton = document.getElementById('user-menu-button');
+    const menu = document.querySelector('[role="menu"]');
+
+    // Check if the click was outside the menu and menu button
+    if (
+      menu &&
+      menuButton &&
+      !menu.contains(event.target as Node) &&
+      !menuButton.contains(event.target as Node)
+    ) {
+      this.closeUserMenu();
+    }
   }
 }
