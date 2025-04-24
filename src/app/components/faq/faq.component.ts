@@ -31,28 +31,27 @@ export class FaqComponent {
     {
       question: 'What payment methods do you accept?',
       answer:
-        'We accept major credit cards including Visa, Mastercard, American Express, and Discover. We also support payment via PayPal.',
+        'We accept major credit cards including Visa, Mastercard, American Express, and Discover. We also support payment via PayPal and Evenza Wallet.',
       isOpen: false,
     },
     {
       question: 'Can I get a refund for my tickets?',
       answer:
-        'Our refund policy varies depending on the event. Please check the specific event details page or our terms and conditions for information regarding refunds.',
+        "Refund policies vary by event. Generally, refunds are available up to 48 hours before the event starts. Check the specific event's details for its refund policy",
       isOpen: false,
     },
     {
       question: 'How do I become an event organizer?',
       answer:
-        'If you are interested in organizing events on our platform, please visit our "Organizers" page and fill out the application form. Our team will review your submission.',
+        'To become an event organizer, sign up for an account and select "Organizer" as your role. You\'ll need to provide identification for verification before you can create events.',
       isOpen: false,
     },
     {
       question: 'Where can I find my tickets?',
       answer:
-        'After completing your purchase, your tickets will be sent to the email address you provided during checkout. You can also access them from your account dashboard on our website.',
+        'After purchasing, you can find your tickets in the "My Tickets" section of your account. They will also be sent to your registered email address.',
       isOpen: false,
     },
-    // Add more FAQ items here
   ];
 
   toggleAnswer(item: FaqItem): void {
