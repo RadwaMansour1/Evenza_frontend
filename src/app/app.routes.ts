@@ -17,6 +17,7 @@ import { PersonalInformationComponent } from './components/personal-information/
 import { authGuard } from './guards/auth.guard';
 import { ProfileComponent } from './components/profile/profile.component';
 import { SelectRoleComponent } from './components/select-role/select-role.component';
+import { MyWalletComponent } from './components/my-wallet/my-wallet.component';
 
 export const routes: Routes = [
   {
@@ -44,6 +45,11 @@ export const routes: Routes = [
     path:'about',
     title:'About Us',
     component:AboutComponent,
+  },
+  {
+    path: 'my-wallet',
+    title: 'My Wallet',
+    component: MyWalletComponent ,
   },
   {
     path: 'login',
