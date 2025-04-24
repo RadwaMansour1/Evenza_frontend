@@ -18,6 +18,8 @@ import { authGuard } from './guards/auth.guard';
 import { ProfileComponent } from './components/profile/profile.component';
 import { SelectRoleComponent } from './components/select-role/select-role.component';
 import { MyWalletComponent } from './components/my-wallet/my-wallet.component';
+import { FaqComponent } from './components/faq/faq.component';
+import { MyTicketsComponent } from './components/my-tickets/my-tickets.component';
 
 export const routes: Routes = [
   {
@@ -37,14 +39,24 @@ export const routes: Routes = [
     component: EventDetailsComponent,
   },
   {
-    path:'events/:id/order',
-    title:'Order',
-    component:OrderComponent
+    path: 'events/:id/order',
+    title: 'Order',
+    component: OrderComponent,
   },
   {
-    path:'about',
-    title:'About Us',
-    component:AboutComponent,
+    path: 'about',
+    title: 'About Us',
+    component: AboutComponent,
+  },
+  {
+    path: 'faqs',
+    title: 'FAQs',
+    component: FaqComponent,
+  },
+  {
+    path: 'my-tickets',
+    title: 'My Tickets',
+    component: MyTicketsComponent,
   },
   {
     path: 'my-wallet',
@@ -115,5 +127,5 @@ export const routes: Routes = [
     path: '**',
     title: 'Page Not Found',
     component: NotFoundComponent,
-  }
+  },
 ];
