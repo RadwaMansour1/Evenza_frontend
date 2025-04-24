@@ -62,16 +62,27 @@
       "description": "The passionate people behind Evenza who work every day to bring amazing events to your fingertips."
     }
   },
-  "addReview": {
-    "cta": {
-      "title": "Ready to Experience Amazing Events?",
-      "description": "Join thousands of users who are discovering and booking events with Evenza."
+  "feedback": {
+    "title": "Your Feedback",
+    "highlight": "Matters",
+    "description": "Help us improve your experience with Evenza. Your insights drive our improvements and shape the future of event booking.",
+    "card1": {
+      "title": "Quick & Easy",
+      "description": "Takes less than 2 minutes to share your thoughts"
     },
-    "form": {
-      "title": "Rate and Share Your Review",
-      "placeholder": "Write your review here...",
-      "submit": "Submit Your Rating and Review"
-    }
+    "card2": {
+      "title": "Real-time Impact",
+      "description": "We actively monitor feedback to improve user experience instantly"
+    },
+    "card3": {
+      "title": "Impactful",
+      "description": "Every feedback helps us improve our service"
+    },
+    "formTitle": "Share Your Thoughts",
+    "ratingLabel": "How would you rate your experience?",
+    "messageLabel": "Your Message",
+    "placeholder": "Tell us what you love or what could be better...",
+    "submit": "Submit Feedback"
   },
   "booking": {
     "backToEvent": "Back to event",
