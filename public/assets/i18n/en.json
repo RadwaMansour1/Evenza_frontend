@@ -14,5 +14,93 @@
       "search": "Search events...",
       "FAQs": "FAQs"
     }
+  },
+  "about": {
+    "hero": {
+      "title": "Why Evenza?",
+      "description": "We’re here to transform how people discover and book events — smarter, safer, and easier than ever."
+    },
+    "story": {
+      "title": "Our Story",
+      "paragraph1": "Evenza started with the question: Why isn't booking events easier in a digital age? What began as frustration evolved into a vision for a smarter, seamless way to connect people with events they love.",
+      "paragraph2": "It grew into a platform focused on creating a better experience for discovering and booking events.",
+      "paragraph3": "Today, Evenza helps millions discover and book events, making the experience easy and joyful.",
+      "joinButton": "Join Our Team"
+    },
+    "values": {
+      "title": "Our Values",
+      "description": "These core principles guide everything we do at Evenza, from how we build our platform to how we interact with our users and partners.",
+      "list": {
+        "user": {
+          "title": "User-Focused Experience",
+          "description": "We put our users first in everything we do, creating intuitive experiences that make booking events simple and enjoyable."
+        },
+        "quality": {
+          "title": "Quality Events",
+          "description": "We carefully curate and verify all events on our platform to ensure they meet our high standards of quality and authenticity."
+        },
+        "pricing": {
+          "title": "Transparent Pricing",
+          "description": "We believe in clear, upfront pricing with no hidden fees, so you always know exactly what you're paying for."
+        },
+        "security": {
+          "title": "Security & Trust",
+          "description": "Your security is paramount. We use industry-leading encryption and fraud detection to keep your data and transactions safe."
+        },
+        "global": {
+          "title": "Global Perspective",
+          "description": "We embrace diversity and inclusion, showcasing events from cultures and communities around the world."
+        },
+        "community": {
+          "title": "Community Support",
+          "description": "We donate a portion of our proceeds to support arts education and cultural programs in underserved communities."
+        }
+      }
+    },
+    "team": {
+      "title": "Meet Our Team",
+      "description": "The passionate people behind Evenza who work every day to bring amazing events to your fingertips."
+    }
+  },
+  "feedback": {
+    "title": "Your Feedback",
+    "highlight": "Matters",
+    "description": "Help us improve your experience with Evenza. Your insights drive our improvements and shape the future of event booking.",
+    "card1": {
+      "title": "Quick & Easy",
+      "description": "Takes less than 2 minutes to share your thoughts"
+    },
+    "card2": {
+      "title": "Real-time Impact",
+      "description": "We actively monitor feedback to improve user experience instantly"
+    },
+    "card3": {
+      "title": "Impactful",
+      "description": "Every feedback helps us improve our service"
+    },
+    "formTitle": "Share Your Thoughts",
+    "ratingLabel": "How would you rate your experience?",
+    "messageLabel": "Your Message",
+    "placeholder": "Tell us what you love or what could be better...",
+    "submit": "Submit Feedback"
+  },
+  "booking": {
+    "backToEvent": "Back to event",
+    "bookTickets": "Book Tickets",
+    "selectTickets": "Select Tickets",
+    "numberOfTickets": "Number of Tickets",
+    "orderSummary": "Order Summary",
+    "subtotal": "Subtotal",
+    "feesInfo": "Fees will be calculated at checkout",
+    "continue": "Continue to Payment",
+    "egp": "EGP"
+  },
+  "notFound": {
+    "title": "Oops! Page Not Found",
+    "description": "The page you're looking for seems to have taken an unexpected detour. Don't worry, we'll help you find your way back to the exciting world of events.",
+    "backHome": "Back to Home",
+    "browseEvents": "Browse Events",
+    "needHelp": "Need help navigating?",
+    "contactSupport": "Contact our support team"
   }
 }

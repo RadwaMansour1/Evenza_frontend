@@ -128,26 +128,20 @@
         </div>
 
         <!-- Wallet -->
+        @for (item of navItems; track $index) {
         <button
-          class="px-2 pt-1 pb-0.5 rounded-md hover:bg-purple-600 group hover:text-white transition-all duration-300"
+        [routerLink]="item.route"
+          [routerLinkActive]="['bg-purple-600', 'active-link']"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="px-2 pt-1 pb-0.5 rounded-md hover:bg-purple-600 group group-[.active-link]:bg-purple-600 transition-all duration-300"
         >
           <span
-            class="text-gray-700 transition-all duration-300 group-hover:text-white"
+            class="text-gray-700 transition-all duration-300 group-hover:text-white group-[.active-link]:text-white"
           >
-            <ng-icon name="heroWallet" />
+            <ng-icon [name]="item.icon" />
           </span>
         </button>
-
-        <!-- MyTickets -->
-        <button
-          class="px-2 pt-1 pb-0.5 rounded-md hover:bg-purple-600 group hover:text-white transition-all duration-300"
-        >
-          <span
-            class="text-gray-700 transition-all duration-300 group-hover:text-white"
-          >
-            <ng-icon name="heroTicket" />
-          </span>
-        </button>
+        }
       </div>
     </div>
 
@@ -201,39 +195,40 @@
 
           <div
             class="flex text-base py-2 font-medium items-center group hover:text-purple-500"
+            [routerLink]="'/login'"
+            [routerLinkActive]="'active-link'"
+            [routerLinkActiveOptions]="{ exact: true }"
           >
-            <ng-icon
-              name="heroUser"
-              class="text-gray-700 me-2 group-hover:text-purple-500"
-            />
-            <span class="text-gray-900 group-hover:text-purple-500"
+            <span
+              class="flex items-center group-hover:text-purple-500 text-gray-700 group-[.active-link]:text-purple-500 me-2"
+            >
+              <ng-icon name="heroUser" />
+            </span>
+            <span
+              class="text-gray-900 group-hover:text-purple-500 group-[.active-link]:text-purple-500"
               >{{ "home.navbar.login" | translate }}/{{
                 "home.navbar.register" | translate
               }}</span
             >
           </div>
+          <div
+            *ngFor="let item of navItems"
+            class="flex text-base py-2 font-medium items-center group hover:text-purple-500"
+            [routerLink]="item.route"
+            [routerLinkActive]="'active-link'"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <span
+              class="flex items-center group-hover:text-purple-500 text-gray-700 group-[.active-link]:text-purple-500 me-2"
+            >
+              <ng-icon [name]="item.icon" />
+            </span>
 
-          <div
-            class="flex text-base py-2 font-medium items-center group hover:text-purple-500"
-          >
-            <ng-icon
-              name="heroWallet"
-              class="text-gray-700 me-2 group-hover:text-purple-500"
-            />
-            <span class="text-gray-900 group-hover:text-purple-500">{{
-              "home.navbar.myWallet" | translate
-            }}</span>
-          </div>
-          <div
-            class="flex text-base py-2 font-medium items-center group hover:text-purple-500"
-          >
-            <ng-icon
-              name="heroTicket"
-              class="text-gray-700 me-2 group-hover:text-purple-500"
-            />
-            <span class="text-gray-900 group-hover:text-purple-500">{{
-              "home.navbar.myTickets" | translate
-            }}</span>
+            <span
+              class="text-gray-900 group-hover:text-purple-500 group-[.active-link]:text-purple-500"
+            >
+              {{ item.name | translate }}
+            </span>
           </div>
         </div>
       </div>
