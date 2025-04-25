@@ -34,13 +34,13 @@ export class LoginComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    
+
     const userData = localStorage.getItem('userData') || sessionStorage.getItem('userData');
     if (userData) {
       const user = JSON.parse(userData);
-      this.router.navigate(['/profile']); 
+      this.router.navigate(['/profile']);
     } else {
-      this.router.navigate(['/login']); 
+      this.router.navigate(['/login']);
     }
 
     google.accounts.id.initialize({
@@ -84,17 +84,13 @@ export class LoginComponent implements OnInit {
 
   loginWithGoogle(response: any){
     if(response){
-      //decode the token and get the user data
       const payload = this.decodeToken(response.credential);
-      //store in the session storage 
       sessionStorage.setItem('userData', JSON.stringify(payload));
-      //navigate to test page
       this.router.navigate(['/profile']);
-      //send the token to the server for verification
 
     }
   }
-  
+
 
   onSubmit(){
     if (this.signInForm.valid) {
@@ -102,23 +98,27 @@ export class LoginComponent implements OnInit {
         email: this.signInForm.value.email,
         password: this.signInForm.value.password
       };
-  
+
       this.authService.login(loginData).subscribe(
         (response) => {
-          // console.log('Login successful', response);
           console.log('Login response:', response);
           const token = response.data?.access_token;
-          
-          const payload = this.decodeToken(token);
 
-          // إذا تم تفعيل "Remember me"، خزن البيانات في localStorage
-          if (this.signInForm.value.rememberMe) {
-            localStorage.setItem('userData', JSON.stringify(payload));
-          } else {
-            sessionStorage.setItem('userData', JSON.stringify(payload));
+          if (token) {
+            if (this.signInForm.value.rememberMe) {
+              localStorage.setItem('access_token', token);
+            } else {
+              sessionStorage.setItem('access_token', token);
+            }
+
+            const payload = this.decodeToken(token);
+            if (this.signInForm.value.rememberMe) {
+              localStorage.setItem('userData', JSON.stringify(payload));
+            } else {
+              sessionStorage.setItem('userData', JSON.stringify(payload));
+            }
           }
 
-          // الانتقال إلى الصفحة التالية
           this.router.navigate(['/profile']);
 
         },
