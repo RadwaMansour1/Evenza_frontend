@@ -1,12 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { NavBarComponent } from '../nav-bar/nav-bar.component';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { heroArrowDown, heroArrowUp, heroWallet  } from '@ng-icons/heroicons/outline';
 
 @Component({
   selector: 'app-my-wallet',
-  imports: [CommonModule, NavBarComponent, NgIcon ],
+  imports: [CommonModule, NgIcon ],
   templateUrl: './my-wallet.component.html',
   viewProviders: [provideIcons({ heroArrowDown, heroArrowUp, heroWallet })],
 })

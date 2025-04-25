@@ -6,6 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { GoogleAuthButtonComponent } from "../google-auth-button/google-auth-button.component";
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth/auth.service';
+import { SnackbarService } from '../../services/notification/snackbar.service';
 
 
 
@@ -24,20 +25,13 @@ export class SignupComponent {
   googleClientId = '153826849194-115il10f9m3v1ddcdb0bd161t2v70pih.apps.googleusercontent.com';
   googleCallback = (response: any) => this.signupWithGoogle(response);
   
-  constructor(private fb: FormBuilder , private authService: AuthService, private router: Router) {
+  constructor(private fb: FormBuilder , private authService: AuthService, private router: Router, private snackbar:SnackbarService) {
     this.signUpForm = this.fb.group({
       firstName: ['', [Validators.required, Validators.minLength(2),Validators.maxLength(20), Validators.pattern(/^[A-Za-z]+$/)]],
       lastName: ['', [Validators.required, Validators.minLength(2),Validators.maxLength(20), Validators.pattern(/^[A-Za-z]+$/)]],
       email: ['', [Validators.required, Validators.email, Validators.maxLength(50),]],
-      mobileNumber: [
-        '',
-        [
-          Validators.required,
-          Validators.pattern(/^01[0125][0-9]{8}$/),
-          Validators.minLength(11),
-          Validators.maxLength(11)
-        ]
-      ],
+      userRole: ['', [Validators.required]],
+      acceptTerms: [false, [Validators.requiredTrue]],
       password: ['', [Validators.required, Validators.minLength(8), this.passwordStrengthValidator()]],
       confirmPassword: ['', Validators.required]
     }, { validators: this.passwordsMatchValidator });
@@ -107,19 +101,21 @@ export class SignupComponent {
   onSubmit() {
     if (this.signUpForm.invalid) {
       this.signUpForm.markAllAsTouched();
-      alert('البيانات ناقصة، يرجى إكمال الفورم');
+      this.snackbar.show('Form is not compelte', 'error');
       return;
     }
-  
-    this.isLoading = true;
-  
+    
     const user: User = {
       firstName: this.signUpForm.value.firstName,
       lastName: this.signUpForm.value.lastName,
       email: this.signUpForm.value.email,
-      mobile: this.signUpForm.value.mobileNumber,
+      userRole: this.signUpForm.value.userRole,
+      acceptTerms:this.signUpForm.value.acceptTerms,
       password: this.signUpForm.value.password
     };
+
+    console.log('UserRole before sending:',this.signUpForm.value.userRole);
+
   
     this.authService.signup(user).subscribe({
       next: (res) => {

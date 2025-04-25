@@ -4,6 +4,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { LanguageService } from './services/language/language.service';
+import { SnackbarComponent } from './components/snackbar/snackbar.component';
 
 @Component({
   selector: 'app-root',
@@ -13,6 +14,7 @@ import { LanguageService } from './services/language/language.service';
     NavBarComponent,
     FooterComponent,
     RouterModule,
+    SnackbarComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',

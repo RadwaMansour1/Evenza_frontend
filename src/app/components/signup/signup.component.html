@@ -1,11 +1,12 @@
 
-<div class="min-h-screen bg-gradient-to-b from-white to-[#f5f3ff] overflow-auto" >
+<div class="min-h-screen bg-gradient-to-b from-white to-[#f5f3ff] overflow-auto mt-17" >
     <div class="text-center bg-gradient-to-r bg-violet-600 to-violet-300 min-h-[180px] sm:p-6 p-4 ">
 
       <h4 class="sm:text-3xl text-2xl text-white font-medium mt-3">Create your free account</h4>
     </div>
     <!-- Toaster -->
- 
+
+      <!-- End Toast -->
 
     <!-- form -->
     <div class="mx-4 mb-4 -mt-20 " >
@@ -93,7 +94,7 @@
             </div>
             <!-- email id -->
             <div>
-              <label class="text-md font-medium mb-2 block text-[#1A1F2C]">Email Id</label>
+              <label class="text-md font-medium mb-2 block text-[#1A1F2C]">Email</label>
               <input name="email" type="text" class="bg-slate-100  w-full text-sm text-slate-800 px-4 py-2.5 rounded border focus:border-blue-600 outline-none transition-all focus:bg-transparent border-[#e9e3ff] focus-visible:ring-[#9b87f5]"
                       formControlName="email" placeholder="Enter email" />
               <div *ngIf="signUpForm.get('email')?.touched && signUpForm.get('email')?.errors" class="text-red-600 font-bold text-sm mt-2 ml-0.5">
@@ -106,7 +107,7 @@
             </div>
             </div>
             <!-- mobile number -->
-            <div>
+            <!-- <div>
               <label class="text-md font-medium mb-2 block text-[#1A1F2C]">Mobile No.</label>
               <input name="number" type="text" class="bg-slate-100 w-full text-sm text-slate-800 px-4 py-2.5 rounded border focus:border-blue-600 outline-none transition-all focus:bg-transparent border-[#e9e3ff] focus-visible:ring-[#9b87f5]"
                       formControlName="mobileNumber" placeholder="Enter mobile number" />
@@ -118,6 +119,23 @@
                 <ng-container *ngIf="signUpForm.get('mobileNumber')?.errors?.['mobileExists']">Mobile number already exists.</ng-container>
                 <ng-container *ngIf="signUpForm.get('mobileNumber')?.errors?.['mobileDomain']">Mobile number domain is not allowed.</ng-container>
                 <ng-container *ngIf="signUpForm.get('mobileNumber')?.errors?.['mobilePattern']">Mobile number must start with 010, 011, 012, 015.</ng-container>
+              </div>
+            </div> -->
+            
+
+            <!-- Select role -->
+            <div>
+              <label class="text-md font-medium mb-2 block text-[#1A1F2C]">Select Role</label>
+              <select
+                class="bg-slate-100 w-full text-sm text-slate-800 px-4 py-2.5 rounded border focus:border-blue-600 outline-none transition-all focus:bg-transparent border-[#e9e3ff] focus-visible:ring-[#9b87f5]"
+                formControlName="userRole"
+              >
+                <option value="" disabled selected>Select your role</option>
+                <option value="user">User</option>
+                <option value="organizer">Organizer</option>
+              </select>
+              <div *ngIf="signUpForm.get('userRole')?.touched && signUpForm.get('userRole')?.errors" class="text-red-600 font-bold text-sm mt-2 ml-0.5">
+                <ng-container *ngIf="signUpForm.get('userRole')?.errors?.['required']">Role is required</ng-container>
               </div>
             </div>
             <!-- password -->
@@ -181,20 +199,17 @@
           
 
           <div>
-            <div class="flex items-center mb-4">
-              <input id="default-checkbox" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-              <label for="default-checkbox" class="ms-2 text-sm font-medium text-gray-900">I am more than 16 years old.</label>
-
+            <div class="flex items-center">
+              <input formControlName="acceptTerms" id="link-checkbox" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+              <label for="link-checkbox" class="ms-2 text-sm font-medium text-gray-900">I agree with the <a routerLink="/terms-condition" target="_blank" routerLinkActive="router-link-active"  class="hover:underline font-medium text-[#9b87f5] hover:text-[#7E69AB]">terms and conditions</a>.</label> 
             </div>
-          <div class="flex items-center">
-            <input id="link-checkbox" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-            <label for="link-checkbox" class="ms-2 text-sm font-medium text-gray-900">I agree with the <a routerLink="/terms-condition" target="_blank" routerLinkActive="router-link-active"  class="hover:underline font-medium text-[#9b87f5] hover:text-[#7E69AB]">terms and conditions</a>.</label> 
-          </div>
-
-          </div>
+            <div *ngIf="signUpForm.get('acceptTerms')?.touched && signUpForm.get('acceptTerms')?.errors" class="text-red-600 font-bold text-sm mt-2 ml-0.5">
+              <ng-container *ngIf="signUpForm.get('acceptTerms')?.errors?.['required']">Read Our Terms & Conditions</ng-container>
+            </div>
+          </div>  
 
            <div></div>
-          <div class="mt-8">
+          <div class="mt-2">
             <button type="submit" class="py-2.5 px-5 text-sm font-medium tracking-wider rounded shadow-xl focus:outline-none  bg-[#9b87f5] hover:bg-[#7E69AB] text-white">
               <span *ngIf="!isLoading" class="">Sign up</span>
               <span *ngIf="isLoading" class="loader border-t-transparent border-solid animate-spin rounded-full border-white h-5 w-5"></span>
