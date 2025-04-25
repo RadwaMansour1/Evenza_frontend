@@ -5,7 +5,7 @@ import { HomeComponent } from './components/home/home.component';
 import { OrderComponent } from './components/order/order.component';
 import { AboutComponent } from './components/about/about.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
-import { LoginComponent } from './components/login/login.component';
+
 import { redirectIfLoggedInGuard } from './guards/redirectIfLoggedIn.guard';
 import { SignupComponent } from './components/signup/signup.component';
 import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
@@ -17,6 +17,8 @@ import { PersonalInformationComponent } from './components/personal-information/
 import { authGuard } from './guards/auth.guard';
 import { ProfileComponent } from './components/profile/profile.component';
 import { SelectRoleComponent } from './components/select-role/select-role.component';
+import { LoginComponent } from './components/login/login.component';
+import { SetNewPasswordComponent } from './components/set-new-password/set-new-password.component';
 
 export const routes: Routes = [
   {
@@ -73,6 +75,12 @@ export const routes: Routes = [
     path: 'reset-password',
     component: ResetPasswordComponent,
     title: 'Reset Password',
+    canActivate: [],
+  },
+  {
+    path: 'new-password',
+    component: SetNewPasswordComponent,
+    title: 'New Password',
     canActivate: [],
   },
   {

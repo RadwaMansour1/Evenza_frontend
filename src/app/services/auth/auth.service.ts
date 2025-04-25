@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, map, Observable, tap } from 'rxjs';
@@ -152,6 +152,17 @@ export class AuthService {
     sessionStorage.removeItem('userToken');
     sessionStorage.removeItem('userData');
     this.router.navigate(['/login']);
+  }
+
+  changePassword(oldPassword: string, newPassword: string): Observable<any> {
+    const token = localStorage.getItem('access_token'); 
+  const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+
+    return this.http.patch(`${this.apiUrl}/auth/change-password`, {
+      oldPassword,
+      newPassword
+    }, { headers });
   }
   
 }
