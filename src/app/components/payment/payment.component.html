@@ -1,62 +1,3 @@
-<!-- <form action="">
-    <div class="grid grid-cols-12">
-        <div class="flex flex-col col-span-7">
-            <h1 class="font-bold text-4xl  m-6 ">Payment Method</h1>
-            <label for="credit"   class="flex justify-between w-full mx-6 border-1 border-gray-200 rounded-lg py-2 px-3 cursor-pointer">
-                <span class="font-semibold">Credit Card</span>
-                <input type="radio" id="credit" name="paymentMethod" value="creditcard" class="accent-blue-500" [(ngModel)]="selectedMethod">
-            </label>
-            <label for="paypal"  class="flex justify-between w-full mx-6 my-4 border-1 border-gray-200 rounded-lg py-2 px-3">
-                <span class="font-semibold">PayPal</span>
-                <input type="radio" id="paypal" name="paymentMethod" value="paypal" class="accent-blue-500" [(ngModel)]="selectedMethod">
-            </label>
-            <div class="flex flex-col gap-4 m-6">
-                <h1 class="font-bold text-3xl  ">Credit Details</h1>
-                <input type="text" id="cardnumber" name="cardnumber" placeholder="CardNumber" [(ngModel)]="cardDetails.cardNumber" class="
-                 py-2 px-3 bg-neutral-50 text-gray-600 font-medium w-full xl:w-1/2 rounded-lg">
-                <input type="text" id="cardHolder" name="cardHolder" placeholder="NameOnCard" [(ngModel)]="cardDetails.cardHolder" class="
-                 py-2 px-3 bg-neutral-50 text-gray-600 font-medium w-full xl:w-1/2 rounded-lg">
-                 <span class="flex gap-3 w-full xl:w-1/2">
-                    <input type="text" id="exDate" name="exDate" placeholder="ExpiryDate" [(ngModel)]="cardDetails.expiryDate" class="
-                    py-2 px-3 bg-neutral-50 text-gray-600 font-medium w-1/2 rounded-lg">
-                    <input type="text" id="cvv" name="cvv" placeholder="CVV" [(ngModel)]="cardDetails.cvv" class="
-                    py-2 px-3 bg-neutral-50 text-gray-600 font-medium w-1/2 rounded-lg">
-                 </span>
-                 <span class="flex  gap-2">
-                    <input type="checkbox" name="saveDetails" id="saveDetails" class="accent-blue-500">
-                    <label for="saveDetails">save card details for further purchases</label>
-                 </span>
-            </div>
-    
-            <div class="flex flex-col gap-4 mx-6 ">
-                <h1 class="font-bold text-3xl  ">Billing Address</h1>
-                <span class="flex gap-3 w-full xl:w-1/2">
-                   <input type="text" id="city" name="city" placeholder="City" [(ngModel)]="billingData.city" class="
-                   py-2 px-3 bg-neutral-50 text-gray-600 font-medium w-1/2 rounded-lg">
-                   <input type="text" id="postalCode" name="postalCode" placeholder="PostalCode" [(ngModel)]="billingData.postal_code" class="
-                   py-2 px-3 bg-neutral-50 text-gray-600 font-medium w-1/2 rounded-lg">
-                </span>
-                <span class="flex gap-3 w-full xl:w-1/2">
-                   <input type="text" id="street" name="street" placeholder="Street" [(ngModel)]="billingData.street" class="
-                   py-2 px-3 bg-neutral-50 text-gray-600 font-medium w-1/2 rounded-lg">
-                   <input type="text" id="building" name="building" placeholder="Building" [(ngModel)]="billingData.building" class="
-                   py-2 px-3 bg-neutral-50 text-gray-600 font-medium w-1/2 rounded-lg">
-                   <input type="text" id="floor" name="floor" placeholder="Floor" [(ngModel)]="billingData.floor" class="
-                   py-2 px-3 bg-neutral-50 text-gray-600 font-medium w-1/2 rounded-lg">
-                   <input type="text" id="apartment" name="apartment" placeholder="Apartment" [(ngModel)]="billingData.apartment" class="
-                   py-2 px-3 bg-neutral-50 text-gray-600 font-medium w-1/2 rounded-lg">
-                </span>
-            </div>
-             <div class="flex flex-col m-6 gap-4">
-                 <h2 class="font-bold text-xl">Confirmation</h2>
-                 <p>By proceding,you agree to the Terms of Service and acknowledge the Privacy Policy</p>
-                 <input type="submit" name="submit" (click)="confirmPayment($event)" value="Confirm Payment" class="text-center cursor-pointer bg-blue-400 hover:bg-blue-600 text-white w-full md:w-1/2 xl:w-1/4 p-2 rounded-lg"/>
-             </div>
-    
-        </div>
-    
-    </div>    
-</form> -->
 
 <div class="flex flex-col gap-6 px-24 py-12 h-screen">
         <h1 class="text-4xl font-bold">Complete Your Purchase</h1>
@@ -117,54 +58,65 @@
             </span>
         </div>
 
-        <!-------------------------- Order Summary------------------------>
-        <div class="flex flex-col gap-6 bg-white rounded-lg p-6 h-full w-full lg:w-2/6 shadow-lg">
-            <h1 class="text-2xl font-bold">Order Summary</h1>
+    <!-------------------------- Order Summary------------------------>
+    <div
+      class="flex flex-col gap-6 bg-white rounded-lg p-6 h-full w-full lg:w-2/6 shadow-lg"
+    >
+      <h1 class="text-2xl font-bold">Order Summary</h1>
 
-            <div class="flex gap-3 items-center">
-                <div class="rounded-lg w-20 h-16">
-                    <img src="stadium.jpg" alt="stadium" class="rounded-lg w-full h-full">
-                </div>
-                <div class="flex flex-col">
-                    <h2 class="font-semibold">Champions league Match</h2>
-                    <span class="flex gap-2 items-center text-gray-600">
-                        <ng-icon name="heroCalendar"/>
-                        <h3>{{date}}</h3>
-                    </span>
-                </div>
-            </div>
-
-            <span class="flex justify-between p-3 rounded-lg bg-gray-100 ">
-                <h2 class="font-semibold">General Admission</h2>
-                <h2 class="font-semibold">x1</h2>
-            </span>
-
-            <hr class="text-gray-300">
-
-            <div class="flex flex-col gap-3">
-                <span class="flex justify-between">
-                    <h3 class="font-semibold text-gray-600 text-md">Ticket Price</h3>
-                    <h3 class="font-semibold text-gray-600 text-md">${{ticketPrice}}</h3>
-                </span>
-                <span class="flex justify-between">
-                    <h3 class="font-semibold text-gray-600 text-md">Service Fee</h3>
-                    <h3 class="font-semibold text-gray-600 text-md">${{serviceFee}}</h3>
-                </span>
-                <span class="flex justify-between">
-                    <h3 class="font-semibold text-gray-600 text-md">Tax</h3>
-                    <h3 class="font-semibold text-gray-600 text-md">${{tax}}</h3>
-                </span>
-            </div>
-            <hr class="text-gray-300">
-
-            <span class="flex justify-between">
-                <h3 class="font-semibold text-gray-600 text-md">Total</h3>
-                <h3 class="font-semibold text-gray-600 text-md">${{total}}</h3>
-            </span>
-            <span class="flex gap-2 items-center text-gray-600">
-                <ng-icon name="heroInformationCircle"/>
-                <h3>By completing this purchase, you agree to our <span class="text-purple-600">Terms Of Service</span></h3>
-            </span>
+      <div class="flex gap-3 items-center">
+        <div class="rounded-lg w-20 h-16">
+          <img
+            src="stadium.jpg"
+            alt="stadium"
+            class="rounded-lg w-full h-full"
+          />
         </div>
+        <div class="flex flex-col">
+          <h2 class="font-semibold">Champions league Match</h2>
+          <span class="flex gap-2 items-center text-gray-600">
+            <ng-icon name="heroCalendar" />
+            <h3>{{ date }}</h3>
+          </span>
+        </div>
+      </div>
+
+      <span class="flex justify-between p-3 rounded-lg bg-gray-100">
+        <h2 class="font-semibold">General Admission</h2>
+        <h2 class="font-semibold">x1</h2>
+      </span>
+
+      <hr class="text-gray-300" />
+
+      <div class="flex flex-col gap-3">
+        <span class="flex justify-between">
+          <h3 class="font-semibold text-gray-600 text-md">Ticket Price</h3>
+          <h3 class="font-semibold text-gray-600 text-md">
+            ${{ ticketPrice }}
+          </h3>
+        </span>
+        <span class="flex justify-between">
+          <h3 class="font-semibold text-gray-600 text-md">Service Fee</h3>
+          <h3 class="font-semibold text-gray-600 text-md">${{ serviceFee }}</h3>
+        </span>
+        <span class="flex justify-between">
+          <h3 class="font-semibold text-gray-600 text-md">Tax</h3>
+          <h3 class="font-semibold text-gray-600 text-md">${{ tax }}</h3>
+        </span>
+      </div>
+      <hr class="text-gray-300" />
+
+      <span class="flex justify-between">
+        <h3 class="font-semibold text-gray-600 text-md">Total</h3>
+        <h3 class="font-semibold text-gray-600 text-md">${{ total }}</h3>
+      </span>
+      <span class="flex gap-2 items-center text-gray-600">
+        <ng-icon name="heroInformationCircle" />
+        <h3>
+          By completing this purchase, you agree to our
+          <span class="text-purple-600">Terms Of Service</span>
+        </h3>
+      </span>
     </div>
+  </div>
 </div>

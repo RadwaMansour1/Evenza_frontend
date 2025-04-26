@@ -1,0 +1,237 @@
+<nav class="bg-gray-50/90 shadow-sm fixed top-0 w-full z-50">
+  <div class="pl-6 pr-4 mx-auto max-w-7xl sm:pl-4 sm:pr-6 lg:pl-0 lg:pr-8">
+    <div class="flex items-center justify-between h-16">
+      <!-- Logo -->
+      <div class="flex items-center space-x-2">
+        <span class="pt-1.5 text-2xl text-purple-600">
+          <ng-icon name="heroCalendarDays" />
+        </span>
+        <span class="text-2xl font-bold text-purple-600">{{
+          "home.navbar.title" | translate
+        }}</span>
+      </div>
+      <!-- Hamburger -->
+      <div class="md:hidden me-5">
+        <button
+          (click)="toggleMenu()"
+          aria-label="Toggle menu"
+          class="text-gray-700 hover:text-purple-700 focus:outline-none"
+        >
+          <ng-icon
+            name="heroBars3"
+            class="text-xl text-gray-700 group-hover:text-purple-700"
+            *ngIf="!isMenuOpen"
+          ></ng-icon>
+          <ng-icon
+            name="heroXMark"
+            *ngIf="isMenuOpen"
+            class="text-xl text-gray-700 group-hover:text-purple-700"
+          >
+          </ng-icon>
+        </button>
+      </div>
+
+      <!-- Links -->
+      <div class="hidden space-x-4 md:flex">
+        <a
+          *ngFor="let link of navLinks"
+          [routerLink]="link.href"
+          [routerLinkActive]="['text-purple-600', 'font-semibold']"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="text-base font-medium text-gray-900 hover:text-purple-700 transition-all duration-200"
+        >
+          {{ link.label | translate }}
+        </a>
+      </div>
+
+      <!-- Search & Icons -->
+      <div class="items-center hidden space-x-2 md:flex">
+        <div class="relative w-72 hidden lg:block">
+          <input
+            type="text"
+            placeholder="{{ 'home.navbar.search' | translate }}"
+            class="w-full pl-10 pr-10 py-1.5 rounded-md border border-gray-300 text-base placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-purple-500 focus:border-purple-500 focus:shadow-md hover:ring-1 hover:ring-purple-500 hover:border-purple-500 hover:shadow-md transition-all duration-200"
+          />
+          <div
+            class="pt-1 absolute text-gray-400 transform -translate-y-1/2 left-2 top-1/2 pointer-events-none"
+          >
+            <ng-icon name="heroMagnifyingGlass"></ng-icon>
+          </div>
+        </div>
+
+        <!-- Search Button (icon only) on md and lg only -->
+        <button
+          class="block lg:hidden px-2 pt-1 pb-0.5 border border-gray-300 rounded-md hover:border-purple-500 hover:border-2 group"
+          aria-label="Open search"
+        >
+          <span
+            class="text-gray-700 group-hover:text-purple-600 transition-all duration-200"
+          >
+            <ng-icon name="heroMagnifyingGlass" />
+          </span>
+        </button>
+
+        <!-- language button -->
+        <button
+          (click)="toggleLanguage()"
+          class="flex items-center gap-2 px-3 py-1.5 borde rounded-md shadow-sm hover:bg-purple-600 hover:text-white text-sm text-gray-700 transition-all duration-200"
+        >
+          <ng-icon
+            [name]="
+              currentLang === 'en' ? 'heroGlobeAlt' : 'heroGlobeEuropeAfrica'
+            "
+            class="w-5 h-5 text-purple-600"
+          />
+          <span>{{ currentLang === "en" ? "English" : "العربية" }}</span>
+        </button>
+        <!-- User -->
+        <div class="relative inline-block">
+          <button
+            (click)="toggleUserMenu()"
+            type="button"
+            class="cursor-pointer px-2 pt-1 pb-0.5 rounded-md hover:bg-purple-600 group hover:text-white transition-all duration-300"
+            id="user-menu-button"
+            [attr.aria-expanded]="isMenuUserOpen"
+            aria-haspopup="true"
+          >
+            <span
+              class="text-gray-700 transition-all duration-300 group-hover:text-white"
+            >
+              <ng-icon name="heroUser" />
+            </span>
+          </button>
+
+          <div
+            *ngIf="isMenuOpen"
+            class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 origin-top-right"
+            role="menu"
+            aria-orientation="vertical"
+            aria-labelledby="user-menu-button"
+          >
+            <a
+              routerLink="/login"
+              class="cursor-pointer block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+              role="menuitem"
+              (click)="closeUserMenu()"
+            >
+              {{ "home.navbar.login" | translate }}
+            </a>
+            <a
+              routerLink="/signup"
+              class="cursor-pointer block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+              role="menuitem"
+              (click)="closeUserMenu()"
+            >
+              {{ "home.navbar.register" | translate }}
+            </a>
+          </div>
+        </div>
+
+        <!-- Wallet -->
+        @for (item of navItems; track $index) {
+        <button
+        [routerLink]="item.route"
+          [routerLinkActive]="['bg-purple-600', 'active-link']"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="px-2 pt-1 pb-0.5 rounded-md hover:bg-purple-600 group group-[.active-link]:bg-purple-600 transition-all duration-300"
+        >
+          <span
+            class="text-gray-700 transition-all duration-300 group-hover:text-white group-[.active-link]:text-white"
+          >
+            <ng-icon [name]="item.icon" />
+          </span>
+        </button>
+        }
+      </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div class="md:hidden" *ngIf="isMenuOpen">
+      <div class="mt-4 space-y-2">
+        <!-- Search Bar -->
+        <div class="relative px-4 mb-4">
+          <input
+            type="text"
+            placeholder="Search events..."
+            class="w-full py-2 pl-10 pr-10 text-base placeholder-gray-400 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-purple-500 focus:border-purple-500 focus:shadow-md hover:ring-1 hover:ring-purple-500 hover:border-purple-500 hover:shadow-md transition-all duration-200"
+          />
+          <div
+            class="absolute text-gray-400 transform -translate-y-1/2 left-8 top-1/2"
+          >
+            <ng-icon name="heroMagnifyingGlass"></ng-icon>
+          </div>
+        </div>
+
+        <!-- Event Categories -->
+        <a
+          *ngFor="let link of navLinks"
+          [routerLink]="link.href"
+          [routerLinkActive]="['text-purple-600', 'font-semibold']"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="block px-4 py-2 text-base font-medium text-gray-900 hover:text-purple-500 transition-all duration-200"
+        >
+          {{ link.label | translate }}
+        </a>
+
+        <!-- Horizontal Line -->
+        <hr class="my-4 border-gray-300" />
+
+        <!-- Login/Register and User Links with Icons -->
+        <div class="flex flex-col px-4 pt-2 pb-4 space-y-3">
+          <div
+            class="flex text-base py-2 font-medium items-center group hover:text-purple-500 cursor-pointer"
+            (click)="toggleLanguage()"
+          >
+            <ng-icon
+              [name]="
+                currentLang === 'en' ? 'heroGlobeAlt' : 'heroGlobeEuropeAfrica'
+              "
+              class="text-gray-700 me-2 group-hover:text-purple-500"
+            ></ng-icon>
+            <span class="text-gray-900 group-hover:text-purple-500">
+              {{ currentLang === "ar" ? "العربية" : "English" }}
+            </span>
+          </div>
+
+          <div
+            class="flex text-base py-2 font-medium items-center group hover:text-purple-500"
+            [routerLink]="'/login'"
+            [routerLinkActive]="'active-link'"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <span
+              class="flex items-center group-hover:text-purple-500 text-gray-700 group-[.active-link]:text-purple-500 me-2"
+            >
+              <ng-icon name="heroUser" />
+            </span>
+            <span
+              class="text-gray-900 group-hover:text-purple-500 group-[.active-link]:text-purple-500"
+              >{{ "home.navbar.login" | translate }}/{{
+                "home.navbar.register" | translate
+              }}</span
+            >
+          </div>
+          <div
+            *ngFor="let item of navItems"
+            class="flex text-base py-2 font-medium items-center group hover:text-purple-500"
+            [routerLink]="item.route"
+            [routerLinkActive]="'active-link'"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <span
+              class="flex items-center group-hover:text-purple-500 text-gray-700 group-[.active-link]:text-purple-500 me-2"
+            >
+              <ng-icon [name]="item.icon" />
+            </span>
+
+            <span
+              class="text-gray-900 group-hover:text-purple-500 group-[.active-link]:text-purple-500"
+            >
+              {{ item.name | translate }}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>

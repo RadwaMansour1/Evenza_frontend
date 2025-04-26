@@ -1,0 +1,52 @@
+<button data-drawer-target="separator-sidebar" data-drawer-toggle="separator-sidebar" aria-controls="separator-sidebar" type="button" class="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600 ">
+    <span class="sr-only">Open sidebar</span>
+    <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+    <path clip-rule="evenodd" fill-rule="evenodd" d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"></path>
+    </svg>
+  </button>
+  
+<aside id="separator-sidebar" class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
+    <div class="h-full px-3 py-4 overflow-y-auto"  style="background-color: rgba(248, 247, 250, 0.8);">
+       <ul class="space-y-2 font-medium">
+          <li>
+             <a routerLink="/profile/personal-information" routerLinkActive="active"  class="flex items-center p-2 text-gray-900  dark:text-white  hover:bg-[#7E69AB] ">
+                <span class="ms-3 text-black">Account</span>
+             </a>
+          </li>
+          
+          <li>
+             <a routerLink="/profile/help-center" routerLinkActive="active"  class="flex items-center p-2 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-white group">
+                <span class="flex-1 ms-3 whitespace-nowrap text-black">Help</span>
+             </a>
+          </li>
+          
+          <li>
+             <a href="#" class="flex items-center p-2 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-white group">
+                <span class="flex-1 ms-3 whitespace-nowrap text-black">Preferences</span>
+             </a>
+          </li>
+
+          <li>
+             <a href="#" class="flex items-center p-2 text-gray-900  dark:text-white hover:bg-gray-100 dark:hover:bg-white group">
+                <span class="flex-1 ms-3 whitespace-nowrap text-black">My Events</span>
+                <span class="inline-flex items-center justify-center w-3 h-3 p-3 ms-3 text-sm font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-300">3</span>
+             </a>
+          </li>
+
+          <li>
+             <a href="#" class="flex items-center p-2 text-gray-900  dark:text-white hover:bg-gray-100 dark:hover:bg-white group">
+                <span class="flex-1 ms-3 whitespace-nowrap text-black">Profile Settings</span>
+             </a>
+          </li>
+
+          <div class="flex items-center justify-start mt-4 mb-4">
+             <button 
+             (click)="signOut()"
+             type="button" class="cursor-pointer inline-flex items-start px-4 py-2 text-sm font-medium text-white bg-[#7E69AB] border border-gray-300 rounded-lg hover:bg-[#7E69AB] focus:outline-none focus:ring-2 focus:ring-gray-200 dark:bg-[#7E69AB] dark:hover:bg-[#7E69AB] dark:focus:ring-[#7E69AB]">
+                Sign Out
+             </button>
+          </div>
+       </ul>
+   </div>
+</aside>
+            

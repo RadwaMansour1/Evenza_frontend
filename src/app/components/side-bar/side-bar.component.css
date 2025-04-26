@@ -1,0 +1,11 @@
+a.active {
+    font-weight: bold; 
+    /* background-color: ; */
+    color: #007bff; /* Bootstrap primary color */
+    text-decoration: underline; /* Underline the active link */
+    text-decoration-thickness: 2px; /* Thicker underline */
+    text-underline-offset: 2px; /* Space between text and underline */
+    text-decoration-color: #007bff; /* Color of the underline */
+    transition: all 0.3s ease; /* Smooth transition for hover effects */
+    background-color: rgba(208, 208, 208, 0.285);
+  }

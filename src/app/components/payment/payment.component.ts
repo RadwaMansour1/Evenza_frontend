@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { PaymobService } from "../paymob.service";
-import { PaypalService } from '../../services/paypal.service';
+import {  PaymobService  } from '../../services/payment/paymob.service';;
+import { PaypalService } from '../../services/payment/paypal.service';
 import Swal from 'sweetalert2';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { heroCreditCard, heroShieldCheck, heroCalendar, heroInformationCircle } from '@ng-icons/heroicons/outline';
@@ -11,22 +11,31 @@ import { StripeService } from '../../services/stripe.service';
   selector: 'app-payment',
   imports: [FormsModule, NgIcon],
   templateUrl: './payment.component.html',
-  styleUrl: './payment.component.css',
-  viewProviders: [provideIcons({ heroCreditCard, heroShieldCheck, heroCalendar, heroInformationCircle })]
+  viewProviders:  [
+    provideIcons({ 
+      heroCreditCard, 
+      heroShieldCheck, 
+      heroCalendar, 
+      heroInformationCircle ,
+    }),
+  ],
 })
 export class PaymentComponent implements OnInit { // Implement OnInit
-  constructor(private paymobService: PaymobService, private paypalService: PaypalService,private stripeService:StripeService) { }
+  constructor(
+    private paymobService: PaymobService, 
+    private paypalService: PaypalService,private stripeService:StripeService
+  ) { }
 
-  selectedMethod: string = "paypal"; // Default selection
+  selectedMethod:  string = 'paypal';; // Default selection
 
 
 
 
   date: string = new Date().toDateString();
-  ticketPrice: number = 110.0;
-  serviceFee: number = 12.75;
-  tax: number = 7.50;
-  total: number = this.ticketPrice + this.serviceFee + this.tax;
+  ticketPrice:  number = 110.0;
+  serviceFee:  number = 12.75;
+  tax:  number = 7.5;
+  total:  number = this.ticketPrice + this.serviceFee + this.tax;
   userId: string = "user1";
   eventId: string ="event44";
   ticketType: string = "GA";
