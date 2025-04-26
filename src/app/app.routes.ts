@@ -72,6 +72,21 @@ export const routes: Routes = [
     component: MyWalletComponent,
   },
   {
+    path:"payment",
+    title: 'Payment',
+    component:PaymentComponent
+  },
+  {
+    path:"refund",
+    title: 'Refund',
+    component:RefundComponent
+  },
+  {
+    path:"success",
+    title: 'Payment Success',
+    component:PaymentSuccessComponent
+  },
+  {
     path: 'login',
     component: LoginComponent,
     title: 'Login',
