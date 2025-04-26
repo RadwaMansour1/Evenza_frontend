@@ -1,7 +1,7 @@
 <div class="flex flex-col px-3 py-8 mx-auto md:h-auto lg:py-0">
   <div class="w-full bg-white sm:max-w-4xl p-6 sm:p-8">
 
-  <form class="w-full max-w-4xl md:space-y-5" (ngSubmit)="onSubmit()" #profileForm="ngForm">
+  <form class="w-full max-w-4xl md:space-y-5" >
     <div class="space-y-12">
       <div class="pb-12">
         <h2 class="text-3xl font-bold  text-gray-900">Account Information</h2>
@@ -66,7 +66,7 @@
                     <path fill-rule="evenodd" d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
                   </svg>
                 </div>
-                <input type="text" name="phone-number" id="phone-number" [(ngModel)]="profileData.phone1" class="block min-w-0 grow py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6" placeholder="123-456-7890">
+                <input type="text" name="phone-number" id="phone-number"  class="block min-w-0 grow py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6" placeholder="123-456-7890">
               </div>
             </div>
           </div>
@@ -87,7 +87,7 @@
                     <path fill-rule="evenodd" d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
                   </svg>
                 </div>
-                <input type="text" name="phone-number" id="phone-number" [(ngModel)]="profileData.phone2" class="block min-w-0 grow py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6" placeholder="123-456-7890">
+                <input type="text" name="phone-number" id="phone-number"  class="block min-w-0 grow py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6" placeholder="123-456-7890">
               </div>
             </div>
           </div>
@@ -104,7 +104,7 @@
           <div class="sm:col-span-2">
             <label for="country" class="block text-sm/6 font-medium text-gray-900">Country</label>
             <div class="mt-2 grid grid-cols-1">
-              <select id="country" name="country" autocomplete="country-name" [(ngModel)]="profileData.country" class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-2.5 pr-8 pl-3 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+              <select id="country" name="country" autocomplete="country-name"  class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-2.5 pr-8 pl-3 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
                 <option>Cairo</option>
                 <option>Alex</option>
                 <option>Giza</option>
@@ -118,7 +118,7 @@
           <div class="sm:col-span-2">
             <label for="country" class="block text-sm/6 font-medium text-gray-900">Gender</label>
             <div class="mt-2 grid grid-cols-1">
-              <select id="country" name="country" autocomplete="country-name" [(ngModel)]="profileData.gender" class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-2.5 pr-8 pl-3 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+              <select id="country" name="country" autocomplete="country-name"  class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-2.5 pr-8 pl-3 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
                 <option></option>
                 <option>Male</option>
                 <option>Female</option>
@@ -133,35 +133,35 @@
           <div class="sm:col-span-4">
             <label for="street-address" class="block text-sm/6 font-medium text-gray-900">Street address</label>
             <div class="mt-2">
-              <input type="text" name="street-address" id="street-address" autocomplete="street-address" [(ngModel)]="profileData.address" class="block w-full rounded-md bg-white px-3 py-2.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+              <input type="text" name="street-address" id="street-address" autocomplete="street-address"  class="block w-full rounded-md bg-white px-3 py-2.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
             </div>
           </div>
 
           <div class="sm:col-span-2 sm:col-start-1">
             <label for="city" class="block text-sm/6 font-medium text-gray-900">City</label>
             <div class="mt-2">
-              <input type="text" name="city" id="city" autocomplete="address-level2" [(ngModel)]="profileData.city" class="block w-full rounded-md bg-white px-3 py-2.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+              <input type="text" name="city" id="city" autocomplete="address-level2"  class="block w-full rounded-md bg-white px-3 py-2.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
             </div>
           </div>
 
           <div class="sm:col-span-2">
             <label for="region" class="block text-sm/6 font-medium text-gray-900">State / Province</label>
             <div class="mt-2">
-              <input type="text" name="region" id="region" autocomplete="address-level1" [(ngModel)]="profileData.state" class="block w-full rounded-md bg-white px-3 py-2.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+              <input type="text" name="region" id="region" autocomplete="address-level1"  class="block w-full rounded-md bg-white px-3 py-2.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
             </div>
           </div>
 
           <div class="sm:col-span-2">
             <label for="postal-code" class="block text-sm/6 font-medium text-gray-900">ZIP / Postal code</label>
             <div class="mt-2">
-              <input type="text" name="postal-code" id="postal-code" autocomplete="postal-code" [(ngModel)]="profileData.zipCode" class="block w-full rounded-md bg-white px-3 py-2.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+              <input type="text" name="postal-code" id="postal-code" autocomplete="postal-code"  class="block w-full rounded-md bg-white px-3 py-2.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
             </div>
           </div>
 
           <div class="sm:col-span-2">
             <label for="postal-code" class="block text-sm/6 font-medium text-gray-900">Date Of Birth</label>
             <div class="mt-2">
-              <input type="text" name="postal-code" id="postal-code" autocomplete="postal-code" [(ngModel)]="profileData.dateOfBirth" class="block w-full rounded-md bg-white px-3 py-2.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+              <input type="text" name="postal-code" id="postal-code" autocomplete="postal-code"  class="block w-full rounded-md bg-white px-3 py-2.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
             </div>
           </div>
 
