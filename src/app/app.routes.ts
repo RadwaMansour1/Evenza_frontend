@@ -1,4 +1,4 @@
-import { Routes } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { AllEventsComponent } from './components/all-events/all-events.component';
 import { EventDetailsComponent } from './components/event-details/event-details.component';
 import { HomeComponent } from './components/home/home.component';
@@ -22,8 +22,10 @@ import { FaqComponent } from './components/faq/faq.component';
 import { MyTicketsComponent } from './components/my-tickets/my-tickets.component';
 import { LoginComponent } from './components/login/login.component';
 import { SetNewPasswordComponent } from './components/set-new-password/set-new-password.component';
-import { OrganizerDashboardComponent } from './components/organizer/organizer-dashboard/organizer-dashboard.component';
-import { OrganizerWalletComponent } from './components/organizer/organizer-wallet/organizer-wallet.component';
+import {PaymentSuccessComponent} from './components/payment-success/payment-success.component';
+import { PaymentComponent } from './components/payment/payment.component';
+import { NgModule } from '@angular/core';
+import { RefundComponent } from './components/refund/refund.component';
 
 export const routes: Routes = [
   {

@@ -1,7 +1,6 @@
-// user.service.ts
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { map, Observable } from 'rxjs';
 import { Profile } from '../../models/profile.model';
 import { appendIfExists } from '../../helpers/form-data.util';
 
@@ -9,17 +8,20 @@ import { appendIfExists } from '../../helpers/form-data.util';
   providedIn: 'root',
 })
 export class UserService {
-  private apiUrl = 'http://localhost:3000/api/profile';
+  private apiUrl = 'http://localhost:3000/users';
 
   constructor(private http: HttpClient) {}
 
   getProfile(): Observable<Profile> {
-    return this.http.get<Profile>(`${this.apiUrl}/personal-information`);
+    const token = localStorage.getItem('access_token') || sessionStorage.getItem('access_token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+    return this.http.get<Profile>(`${this.apiUrl}/my-profile`, { headers });
   }
 
-  updateProfile(profileData: Profile): Observable<any> {
+  updateProfile(profileData: Profile): Observable<Profile> {
     const formData = new FormData();
-  
+
     formData.append('firstName', profileData.firstName);
     formData.append('lastName', profileData.lastName);
     formData.append('phone1', profileData.phone1);
@@ -31,12 +33,18 @@ export class UserService {
     appendIfExists(formData, 'phone2', profileData.phone2);
     appendIfExists(formData, 'phone2', profileData.state);
     appendIfExists(formData, 'phone2', profileData.zipCode);
-  
+
     if (profileData.profileImage) {
-      formData.append('profileImage', profileData.profileImage); // الصورة
+      formData.append('profileImage', profileData.profileImage);
     }
-  
-    return this.http.put(`http://localhost:3000/api/profile`, formData);
+
+    return this.http.put<Profile>(`${this.apiUrl}/my-profile`, formData);
   }
-  
+
+  appendIfExists(formData: FormData, key: string, value: any) {
+    if (value !== null && value !== undefined && value !== '') {
+      formData.append(key, value);
+    }
+  }
+
 }
