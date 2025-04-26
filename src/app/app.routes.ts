@@ -5,7 +5,6 @@ import { HomeComponent } from './components/home/home.component';
 import { OrderComponent } from './components/order/order.component';
 import { AboutComponent } from './components/about/about.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
-
 import { redirectIfLoggedInGuard } from './guards/redirectIfLoggedIn.guard';
 import { SignupComponent } from './components/signup/signup.component';
 import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
@@ -26,6 +25,8 @@ import {PaymentSuccessComponent} from './components/payment-success/payment-succ
 import { PaymentComponent } from './components/payment/payment.component';
 import { NgModule } from '@angular/core';
 import { RefundComponent } from './components/refund/refund.component';
+import { OrganizerDashboardComponent } from './components/organizer/organizer-dashboard/organizer-dashboard.component';
+import { OrganizerWalletComponent } from './components/organizer/organizer-wallet/organizer-wallet.component';
 
 export const routes: Routes = [
   {
