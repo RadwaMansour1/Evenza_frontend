@@ -79,6 +79,9 @@ export class OrganizerDashboardComponent implements OnInit {
   viewEvents() {
     console.log('Viewing events...');
   }
+  viewAddEvent() {
+    this.router.navigate(['/organizer/add-event']);
+  }
   logout() {
     console.log('Logging out...');
   }

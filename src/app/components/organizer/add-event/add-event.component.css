@@ -1,0 +1,36 @@
+/* event-form.component.css */
+/* Add component-specific styles here if needed. */
+/* Tailwind classes in the HTML handle most styling. */
+
+/* Ensure Leaflet map container has a defined height */
+/* This is also set via Tailwind class 'h-64' in the HTML */
+/* event-form.component.css */
+#eventMap {
+  height: 16rem; /* Equivalent to h-64 */
+  /* Or try a pixel value */
+  /* height: 250px; */
+}
+
+/* Keep the marker fix */
+.leaflet-marker-icon,
+.leaflet-marker-shadow {
+    background-color: transparent !important;
+    border: none !important;
+}
+
+/* Add these styles to your component's CSS file */
+.fixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 50;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bg-opacity-50 {
+  background-color: rgba(0, 0, 0, 0.5);
+}

@@ -27,6 +27,7 @@ import { NgModule } from '@angular/core';
 import { RefundComponent } from './components/refund/refund.component';
 import { OrganizerDashboardComponent } from './components/organizer/organizer-dashboard/organizer-dashboard.component';
 import { OrganizerWalletComponent } from './components/organizer/organizer-wallet/organizer-wallet.component';
+import { AddEventComponent } from './components/organizer/add-event/add-event.component';
 
 export const routes: Routes = [
   {
@@ -146,6 +147,10 @@ export const routes: Routes = [
     path: 'organizer/wallet',
     component: OrganizerWalletComponent,
     title: 'Organizer Wallet',
+  }, {
+    path: 'organizer/add-event',
+    component: AddEventComponent,
+    title: 'Add Event',
   },
   //not found route
   {

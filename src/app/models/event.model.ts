@@ -8,7 +8,7 @@ export interface Location {
   };
 }
 export interface Ticket {
-  level: 'silver' | 'golden' | 'platinum';
+  level: 'Silver' | 'Golden' | 'Platinum';
   price: number;
   quantity: number;
 }
