@@ -22,6 +22,8 @@ import { FaqComponent } from './components/faq/faq.component';
 import { MyTicketsComponent } from './components/my-tickets/my-tickets.component';
 import { LoginComponent } from './components/login/login.component';
 import { SetNewPasswordComponent } from './components/set-new-password/set-new-password.component';
+import { OrganizerDashboardComponent } from './components/organizer/organizer-dashboard/organizer-dashboard.component';
+import { OrganizerWalletComponent } from './components/organizer/organizer-wallet/organizer-wallet.component';
 
 export const routes: Routes = [
   {
@@ -63,7 +65,7 @@ export const routes: Routes = [
   {
     path: 'my-wallet',
     title: 'My Wallet',
-    component: MyWalletComponent ,
+    component: MyWalletComponent,
   },
   {
     path: 'login',
@@ -131,6 +133,18 @@ export const routes: Routes = [
     component: TermsConditionsComponent,
     title: 'Terms and Conditions',
   },
+  //organizer routes
+  {
+    path: 'organizer/dashboard',
+    component: OrganizerDashboardComponent,
+    title: 'Organizer Dashboard',
+  },
+  {
+    path: 'organizer/wallet',
+    component: OrganizerWalletComponent,
+    title: 'Organizer Wallet',
+  },
+  //not found route
   {
     path: '**',
     title: 'Page Not Found',
