@@ -15,25 +15,25 @@ export class PersonalInformationComponent implements OnInit {
 
   constructor(private userService: UserService) {}
   profileData: Profile = {
+    _id: '',
     firstName: '',
     lastName: '',
-    phone1: '',
-    phone2: '',
-    gender: '',
-    country: '',
-    address: '',
-    city: '',
-    state: '',
-    zipCode: '',
-    dateOfBirth: '',
+    email: '',
+    provider: '',
+    isVerified: false,
+    createdAt: '',
+    verificationCode: '',
+    verificationCodeExpiration: '',
+    role: '',
+    __v: undefined,
   };
+
 
   selectedFile: File | null = null;
 
   ngOnInit() {
     this.userService.getProfile().subscribe({
-      next: (res: any) => {
-        const data = res?.data;
+      next: (data: Profile) => {
         if (data) {
           this.profileData = {
             ...this.profileData,
@@ -45,27 +45,29 @@ export class PersonalInformationComponent implements OnInit {
     });
   }
 
+
   onFileSelected(event: any) {
     this.selectedFile = event.target.files[0];
   }
 
-  onSubmit() {
-    const profileData = { ...this.profileData };
 
-    if (this.selectedFile) {
-      profileData.profileImage = this.selectedFile;
-    }
+  // onSubmit() {
+  //   const profileData = { ...this.profileData };
 
-    this.userService.updateProfile(profileData).subscribe({
-      next: res => {
-        console.log('Profile updated successfully:', res);
-        alert('Profile updated successfully!');
-      },
-      error: err => {
-        console.error('Error updating profile:', err);
-        alert('Failed to update profile.');
-      }
-    });
-  }
+  //   // if (this.selectedFile) {
+  //   //   profileData.profileImage = this.selectedFile;
+  //   // }
+
+  //   this.userService.updateProfile(profileData).subscribe({
+  //     next: res => {
+  //       console.log('Profile updated successfully:', res);
+  //       alert('Profile updated successfully!');
+  //     },
+  //     error: err => {
+  //       console.error('Error updating profile:', err);
+  //       alert('Failed to update profile.');
+  //     }
+  //   });
+  // }
 
 }

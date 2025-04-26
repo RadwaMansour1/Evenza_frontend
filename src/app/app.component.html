@@ -1,13 +1,17 @@
 <!-- <div class="bg-white min-h-screen flex flex-col justify-between"> -->
-  <app-snackbar></app-snackbar>
-  <app-nav-bar></app-nav-bar>
-  <!-- <main class="flex-grow">
+<!-- <main class="flex-grow">
   </main>
   <app-footer></app-footer> -->
-  <!-- </div> -->
+<!-- </div> -->
 <!-- <app-home></app-home> -->
- <!-- <app-event-details></app-event-details> -->
- <router-outlet></router-outlet>
- <!-- <app-payment></app-payment> -->
- <!-- <app-refund></app-refund> -->
- <app-footer></app-footer>
+<!-- <app-event-details></app-event-details> -->
+<!-- <app-payment></app-payment> -->
+<!-- <app-refund></app-refund> -->
+<app-snackbar></app-snackbar>
+@if(!isOrganizer){
+<app-nav-bar></app-nav-bar>
+}
+<router-outlet></router-outlet>
+@if(!isOrganizer){
+<app-footer></app-footer>
+}

@@ -1,0 +1,11 @@
+ <div class="h-64 md:h-72">
+      <canvas
+        baseChart
+        [data]="eventPerformanceChartData"
+        [options]="eventPerformanceChartOptions"
+        [type]="eventPerformanceChartType"
+        (chartHover)="chartHovered($event)"
+        (chartClick)="chartClicked($event)"
+      >
+      </canvas>
+    </div>

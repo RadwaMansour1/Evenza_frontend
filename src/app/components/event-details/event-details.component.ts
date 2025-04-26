@@ -87,9 +87,11 @@ export class EventDetailsComponent implements OnInit {
       : `https://www.google.com/maps/search/?api=1&query=${loc.address},${loc.city}`;
   }
 
-  bookTickets() {
-    throw new Error('Method not implemented.');
-  }
+  // bookTickets() {
+  //   this.route.navigate(['/order']);
+
+  // }
+  
   getTicketNow() {
     throw new Error('Method not implemented.');
   }
