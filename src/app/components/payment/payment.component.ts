@@ -36,30 +36,11 @@ export class PaymentComponent implements OnInit { // Implement OnInit
   serviceFee:  number = 12.75;
   tax:  number = 7.5;
   total:  number = this.ticketPrice + this.serviceFee + this.tax;
-  userId: string = "user1";
-  eventId: string ="event44";
+  userId: string = "user4";
+  eventId: string ="event2";
   ticketType: string = "GA";
   quantity: number = 1;
-  // cardDetails = {
-  //   cardNumber: '',
-  //   cardHolder: '',
-  //   expiryDate: '',
-  //   cvv: ''
-  // };
-
-  // billingData = {
-  //   first_name: '',
-  //   last_name: '',
-  //   email: '',
-  //   phone_number: '',
-  //   city: '',
-  //   country: 'EG',
-  //   street: '',
-  //   building: '',
-  //   floor: '',
-  //   apartment: '',
-  //   postal_code: ''
-  // };
+  
 
   payWithStripe() {
     console.log('Stripe button clicked');
