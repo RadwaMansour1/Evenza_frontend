@@ -74,12 +74,12 @@ export class EventDetailsComponent implements OnInit {
   }
 
   // New properties based on the second image
-  eventHighlights: string[] = [
-    'Over 50 artists across 5 stages',
-    'Food and drink from top NYC restaurants',
-    'Art installations and interactive experiences',
-    'Family-friendly activities area',
-  ];
+  // eventHighlights: string[] = [
+  //   'Over 50 artists across 5 stages',
+  //   'Food and drink from top NYC restaurants',
+  //   'Art installations and interactive experiences',
+  //   'Family-friendly activities area',
+  // ];
   organizerName = 'NYC Music Productions';
 
   get mapUrl(): string {

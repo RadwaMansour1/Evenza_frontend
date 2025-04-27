@@ -142,6 +142,49 @@
         </select>
       </div>
 
+
+      <div class="mb-6">
+        <label
+          for="eventHighlights"
+          class="block text-sm font-medium text-gray-700 mb-1"
+          >Event Highlights</label
+        >
+        <div class="flex items-center space-x-2 mb-2">
+          <input
+            type="text"
+            id="eventHighlightsInput"
+            name="eventHighlightsInput"
+            [(ngModel)]="currentHighlight"
+            (keyup.enter)="addHighlight()" class="w-full p-2 rounded-md placeholder:text-gray-500 bg-white border-2 border-gray-200 focus:border-purple-500 focus:outline-none focus:ring-0 hover:border-purple-500 sm:text-sm"
+            placeholder="Add a highlight"
+          />
+          <button
+            type="button"
+            (click)="addHighlight()"
+            [disabled]="!currentHighlight.trim()" class="px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            Add
+          </button>
+        </div>
+        <ul *ngIf="eventHighlights.length > 0" class="space-y-2">
+          <li
+            *ngFor="let highlight of eventHighlights; let i = index"
+            class="flex items-center justify-between bg-purple-100 border border-gray-200 rounded-md p-2 text-sm text-gray-800"
+          >
+            <span>{{ highlight }}</span>
+            <button
+              type="button"
+              (click)="removeHighlight(i)"
+              class="text-gray-500 hover:text-red-600 focus:outline-none"
+              title="Remove highlight"
+            >
+               <ng-icon name="heroXMark" size="1em"></ng-icon>
+            </button>
+          </li>
+        </ul>
+        <p *ngIf="eventHighlights.length === 0" class="text-sm text-gray-500 italic">No highlights added yet.</p>
+      </div>
+
       <fieldset class="mb-6 border border-gray-300 p-4 rounded-md">
         <legend class="text-lg font-medium text-gray-800 px-2">Tickets</legend>
 
@@ -263,6 +306,7 @@
             !latitude ||
             !longitude ||
             address === '' ||
+            eventHighlights.length === 0 ||
             !selectedImageFile
           "
           class="px-4 py-2 bg-purple-600 border border-transparent rounded-md shadow-sm text-sm font-medium text-white hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 disabled:opacity-50 disabled:cursor-not-allowed"

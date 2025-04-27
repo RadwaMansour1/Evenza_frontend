@@ -1,14 +1,12 @@
-import {
-  Component,
-  OnInit,
-  OnDestroy,
-  AfterViewInit,
-  NgZone,
-} from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { heroMapPin, heroCheckCircle } from '@ng-icons/heroicons/outline';
+import {
+  heroMapPin,
+  heroCheckCircle,
+  heroXMark,
+} from '@ng-icons/heroicons/outline';
 import { EventService } from '../../../services/event/event.service';
 import { CustomAlertComponent } from '../../shared/custom-alert/custom-alert.component';
 import { LocationPickerComponent } from './location-picker/location-picker.component';
@@ -28,10 +26,11 @@ import { LocationPickerComponent } from './location-picker/location-picker.compo
     provideIcons({
       heroMapPin,
       heroCheckCircle,
+      heroXMark,
     }),
   ],
 })
-export class AddEventComponent  {
+export class AddEventComponent {
   // --- Form Fields ---
   eventTitle: string = '';
   description: string = '';
@@ -53,15 +52,15 @@ export class AddEventComponent  {
     { level: 'Platinum', price: null, quantity: null },
   ];
 
+  currentHighlight: string = ''; // Holds the value of the highlight input field
+  eventHighlights: string[] = []; // Holds the list of added highlights
+
   // alert
   showAlert: boolean = false;
   alertMessage: string = '';
   alertType: any = 'success';
 
-  constructor(
-    private eventService: EventService
-  ) {}
-
+  constructor(private eventService: EventService) {}
 
   // handle on select image
   onFileSelected(event: Event): void {
@@ -80,7 +79,19 @@ export class AddEventComponent  {
     }
   }
 
+  // Method to add a highlight
+  addHighlight(): void {
+    if (this.currentHighlight.trim()) {
+      this.eventHighlights.push(this.currentHighlight.trim());
+      this.currentHighlight = '';
+    }
+    // console.log(this.eventHighlights);
+  }
 
+  // Method to remove a highlight by index
+  removeHighlight(index: number): void {
+    this.eventHighlights.splice(index, 1);
+  }
 
   //  handle location data emitted from LocationPickerComponent
   handleLocationSelected(locationData: {
@@ -127,6 +138,7 @@ export class AddEventComponent  {
     formData.append('latitude', String(this.latitude)); // Convert number to string
     formData.append('longitude', String(this.longitude)); // Convert number to string
     formData.append('file', this.selectedImageFile as Blob);
+    formData.append('eventHighlights', JSON.stringify(this.eventHighlights));
 
     this.eventService.addEvent(formData).subscribe({
       next: (response) => {
@@ -163,6 +175,5 @@ export class AddEventComponent  {
     });
     this.latitude = 29.9792;
     this.longitude = 31.1342;
-
   }
 }

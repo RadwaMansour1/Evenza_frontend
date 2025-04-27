@@ -22,6 +22,7 @@ export interface Event {
   location: Location;
   category: string;
   ticketsAvailable: Ticket[];
+  eventHighlights?: string[];
   isFree: boolean;
   imageUrl: string;
   organizerId: number;
