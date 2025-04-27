@@ -13,34 +13,36 @@
         class="flex overflow-x-auto gap-6 scroll-smooth snap-x snap-mandatory py-10 [scrollbar-width:none] [-ms-overflow-style:none]"
         style="scrollbar-width: none; -ms-overflow-style: none"
       >
-        <div
-          *ngFor="let review of reviews"
-          class="min-w-[300px] max-w-sm bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 text-left snap-start shrink-0"
-        >
-          <!-- Rating -->
-          <div class="flex justify-start mb-4">
-            <ng-container *ngFor="let star of [].constructor(review.rating)">
-              <span class="text-yellow-400">
-                <ng-icon name="heroStarSolid" />
-              </span>
-            </ng-container>
-          </div>
+      <div
+      *ngFor="let review of reviews"
+      class="min-w-[300px] max-w-sm bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 text-left snap-start shrink-0"
+      >
+        <!-- Rating -->
+        <div class="flex justify-start mb-4">
+          <ng-container *ngFor="let star of [].constructor(5); let i = index">
+            <span [ngClass]="{'text-yellow-400': i < review.rating, 'text-gray-300': i >= review.rating}" class="cursor-pointer">
+              <ng-icon [name]="i < review.rating ? 'heroStarSolid' : 'heroStarSolid'" />
+            </span>
+          </ng-container>
+        </div>
+
 
           <!-- Feedback -->
-          <p class="text-base text-gray-600 mt-4 mb-8">{{ review.feedback }}</p>
+          <p class="text-base text-gray-600 mt-4 mb-8">{{ review.comment }}</p>
 
           <!-- User Info -->
           <div class="flex items-center gap-3">
             <img
-              [src]="review.image"
-              alt="{{ review.name }}"
+              *ngIf="review.userId.imageURL"
+              [src]="review.userId.imageURL"
+              alt="{{ review.userId.firstName }} {{ review.userId.lastName }}"
               class="w-12 h-12 rounded-full"
             />
             <div>
               <p class="text-base font-semibold text-gray-900">
-                {{ review.name }}
+                {{ review.userId.firstName }} {{ review.userId.lastName }}
               </p>
-              <p class="text-sm text-gray-500">{{ review.role }}</p>
+              <p class="text-sm text-gray-500">{{ review.userId.userRole }}</p>
             </div>
           </div>
         </div>
