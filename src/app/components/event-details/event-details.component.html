@@ -40,7 +40,7 @@
         <span class="text-purple-400">
           <ng-icon name="featherClock" size="1.1em" />
         </span>
-        {{ event.time }} PM
+        {{ event.time | timeFormat }}
       </span>
       <span class="flex items-center gap-2">
         <span class="text-purple-400">

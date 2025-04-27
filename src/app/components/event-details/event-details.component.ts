@@ -13,6 +13,7 @@ import { EventService } from '../../services/event/event.service';
 import { Event } from '../../models/event.model';
 import { DateFormatPipe } from '../../pipes/date-format.pipe';
 import { CustomAlertComponent } from '../shared/custom-alert/custom-alert.component';
+import { TimeFormatPipe } from '../../pipes/time-format.pipe';
 @Component({
   selector: 'app-event-details',
   imports: [
@@ -20,6 +21,7 @@ import { CustomAlertComponent } from '../shared/custom-alert/custom-alert.compon
     NgIcon,
     RouterModule,
     DateFormatPipe,
+    TimeFormatPipe,
     CustomAlertComponent,
   ],
   templateUrl: './event-details.component.html',
@@ -91,7 +93,7 @@ export class EventDetailsComponent implements OnInit {
   //   this.route.navigate(['/order']);
 
   // }
-  
+
   getTicketNow() {
     throw new Error('Method not implemented.');
   }
