@@ -105,7 +105,13 @@ export class OrderComponent implements OnInit {
 
 
   createOrder() {
-    if (!this.userProfile || !this.event || !this.selectedTicket) return;
+    // if (!this.userProfile || !this.event || !this.selectedTicket) return;
+    if (!this.userProfile) {
+      this.router.navigate(['/login']);
+      return;
+    }
+
+    if (!this.event || !this.selectedTicket) return;
 
     const orderPayload: CreateOrderPayload = {
       userId: this.userProfile._id,
