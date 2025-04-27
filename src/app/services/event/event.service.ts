@@ -7,7 +7,7 @@ import { FilterCriteria } from '../../models/event.model';
   providedIn: 'root',
 })
 export class EventService {
-  private apiUrl = 'http://localhost:3000';
+  private apiUrl = 'http://localhost:3001';
 
   constructor(private httpClient: HttpClient) {}
 
@@ -17,7 +17,6 @@ export class EventService {
     limit: number = 6,
     filters: FilterCriteria = {}
   ): Observable<any> {
-
     let params = new HttpParams();
 
     console.log(filters);
@@ -49,5 +48,17 @@ export class EventService {
 
   getEventById(id: string): Observable<any> {
     return this.httpClient.get<any>(`${this.apiUrl}/events/${id}`);
+  }
+
+  addEvent(eventData: any): Observable<any> {
+    return this.httpClient.post<any>(
+      `${this.apiUrl}/organizer/events`,
+      eventData,
+      {
+        headers: {
+          accept: 'application/json',
+        },
+      }
+    );
   }
 }

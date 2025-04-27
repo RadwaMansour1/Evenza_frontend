@@ -3,7 +3,6 @@ import {
   OnInit,
   OnDestroy,
   AfterViewInit,
-  ChangeDetectorRef,
   NgZone,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -12,11 +11,13 @@ import * as L from 'leaflet';
 import { GeocodingService } from '../../../services/event/geocoding.service';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { heroMapPin, heroCheckCircle } from '@ng-icons/heroicons/outline';
+import { EventService } from '../../../services/event/event.service';
+import { CustomAlertComponent } from '../../shared/custom-alert/custom-alert.component';
 
 @Component({
   selector: 'app-add-event',
   standalone: true,
-  imports: [CommonModule, FormsModule, NgIcon],
+  imports: [CommonModule, FormsModule, NgIcon, CustomAlertComponent],
   templateUrl: './add-event.component.html',
   styleUrls: ['./add-event.component.css'],
   providers: [
@@ -33,18 +34,18 @@ export class AddEventComponent implements OnInit, AfterViewInit, OnDestroy {
   eventDate: string = '';
   eventTime: string = '';
   address: string = '';
+  city: string = '';
   category: string = '';
   isFreeEvent: boolean = false;
   selectedImagePreview: string | ArrayBuffer | null = null;
-
-  // Main form location data
+  selectedImageFile: File | null = null;
   latitude: number | null = 29.9792; // Default Latitude (Giza)
   longitude: number | null = 31.1342; // Default Longitude (Giza)
 
   // --- Ticket Data ---
   ticketTypes = [
-    { level: 'Golden', price: null, quantity: null },
     { level: 'Silver', price: null, quantity: null },
+    { level: 'Golden', price: null, quantity: null },
     { level: 'Platinum', price: null, quantity: null },
   ];
 
@@ -54,7 +55,6 @@ export class AddEventComponent implements OnInit, AfterViewInit, OnDestroy {
   private dialogMarker: L.Marker | null = null; // Initialize as null
   dialogLatitude: number | null = this.latitude; // Temporary lat for dialog
   dialogLongitude: number | null = this.longitude; // Temporary lng for dialog
-  locationSearchQuery: string = ''; // For the address search input
 
   // --- Leaflet Map for Main Form ---
   private map: L.Map | null = null; // Initialize as null
@@ -71,10 +71,15 @@ export class AddEventComponent implements OnInit, AfterViewInit, OnDestroy {
     shadowSize: [41, 41],
   });
 
+  // alert
+  showAlert: boolean = false;
+  alertMessage: string = '';
+  alertType: any = 'success';
+
   constructor(
-    private cdr: ChangeDetectorRef,
     private zone: NgZone,
-    private geocodingService: GeocodingService
+    private geocodingService: GeocodingService,
+    private eventService: EventService
   ) {}
 
   ngOnInit(): void {
@@ -215,11 +220,13 @@ export class AddEventComponent implements OnInit, AfterViewInit, OnDestroy {
 
     if (fileList && fileList[0]) {
       const file = fileList[0];
+      this.selectedImageFile = file;
       const reader = new FileReader();
       reader.onload = (e) => (this.selectedImagePreview = reader.result);
       reader.readAsDataURL(file);
     } else {
       this.selectedImagePreview = null;
+      this.selectedImageFile = null;
     }
   }
 
@@ -250,14 +257,12 @@ export class AddEventComponent implements OnInit, AfterViewInit, OnDestroy {
 
   closeLocationDialog(): void {
     this.isLocationDialogOpen = false;
-    // Optional: Clean up dialog map instance when closing to free up resources
+    //  Clean up dialog map instance when closing to free up resources
     if (this.dialogMap) {
       this.dialogMap.remove();
       this.dialogMap = null;
       this.dialogMarker = null;
     }
-    // Keeping the map instance might be faster if dialog is opened frequently,
-    // just ensure invalidateSize is called on open.
   }
 
   // Uses browser's Geolocation API to find user's location and update dialog map
@@ -305,7 +310,6 @@ export class AddEventComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  // Confirms the selected location in the dialog and updates the main form
   confirmLocation(): void {
     if (this.dialogMarker) {
       const selectedLatLng = this.dialogMarker.getLatLng();
@@ -317,6 +321,7 @@ export class AddEventComponent implements OnInit, AfterViewInit, OnDestroy {
         .subscribe((addressResult) => {
           console.log('Address Result:', addressResult);
           this.address = addressResult.display_name;
+          this.city = addressResult.address.city;
           console.log('Location Address:', this.address);
         });
 
@@ -342,7 +347,6 @@ export class AddEventComponent implements OnInit, AfterViewInit, OnDestroy {
       setTimeout(() => this.map?.invalidateSize(), 50);
     } else if (this.map && this.marker) {
       // Handle case where lat/lng might be null (e.g., on initial load if no default)
-      // Optionally remove or hide marker, or set to a default view.
       console.warn(
         'Latitude or Longitude is null, cannot update main map marker.'
       );
@@ -350,29 +354,44 @@ export class AddEventComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   onSubmit(): void {
-    console.log('Form Submitted!');
-    console.log('Event Title:', this.eventTitle);
-    console.log('Description:', this.description);
-    console.log('Date:', this.eventDate);
-    console.log('Time:', this.eventTime);
-    console.log('Address:', this.address);
-    console.log('Latitude:', this.latitude); // These will now only come from the dialog
-    console.log('Longitude:', this.longitude); // These will now only come from the dialog
-    console.log('Category:', this.category);
-    console.log('Is Free:', this.isFreeEvent);
-    if (!this.isFreeEvent) {
-      console.log('Tickets:', this.ticketTypes);
+    if (this.selectedImageFile == null) {
+      this.alertMessage = 'Please select an image';
+      this.showAlert = true;
+      this.alertType = 'error';
     }
-    console.log(
-      'Image Preview Data URL (or null):',
-      this.selectedImagePreview ? 'Exists' : 'null'
-    );
-    // TODO: Implement actual form submission logic (e.g., send data to a backend service)
+    const formData = new FormData();
+    formData.append('title', this.eventTitle);
+    formData.append('description', this.description);
+    formData.append('date', this.eventDate);
+    formData.append('time', this.eventTime);
+    formData.append('address', this.address);
+    formData.append('city', this.city);
+    formData.append('category', this.category);
+    formData.append('isFree', String(this.isFreeEvent)); // Convert to string if boolean
+    formData.append('ticketsAvailable', JSON.stringify(this.ticketTypes)); // Convert array to string
+    formData.append('latitude', String(this.latitude)); // Convert number to string
+    formData.append('longitude', String(this.longitude)); // Convert number to string
+    formData.append('file', this.selectedImageFile as Blob);
+
+    this.eventService.addEvent(formData).subscribe({
+      next: (response) => {
+        console.log('Event created successfully', response);
+        this.alertMessage = 'Event created successfully';
+        this.showAlert = true;
+        this.onCancel();
+      },
+      error: (err) => {
+        this.alertMessage =
+          'Sorry, we encountered an issue. Please try again later.';
+        this.showAlert = true;
+        this.alertType = 'error';
+        console.error('Error creating event', err);
+      },
+    });
   }
 
   onCancel(): void {
     console.log('Form Cancelled');
-    // Reset form fields
     this.eventTitle = '';
     this.description = '';
     this.eventDate = '';
@@ -391,8 +410,6 @@ export class AddEventComponent implements OnInit, AfterViewInit, OnDestroy {
     this.dialogLatitude = this.latitude; // Reset dialog values too
     this.dialogLongitude = this.longitude;
     this.updateMapFromInputs(); // Update the main map display
-
-    // Close dialog if open
     this.closeLocationDialog();
   }
 }
