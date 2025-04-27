@@ -7,7 +7,7 @@ import { FilterCriteria } from '../../models/event.model';
   providedIn: 'root',
 })
 export class EventService {
-  private apiUrl = 'http://localhost:3001';
+  private apiUrl = 'http://localhost:3000';
 
   constructor(private httpClient: HttpClient) {}
 
