@@ -1,7 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ActivatedRoute, NavigationEnd, NavigationStart, Router } from '@angular/router';
-import { AuthService } from '../../services/auth/auth.service';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import {
+  ActivatedRoute,
+  NavigationEnd,
+  NavigationStart,
+  Router,
+} from '@angular/router';
+import { AuthService } from '../../../services/auth/auth.service';
 
 @Component({
   selector: 'app-verify-email',
@@ -23,12 +33,10 @@ export class VerifyEmailComponent implements OnInit {
     private route: ActivatedRoute,
     private fb: FormBuilder,
     private authService: AuthService,
-    private router: Router,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
-
-
     this.verificationForm = this.fb.group({
       digit1: ['', [Validators.required]],
       digit2: ['', [Validators.required]],
@@ -47,17 +55,20 @@ export class VerifyEmailComponent implements OnInit {
     const [local, domain] = email.split('@');
     return `${local.slice(0, 2)}**@${domain}`;
   }
-  
+
   onSubmit() {
     console.log('Verifying email:', this.email);
     if (this.verificationForm.valid) {
       const code = Object.values(this.verificationForm.value).join('');
       this.authService.verifyCode(this.email, code).subscribe({
         next: (res) => {
-          console.log("accessToken =>", res.data?.accessToken);
+          // console.log(res);
+          // console.log('accessToken =>', res.data?.accessToken);
           sessionStorage.setItem('accessToken', res.data?.accessToken);
-  
-          this.router.navigate(['/Home'], { queryParams: { email: this.email } });
+          sessionStorage.setItem('userRole', res.data?.user.userRole);
+          if (res.data?.user.userRole == 'user')
+            this.router.navigate(['/home']);
+          else this.router.navigate(['/organizer/dashboard']);
         },
         error: () => {
           this.errorCount++;
@@ -66,8 +77,7 @@ export class VerifyEmailComponent implements OnInit {
       });
     }
   }
-  
-  
+
   resendCode() {
     if (this.isResendDisabled) return;
     this.authService.resendCode(this.email).subscribe(() => {
@@ -100,16 +110,15 @@ export class VerifyEmailComponent implements OnInit {
         digit3: pastedText[2],
         digit4: pastedText[3],
       });
-  
+
       setTimeout(() => {
         this.onSubmit();
       }, 200);
     }
-  
 
     event.preventDefault();
   }
-  
+
   onKeyUp(event: KeyboardEvent, nextInput: HTMLInputElement) {
     if ((event.target as HTMLInputElement).value.length === 1) {
       nextInput.focus();

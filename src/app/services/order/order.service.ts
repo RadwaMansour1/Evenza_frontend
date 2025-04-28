@@ -1,4 +1,3 @@
-// src/app/services/order/order.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -30,6 +29,10 @@ export class OrderService {
 
   createOrder(orderData: Partial<CreateOrderPayload>): Observable<Order> {
     return this.http.post<Order>(this.apiUrl, orderData);
+  }
+
+  confirmPayment(orderId: string): Observable<Order> {
+    return this.http.post<Order>(`${this.apiUrl}/confirm-payment/${orderId}`, {});
   }
 
   updateOrder(orderId: string, updateData: Partial<Order>): Observable<Order> {

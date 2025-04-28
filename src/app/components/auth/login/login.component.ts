@@ -1,20 +1,30 @@
-declare var google:any;
-
+declare var google: any;
 import { Component, inject, type OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
-import { Validators, FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { LoginRequest } from '../../models/login.model';
+import {
+  Validators,
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import { LoginRequest } from '../../../models/login.model';
 import { CommonModule } from '@angular/common';
 import { NgIconsModule } from '@ng-icons/core';
-import { AuthService } from '../../services/auth/auth.service';
+import { AuthService } from '../../../services/auth/auth.service';
 import { TranslateModule } from '@ngx-translate/core';
-import { LanguageService } from '../../services/language/language.service';
+import { LanguageService } from '../../../services/language/language.service';
 
 @Component({
   selector: 'app-login',
-  imports: [ RouterModule,ReactiveFormsModule,CommonModule,NgIconsModule,TranslateModule],
+  imports: [
+    RouterModule,
+    ReactiveFormsModule,
+    CommonModule,
+    NgIconsModule,
+    TranslateModule,
+  ],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  styleUrl: './login.component.css',
 })
 export class LoginComponent implements OnInit {
   private router = inject(Router);
@@ -24,18 +34,22 @@ export class LoginComponent implements OnInit {
   currentLang: 'en' | 'ar' = 'en';
   textArray = 'Evenza'.split('');
 
-  constructor(private fb: FormBuilder,private authService: AuthService,private languageService: LanguageService) {
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private languageService: LanguageService
+  ) {
     this.currentLang = this.languageService.getCurrentLanguage();
     this.signInForm = this.fb.group({
-      email: ['',[Validators.required, Validators.email]],
-      password: ['',[Validators.required, Validators.minLength(8)]],
-      rememberMe: [false]
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(8)]],
+      rememberMe: [false],
     });
-   }
+  }
 
   ngOnInit(): void {
-
-    const userData = localStorage.getItem('userData') || sessionStorage.getItem('userData');
+    const userData =
+      localStorage.getItem('userData') || sessionStorage.getItem('userData');
     if (userData) {
       const user = JSON.parse(userData);
       this.router.navigate(['/profile']);
@@ -44,17 +58,18 @@ export class LoginComponent implements OnInit {
     }
 
     google.accounts.id.initialize({
-      client_id: '153826849194-115il10f9m3v1ddcdb0bd161t2v70pih.apps.googleusercontent.com',
-      callback: (resp: any)=> this.loginWithGoogle(resp)}
-    );
+      client_id:
+        '153826849194-115il10f9m3v1ddcdb0bd161t2v70pih.apps.googleusercontent.com',
+      callback: (resp: any) => this.loginWithGoogle(resp),
+    });
 
-    google.accounts.id.renderButton(document.getElementById('google-btn'),{
+    google.accounts.id.renderButton(document.getElementById('google-btn'), {
       theme: 'filled_blue',
       size: 'large',
       width: 300,
       text: 'signin_with',
       shape: 'rectangular',
-      logo_alignment: 'left'
+      logo_alignment: 'left',
     });
 
     this.signInForm.valueChanges.subscribe(() => {
@@ -82,21 +97,19 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  loginWithGoogle(response: any){
-    if(response){
+  loginWithGoogle(response: any) {
+    if (response) {
       const payload = this.decodeToken(response.credential);
       sessionStorage.setItem('userData', JSON.stringify(payload));
       this.router.navigate(['/profile']);
-
     }
   }
 
-
-  onSubmit(){
+  onSubmit() {
     if (this.signInForm.valid) {
       const loginData: LoginRequest = {
         email: this.signInForm.value.email,
-        password: this.signInForm.value.password
+        password: this.signInForm.value.password,
       };
 
       this.authService.login(loginData).subscribe(
@@ -112,15 +125,16 @@ export class LoginComponent implements OnInit {
             }
 
             const payload = this.decodeToken(token);
+            console.log(payload);
+
             if (this.signInForm.value.rememberMe) {
               localStorage.setItem('userData', JSON.stringify(payload));
             } else {
               sessionStorage.setItem('userData', JSON.stringify(payload));
             }
+            if (payload.role == 'user') this.router.navigate(['/profile']);
+            else this.router.navigate(['/organizer/dashboard']);
           }
-
-          this.router.navigate(['/profile']);
-
         },
         (error) => {
           if (error.status === 401) {

@@ -62,6 +62,7 @@
       Upload Documents
     </button> -->
     <button
+    (click)="viewAddEvent()"
       class="flex items-center px-4 py-2 text-sm font-medium text-white bg-purple-600 border border-transparent rounded-md shadow-sm hover:bg-purple-700 transition-all duration-300 group"
     >
       <ng-icon name="heroPlus" class="mr-2 group-hover:animate-bounce"></ng-icon>
@@ -80,7 +81,7 @@
           {{ stat.title }}
         </h3>
         <button class="text-gray-500">
-          <ng-icon [name]="stat.icon" class="w-5 h-5"></ng-icon> 
+          <ng-icon [name]="stat.icon" class="w-5 h-5"></ng-icon>
         </button>
       </div>
       <p class="text-2xl font-semibold text-gray-800">{{ stat.value }}</p>

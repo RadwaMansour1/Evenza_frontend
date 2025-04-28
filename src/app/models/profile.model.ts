@@ -24,6 +24,7 @@ export interface Profile {
   verificationCode: string;
   verificationCodeExpiration: string;
   role: string;
+  imageURL?: string;
   __v?: number;
 }
 
