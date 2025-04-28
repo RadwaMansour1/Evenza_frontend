@@ -181,6 +181,8 @@ export class AddEventComponent {
     });
     this.latitude = 29.9792;
     this.longitude = 31.1342;
+    this.currentHighlight = '';
+    this.eventHighlights = [];
   }
 
   private decodeToken(token: string): any {
