@@ -12,6 +12,7 @@ import {
   heroPlus,
 } from '@ng-icons/heroicons/outline';
 import { Router } from '@angular/router';
+import { AuthService } from '../../../services/auth/auth.service';
 @Component({
   selector: 'app-organizer-dashboard',
   standalone: true,
@@ -66,7 +67,7 @@ export class OrganizerDashboardComponent implements OnInit {
     },
   ];
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private authService: AuthService) {}
 
   ngOnInit(): void {
     // You might fetch real data here in a real application
@@ -83,6 +84,6 @@ export class OrganizerDashboardComponent implements OnInit {
     this.router.navigate(['/organizer/add-event']);
   }
   logout() {
-    console.log('Logging out...');
+    this.authService.logout();
   }
 }

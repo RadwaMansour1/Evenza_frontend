@@ -60,7 +60,13 @@ export class AddEventComponent {
   alertMessage: string = '';
   alertType: any = 'success';
 
-  constructor(private eventService: EventService) {}
+  constructor(private eventService: EventService) {
+    console.log(sessionStorage.getItem('access_token'));
+    let token = sessionStorage.getItem('access_token');
+    const payload = this.decodeToken(token!);
+    console.log(payload);
+
+  }
 
   // handle on select image
   onFileSelected(event: Event): void {
@@ -175,5 +181,18 @@ export class AddEventComponent {
     });
     this.latitude = 29.9792;
     this.longitude = 31.1342;
+  }
+
+  private decodeToken(token: string): any {
+    if (!token || typeof token !== 'string' || token.split('.').length !== 3) {
+      console.error('Invalid token format', token);
+      return null;
+    }
+    try {
+      return JSON.parse(atob(token.split('.')[1]));
+    } catch (error) {
+      console.error('Error decoding token', error);
+      return null;
+    }
   }
 }
