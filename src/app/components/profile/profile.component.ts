@@ -1,15 +1,30 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { SideBarComponent } from "../side-bar/side-bar.component";
-import { PersonalInformationComponent } from "../personal-information/personal-information.component";
-import { HelpCenterComponent } from "../help-center/help-center.component";
-import { RouterOutlet } from '@angular/router';
+import { RouterModule,  Router } from '@angular/router';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { heroUser, heroCalendar, heroTicket ,heroHeart } from '@ng-icons/heroicons/outline';
+import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-profile',
-  imports: [RouterOutlet, SideBarComponent],
+  standalone: true,
+  imports: [CommonModule, RouterModule, NgIcon],
   templateUrl: './profile.component.html',
-  styleUrl: './profile.component.css'
+  styleUrls: ['./profile.component.css'],
+  viewProviders: [
+    provideIcons({ heroUser, heroCalendar, heroTicket }),
+  ]
 })
 export class ProfileComponent {
+  navLinks = [
+    { label: 'Account Information', path: '/profile/personal-information', icon: 'heroUser' },
+    { label: 'Profile Settings', path: '/profile/new-password', icon: 'heroCalendar' },
+    { label: 'Log Out', path: '/tickets', icon: 'heroTicket' },
+  ];
 
+  constructor(private router: Router, private authService:AuthService) {}
+  signOut() {
+    this.authService.logout();
+    this.router.navigate(['/login']);
+  }
 }

@@ -84,6 +84,7 @@
           />
           <span>{{ currentLang === "en" ? "English" : "العربية" }}</span>
         </button>
+        
         <!-- User -->
         <div class="relative inline-block">
           <button
@@ -227,10 +228,12 @@
             <span
               class="text-gray-900 group-hover:text-purple-500 group-[.active-link]:text-purple-500"
             >
-              {{ item.name | translate }}
-            </span>
-          </div>
+            {{ item.name | translate }}
+          </span>
+
         </div>
+      </div>
+  
       </div>
     </div>
   </div>

@@ -57,7 +57,7 @@ export class VerifyEmailComponent implements OnInit {
           console.log("accessToken =>", res.data?.accessToken);
           sessionStorage.setItem('accessToken', res.data?.accessToken);
   
-          this.router.navigate(['/Home'], { queryParams: { email: this.email } });
+          this.router.navigate(['/home'], { queryParams: { email: this.email } });
         },
         error: () => {
           this.errorCount++;

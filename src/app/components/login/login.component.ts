@@ -89,7 +89,7 @@ export class LoginComponent implements OnInit {
       //store in the session storage 
       sessionStorage.setItem('userData', JSON.stringify(payload));
       //navigate to test page
-      this.router.navigate(['/profile']);
+      this.router.navigate(['/home']);
       //send the token to the server for verification
 
     }
@@ -113,13 +113,15 @@ export class LoginComponent implements OnInit {
 
           // إذا تم تفعيل "Remember me"، خزن البيانات في localStorage
           if (this.signInForm.value.rememberMe) {
+            localStorage.setItem('authToken', token);
             localStorage.setItem('userData', JSON.stringify(payload));
           } else {
+            sessionStorage.setItem('authToken', token);
             sessionStorage.setItem('userData', JSON.stringify(payload));
           }
 
           // الانتقال إلى الصفحة التالية
-          this.router.navigate(['/profile']);
+          this.router.navigate(['/home']);
 
         },
         (error) => {

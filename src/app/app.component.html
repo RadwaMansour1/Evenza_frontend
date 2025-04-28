@@ -1,13 +1,26 @@
 <!-- <div class="bg-white min-h-screen flex flex-col justify-between"> -->
-  <app-snackbar></app-snackbar>
-  <app-nav-bar></app-nav-bar>
+  <!-- <app-snackbar></app-snackbar>
+  <app-nav-bar></app-nav-bar> -->
   <!-- <main class="flex-grow">
   </main>
   <app-footer></app-footer> -->
   <!-- </div> -->
 <!-- <app-home></app-home> -->
  <!-- <app-event-details></app-event-details> -->
- <router-outlet></router-outlet>
+ <!-- <router-outlet></router-outlet> -->
  <!-- <app-payment></app-payment> -->
  <!-- <app-refund></app-refund> -->
- <app-footer></app-footer>
+ <!-- <app-footer></app-footer> -->
+
+
+ <!-- app.component.html -->
+<div class="bg-white min-h-screen flex flex-col justify-between">
+  <app-snackbar></app-snackbar>
+  <app-nav-bar></app-nav-bar>
+  
+  <main class="flex-grow">
+    <router-outlet></router-outlet> <!-- المكونات ستظهر هنا، مثل ProfileComponent أو HomeComponent -->
+  </main>
+  
+  <app-footer></app-footer>
+</div>

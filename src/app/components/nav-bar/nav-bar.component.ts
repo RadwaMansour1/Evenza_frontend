@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, HostListener } from '@angular/core';
-import { RouterLinkActive, RouterModule } from '@angular/router';
+import { RouterLinkActive, RouterModule,  Router } from '@angular/router';
 import { NgIcon, provideIcons, provideNgIconsConfig } from '@ng-icons/core';
 import {
   heroTicket,
@@ -15,6 +15,7 @@ import {
 } from '@ng-icons/heroicons/outline';
 import { LanguageService } from '../../services/language/language.service';
 import { TranslateModule } from '@ngx-translate/core';
+import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-nav-bar',
@@ -45,6 +46,9 @@ import { TranslateModule } from '@ngx-translate/core';
   ],
 })
 export class NavBarComponent {
+
+
+
   isMenuOpen = false;
   isMenuUserOpen = false;
   navLinks = [
@@ -69,8 +73,13 @@ export class NavBarComponent {
     },
   ];
   currentLang: 'en' | 'ar' = 'en';
-  constructor(private languageService: LanguageService) {
+  constructor(private languageService: LanguageService,private router: Router, private authService:AuthService) {
     this.currentLang = this.languageService.getCurrentLanguage();
+  }
+  // method for logOut button
+  signOut() {
+    this.authService.logout();
+    this.router.navigate(['/login']);
   }
 
   toggleMenu() {

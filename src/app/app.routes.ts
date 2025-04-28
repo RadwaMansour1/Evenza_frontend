@@ -13,7 +13,6 @@ import { ForgotPasswordComponent } from './components/forgot-password/forgot-pas
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { TermsConditionsComponent } from './components/terms-conditions/terms-conditions.component';
 import { HelpCenterComponent } from './components/help-center/help-center.component';
-import { PersonalInformationComponent } from './components/personal-information/personal-information.component';
 import { authGuard } from './guards/auth.guard';
 import { ProfileComponent } from './components/profile/profile.component';
 import { SelectRoleComponent } from './components/select-role/select-role.component';
@@ -22,6 +21,7 @@ import { FaqComponent } from './components/faq/faq.component';
 import { MyTicketsComponent } from './components/my-tickets/my-tickets.component';
 import { LoginComponent } from './components/login/login.component';
 import { SetNewPasswordComponent } from './components/set-new-password/set-new-password.component';
+import { PersonalInformationComponent } from './components/personal-information/personal-information.component';
 
 export const routes: Routes = [
   {
@@ -91,14 +91,8 @@ export const routes: Routes = [
   },
   {
     path: 'reset-password',
-    component: ResetPasswordComponent,
-    title: 'Reset Password',
-    canActivate: [],
-  },
-  {
-    path: 'new-password',
     component: SetNewPasswordComponent,
-    title: 'New Password',
+    title: 'Reset Password',
     canActivate: [],
   },
   {
@@ -116,6 +110,12 @@ export const routes: Routes = [
         path: 'personal-information',
         component: PersonalInformationComponent,
         title: 'Personal Information',
+      },
+      {
+        path: 'new-password',
+        component: ResetPasswordComponent,
+        title: 'New Password',
+        canActivate: [],
       },
       {
         path: 'help-center',
