@@ -10,6 +10,7 @@ export class GeocodingService {
 
   constructor(private http: HttpClient) {}
 
+  // convert from lat long to address
   reverseGeocode(lat: number, lon: number): Observable<any> {
     const params = new HttpParams()
       .set('lat', lat.toString())
@@ -17,6 +18,14 @@ export class GeocodingService {
       .set('format', 'json')
       .set('email', 'omarasmaa241@gmail.com'); // Important for Nominatim rules
 
-    return this.http.get<any>(this.apiUrl, {  params });
+    return this.http.get<any>(this.apiUrl, { params });
+  }
+
+  // covert from address to lat long
+  geocode(address: string): Observable<any> {
+    const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(
+      address
+    )}`;
+    return this.http.get(url);
   }
 }
