@@ -67,19 +67,42 @@
           <span class="font-semibold">Other</span>
         </label>
 
-        <div class="flex flex-col gap-1.5">
-          <h3 class="text-lg font-semibold">Refund Method</h3>
-          <span class="flex flex-col border-1 border-gray-200 rounded-lg p-4">
-            <span class="flex items-center gap-3">
-              <ng-icon name="heroCreditCard" class="text-xl" color="gray" />
-              <h2 class="text-xl font-semibold">Original Payment Method</h2>
-            </span>
-            <h3 class="text-gray-700">
-              Refund will be processed to the original payment method used for
-              purchase
-            </h3>
-          </span>
-        </div>
+        <!-- Refund Method Selection -->
+                <div class="flex flex-col gap-1.5">
+                  <h3 class="text-lg font-semibold">Refund Method</h3>
+                  <label class="flex flex-col border-1 border-gray-200 rounded-lg p-4 cursor-pointer">
+                    <span class="flex items-center gap-3">
+                      <input
+                        type="radio"
+                        name="refundMethod"
+                        value="original"
+                        class="accent-purple-500"
+                        [(ngModel)]="refundMethod"
+                      />
+                      <ng-icon name="heroCreditCard" class="text-xl" color="gray" />
+                      <h2 class="text-xl font-semibold">Original Payment Method</h2>
+                    </span>
+                    <h3 class="text-gray-700">
+                      Refund will be processed to the original payment method used for purchase
+                    </h3>
+                  </label>
+                  <label class="flex flex-col border-1 border-gray-200 rounded-lg p-4 cursor-pointer">
+                    <span class="flex items-center gap-3">
+                      <input
+                        type="radio"
+                        name="refundMethod"
+                        value="wallet"
+                        class="accent-purple-500"
+                        [(ngModel)]="refundMethod"
+                      />
+                      <ng-icon name="heroCreditCard" class="text-xl" color="gray" />
+                      <h2 class="text-xl font-semibold">Eventure Wallet</h2>
+                    </span>
+                    <h3 class="text-gray-700">
+                      Refund will be credited to your Eventure Account for future purchases
+                    </h3>
+                  </label>
+                </div>
         <span
           class="flex flex-col border-1 border-gray-200 rounded-lg p-4 bg-gray-100"
         >

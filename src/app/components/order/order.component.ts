@@ -128,9 +128,10 @@ export class OrderComponent implements OnInit {
     };
 
     this.orderService.createOrder(orderPayload).subscribe({
-      next: (res) => {
+      next: (res: any) => { // <-- Accept any type for res
         console.log('Order created:', res);
-        this.router.navigate(['/payment']);
+        // Access orderId from res.data._id
+        this.router.navigate(['/payment'], { queryParams: { orderId: res.data._id } });
       },
       error: (err) => {
         console.error('Error creating order', err);

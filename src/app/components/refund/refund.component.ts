@@ -31,6 +31,7 @@ import {
 })
 export class RefundComponent {
   refundReason: string = '';
+  refundMethod:string = "";
   date: string = new Date().toDateString();
   startTime: string = '09:00 PM';
   endTime: string = '11:00 PM';
