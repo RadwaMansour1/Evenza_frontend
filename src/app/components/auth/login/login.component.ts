@@ -1,5 +1,4 @@
 declare var google: any;
-
 import { Component, inject, type OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import {
@@ -126,14 +125,16 @@ export class LoginComponent implements OnInit {
             }
 
             const payload = this.decodeToken(token);
+            console.log(payload);
+
             if (this.signInForm.value.rememberMe) {
               localStorage.setItem('userData', JSON.stringify(payload));
             } else {
               sessionStorage.setItem('userData', JSON.stringify(payload));
             }
+            if (payload.role == 'user') this.router.navigate(['/profile']);
+            else this.router.navigate(['/organizer/dashboard']);
           }
-
-          this.router.navigate(['/profile']);
         },
         (error) => {
           if (error.status === 401) {
