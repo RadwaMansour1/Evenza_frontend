@@ -1,0 +1,396 @@
+<div
+  class="min-h-screen bg-gradient-to-b from-white to-[#f5f3ff] overflow-auto mt-17"
+>
+  <div
+    class="text-center bg-gradient-to-r bg-violet-600 to-violet-300 min-h-[180px] sm:p-6 p-4"
+  >
+    <h4 class="sm:text-3xl text-2xl text-white font-medium mt-3">
+      Create your free account
+    </h4>
+  </div>
+  <!-- form -->
+  <div class="mx-4 mb-4 -mt-20">
+    <form
+      class="max-w-4xl mx-auto bg-white shadow-[0_2px_13px_-6px_rgba(0,0,0,0.4)] sm:p-8 p-4 rounded-md"
+      [formGroup]="signUpForm"
+      (ngSubmit)="onSubmit()"
+    >
+      <div class="grid sm:grid-cols-2 gap-6">
+        <div class="flex justify-center items-center w-full">
+          <app-google-auth-button
+            [clientId]="googleClientId"
+            [callback]="signupWithGoogle.bind(this)"
+          >
+          </app-google-auth-button>
+        </div>
+
+        <button
+          (click)="signupWithFacebook()"
+          class="flex justify-center items-center bg-white border text-[#4460A0] border-gray-300 rounded-lg shadow-md px-6 py-2 text-sm font-medium hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
+        >
+          <svg
+            class="h-6 w-6 mr-2"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            viewBox="0 0 48 48"
+            version="1.1"
+          >
+            <g
+              id="Icons"
+              stroke="none"
+              stroke-width="1"
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <g
+                id="Color-"
+                transform="translate(-200.000000, -160.000000)"
+                fill="#4460A0"
+              >
+                <path
+                  d="M225.638355,208 L202.649232,208 C201.185673,208 200,206.813592 200,205.350603 L200,162.649211 C200,161.18585 201.185859,160 202.649232,160 L245.350955,160 C246.813955,160 248,161.18585 248,162.649211 L248,205.350603 C248,206.813778 246.813769,208 245.350955,208 L233.119305,208 L233.119305,189.411755 L239.358521,189.411755 L240.292755,182.167586 L233.119305,182.167586 L233.119305,177.542641 C233.119305,175.445287 233.701712,174.01601 236.70929,174.01601 L240.545311,174.014333 L240.545311,167.535091 C239.881886,167.446808 237.604784,167.24957 234.955552,167.24957 C229.424834,167.24957 225.638355,170.625526 225.638355,176.825209 L225.638355,182.167586 L219.383122,182.167586 L219.383122,189.411755 L225.638355,189.411755 L225.638355,208 L225.638355,208 Z"
+                  id="Facebook"
+                ></path>
+              </g>
+            </g>
+          </svg>
+
+          <span>Continue with Facebook</span>
+        </button>
+      </div>
+      <div class="relative flex items-center py-5">
+        <div class="flex-grow border-t border-[#e9e3ff]"></div>
+        <span class="flex-shrink mx-4 text-[#8E9196]"
+          >Or sign up with email</span
+        >
+        <div class="flex-grow border-t border-[#e9e3ff]"></div>
+      </div>
+      <!-- inputs -->
+      <div class="grid sm:grid-cols-2 gap-8">
+        <!-- first name -->
+        <div>
+          <label class="text-md font-medium mb-2 block text-[#1A1F2C]"
+            >First Name</label
+          >
+          <input
+            name="name"
+            type="text"
+            class="bg-slate-100 w-full text-sm text-slate-800 px-4 py-2.5 rounded border focus:border-blue-600 outline-none transition-all focus:bg-transparent border-[#e9e3ff] focus-visible:ring-[#9b87f5]"
+            formControlName="firstName"
+            placeholder="Enter name"
+          />
+          <div
+            *ngIf="
+              signUpForm.get('firstName')?.touched &&
+              signUpForm.get('firstName')?.errors
+            "
+            class="text-red-600 font-bold text-sm mt-2 ml-0.5"
+          >
+            <ng-container
+              *ngIf="signUpForm.get('firstName')?.errors?.['required']"
+              >First name is required</ng-container
+            >
+            <ng-container
+              *ngIf="signUpForm.get('firstName')?.errors?.['minlength']"
+              >First name must be at least 3 characters long</ng-container
+            >
+            <ng-container
+              *ngIf="signUpForm.get('firstName')?.errors?.['maxlength']"
+              >First name cannot exceed 20 characters</ng-container
+            >
+            <ng-container
+              *ngIf="signUpForm.get('firstName')?.errors?.['pattern']"
+            >
+              First name must contain letters only (no numbers or special
+              characters)
+            </ng-container>
+          </div>
+        </div>
+        <!-- last name -->
+        <div>
+          <label class="text-md font-medium mb-2 block text-[#1A1F2C]"
+            >Last Name</label
+          >
+          <input
+            name="lname"
+            type="text"
+            class="bg-slate-100 w-full text-sm text-slate-800 px-4 py-2.5 rounded border focus:border-blue-600 outline-none transition-all focus:bg-transparent border-[#e9e3ff] focus-visible:ring-[#9b87f5]"
+            formControlName="lastName"
+            placeholder="Enter last name"
+          />
+          <div
+            *ngIf="
+              signUpForm.get('lastName')?.touched &&
+              signUpForm.get('lastName')?.errors
+            "
+            class="text-red-600 font-bold text-sm mt-2 ml-0.5"
+          >
+            <ng-container
+              *ngIf="signUpForm.get('lastName')?.errors?.['required']"
+              >Last name is required</ng-container
+            >
+            <ng-container
+              *ngIf="signUpForm.get('lastName')?.errors?.['minlength']"
+              >Last name must be at least 3 characters long</ng-container
+            >
+            <ng-container
+              *ngIf="signUpForm.get('lastName')?.errors?.['maxlength']"
+              >Last name cannot exceed 20 characters</ng-container
+            >
+            <ng-container
+              *ngIf="signUpForm.get('firstName')?.errors?.['pattern']"
+            >
+              Second name must contain letters only (no numbers or special
+              characters)
+            </ng-container>
+          </div>
+        </div>
+        <!-- email id -->
+        <div>
+          <label class="text-md font-medium mb-2 block text-[#1A1F2C]"
+            >Email</label
+          >
+          <input
+            name="email"
+            type="text"
+            class="bg-slate-100 w-full text-sm text-slate-800 px-4 py-2.5 rounded border focus:border-blue-600 outline-none transition-all focus:bg-transparent border-[#e9e3ff] focus-visible:ring-[#9b87f5]"
+            formControlName="email"
+            placeholder="Enter email"
+          />
+          <div
+            *ngIf="
+              signUpForm.get('email')?.touched &&
+              signUpForm.get('email')?.errors
+            "
+            class="text-red-600 font-bold text-sm mt-2 ml-0.5"
+          >
+            <ng-container *ngIf="signUpForm.get('email')?.errors?.['required']"
+              >Email is required</ng-container
+            >
+            <ng-container *ngIf="signUpForm.get('email')?.errors?.['email']"
+              >Invalid email format</ng-container
+            >
+            <ng-container
+              *ngIf="signUpForm.get('email')?.errors?.['emailExists']"
+              >Email already exists</ng-container
+            >
+            <ng-container
+              *ngIf="signUpForm.get('email')?.errors?.['emailDomain']"
+              >Email domain is not allowed</ng-container
+            >
+            <ng-container *ngIf="signUpForm.get('email')?.errors?.['minlength']"
+              >Email must be at least 3 characters long</ng-container
+            >
+            <ng-container *ngIf="signUpForm.get('email')?.errors?.['maxlength']"
+              >Email cannot exceed 50 characters</ng-container
+            >
+          </div>
+        </div>
+        <!-- mobile number -->
+        <!-- <div>
+              <label class="text-md font-medium mb-2 block text-[#1A1F2C]">Mobile No.</label>
+              <input name="number" type="text" class="bg-slate-100 w-full text-sm text-slate-800 px-4 py-2.5 rounded border focus:border-blue-600 outline-none transition-all focus:bg-transparent border-[#e9e3ff] focus-visible:ring-[#9b87f5]"
+                      formControlName="mobileNumber" placeholder="Enter mobile number" />
+              <div *ngIf="signUpForm.get('mobileNumber')?.touched && signUpForm.get('mobileNumber')?.errors" class="text-red-600 font-bold text-sm mt-2 ml-0.5">
+                <ng-container *ngIf="signUpForm.get('mobileNumber')?.errors?.['required']">Mobile number is required.</ng-container>
+                <ng-container *ngIf="signUpForm.get('mobileNumber')?.errors?.['pattern']">Enter a valid Egyptian mobile number (e.g. 010xxxxxxxx).</ng-container>
+                <ng-container *ngIf="signUpForm.get('mobileNumber')?.errors?.['minlength']">Mobile number must be at least 11 digits long.</ng-container>
+                <ng-container *ngIf="signUpForm.get('mobileNumber')?.errors?.['maxlength']">Mobile number cannot exceed 15 digits.</ng-container>
+                <ng-container *ngIf="signUpForm.get('mobileNumber')?.errors?.['mobileExists']">Mobile number already exists.</ng-container>
+                <ng-container *ngIf="signUpForm.get('mobileNumber')?.errors?.['mobileDomain']">Mobile number domain is not allowed.</ng-container>
+                <ng-container *ngIf="signUpForm.get('mobileNumber')?.errors?.['mobilePattern']">Mobile number must start with 010, 011, 012, 015.</ng-container>
+              </div>
+            </div> -->
+
+        <!-- Select role -->
+        <div>
+          <label class="text-md font-medium mb-2 block text-[#1A1F2C]"
+            >Select Role</label
+          >
+          <select
+            class="bg-slate-100 w-full text-sm text-slate-800 px-4 py-2.5 rounded border focus:border-blue-600 outline-none transition-all focus:bg-transparent border-[#e9e3ff] focus-visible:ring-[#9b87f5]"
+            formControlName="userRole"
+          >
+            <option value="" disabled selected>Select your role</option>
+            <option value="user">User</option>
+            <option value="organizer">Organizer</option>
+          </select>
+          <div
+            *ngIf="
+              signUpForm.get('userRole')?.touched &&
+              signUpForm.get('userRole')?.errors
+            "
+            class="text-red-600 font-bold text-sm mt-2 ml-0.5"
+          >
+            <ng-container
+              *ngIf="signUpForm.get('userRole')?.errors?.['required']"
+              >Role is required</ng-container
+            >
+          </div>
+        </div>
+        <!-- password -->
+        <div>
+          <label class="text-md font-medium mb-2 block text-[#1A1F2C]"
+            >Password</label
+          >
+          <input
+            name="password"
+            type="password"
+            class="bg-slate-100 w-full text-sm text-slate-800 px-4 py-2.5 rounded border focus:border-blue-600 outline-none transition-all focus:bg-transparent border-[#e9e3ff] focus-visible:ring-[#9b87f5]"
+            formControlName="password"
+            placeholder="Enter password"
+          />
+          <!-- <div *ngIf="signUpForm.get('password')?.touched && signUpForm.get('password')?.errors" class="text-red-600 font-bold text-sm mt-2 ml-0.5">
+                <ng-container *ngIf="signUpForm.get('password')?.errors?.['required']">Password is required</ng-container>
+                <ng-container *ngIf="signUpForm.get('password')?.errors?.['minlength']">Password must be at least 8 characters long </ng-container>
+                <ng-container *ngIf="signUpForm.get('password')?.errors?.['weakPassword']">Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character</ng-container>
+                <ng-container *ngIf="signUpForm.get('password')?.errors?.['maxlength']">Password cannot exceed 20 characters</ng-container>
+              </div> -->
+          <div
+            *ngIf="
+              signUpForm.get('password')?.touched &&
+              signUpForm.get('password')?.errors
+            "
+            class="text-red-600 font-bold text-sm mt-2 ml-0.5"
+          >
+            <!-- required أول حاجة -->
+            <ng-container
+              *ngIf="signUpForm.get('password')?.errors?.['required']"
+            >
+              Password is required
+            </ng-container>
+
+            <!-- minlength لو مفيش required -->
+            <ng-container
+              *ngIf="!signUpForm.get('password')?.errors?.['required'] && signUpForm.get('password')?.errors?.['minlength']"
+            >
+              Password must be at least 8 characters long
+            </ng-container>
+
+            <!-- weakPassword لو مفيش required ولا minlength -->
+            <ng-container
+              *ngIf="!signUpForm.get('password')?.errors?.['required'] &&
+                                     !signUpForm.get('password')?.errors?.['minlength'] &&
+                                     signUpForm.get('password')?.errors?.['weakPassword']"
+            >
+              Password must contain at least one uppercase letter, one lowercase
+              letter, one number, and one special character
+            </ng-container>
+
+            <!-- maxlength لو مفيش الأخطاء اللي قبل كده -->
+            <ng-container
+              *ngIf="!signUpForm.get('password')?.errors?.['required'] &&
+                                     !signUpForm.get('password')?.errors?.['minlength'] &&
+                                     !signUpForm.get('password')?.errors?.['weakPassword'] &&
+                                     signUpForm.get('password')?.errors?.['maxlength']"
+            >
+              Password cannot exceed 20 characters
+            </ng-container>
+          </div>
+        </div>
+        <!-- confirm password -->
+        <div>
+          <label class="text-md font-medium mb-2 block text-[#1A1F2C]"
+            >Confirm Password</label
+          >
+          <input
+            name="cpassword"
+            type="password"
+            class="bg-slate-100 w-full text-sm text-slate-800 px-4 py-2.5 rounded border focus:border-blue-600 outline-none transition-all focus:bg-transparent border-[#e9e3ff] focus-visible:ring-[#9b87f5]"
+            formControlName="confirmPassword"
+            placeholder="Enter confirm password"
+          />
+          <div
+            *ngIf="
+              signUpForm.get('cpassword')?.touched &&
+              signUpForm.get('cpassword')?.errors
+            "
+            class="text-red-600 font-bold text-sm mt-2 ml-0.5"
+          >
+            <ng-container
+              *ngIf="signUpForm.get('cpassword')?.errors?.['required']"
+              >Confirm password is required</ng-container
+            >
+            <ng-container
+              *ngIf="signUpForm.get('cpassword')?.errors?.['minlength']"
+              >Confirm password must be at least 8 characters long
+            </ng-container>
+            <ng-container
+              *ngIf="signUpForm.get('cpassword')?.errors?.['pattern']"
+              >Confirm password must contain at least one uppercase letter, one
+              lowercase letter, one number, and one special
+              character</ng-container
+            >
+            <ng-container
+              *ngIf="signUpForm.get('cpassword')?.errors?.['maxlength']"
+              >Confirm password cannot exceed 20 characters</ng-container
+            >
+            <ng-container
+              *ngIf="signUpForm.get('cpassword')?.errors?.['notMatching']"
+              >Passwords do not match</ng-container
+            >
+          </div>
+          <div
+            *ngIf="
+              signUpForm.hasError('passwordsMismatch') &&
+              signUpForm.get('confirmPassword')?.touched
+            "
+            class="text-red-600 font-bold text-sm mt-2 ml-0.5"
+          >
+            Password and Confirm Password do not match.
+          </div>
+        </div>
+
+        <div>
+          <div class="flex items-center">
+            <input
+              formControlName="acceptTerms"
+              id="link-checkbox"
+              type="checkbox"
+              value=""
+              class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+            />
+            <label
+              for="link-checkbox"
+              class="ms-2 text-sm font-medium text-gray-900"
+              >I agree with the
+              <a
+                routerLink="/terms-condition"
+                target="_blank"
+                routerLinkActive="router-link-active"
+                class="hover:underline font-medium text-[#9b87f5] hover:text-[#7E69AB]"
+                >terms and conditions</a
+              >.</label
+            >
+          </div>
+          <div
+            *ngIf="
+              signUpForm.get('acceptTerms')?.touched &&
+              signUpForm.get('acceptTerms')?.errors
+            "
+            class="text-red-600 font-bold text-sm mt-2 ml-0.5"
+          >
+            <ng-container
+              *ngIf="signUpForm.get('acceptTerms')?.errors?.['required']"
+              >Read Our Terms & Conditions</ng-container
+            >
+          </div>
+        </div>
+
+        <div></div>
+        <div class="mt-2">
+          <button
+            type="submit"
+            class="py-2.5 px-5 text-sm font-medium tracking-wider rounded shadow-xl focus:outline-none bg-[#9b87f5] hover:bg-[#7E69AB] text-white"
+          >
+            <span *ngIf="!isLoading" class="">Sign up</span>
+            <span
+              *ngIf="isLoading"
+              class="loader border-t-transparent border-solid animate-spin rounded-full border-white h-5 w-5"
+            ></span>
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
