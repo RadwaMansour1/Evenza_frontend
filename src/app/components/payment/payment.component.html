@@ -8,11 +8,11 @@
                 <h1 class="text-2xl font-bold">Payment Method</h1>
             </span>
             <!-- Use ngModelChange to detect changes -->
-            <label for="paypal" class="flex gap-2.5 w-full border-1 border-gray-200 rounded-lg py-2 px-3">
+            <!-- <label for="paypal" class="flex gap-2.5 w-full border-1 border-gray-200 rounded-lg py-2 px-3">
                 <input type="radio" id="paypal" name="paymentMethod" value="paypal" class="accent-purple-500"
                     [(ngModel)]="selectedMethod" (ngModelChange)="onPaymentMethodChange($event)">
                 <span class="font-semibold">PayPal</span>
-            </label>
+            </label> -->
             <label for="stripe" class="flex gap-2.5 w-full border-1 border-gray-200 rounded-lg py-2 px-3">
                 <input type="radio" name="paymentMethod" id="stripe" value="stripe" class="accent-purple-500"
                 [(ngModel)]="selectedMethod" (change)="onPaymentMethodChange('stripe')">
@@ -67,13 +67,13 @@
       <div class="flex gap-3 items-center">
         <div class="rounded-lg w-20 h-16">
           <img
-            src="stadium.jpg"
+            src={{orderSummary.imgUrl}}
             alt="stadium"
             class="rounded-lg w-full h-full"
           />
         </div>
         <div class="flex flex-col">
-          <h2 class="font-semibold">Champions league Match</h2>
+          <h2 class="font-semibold">{{orderSummary.eventName}}</h2>
           <span class="flex gap-2 items-center text-gray-600">
             <ng-icon name="heroCalendar" />
             <h3>{{ date }}</h3>
@@ -82,8 +82,8 @@
       </div>
 
       <span class="flex justify-between p-3 rounded-lg bg-gray-100">
-        <h2 class="font-semibold">General Admission</h2>
-        <h2 class="font-semibold">x1</h2>
+        <h2 class="font-semibold">{{orderSummary.eventDate}}</h2>
+        <h2 class="font-semibold">x{{orderSummary.numberOfTickets}}</h2>
       </span>
 
       <hr class="text-gray-300" />

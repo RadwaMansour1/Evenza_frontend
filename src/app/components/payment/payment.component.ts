@@ -1,54 +1,123 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import {  PaymobService  } from '../../services/payment/paymob.service';;
+import { PaymobService } from '../../services/payment/paymob.service';
 import { PaypalService } from '../../services/payment/paypal.service';
 import Swal from 'sweetalert2';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { heroCreditCard, heroShieldCheck, heroCalendar, heroInformationCircle } from '@ng-icons/heroicons/outline';
 import { StripeService } from '../../services/stripe.service';
+import { ActivatedRoute } from '@angular/router'; // <-- Add this import
+import { OrderService } from '../../services/order/order.service';
+import { EventService } from '../../services/event/event.service';
 
 @Component({
   selector: 'app-payment',
   imports: [FormsModule, NgIcon],
   templateUrl: './payment.component.html',
-  viewProviders:  [
-    provideIcons({ 
-      heroCreditCard, 
-      heroShieldCheck, 
-      heroCalendar, 
-      heroInformationCircle ,
+  viewProviders: [
+    provideIcons({
+      heroCreditCard,
+      heroShieldCheck,
+      heroCalendar,
+      heroInformationCircle,
     }),
   ],
 })
-export class PaymentComponent implements OnInit { // Implement OnInit
+export class PaymentComponent implements OnInit {
   constructor(
-    private paymobService: PaymobService, 
-    private paypalService: PaypalService,private stripeService:StripeService
+    private paypalService: PaypalService,
+    private stripeService: StripeService,
+    private route: ActivatedRoute ,
+    private orderService: OrderService,
+    private eventService: EventService,
   ) { }
 
-  selectedMethod:  string = 'paypal';; // Default selection
-
-
-
+  selectedMethod: string = 'stripe';
 
   date: string = new Date().toDateString();
-  ticketPrice:  number = 110.0;
+
+  quantity: number|null = null;
+  ticketPrice:  number|null = null;
   serviceFee:  number = 12.75;
   tax:  number = 7.5;
-  total:  number = this.ticketPrice + this.serviceFee + this.tax;
-  userId: string = "user4";
-  eventId: string ="event2";
-  ticketType: string = "GA";
-  quantity: number = 1;
+  total:  number|null =null;
+  amount:number|null = null;
+  userId: string = "";
+  eventId: string ="";
+  ticketType: string = "";
+
+
+  orderSummary:any = {
+    imgUrl : "",
+    eventName:"",
+    eventDate:"",
+    numberOfTickets:0,
+    ticketType:"",
+    price:0,
+  }
+  
   
 
   payWithStripe() {
     console.log('Stripe button clicked');
-    this.stripeService.checkout(this.total,this.userId,this.eventId,this.ticketType,this.quantity);
+    this.stripeService.checkout(this.amount!,this.userId,this.eventId,this.ticketType,this.quantity!);
   } 
 
+  orderId: string | null = null;
+  order: any = null; // Add a property to hold the order details
+
   ngOnInit(): void {
-    // If PayPal is the default method, render the buttons on load
+    // Only a single callback is needed for queryParams
+    this.route.queryParams.subscribe(params => {
+      this.orderId = params['orderId'] || null;
+      console.log('Order ID:', this.orderId);
+
+      if (this.orderId) {
+        // Use next/error for HTTP observable
+        this.orderService.getOrderById(this.orderId).subscribe({
+          next: (order: any) => {
+            this.order = order;
+            console.log('Fetched order:', this.order); // <-- Now this.order is set
+            // Fix: Access nested data
+            const orderData = order.data.data;
+            this.userId = orderData.userId;
+            this.quantity = orderData.countOfTickets;
+            this.orderSummary.numberOfTickets = this.quantity;
+            this.ticketPrice = orderData.totalPrice;
+            this.total =this.ticketPrice!+ this.serviceFee + this.tax;
+            this.amount =this.total / this.quantity!;
+            console.log('orderDetails:', orderData.orderDetails);
+            this.eventId = orderData.orderDetails[0]?.eventId;
+            console.log('eventId to fetch:', this.eventId);
+            this.ticketType = orderData.orderDetails[0]?.level;
+
+            if (this.eventId) {
+              this.eventService.getEventById(this.eventId).subscribe({
+                next: (eventRes: any) => {
+                  console.log('Raw eventRes:', eventRes);
+                  const eventData = eventRes.data;
+                  console.log('Fetched event:', eventData);
+                  this.orderSummary.imgUrl = eventData.imageUrl;
+                  this.orderSummary.eventName = eventData.title;
+                  const eventDateObj = new Date(eventData.date);
+                  this.orderSummary.eventDate = eventDateObj.toLocaleDateString('en-GB'); // e.g., 10/04/2025
+                  this.date = eventDateObj.toLocaleString();
+                },
+                error: (err) => {
+                  console.error('Error fetching event:', err);
+                }
+              });
+            } else {
+              console.error('eventId is missing, cannot fetch event.');
+            }
+          },
+          error: (err) => {
+            console.error('Error fetching order:', err);
+          }
+        });
+      }
+    });
+
     if (this.selectedMethod === 'paypal') {
       this.renderPayPalButtons();
     }
@@ -82,7 +151,7 @@ export class PaymentComponent implements OnInit { // Implement OnInit
         }
 
         console.log('Creating payment for amount:', this.total);
-        const paymentButtons = await this.paypalService.createPayment(this.total);
+        const paymentButtons = await this.paypalService.createPayment(this.total!);
 
         const container = document.querySelector('#paypal-button-container');
         if (container) {
