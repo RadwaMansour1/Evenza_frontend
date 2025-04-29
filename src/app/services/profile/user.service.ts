@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { appendIfExists } from '../../helpers/form-data.util';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { CONSTANTS } from '../../constants'; 
+import { CONSTANTS } from '../../constants';
 import { map, Observable } from 'rxjs';
 import { Profile, ProfileResponse } from '../../models/profile.model';
 
@@ -13,12 +13,10 @@ export class UserService {
 
   constructor(private http: HttpClient ) {}
 
-  
-  getProfile(): Observable<any> {
-    const token = localStorage.getItem('accessToken')  || sessionStorage.getItem('accessToken');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    console.log('toooooookeeeeeeeeeeeeeeen',token);
 
+  getProfile(): Observable<any> {
+    const token = localStorage.getItem(CONSTANTS.token)  || sessionStorage.getItem(CONSTANTS.token);
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.get<any>(`${this.apiUrl}/`,{ headers });
     // return this.http.get<ProfileResponse>(this.apiUrl, { headers }).pipe(
     //   map(res => res.data)
@@ -26,7 +24,7 @@ export class UserService {
   }
 
   updateProfile(profileData: FormData): Observable<any> {
-  const token = localStorage.getItem('access_token') || sessionStorage.getItem('access_token');
+  const token = localStorage.getItem(CONSTANTS.token) || sessionStorage.getItem(CONSTANTS.token);
   const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
     return this.http.post(`${this.apiUrl}/update`, profileData , { headers });
@@ -45,7 +43,7 @@ export class UserService {
 
   // updateProfile(profileData: Profile): Observable<any> {
   //   const formData = new FormData();
-  
+
   //   formData.append('firstName', profileData.firstName);
   //   formData.append('lastName', profileData.lastName);
   //   formData.append('phone1', profileData.phone1);
@@ -57,12 +55,12 @@ export class UserService {
   //   appendIfExists(formData, 'phone2', profileData.phone2);
   //   appendIfExists(formData, 'phone2', profileData.state);
   //   appendIfExists(formData, 'phone2', profileData.zipCode);
-  
+
   //   if (profileData.profileImage) {
   //     formData.append('profileImage', profileData.profileImage); // الصورة
   //   }
-  
+
   //   return this.http.put(`http://localhost:3000/api/profile`, formData);
   // }
-  
+
 }

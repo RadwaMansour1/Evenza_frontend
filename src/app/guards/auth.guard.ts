@@ -1,10 +1,11 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
+import { CONSTANTS } from '../constants';
 
 export const authGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
 
-  const tokenDataStr = localStorage.getItem('userData') || sessionStorage.getItem('userData');
+  const tokenDataStr = localStorage.getItem(CONSTANTS.userData) || sessionStorage.getItem(CONSTANTS.userData);
   if (!tokenDataStr) {
     router.navigate(['/profile']);
     return false;

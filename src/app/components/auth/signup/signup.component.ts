@@ -15,6 +15,7 @@ import { GoogleAuthButtonComponent } from '../../google-auth-button/google-auth-
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../../services/auth/auth.service';
 import { SnackbarService } from '../../../services/notification/snackbar.service';
+import { CONSTANTS } from '../../../constants';
 
 @Component({
   selector: 'app-signup',
@@ -111,10 +112,9 @@ export class SignupComponent {
       this.authService.signupWithGoogle(formData).subscribe({
         next: (res) => {
           console.log('Google Signup Successfully', res);
-          // localStorage.setItem('token', JSON.stringify(payload));
           const accessToken = response.credential;
           console.log('Access Token:', accessToken);
-          localStorage.setItem('token', response.credential);
+          localStorage.setItem(CONSTANTS.token, response.credential);
           this.router.navigate(['/select-role'], {
             queryParams: { email: user.email },
           });

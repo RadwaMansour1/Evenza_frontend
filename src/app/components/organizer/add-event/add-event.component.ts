@@ -10,6 +10,7 @@ import {
 import { EventService } from '../../../services/event/event.service';
 import { CustomAlertComponent } from '../../shared/custom-alert/custom-alert.component';
 import { LocationPickerComponent } from './location-picker/location-picker.component';
+import { CONSTANTS } from '../../../constants';
 
 @Component({
   selector: 'app-add-event',
@@ -61,8 +62,8 @@ export class AddEventComponent {
   alertType: any = 'success';
 
   constructor(private eventService: EventService) {
-    console.log(sessionStorage.getItem('access_token'));
-    let token = sessionStorage.getItem('access_token');
+    console.log(sessionStorage.getItem(CONSTANTS.token));
+    let token = sessionStorage.getItem(CONSTANTS.token);
     const payload = this.decodeToken(token!);
     console.log(payload);
 

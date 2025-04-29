@@ -47,8 +47,6 @@ import { AuthService } from '../../services/auth/auth.service';
 })
 export class NavBarComponent {
 
-
-
   isMenuOpen = false;
   isMenuUserOpen = false;
   navLinks = [
@@ -73,8 +71,11 @@ export class NavBarComponent {
     },
   ];
   currentLang: 'en' | 'ar' = 'en';
+  isAuthenticated = false;
   constructor(private languageService: LanguageService,private router: Router, private authService:AuthService) {
     this.currentLang = this.languageService.getCurrentLanguage();
+    this.isAuthenticated = this.authService.isloggedIn();
+    console.log(this.authService.isloggedIn());
   }
   // method for logOut button
   signOut() {
@@ -112,5 +113,11 @@ export class NavBarComponent {
     ) {
       this.closeUserMenu();
     }
+  }
+
+  logout(){
+    this.closeUserMenu();
+    this.authService.logout();
+    this.router.navigate(['/login']);
   }
 }

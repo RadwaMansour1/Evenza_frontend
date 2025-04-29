@@ -13,6 +13,7 @@ import { NgIconsModule } from '@ng-icons/core';
 import { AuthService } from '../../../services/auth/auth.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { LanguageService } from '../../../services/language/language.service';
+import { CONSTANTS } from '../../../constants';
 
 @Component({
   selector: 'app-login',
@@ -49,10 +50,11 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     const userData =
-      localStorage.getItem('userData') || sessionStorage.getItem('userData');
+      localStorage.getItem(CONSTANTS.userData) ||
+      sessionStorage.getItem(CONSTANTS.userData);
     if (userData) {
       const user = JSON.parse(userData);
-      this.router.navigate(['/profile']);
+      this.router.navigate(['/home']);
     } else {
       this.router.navigate(['/login']);
     }
@@ -100,12 +102,10 @@ export class LoginComponent implements OnInit {
   loginWithGoogle(response: any) {
     if (response) {
       const payload = this.decodeToken(response.credential);
-      sessionStorage.setItem('userData', JSON.stringify(payload));
+      sessionStorage.setItem(CONSTANTS.userData, JSON.stringify(payload));
       //navigate to test page
       this.router.navigate(['/home']);
       //send the token to the server for verification
-
-
     }
   }
 
@@ -121,38 +121,27 @@ export class LoginComponent implements OnInit {
           console.log('Login response:', response);
           const token = response.data?.access_token;
 
-
-          // إذا تم تفعيل "Remember me"، خزن البيانات في localStorage
-          // if (this.signInForm.value.rememberMe) {
-          //   localStorage.setItem('authToken', token);
-          //   localStorage.setItem('userData', JSON.stringify(payload));
-          // } else {
-          //   sessionStorage.setItem('authToken', token);
-          //   sessionStorage.setItem('userData', JSON.stringify(payload));
-          // }
-
-          // // الانتقال إلى الصفحة التالية
-          // this.router.navigate(['/home']);
-
           if (token) {
             if (this.signInForm.value.rememberMe) {
-              localStorage.setItem('access_token', token);
+              localStorage.setItem(CONSTANTS.token, token);
             } else {
-              sessionStorage.setItem('access_token', token);
+              sessionStorage.setItem(CONSTANTS.token, token);
             }
 
             const payload = this.decodeToken(token);
             console.log(payload);
 
             if (this.signInForm.value.rememberMe) {
-              localStorage.setItem('userData', JSON.stringify(payload));
+              localStorage.setItem(CONSTANTS.userData, JSON.stringify(payload));
             } else {
-              sessionStorage.setItem('userData', JSON.stringify(payload));
+              sessionStorage.setItem(
+                CONSTANTS.userData,
+                JSON.stringify(payload)
+              );
             }
-            if (payload.role == 'user') this.router.navigate(['/profile']);
+            if (payload.role == 'user') this.router.navigate(['/home']);
             else this.router.navigate(['/organizer/dashboard']);
           }
-
         },
         (error) => {
           if (error.status === 401) {

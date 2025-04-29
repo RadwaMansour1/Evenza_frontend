@@ -6,6 +6,7 @@ import { User } from '../../models/user.model';
 import { FacebookAuthService } from './facebook-auth.service';
 import { LoginRequest } from '../../models/login.model';
 import { CONSTANTS } from '../../constants';
+import { CONSTANTS } from '../../constants';
 
 @Injectable({
   providedIn: 'root',
@@ -23,55 +24,37 @@ export class AuthService {
   ) {}
 
   isAuthenticated(): boolean {
-    // Replace with actual authentication logic
-    // return !!localStorage.getItem('userToken'); 
-    return sessionStorage.getItem('userToken') !== null || localStorage.getItem('userToken') !== null;
-    // if(sessionStorage.getItem('userToken')!== null){
-    //   return true;
-    // }else{ 
-    //   return false;
-    // } 
+    return (
+      sessionStorage.getItem(CONSTANTS.token) !== null ||
+      localStorage.getItem(CONSTANTS.token) !== null
+    );
   }
   // set the token in localStorage or sessionStorage
   setToken(token: string): void {
-    localStorage.setItem('userToken', token); 
-    sessionStorage.setItem('userToken', token);
+    localStorage.setItem(CONSTANTS.token, token);
+    sessionStorage.setItem(CONSTANTS.token, token);
   }
   // get the token from localStorage or sessionStorage
   getToken(): string | null {
-    let token = sessionStorage.getItem('userToken');
+    let token = sessionStorage.getItem(CONSTANTS.token);
     if (!token) {
-      token = localStorage.getItem('userToken');
+      token = localStorage.getItem(CONSTANTS.token);
     }
     return token;
   }
   // clear the token from localStorage and sessionStorage
   clearToken(): void {
-    localStorage.removeItem('userToken');
-    sessionStorage.removeItem('userToken');
+    localStorage.removeItem(CONSTANTS.token);
+    sessionStorage.removeItem(CONSTANTS.token);
   }
 
-  // canAccess(){
-  //   if(!this.isAuthenticated()){
-
-
-  //   if (sessionStorage.getItem('userToken') !== null) {
-  //     return true;
-  //   } else {
-  //     return false;
-  //   }
-  // }
 
   canAccess() {
     if (!this.isAuthenticated()) {
-
       //redirect to login page
       this.router.navigate(['/login']);
     }
   }
-  
-
-  
 
   register(name: string, email: string, password: string) {
     //send data to register api
@@ -92,22 +75,9 @@ export class AuthService {
     return this.http.post(`${this.apiUrl}/auth/sign-in`, userData).pipe(
       tap((response: any) => {
         if (response.success) {
-          localStorage.setItem('userToken', response.token);
-          localStorage.setItem('userData', JSON.stringify(response.user));
-          this.router.navigate(['/test']);
+          localStorage.setItem(CONSTANTS.token, response.token);
+          localStorage.setItem(CONSTANTS.userData, JSON.stringify(response.user));
           this.token = response.token;
-        }
-      })
-    );
-  }
-
-  signup(userData: User): Observable<any> {
-    return this.http.post(`${this.apiUrl}/auth/signup/form`, userData).pipe(
-      tap((res: any) => {
-        if (res.success) {
-          // After successful signup, store the email in BehaviorSubject
-          this.emailSource.next(userData.email);
-          this.router.navigate(['/verify-email']);
         }
       })
     );
@@ -143,7 +113,7 @@ export class AuthService {
     return this.http.post(`${this.apiUrl}/auth/signup/google`, user).pipe(
       tap((res: any) => {
         if (res.accessToken) {
-          localStorage.setItem('userToken', res.accessToken);
+          localStorage.setItem(CONSTANTS.token, res.accessToken);
         }
       })
     );
@@ -167,7 +137,7 @@ export class AuthService {
         this.http
           .post(`${this.apiUrl}/auth/signup/facebook`, payload)
           .subscribe((res: any) => {
-            localStorage.setItem('token', res.accessToken); // تأكد إنها اسمها accessToken مش token
+            localStorage.setItem(CONSTANTS.token, res.accessToken); // تأكد إنها اسمها accessToken مش token
             console.log('Login success!');
             this.router.navigate(['/select-role']);
           });
@@ -185,7 +155,7 @@ export class AuthService {
           // console.log('Backend response:', response);
           const accessToken = response.accessToken;
           if (accessToken) {
-            localStorage.setItem('accessToken', accessToken);
+            localStorage.setItem(CONSTANTS.token, accessToken);
           }
         })
       );
@@ -203,19 +173,8 @@ export class AuthService {
     this.router.navigate(['/login']);
   }
 
-  // changePassword(oldPassword: string, newPassword: string): Observable<any> {
-  //   const token = localStorage.getItem('access_token'); 
-  //   const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-
-
-  //   return this.http.patch(`${this.apiUrl}/users/change-password`, {
-  //     oldPassword,
-  //     newPassword
-  //   }, { headers });
-  // }
-  
   changePassword(oldPassword: string, newPassword: string): Observable<any> {
-    const token = localStorage.getItem('access_token');
+    const token = localStorage.getItem(CONSTANTS.token);
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
     return this.http.patch(
@@ -225,6 +184,12 @@ export class AuthService {
         newPassword,
       },
       { headers }
+    );
+  }
+  isloggedIn() {
+    return (
+      sessionStorage.getItem(CONSTANTS.token) !== null ||
+      localStorage.getItem(CONSTANTS.token) !== null
     );
   }
 }

@@ -9,6 +9,7 @@
       "login": "Login",
       "register": "Register",
       "logout": "Logout",
+      "profile": "Profile",
       "myWallet": "Wallet",
       "myTickets": "My Tickets",
       "search": "Search events...",

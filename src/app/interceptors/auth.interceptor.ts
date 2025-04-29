@@ -6,6 +6,7 @@ import {
   HttpEvent
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { CONSTANTS } from '../constants';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ import { Observable } from 'rxjs';
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    const token =  localStorage.getItem('access_token') || sessionStorage.getItem('access_token');;
+    const token =  localStorage.getItem(CONSTANTS.token) || sessionStorage.getItem(CONSTANTS.token);;
     if (token) {
       req = req.clone({
         setHeaders: {

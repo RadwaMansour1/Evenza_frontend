@@ -12,6 +12,7 @@ import {
   Router,
 } from '@angular/router';
 import { AuthService } from '../../../services/auth/auth.service';
+import { CONSTANTS } from '../../../constants';
 
 @Component({
   selector: 'app-verify-email',
@@ -62,14 +63,12 @@ export class VerifyEmailComponent implements OnInit {
       const code = Object.values(this.verificationForm.value).join('');
       this.authService.verifyCode(this.email, code).subscribe({
         next: (res) => {
-          // console.log(res);
+          console.log(res);
           // console.log('accessToken =>', res.data?.accessToken);
-          sessionStorage.setItem('accessToken', res.data?.accessToken);
+          sessionStorage.setItem(CONSTANTS.token, res.data?.accessToken);
 
-  
           // this.router.navigate(['/home'], { queryParams: { email: this.email } });
-
-          sessionStorage.setItem('userRole', res.data?.user.userRole);
+          sessionStorage.setItem(CONSTANTS.userRole, res.data?.user.userRole);
           if (res.data?.user.userRole == 'user')
             this.router.navigate(['/home']);
           else this.router.navigate(['/organizer/dashboard']);

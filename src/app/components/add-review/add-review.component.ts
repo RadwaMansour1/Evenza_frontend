@@ -8,6 +8,7 @@ import { ReviewService } from '../../services/review/review.service';
 import { CreateReview } from '../../models/review.model';
 import { CustomAlertComponent } from '../custom-alert/custom-alert.component';
 import { Router } from '@angular/router';
+import { CONSTANTS } from '../../constants';
 
 
 @Component({
@@ -30,7 +31,7 @@ export class AddReviewComponent implements OnInit {
   constructor(private reviewService: ReviewService, private router: Router) {}
 
   ngOnInit() {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem(CONSTANTS.token);
     this.isLoggedIn = !!token;
   }
 
@@ -47,7 +48,7 @@ export class AddReviewComponent implements OnInit {
   }
 
   submitFeedback() {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem(CONSTANTS.token);
 
     if (!token) {
       this.isLoggedIn = false;
