@@ -1,13 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormsModule, NgModel } from '@angular/forms';
+import { FormsModule, NgModel, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ForgotPasswordService } from '../../../services/password/forgot.password.service';
 import { AuthService } from '../../../services/auth/auth.service';
 
 @Component({
   selector: 'app-reset-password',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule,ReactiveFormsModule],
   templateUrl: './reset-password.component.html',
   styleUrl: './reset-password.component.css',
 })
@@ -15,7 +15,7 @@ export class ResetPasswordComponent {
   // newPassword = '';
   // confirmPassword = '';
   token = '';
-
+  
   olPasswordFocused: boolean = false;
   oldPassword: string = '';
   newPasswordFocused: boolean = false;
@@ -24,6 +24,7 @@ export class ResetPasswordComponent {
   confirmPassword: string = '';
   errorMessage: string = '';
   successMessage: string = '';
+passwordForm: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -35,13 +36,13 @@ export class ResetPasswordComponent {
   //   this.token = this.route.snapshot.queryParamMap.get('token') || '';
   // }
 
-  // onSubmit() {
+  onSubmit() {
   //   console.log('New password:', this.newPassword);
   //   console.log('Confirm password:', this.confirmPassword);
   //   if (this.newPassword !== this.confirmPassword) {
   //     alert('Passwords do not match');
   //     return;
-  //   }
+    }
 
   //   this.resetPasswordService.resetPassword(this.token, this.newPassword)
   //     .subscribe({

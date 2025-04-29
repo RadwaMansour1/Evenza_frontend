@@ -122,20 +122,20 @@ export class PersonalInformationComponent implements OnInit {
       }
       
 
-      this.userService.updateProfile(formData).subscribe({
-        next:(response) =>{
-          console.log('Profile updated successfully', response);
-          this.profileForm.reset();
-        },
-        error: (error) => {
-          console.error('Error updating profile', error);
-        }
-      });
+      // this.userService.updateProfile(formData).subscribe({
+      //   next:(response) =>{
+      //     console.log('Profile updated successfully', response);
+      //     this.profileForm.reset();
+      //   },
+      //   error: (error) => {
+      //     console.error('Error updating profile', error);
+      //   }
+      // });
 
       console.log('Form Data ready to be sent:', formData);
-    } else {
-      console.log('Form Not Valid');
-    }
+      } else {
+        console.log('Form Not Valid');
+      }
     }
   }
 

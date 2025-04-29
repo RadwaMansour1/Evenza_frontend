@@ -17,8 +17,6 @@ import { SelectRoleComponent } from './components/select-role/select-role.compon
 import { MyWalletComponent } from './components/my-wallet/my-wallet.component';
 import { FaqComponent } from './components/faq/faq.component';
 import { MyTicketsComponent } from './components/my-tickets/my-tickets.component';
-import { LoginComponent } from './components/auth/login/login.component';
-import { SetNewPasswordComponent } from './components/auth/set-new-password/set-new-password.component';
 import { PaymentSuccessComponent } from './components/payment-success/payment-success.component';
 import { PaymentComponent } from './components/payment/payment.component';
 import { NgModule } from '@angular/core';
@@ -27,8 +25,8 @@ import { OrganizerDashboardComponent } from './components/organizer/organizer-da
 import { OrganizerWalletComponent } from './components/organizer/organizer-wallet/organizer-wallet.component';
 import { AddEventComponent } from './components/organizer/add-event/add-event.component';
 import { ResetPasswordComponent } from './components/auth/reset-password/reset-password.component';
-import { LoginComponent } from './components/login/login.component';
-import { SetNewPasswordComponent } from './components/set-new-password/set-new-password.component';
+import { LoginComponent } from './components/auth/login/login.component';
+import { SetNewPasswordComponent } from './components/auth/set-new-password/set-new-password.component';
 import { PersonalInformationComponent } from './components/personal-information/personal-information.component';
 
 export const routes: Routes = [
