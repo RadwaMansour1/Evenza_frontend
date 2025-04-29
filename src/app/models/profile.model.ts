@@ -18,14 +18,23 @@ export interface Profile {
   firstName: string;
   lastName: string;
   email: string;
-  provider: string;
-  isVerified: boolean;
-  createdAt: string;
-  verificationCode: string;
-  verificationCodeExpiration: string;
-  role: string;
-  imageURL?: string;
+  phone1: string;
+  phone2?: string;
+  gender: string;
+  country: string;
+  streetAddress: string;
+  city: string;
+  state: string;
+  zipCode?: string;
+  provider?: string;
+  isVerified?: boolean;
+  createdAt?: string;
+  verificationCode?: string;
+  verificationCodeExpiration?: string;
+  role?: string;
+  profileImage?: string;
   __v?: number;
+  postalCode?:string;
 }
 
 export interface ProfileResponse {

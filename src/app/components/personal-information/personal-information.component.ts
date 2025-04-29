@@ -21,6 +21,7 @@ export class PersonalInformationComponent implements OnInit {
   
 
   constructor( private fb: FormBuilder, private userService : UserService) {
+    console.log('user iddddddd'  , this.userId);
     const userDataString = localStorage.getItem('userData');
     if (userDataString) {
       const userData = JSON.parse(userDataString);
@@ -28,6 +29,7 @@ export class PersonalInformationComponent implements OnInit {
     }
 
     this.profileForm = this.fb.group({
+ 
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       phone1: ['', Validators.required],
@@ -40,21 +42,31 @@ export class PersonalInformationComponent implements OnInit {
       state: [''],
       postalCode: [''],
       photo: [null], 
+
+      // _id: [],
+      // provider:[],
+      // verificationCodeExpiration:[],
+      // verificationCode:[],
+      // createdAt:[],
+      // isVerified:[],
+      // role:[],
     });
   }
-  ngOnInit() {
-    this.userService.getProfile().subscribe({
-      next: (data: any) => {
-        if (data) {
-          this.profileForm = {
-            ...this.profileForm,
-            ...data
-          };
-        }
-      },
-      error: err => console.error('Error loading profile:', err)
-    });
-  }
+  // ngOnInit() {
+  //   this.userService.getProfile().subscribe({
+  //     next: (data: any) => {
+        
+  //       console.log('daaaaaaaaaaataaaaaaaaaaaaaaaaaaaaa', data);
+  //       if (data) {
+  //         this.profileForm = {
+  //           ...this.profileForm,
+  //           ...data
+  //         };
+  //       }
+  //     },
+  //     error: err => console.error('Error loading profile:', err)
+  //   });
+  // }
 
   //  ngOnInit() {
   //   this.loadUserProfile();
@@ -83,6 +95,33 @@ export class PersonalInformationComponent implements OnInit {
   //     }
   //   });
   // }
+
+
+  ngOnInit() {
+    this.userService.getProfile().subscribe({
+      next: (data: any) => {
+        console.log('daaaaaaaaaaataaaaaaaaaaaaaaaaaaaaa', data);
+  
+        if (data) {
+          this.profileForm.patchValue({
+            firstName: data.firstName || '',
+            lastName: data.lastName || '',
+            phone1: data.phone1 || '',
+            phone2: data.phone2 || '',
+            email: data.email || '',
+            country: data.country || '',
+            gender: data.gender || '',
+            streetAddress: data.streetAddress || '',
+            city: data.city || '',
+            state: data.state || '',
+            postalCode: data.postalCode || '',
+            // photo: مش هتحطها هنا، لأنها بتتعامل مع preview و File separately
+          });
+        }
+      },
+      error: err => console.error('Error loading profile:', err)
+    });
+  }
   onFileSelected(event: any){
     
     const file = event.target.files && event.target.files.length > 0 ? event.target.files[0] : null;
@@ -122,15 +161,15 @@ export class PersonalInformationComponent implements OnInit {
       }
       
 
-      // this.userService.updateProfile(formData).subscribe({
-      //   next:(response) =>{
-      //     console.log('Profile updated successfully', response);
-      //     this.profileForm.reset();
-      //   },
-      //   error: (error) => {
-      //     console.error('Error updating profile', error);
-      //   }
-      // });
+      this.userService.updateProfile(formData).subscribe({
+        next:(response) =>{
+          console.log('Profile updated successfully', response);
+          this.profileForm.reset();
+        },
+        error: (error) => {
+          console.error('Error updating profile', error);
+        }
+      });
 
       console.log('Form Data ready to be sent:', formData);
       } else {

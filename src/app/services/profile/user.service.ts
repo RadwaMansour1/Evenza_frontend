@@ -1,21 +1,47 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { Profile } from '../../models/profile.model';
 import { appendIfExists } from '../../helpers/form-data.util';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { CONSTANTS } from '../../constants'; 
+import { map, Observable } from 'rxjs';
+import { Profile, ProfileResponse } from '../../models/profile.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  private apiUrl = 'http://localhost:3000/api/profile';
+  private apiUrl = 'http://localhost:3000/profile';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient ) {}
 
+  
+  getProfile(): Observable<any> {
+    const token = localStorage.getItem('accessToken')  || sessionStorage.getItem('accessToken');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    console.log('toooooookeeeeeeeeeeeeeeen',token);
 
-  getProfile(): Observable<Profile> {
-    return this.http.get<Profile>(`${this.apiUrl}/personal-information`);
+    return this.http.get<any>(`${this.apiUrl}/`,{ headers });
+    // return this.http.get<ProfileResponse>(this.apiUrl, { headers }).pipe(
+    //   map(res => res.data)
+    // );
   }
+
+  updateProfile(profileData: FormData): Observable<any> {
+  const token = localStorage.getItem('access_token') || sessionStorage.getItem('access_token');
+  const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+    return this.http.post(`${this.apiUrl}/update`, profileData , { headers });
+  }
+
+
+  //   const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+
+  //   return this.http.patch(`${this.apiUrl}/users/change-password`, {
+  //     oldPassword,
+  //     newPassword
+  //   }, { headers });
+  // }
+
 
   // updateProfile(profileData: Profile): Observable<any> {
   //   const formData = new FormData();
@@ -27,7 +53,7 @@ export class UserService {
   //   formData.append('gender', profileData.gender);
   //   formData.append('address', profileData.address);
   //   formData.append('city', profileData.city);
-  //   formData.append('dateOfBirth', profileData.dateOfBirth);
+  //   // formData.append('dateOfBirth', profileData.dateOfBirth);
   //   appendIfExists(formData, 'phone2', profileData.phone2);
   //   appendIfExists(formData, 'phone2', profileData.state);
   //   appendIfExists(formData, 'phone2', profileData.zipCode);
