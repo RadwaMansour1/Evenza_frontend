@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgIcon, provideIcons, provideNgIconsConfig } from '@ng-icons/core';
 import { heroTicket } from '@ng-icons/heroicons/outline';
 import {
@@ -8,6 +8,9 @@ import {
   featherMapPin,
 } from '@ng-icons/feather-icons';
 import { Router } from '@angular/router';
+import { TicketsService } from '../../services/tickets/tickets.service';
+import { TicketModel } from '../../models/ticket.model';
+import { UserService } from '../../services/profile/user.service';
 @Component({
   selector: 'app-my-tickets',
   imports: [CommonModule, NgIcon],
@@ -17,36 +20,37 @@ import { Router } from '@angular/router';
     provideNgIconsConfig({ size: '1.05rem' }),
   ],
 })
-export class MyTicketsComponent {
-  tickets = [
-    {
-      id: 'T12345',
-      type: 'General Admission',
-      eventName: 'Summer Music Festival',
-      date: 'July 15–17, 2025',
-      time: '12:00 PM - 11:00 PM',
-      location: 'Central Park, New York',
-      purchaseDate: 'April 10, 2025',
-      price: 99.0,
-    },
-    {
-      id: 'T12346',
-      type: 'VIP Access',
-      eventName: 'Tech Conference 2025',
-      date: 'June 20, 2025',
-      time: '9:00 AM - 6:00 PM',
-      location: 'Convention Center, San Francisco',
-      purchaseDate: 'March 15, 2025',
-      price: 299.0,
-    },
-  ];
+export class MyTicketsComponent implements OnInit{
+  tickets:TicketModel[] = [];
 
-  constructor(private router: Router) {}
+  constructor(private router: Router,private readonly ticketsService:TicketsService,
+    private readonly userService:UserService
+  ) {}
+
+  ngOnInit(): void {
+    this.userService.getProfile().subscribe({
+      next:(res)=>{
+        this.ticketsService.getTicketByUserId(res._id).subscribe({
+          next:(res:any)=>{
+            console.log("tickets : ",res)
+            this.tickets = res.data;
+          },
+          error:(err)=>{
+            console.log(err);
+          }
+        })
+      },
+      error:(err)=>{
+        console.log(err);
+        this.router.navigate(['/login']);
+      }
+    })
+  }
   navigateEvents() {
     this.router.navigate(['/events']);
   }
-  requestRefund(arg0: string) {
-    throw new Error('Method not implemented.');
+  requestRefund(ticketId: string) {
+    this.router.navigate(["/refund"],{queryParams:{ticketId}});
   }
   navigateEventDetails(arg0: string) {
     throw new Error('Method not implemented.');

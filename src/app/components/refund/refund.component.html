@@ -18,7 +18,7 @@
             type="radio"
             id="conflict"
             name="refundReason"
-            value="conflict"
+            value="duplicate"
             class="accent-purple-500"
             [(ngModel)]="refundReason"
           />
@@ -116,7 +116,7 @@
           </span>
           <ul class="list-disc pl-16 text-gray-600 text-md">
             <li>
-              Your refund of $99.00 will be processed within 5-7 business days
+              Your refund of ${{total}} will be processed within 5-7 business days
             </li>
             <li>Service fees of $12.50 are non-refundable</li>
             <li>
@@ -125,7 +125,7 @@
             </li>
           </ul>
         </span>
-           <button class="p-2 rounded-lg bg-purple-500 text-white w-full lg:w-1/3 ms-auto">Submit Request</button>
+           <button class="p-2 rounded-lg bg-purple-500 hover:bg-purple-700 text-white w-full lg:w-1/3 ms-auto cursor-pointer" (click)="submitRefund()">Submit Request</button>
       </div>
 
       <!---------------------------- Second Part -------------------------- -->
@@ -190,22 +190,22 @@
       </span>
 
       <span class="py-1 px-10 rounded-full w-fit bg-purple-500">
-        <h2 class="font-semibold text-white">General Admission</h2>
+        <h2 class="font-semibold text-white">{{ticketDetails?.ticketType}}</h2>
       </span>
 
       <span class="flex flex-col">
-        <h2 class="text-xl font-bold">Champions League Match</h2>
+        <h2 class="text-xl font-bold">{{ticketDetails?.eventName}}</h2>
         <span class="flex gap-2 items-center text-gray-600">
           <ng-icon name="heroCalendar" />
-          <h3>{{ date }}</h3>
+          <h3>{{ ticketDetails?.date | date:'dd/MM/yyyy'}}</h3>
         </span>
         <span class="flex gap-2 items-center text-gray-600">
           <ng-icon name="heroClock" />
-          <h3>{{ startTime }} - {{ endTime }}</h3>
+          <h3>{{ ticketDetails?.time }}</h3>
         </span>
         <span class="flex gap-2 items-center text-gray-600">
           <ng-icon name="heroMapPin" />
-          <h3>{{ place }}</h3>
+          <h3>{{ ticketDetails?.location }}</h3>
         </span>
       </span>
 
@@ -214,22 +214,30 @@
       <div class="flex flex-col gap-3">
         <span class="flex justify-between">
           <h3 class="font-semibold text-gray-400 text-md">Ticket ID</h3>
-          <h3 class="font-semibold text-md">{{ ticketId }}</h3>
+          <h3 class="font-semibold text-md">{{ ticketDetails?._id }}</h3>
         </span>
         <span class="flex justify-between">
           <h3 class="font-semibold text-gray-400 text-md">Purchase Date</h3>
-          <h3 class="font-semibold text-md">{{ purchaseDate }}</h3>
+          <h3 class="font-semibold text-md">{{ ticketDetails?.purchaseDate | date:'dd/MM/yyyy - hh:mm aa' }}</h3>
         </span>
-        <span class="flex justify-between">
+        <!-- <span class="flex justify-between">
           <h3 class="font-semibold text-gray-400 text-md">Status</h3>
           <h3 class="font-semibold text-md">{{ status }}</h3>
-        </span>
+        </span> -->
       </div>
       <hr class="text-gray-300" />
 
       <span class="flex justify-between">
         <h3 class="font-semibold text-md">Ticket Price</h3>
-        <h3 class="font-medium text-gray-600 text-lg">${{ price }}</h3>
+        <h3 class="font-medium text-gray-600 text-lg">${{ ticketDetails?.price }}</h3>
+      </span>
+      <span class="flex justify-between">
+        <h3 class="font-semibold text-md">Quantity</h3>
+        <h3 class="font-medium text-gray-600 text-lg">x{{ ticketDetails?.quantity }}</h3>
+      </span>
+      <span class="flex justify-between">
+        <h3 class="font-semibold text-md">Total Price</h3>
+        <h3 class="font-medium text-gray-600 text-lg">${{ total }}</h3>
       </span>
       <span class="flex justify-between">
         <h3 class="font-semibold text-gray-400 text-md">
@@ -240,11 +248,11 @@
       <hr class="text-gray-300" />
       <span class="flex justify-between">
         <h3 class="font-semibold text-xl">Refundable Amount</h3>
-        <h3 class="font-semibold text-purple-500 text-lg">${{ price }}</h3>
+        <h3 class="font-semibold text-purple-500 text-lg">${{ ticketDetails?.price }}</h3>
       </span>
       <span class="flex gap-2 items-center font-semibold text-gray-600">
         <ng-icon name="heroCalendar" />
-        <h3>Refund deadline: {{ date }}</h3>
+        <h3>Refund deadline: {{ refundDeadline | date:'dd/MM/yyyy' }}</h3>
       </span>
     </div>
   </div>
