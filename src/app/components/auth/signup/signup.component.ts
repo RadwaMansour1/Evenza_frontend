@@ -95,9 +95,21 @@ export class SignupComponent {
         provider: 'google',
         providerId: payload.sub,
         isVerified: true,
+        // imageURL: payload.picture || 'https://default-image-url.com/default.jpg',  
       };
 
-      this.authService.signupWithGoogle(user).subscribe({
+       // إنشاء FormData لتضمين الصورة وأي بيانات إضافية
+      const formData = new FormData();
+      formData.append('firstName', user.firstName);
+      formData.append('lastName', user.lastName);
+      formData.append('email', user.email);
+      formData.append('provider', user.provider);
+      formData.append('providerId', user.providerId);
+      formData.append('isVerified',String(user.isVerified));  // تأكد من إرسال القيم كـ string
+      // formData.append('imageURL', user.imageURL);  // إرسال الصورة الافتراضية أو الحقيقية
+
+
+      this.authService.signupWithGoogle(formData).subscribe({
         next: (res) => {
           console.log('Google Signup Successfully', res);
           const accessToken = response.credential;

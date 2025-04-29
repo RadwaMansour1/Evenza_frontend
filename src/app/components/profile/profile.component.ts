@@ -19,7 +19,7 @@ export class ProfileComponent {
   navLinks = [
     { label: 'Account Information', path: '/profile/personal-information', icon: 'heroUser' },
     { label: 'Profile Settings', path: '/profile/new-password', icon: 'heroCalendar' },
-    { label: 'Log Out', path: '/tickets', icon: 'heroTicket' },
+    { label: 'Log Out', path: '/login', icon: 'heroTicket' },
   ];
 
   constructor(private router: Router, private authService:AuthService) {}

@@ -21,6 +21,7 @@
         <nav class="space-y-2">
           <a
             *ngFor="let link of navLinks"
+            (click)="link.label === 'Log Out' ? signOut() : null"
             [routerLink]="link.path"
             routerLinkActive="bg-[#8B5CF6] text-white"
             class="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors bg-[#F8FAFC] hover:bg-purple-200 hoer:text-whitve text-muted-foreground"

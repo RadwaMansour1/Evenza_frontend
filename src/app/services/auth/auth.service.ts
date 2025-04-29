@@ -6,7 +6,6 @@ import { User } from '../../models/user.model';
 import { FacebookAuthService } from './facebook-auth.service';
 import { LoginRequest } from '../../models/login.model';
 import { CONSTANTS } from '../../constants';
-
 @Injectable({
   providedIn: 'root',
 })
@@ -166,9 +165,9 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem(CONSTANTS.token);
-    localStorage.removeItem(CONSTANTS.userData);
+    localStorage.removeItem('userData');
     sessionStorage.removeItem(CONSTANTS.token);
-    sessionStorage.removeItem(CONSTANTS.userData);
+    sessionStorage.removeItem('userData');
     this.router.navigate(['/login']);
   }
 

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterModule,  Router } from '@angular/router';
 import { AuthService } from '../../services/auth/auth.service';
+import { CONSTANTS } from '../../constants';
 
 @Component({
   selector: 'app-side-bar',
@@ -11,7 +12,14 @@ import { AuthService } from '../../services/auth/auth.service';
 export class SideBarComponent {
   constructor(private router: Router, private authService:AuthService) {}
   signOut() {
-    this.authService.logout();
+    console.log('Sign out clicked');
+    // this.authService.logout();
+  
+    localStorage.removeItem(CONSTANTS.token);
+    localStorage.removeItem('userData');
+    sessionStorage.removeItem(CONSTANTS.token);
+    sessionStorage.removeItem('userData');
     this.router.navigate(['/login']);
-  }
+      
+}
 }
