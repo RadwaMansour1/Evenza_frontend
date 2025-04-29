@@ -1,0 +1,76 @@
+<div class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+  <div class="w-full max-w-md bg-white p-10 rounded-lg shadow-lg space-y-8">
+    <div class="text-center">
+      <h2 class="mt-6 text-3xl font-extrabold text-gray-800">Email Verification</h2>
+      <p class="mt-2 text-sm text-gray-600">
+        We have sent a code to your email {{ maskedEmail || 'Loading...' }}
+      </p>
+    </div>
+
+    <form method="post" [formGroup]="verificationForm" (ngSubmit)="onSubmit()" class="space-y-6">
+      <div class="flex justify-center space-x-4">
+        <div class="w-16 h-16">
+          <input
+            type="text"
+            maxlength="1"
+            formControlName="digit1"
+            (keyup)="onKeyUp($event, digit2)"
+            (paste)="handlePaste($event)"
+            class="w-full h-full text-center border-2 border-gray-300 rounded-lg text-lg focus:ring-purple-500 focus:border-purple-500 outline-none"
+          />
+        </div>
+        <div class="w-16 h-16">
+          <input
+            type="text"
+            maxlength="1"
+            formControlName="digit2"
+            #digit2
+            (keyup)="onKeyUp($event, digit3)"
+            class="w-full h-full text-center border-2 border-gray-300 rounded-lg text-lg focus:ring-purple-500 focus:border-purple-500 outline-none"
+          />
+        </div>
+        <div class="w-16 h-16">
+          <input
+            type="text"
+            maxlength="1"
+            formControlName="digit3"
+            #digit3
+            (keyup)="onKeyUp($event, digit4)"
+            class="w-full h-full text-center border-2 border-gray-300 rounded-lg text-lg focus:ring-purple-500 focus:border-purple-500 outline-none"
+          />
+        </div>
+        <div class="w-16 h-16">
+          <input
+            type="text"
+            maxlength="1"
+            formControlName="digit4"
+            #digit4
+            (keyup)="onKeyUp($event, digit4)"
+            class="w-full h-full text-center border-2 border-gray-300 rounded-lg text-lg focus:ring-purple-500 focus:border-purple-500 outline-none"
+          />
+        </div>
+      </div>
+
+      <div class="space-y-4">
+        <button
+          type="submit"
+          class="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
+        >
+          Verify Account
+        </button>
+
+        <div class="flex items-center justify-center text-sm text-gray-600">
+          <span>Didn't receive the code?</span>
+          <button
+            type="button"
+            [disabled]="isResendDisabled || isLocked"
+            (click)="resendCode()"
+            class="ml-2 text-purple-600 hover:text-purple-700 font-medium"
+          >
+            Resend
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

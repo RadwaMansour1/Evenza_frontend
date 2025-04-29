@@ -1,15 +1,14 @@
-import { Component, NgModule } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { PaymobService } from '../../services/payment/paymob.service';
 import { PaypalService } from '../../services/payment/paypal.service';
 import Swal from 'sweetalert2';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import {
-  heroCreditCard,
-  heroShieldCheck,
-  heroCalendar,
-  heroInformationCircle,
-} from '@ng-icons/heroicons/outline';
+import { heroCreditCard, heroShieldCheck, heroCalendar, heroInformationCircle } from '@ng-icons/heroicons/outline';
+import { StripeService } from '../../services/stripe.service';
+import { ActivatedRoute } from '@angular/router'; // <-- Add this import
+import { OrderService } from '../../services/order/order.service';
+import { EventService } from '../../services/event/event.service';
 
 @Component({
   selector: 'app-payment',
@@ -24,73 +23,172 @@ import {
     }),
   ],
 })
-export class PaymentComponent {
+export class PaymentComponent implements OnInit {
   constructor(
-    private paymobService: PaymobService,
-    private paypalService: PaypalService
-  ) {}
+    private paypalService: PaypalService,
+    private stripeService: StripeService,
+    private route: ActivatedRoute ,
+    private orderService: OrderService,
+    private eventService: EventService,
+  ) { }
 
-  selectedMethod: string = 'paypal';
+  selectedMethod: string = 'stripe';
 
   date: string = new Date().toDateString();
-  ticketPrice: number = 120;
-  serviceFee: number = 12.75;
-  tax: number = 7.5;
-  total: number = this.ticketPrice + this.serviceFee + this.tax;
-  // cardDetails = {
-  //   cardNumber: '',
-  //   cardHolder: '',
-  //   expiryDate: '',
-  //   cvv: ''
-  // };
 
-  // billingData = {
-  //   first_name: '',
-  //   last_name: '',
-  //   email: '',
-  //   phone_number: '',
-  //   city: '',
-  //   country: 'EG',
-  //   street: '',
-  //   building: '',
-  //   floor: '',
-  //   apartment: '',
-  //   postal_code: ''
-  // };
+  quantity: number|null = null;
+  ticketPrice:  number|null = null;
+  serviceFee:  number = 12.75;
+  tax:  number = 7.5;
+  total:  number|null =null;
+  amount:number|null = null;
+  userId: string = "";
+  eventId: string ="";
+  ticketType: string = "";
 
-  async confirmPayment(event: Event) {
-    event.preventDefault();
+
+  orderSummary:any = {
+    imgUrl : "",
+    eventName:"",
+    eventDate:"",
+    numberOfTickets:0,
+    ticketType:"",
+    price:0,
+  }
+  
+  
+
+  payWithStripe() {
+    console.log('Stripe button clicked');
+    this.stripeService.checkout(this.amount!,this.userId,this.eventId,this.ticketType,this.quantity!);
+  } 
+
+  orderId: string | null = null;
+  order: any = null; // Add a property to hold the order details
+
+  ngOnInit(): void {
+    // Only a single callback is needed for queryParams
+    this.route.queryParams.subscribe(params => {
+      this.orderId = params['orderId'] || null;
+      console.log('Order ID:', this.orderId);
+
+      if (this.orderId) {
+        // Use next/error for HTTP observable
+        this.orderService.getOrderById(this.orderId).subscribe({
+          next: (order: any) => {
+            this.order = order;
+            console.log('Fetched order:', this.order); // <-- Now this.order is set
+            // Fix: Access nested data
+            const orderData = order.data.data;
+            this.userId = orderData.userId;
+            this.quantity = orderData.countOfTickets;
+            this.orderSummary.numberOfTickets = this.quantity;
+            this.ticketPrice = orderData.totalPrice;
+            this.total =this.ticketPrice!+ this.serviceFee + this.tax;
+            this.amount =this.total / this.quantity!;
+            console.log('orderDetails:', orderData.orderDetails);
+            this.eventId = orderData.orderDetails[0]?.eventId;
+            console.log('eventId to fetch:', this.eventId);
+            this.ticketType = orderData.orderDetails[0]?.level;
+
+            if (this.eventId) {
+              this.eventService.getEventById(this.eventId).subscribe({
+                next: (eventRes: any) => {
+                  console.log('Raw eventRes:', eventRes);
+                  const eventData = eventRes.data;
+                  console.log('Fetched event:', eventData);
+                  this.orderSummary.imgUrl = eventData.imageUrl;
+                  this.orderSummary.eventName = eventData.title;
+                  const eventDateObj = new Date(eventData.date);
+                  this.orderSummary.eventDate = eventDateObj.toLocaleDateString('en-GB'); // e.g., 10/04/2025
+                  this.date = eventDateObj.toLocaleString();
+                },
+                error: (err) => {
+                  console.error('Error fetching event:', err);
+                }
+              });
+            } else {
+              console.error('eventId is missing, cannot fetch event.');
+            }
+          },
+          error: (err) => {
+            console.error('Error fetching order:', err);
+          }
+        });
+      }
+    });
 
     if (this.selectedMethod === 'paypal') {
+      this.renderPayPalButtons();
+    }
+  }
+
+  // Method triggered when payment method changes
+  onPaymentMethodChange(method: string): void {
+    if (method === 'paypal') {
+      this.renderPayPalButtons();
+    } else {
+      // Optionally clear the PayPal container if switching away
+      const container = document.querySelector('#paypal-button-container');
+      if (container) {
+        container.innerHTML = '';
+      }
+    }
+  }
+
+  // Extracted logic for rendering PayPal buttons
+  private async renderPayPalButtons(): Promise<void> {
+    // Ensure the container exists in the DOM first
+    // Use setTimeout to wait for Angular's change detection cycle
+    setTimeout(async () => {
       try {
         console.log('Initializing PayPal...');
         const paypalInstance = await this.paypalService.initialize();
+        console.log(`paypal instance: ${paypalInstance}`);
 
         if (!paypalInstance) {
           throw new Error('Failed to initialize PayPal SDK');
         }
 
         console.log('Creating payment for amount:', this.total);
-        const paymentButtons = await this.paypalService.createPayment(
-          this.total
-        );
+        const paymentButtons = await this.paypalService.createPayment(this.total!);
 
         const container = document.querySelector('#paypal-button-container');
         if (container) {
-          container.innerHTML = '';
+          container.innerHTML = ''; // Clear previous buttons first
           console.log('Rendering PayPal button...');
           await paymentButtons.render('#paypal-button-container');
         } else {
-          throw new Error('PayPal container not found');
+          // This might happen if the @if block hasn't rendered yet
+          console.warn('PayPal container not found during render attempt. May need adjustment.');
+          // Consider retrying or ensuring the container exists before calling this.
         }
+
       } catch (error: Error | any) {
         console.error('Detailed PayPal error:', error);
         Swal.fire({
-          title: 'Payment failed. Please try again.',
-          text: 'Failed to initialize PayPal. Please refresh and try again.',
-          icon: 'error',
+          title: "Payment setup failed.",
+          text: "Could not set up PayPal buttons. Please refresh or select another method.",
+          icon: "error"
         });
       }
+    }, 0); // setTimeout ensures DOM is updated
+  }
+
+  // This method is now primarily for the Evenza Wallet button click
+  async confirmPayment(event?: Event): Promise<void> { // Make event optional
+    event?.preventDefault(); // Prevent default only if event exists
+
+    if (this.selectedMethod === 'evenza') {
+      // Handle Evenza wallet payment logic here
+      console.log('Paying with Evenza Wallet...');
+      // Example: Show success/failure message
+      Swal.fire({
+        title: "Wallet Payment",
+        text: "Wallet payment functionality not yet implemented.",
+        icon: "info"
+      });
     }
+    // PayPal logic is now handled by renderPayPalButtons via onPaymentMethodChange
   }
 }

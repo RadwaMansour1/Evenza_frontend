@@ -8,7 +8,7 @@ export interface Location {
   };
 }
 export interface Ticket {
-  level: 'silver' | 'golden' | 'platinum';
+  level: 'Silver' | 'Golden' | 'Platinum';
   price: number;
   quantity: number;
 }
@@ -22,6 +22,7 @@ export interface Event {
   location: Location;
   category: string;
   ticketsAvailable: Ticket[];
+  eventHighlights?: string[];
   isFree: boolean;
   imageUrl: string;
   organizerId: number;

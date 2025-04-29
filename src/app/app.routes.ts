@@ -1,16 +1,14 @@
-import { Routes } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { AllEventsComponent } from './components/all-events/all-events.component';
 import { EventDetailsComponent } from './components/event-details/event-details.component';
 import { HomeComponent } from './components/home/home.component';
 import { OrderComponent } from './components/order/order.component';
 import { AboutComponent } from './components/about/about.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
-
 import { redirectIfLoggedInGuard } from './guards/redirectIfLoggedIn.guard';
-import { SignupComponent } from './components/signup/signup.component';
-import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
-import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
-import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
+import { SignupComponent } from './components/auth/signup/signup.component';
+import { VerifyEmailComponent } from './components/auth/verify-email/verify-email.component';
+import { ForgotPasswordComponent } from './components/auth/forgot-password/forgot-password.component';
 import { TermsConditionsComponent } from './components/terms-conditions/terms-conditions.component';
 import { HelpCenterComponent } from './components/help-center/help-center.component';
 import { authGuard } from './guards/auth.guard';
@@ -19,6 +17,16 @@ import { SelectRoleComponent } from './components/select-role/select-role.compon
 import { MyWalletComponent } from './components/my-wallet/my-wallet.component';
 import { FaqComponent } from './components/faq/faq.component';
 import { MyTicketsComponent } from './components/my-tickets/my-tickets.component';
+import { LoginComponent } from './components/auth/login/login.component';
+import { SetNewPasswordComponent } from './components/auth/set-new-password/set-new-password.component';
+import { PaymentSuccessComponent } from './components/payment-success/payment-success.component';
+import { PaymentComponent } from './components/payment/payment.component';
+import { NgModule } from '@angular/core';
+import { RefundComponent } from './components/refund/refund.component';
+import { OrganizerDashboardComponent } from './components/organizer/organizer-dashboard/organizer-dashboard.component';
+import { OrganizerWalletComponent } from './components/organizer/organizer-wallet/organizer-wallet.component';
+import { AddEventComponent } from './components/organizer/add-event/add-event.component';
+import { ResetPasswordComponent } from './components/auth/reset-password/reset-password.component';
 import { LoginComponent } from './components/login/login.component';
 import { SetNewPasswordComponent } from './components/set-new-password/set-new-password.component';
 import { PersonalInformationComponent } from './components/personal-information/personal-information.component';
@@ -63,7 +71,22 @@ export const routes: Routes = [
   {
     path: 'my-wallet',
     title: 'My Wallet',
-    component: MyWalletComponent ,
+    component: MyWalletComponent,
+  },
+  {
+    path: 'payment',
+    title: 'Payment',
+    component: PaymentComponent,
+  },
+  {
+    path: 'refund',
+    title: 'Refund',
+    component: RefundComponent,
+  },
+  {
+    path: 'success',
+    title: 'Payment Success',
+    component: PaymentSuccessComponent,
   },
   {
     path: 'login',
@@ -131,6 +154,23 @@ export const routes: Routes = [
     component: TermsConditionsComponent,
     title: 'Terms and Conditions',
   },
+  //organizer routes
+  {
+    path: 'organizer/dashboard',
+    component: OrganizerDashboardComponent,
+    title: 'Organizer Dashboard',
+  },
+  {
+    path: 'organizer/wallet',
+    component: OrganizerWalletComponent,
+    title: 'Organizer Wallet',
+  },
+  {
+    path: 'organizer/add-event',
+    component: AddEventComponent,
+    title: 'Add Event',
+  },
+  //not found route
   {
     path: '**',
     title: 'Page Not Found',

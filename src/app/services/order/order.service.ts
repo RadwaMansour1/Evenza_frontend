@@ -1,8 +1,7 @@
-// src/app/services/order/order.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Order } from '../../models/order.model';
+import { CreateOrderPayload, Order } from '../../models/order.model';
 
 @Injectable({
   providedIn: 'root',
@@ -28,8 +27,12 @@ export class OrderService {
     return this.http.get<Order>(`${this.apiUrl}/${orderId}`);
   }
 
-  createOrder(orderData: Partial<Order>): Observable<Order> {
+  createOrder(orderData: Partial<CreateOrderPayload>): Observable<Order> {
     return this.http.post<Order>(this.apiUrl, orderData);
+  }
+
+  confirmPayment(orderId: string): Observable<Order> {
+    return this.http.post<Order>(`${this.apiUrl}/confirm-payment/${orderId}`, {});
   }
 
   updateOrder(orderId: string, updateData: Partial<Order>): Observable<Order> {

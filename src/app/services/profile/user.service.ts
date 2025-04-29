@@ -1,6 +1,5 @@
-// user.service.ts
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Profile } from '../../models/profile.model';
 import { appendIfExists } from '../../helpers/form-data.util';
@@ -9,42 +8,35 @@ import { appendIfExists } from '../../helpers/form-data.util';
   providedIn: 'root',
 })
 export class UserService {
-  private apiUrl = 'http://localhost:3000/profile/';
+  private apiUrl = 'http://localhost:3000/api/profile';
 
   constructor(private http: HttpClient) {}
 
-  // getProfile(): Observable<Profile> {
-  //   return this.http.get<Profile>(`${this.apiUrl}/${id}`);
+
+  getProfile(): Observable<Profile> {
+    return this.http.get<Profile>(`${this.apiUrl}/personal-information`);
+  }
+
+  // updateProfile(profileData: Profile): Observable<any> {
+  //   const formData = new FormData();
+  
+  //   formData.append('firstName', profileData.firstName);
+  //   formData.append('lastName', profileData.lastName);
+  //   formData.append('phone1', profileData.phone1);
+  //   formData.append('country', profileData.country);
+  //   formData.append('gender', profileData.gender);
+  //   formData.append('address', profileData.address);
+  //   formData.append('city', profileData.city);
+  //   formData.append('dateOfBirth', profileData.dateOfBirth);
+  //   appendIfExists(formData, 'phone2', profileData.phone2);
+  //   appendIfExists(formData, 'phone2', profileData.state);
+  //   appendIfExists(formData, 'phone2', profileData.zipCode);
+  
+  //   if (profileData.profileImage) {
+  //     formData.append('profileImage', profileData.profileImage); // الصورة
+  //   }
+  
+  //   return this.http.put(`http://localhost:3000/api/profile`, formData);
   // }
-  getProfile(userId: string): Observable<any> {
-    return this.http.get(`http://localhost:3000/profile/${userId}`);
-  }
-
-
-  changePassword(oldPassword: string, newPassword: string): Observable<any> {
-    const token = localStorage.getItem('access_token'); 
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-
-
-    return this.http.patch(`http://localhost:3000/users/change-password`, {
-      oldPassword,
-      newPassword
-    }, { headers });
-  }
-
-    updateProfile(formData: FormData): Observable<any> {
-
-    const token = localStorage.getItem('authToken') || sessionStorage.getItem('authToken');
- 
-    if(token){
-      console.log(token);
-
-    }
   
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-
-  
-    return this.http.post('http://localhost:3000/profile/update', formData , { headers } );
-  }
 }
-

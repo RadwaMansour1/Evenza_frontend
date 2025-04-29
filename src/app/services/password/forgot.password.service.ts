@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ForgotPasswordService {
-  private apiUrl = 'http://localhost:3000/auth/forgot-password'; // رابط API في NestJS
+  private apiUrl = 'http://localhost:3000/auth/forgot-password';
   private resetPasswordUrl = 'http://localhost:3000/auth/reset-password';
 
   constructor(private http: HttpClient) {}

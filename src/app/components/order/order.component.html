@@ -81,7 +81,8 @@
             {{ 'booking.feesInfo' | translate }}
           </p>
 
-          <button class="w-full cursor-pointer bg-purple-600 hover:bg-purple-700 text-white py-3 rounded-lg text-center font-semibold transition">
+          <button (click)="createOrder()"
+              class="w-full cursor-pointer bg-purple-600 hover:bg-purple-700 text-white py-3 rounded-lg text-center font-semibold transition">
             {{ 'booking.continue' | translate }}
           </button>
         </div>

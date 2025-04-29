@@ -1,0 +1,11 @@
+<div class="h-64 md:h-72">
+  <canvas
+    baseChart
+    [data]="revenueChartData"
+    [options]="revenueChartOptions"
+    [type]="revenueChartType"
+    (chartHover)="chartHovered($event)"
+    (chartClick)="chartClicked($event)"
+  >
+  </canvas>
+</div>
