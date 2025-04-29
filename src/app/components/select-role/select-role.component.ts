@@ -34,18 +34,20 @@ export class SelectRoleComponent implements OnInit {
   continueWithRole() {
     const email = this.email;
     console.log('Selected Role on submit:', this.selectedRole);
+
+
     if (!this.selectedRole || !email) {
       console.log('No role or email provided');
       this.errorMessage = 'Please select a role first.';
       return;
     }
   
+
     this.http.patch('http://localhost:3000/auth/set-role',
       { email: email, role: this.selectedRole }
+
     ).subscribe(
       response => {
-
-        console.log('Role updated successfully:', 'response);');
         console.log('Role updated successfully:', response);
         this.router.navigate(['/profile']);
       },

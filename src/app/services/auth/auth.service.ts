@@ -5,6 +5,7 @@ import { BehaviorSubject, map, Observable, tap } from 'rxjs';
 import { User } from '../../models/user.model';
 import { FacebookAuthService } from './facebook-auth.service';
 import { LoginRequest } from '../../models/login.model';
+import { CONSTANTS } from '../../constants';
 
 @Injectable({
   providedIn: 'root',
@@ -195,9 +196,9 @@ export class AuthService {
   }
 
   logout() {
-    localStorage.removeItem('userToken');
+    localStorage.removeItem(CONSTANTS.token);
     localStorage.removeItem('userData');
-    sessionStorage.removeItem('userToken');
+    sessionStorage.removeItem(CONSTANTS.token);
     sessionStorage.removeItem('userData');
     this.router.navigate(['/login']);
   }
