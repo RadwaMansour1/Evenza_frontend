@@ -11,15 +11,12 @@ import { VerifyEmailComponent } from './components/auth/verify-email/verify-emai
 import { ForgotPasswordComponent } from './components/auth/forgot-password/forgot-password.component';
 import { TermsConditionsComponent } from './components/terms-conditions/terms-conditions.component';
 import { HelpCenterComponent } from './components/help-center/help-center.component';
-import { PersonalInformationComponent } from './components/personal-information/personal-information.component';
 import { authGuard } from './guards/auth.guard';
 import { ProfileComponent } from './components/profile/profile.component';
 import { SelectRoleComponent } from './components/select-role/select-role.component';
 import { MyWalletComponent } from './components/my-wallet/my-wallet.component';
 import { FaqComponent } from './components/faq/faq.component';
 import { MyTicketsComponent } from './components/my-tickets/my-tickets.component';
-import { LoginComponent } from './components/auth/login/login.component';
-import { SetNewPasswordComponent } from './components/auth/set-new-password/set-new-password.component';
 import { PaymentSuccessComponent } from './components/payment-success/payment-success.component';
 import { PaymentComponent } from './components/payment/payment.component';
 import { NgModule } from '@angular/core';
@@ -28,6 +25,9 @@ import { OrganizerDashboardComponent } from './components/organizer/organizer-da
 import { OrganizerWalletComponent } from './components/organizer/organizer-wallet/organizer-wallet.component';
 import { AddEventComponent } from './components/organizer/add-event/add-event.component';
 import { ResetPasswordComponent } from './components/auth/reset-password/reset-password.component';
+import { LoginComponent } from './components/auth/login/login.component';
+import { SetNewPasswordComponent } from './components/auth/set-new-password/set-new-password.component';
+import { PersonalInformationComponent } from './components/personal-information/personal-information.component';
 
 export const routes: Routes = [
   {
@@ -112,14 +112,8 @@ export const routes: Routes = [
   },
   {
     path: 'reset-password',
-    component: ResetPasswordComponent,
-    title: 'Reset Password',
-    canActivate: [],
-  },
-  {
-    path: 'new-password',
     component: SetNewPasswordComponent,
-    title: 'New Password',
+    title: 'Reset Password',
     canActivate: [],
   },
   {
@@ -137,6 +131,12 @@ export const routes: Routes = [
         path: 'personal-information',
         component: PersonalInformationComponent,
         title: 'Personal Information',
+      },
+      {
+        path: 'new-password',
+        component: ResetPasswordComponent,
+        title: 'New Password',
+        canActivate: [],
       },
       {
         path: 'help-center',

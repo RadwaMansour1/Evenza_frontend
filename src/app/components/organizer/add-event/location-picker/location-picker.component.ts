@@ -14,9 +14,19 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import * as L from 'leaflet';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { heroMapPin, heroCheckCircle } from '@ng-icons/heroicons/outline';
+import {
+  heroMapPin,
+  heroCheckCircle,
+  heroMagnifyingGlass,
+} from '@ng-icons/heroicons/outline';
 import { GeocodingService } from '../../../../services/event/geocoding.service';
-
+import {
+  debounceTime,
+  distinctUntilChanged,
+  Observable,
+  Subject,
+  switchMap,
+} from 'rxjs';
 @Component({
   selector: 'app-location-picker',
   standalone: true,
@@ -27,6 +37,7 @@ import { GeocodingService } from '../../../../services/event/geocoding.service';
     provideIcons({
       heroMapPin,
       heroCheckCircle,
+      heroMagnifyingGlass,
     }),
   ],
 })
@@ -64,6 +75,11 @@ export class LocationPickerComponent
     shadowSize: [41, 41],
   });
 
+  // --- Search Properties ---
+  searchQuery: string = '';
+  searchResults: any[] = [];
+  private searchTerms = new Subject<string>();
+
   constructor(
     private zone: NgZone,
     private geocodingService: GeocodingService
@@ -91,14 +107,42 @@ export class LocationPickerComponent
     // Initialize dialog lat/lng with initial values
     this.dialogLatitude = this.initialLatitude;
     this.dialogLongitude = this.initialLongitude;
+    this.searchTerms
+      .pipe(
+        debounceTime(300),
+        distinctUntilChanged(),
+        switchMap((term: string) => {
+          if (term.length < 3) {
+            // Only search if term is at least 3 characters
+            return new Observable<any[]>((observer) => {
+              // Return empty observable for short terms
+              observer.next([]);
+              observer.complete();
+            });
+          }
+          return this.geocodingService.geocode(term);
+        })
+      )
+      .subscribe({
+        next: (results) => {
+          this.zone.run(() => {
+            this.searchResults = results;
+            console.log('Search Results:', this.searchResults);
+          });
+        },
+        error: (error) => {
+          console.error('Geocoding search error:', error);
+          this.zone.run(() => {
+            this.searchResults = [];
+          });
+        },
+      });
   }
 
   ngAfterViewInit(): void {
-    // Initialize the display map here
     this.zone.runOutsideAngular(() => {
       this.initDisplayMap();
     });
-
     // Invalidate the display map size after the view is stable.
     setTimeout(() => {
       if (this.displayMap) {
@@ -118,6 +162,7 @@ export class LocationPickerComponent
       this.dialogMap = null; // Set to null after removing
       this.dialogMarker = null;
     }
+    this.searchTerms.complete();
   }
 
   private initDisplayMap(): void {
@@ -361,6 +406,60 @@ export class LocationPickerComponent
       console.warn(
         'Latitude or Longitude is null, cannot update display map marker.'
       );
+    }
+  }
+
+  // --- Search Methods ---
+  // Method called when the search input changes
+  onSearchInputChange(event: Event): void {
+    const inputElement = event.target as HTMLInputElement;
+    const searchTerm = inputElement.value;
+    this.searchTerms.next(searchTerm);
+    console.log(searchTerm);
+  }
+
+  // Method called when a search result is clicked/selected
+  selectSearchResult(result: any): void {
+    if (result && result.lat && result.lon) {
+      this.zone.run(() => {
+        // Ensure Angular detects changes
+        this.dialogLatitude = parseFloat(parseFloat(result.lat).toFixed(6));
+        this.dialogLongitude = parseFloat(parseFloat(result.lon).toFixed(6));
+
+        const newLatLng = L.latLng(this.dialogLatitude, this.dialogLongitude);
+
+        // Update dialog map view and marker position
+        if (this.dialogMap) {
+          this.dialogMap.setView(newLatLng, 15); // Zoom in closer on selection
+          if (this.dialogMarker) {
+            this.dialogMarker.setLatLng(newLatLng);
+          } else {
+            // Create marker if it doesn't exist
+            this.dialogMarker = L.marker(newLatLng, {
+              draggable: true,
+              icon: this.defaultIcon,
+            }).addTo(this.dialogMap);
+            // Add dragend listener
+            this.dialogMarker.on('dragend', (dragEvent) => {
+              const pos = dragEvent.target.getLatLng();
+              this.zone.run(() => {
+                this.dialogLatitude = parseFloat(pos.lat.toFixed(6));
+                this.dialogLongitude = parseFloat(pos.lng.toFixed(6));
+              });
+            });
+          }
+          setTimeout(() => this.dialogMap?.invalidateSize(), 50); // Invalidate size just in case
+        }
+
+        this.searchQuery = result.display_name; // Optionally put the selected address in the input
+        this.searchResults = []; // Clear search results after selection
+        console.log(
+          'Selected Search Result:',
+          this.dialogLatitude,
+          this.dialogLongitude,
+          result.display_name
+        );
+      });
     }
   }
 }

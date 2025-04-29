@@ -23,20 +23,54 @@ export class AuthService {
 
   isAuthenticated(): boolean {
     // Replace with actual authentication logic
-    // return !!localStorage.getItem('userToken');
-
-    if (sessionStorage.getItem('userToken') !== null) {
-      return true;
-    } else {
-      return false;
-    }
+    // return !!localStorage.getItem('userToken'); 
+    return sessionStorage.getItem('userToken') !== null || localStorage.getItem('userToken') !== null;
+    // if(sessionStorage.getItem('userToken')!== null){
+    //   return true;
+    // }else{ 
+    //   return false;
+    // } 
   }
+  // set the token in localStorage or sessionStorage
+  setToken(token: string): void {
+    localStorage.setItem('userToken', token); 
+    sessionStorage.setItem('userToken', token);
+  }
+  // get the token from localStorage or sessionStorage
+  getToken(): string | null {
+    let token = sessionStorage.getItem('userToken');
+    if (!token) {
+      token = localStorage.getItem('userToken');
+    }
+    return token;
+  }
+  // clear the token from localStorage and sessionStorage
+  clearToken(): void {
+    localStorage.removeItem('userToken');
+    sessionStorage.removeItem('userToken');
+  }
+
+  // canAccess(){
+  //   if(!this.isAuthenticated()){
+
+
+  //   if (sessionStorage.getItem('userToken') !== null) {
+  //     return true;
+  //   } else {
+  //     return false;
+  //   }
+  // }
+
   canAccess() {
     if (!this.isAuthenticated()) {
+
       //redirect to login page
       this.router.navigate(['/login']);
     }
   }
+  
+
+  
 
   register(name: string, email: string, password: string) {
     //send data to register api
@@ -168,6 +202,17 @@ export class AuthService {
     this.router.navigate(['/login']);
   }
 
+  // changePassword(oldPassword: string, newPassword: string): Observable<any> {
+  //   const token = localStorage.getItem('access_token'); 
+  //   const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+
+  //   return this.http.patch(`${this.apiUrl}/users/change-password`, {
+  //     oldPassword,
+  //     newPassword
+  //   }, { headers });
+  // }
+  
   changePassword(oldPassword: string, newPassword: string): Observable<any> {
     const token = localStorage.getItem('access_token');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
@@ -182,3 +227,4 @@ export class AuthService {
     );
   }
 }
+

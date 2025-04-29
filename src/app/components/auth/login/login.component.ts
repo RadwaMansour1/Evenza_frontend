@@ -101,7 +101,11 @@ export class LoginComponent implements OnInit {
     if (response) {
       const payload = this.decodeToken(response.credential);
       sessionStorage.setItem('userData', JSON.stringify(payload));
-      this.router.navigate(['/profile']);
+      //navigate to test page
+      this.router.navigate(['/home']);
+      //send the token to the server for verification
+
+
     }
   }
 
@@ -116,6 +120,19 @@ export class LoginComponent implements OnInit {
         (response) => {
           console.log('Login response:', response);
           const token = response.data?.access_token;
+
+
+          // إذا تم تفعيل "Remember me"، خزن البيانات في localStorage
+          // if (this.signInForm.value.rememberMe) {
+          //   localStorage.setItem('authToken', token);
+          //   localStorage.setItem('userData', JSON.stringify(payload));
+          // } else {
+          //   sessionStorage.setItem('authToken', token);
+          //   sessionStorage.setItem('userData', JSON.stringify(payload));
+          // }
+
+          // // الانتقال إلى الصفحة التالية
+          // this.router.navigate(['/home']);
 
           if (token) {
             if (this.signInForm.value.rememberMe) {
@@ -135,6 +152,7 @@ export class LoginComponent implements OnInit {
             if (payload.role == 'user') this.router.navigate(['/profile']);
             else this.router.navigate(['/organizer/dashboard']);
           }
+
         },
         (error) => {
           if (error.status === 401) {
