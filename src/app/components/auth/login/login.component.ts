@@ -50,10 +50,11 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     const userData =
-      localStorage.getItem(CONSTANTS.userData) || sessionStorage.getItem(CONSTANTS.userData);
+      localStorage.getItem(CONSTANTS.userData) ||
+      sessionStorage.getItem(CONSTANTS.userData);
     if (userData) {
       const user = JSON.parse(userData);
-      this.router.navigate(['/profile']);
+      this.router.navigate(['/home']);
     } else {
       this.router.navigate(['/login']);
     }
@@ -133,12 +134,14 @@ export class LoginComponent implements OnInit {
             if (this.signInForm.value.rememberMe) {
               localStorage.setItem(CONSTANTS.userData, JSON.stringify(payload));
             } else {
-              sessionStorage.setItem(CONSTANTS.userData, JSON.stringify(payload));
+              sessionStorage.setItem(
+                CONSTANTS.userData,
+                JSON.stringify(payload)
+              );
             }
-            if (payload.role == 'user') this.router.navigate(['/profile']);
+            if (payload.role == 'user') this.router.navigate(['/home']);
             else this.router.navigate(['/organizer/dashboard']);
           }
-
         },
         (error) => {
           if (error.status === 401) {

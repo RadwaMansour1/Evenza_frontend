@@ -127,7 +127,7 @@
               {{ "home.navbar.register" | translate }} </a
             >}@else{
             <a
-              routerLink="/login"
+              routerLink="/profile/personal-information"
               class="cursor-pointer block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
               role="menuitem"
               (click)="closeUserMenu()"
@@ -135,10 +135,9 @@
               {{ "home.navbar.profile" | translate }}
             </a>
             <a
-              routerLink="/signup"
               class="cursor-pointer block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
               role="menuitem"
-              (click)="closeUserMenu()"
+              (click)="logout()"
             >
               {{ "home.navbar.logout" | translate }}
             </a>

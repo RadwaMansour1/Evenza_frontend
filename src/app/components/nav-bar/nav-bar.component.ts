@@ -114,4 +114,10 @@ export class NavBarComponent {
       this.closeUserMenu();
     }
   }
+
+  logout(){
+    this.closeUserMenu();
+    this.authService.logout();
+    this.router.navigate(['/login']);
+  }
 }
