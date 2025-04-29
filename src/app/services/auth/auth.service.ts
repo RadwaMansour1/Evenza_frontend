@@ -6,8 +6,6 @@ import { User } from '../../models/user.model';
 import { FacebookAuthService } from './facebook-auth.service';
 import { LoginRequest } from '../../models/login.model';
 import { CONSTANTS } from '../../constants';
-import { CONSTANTS } from '../../constants';
-
 @Injectable({
   providedIn: 'root',
 })
