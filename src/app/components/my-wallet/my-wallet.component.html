@@ -15,7 +15,7 @@
               <span class="text-4xl font-bold text-evenza-primary text-purple-600">EGP {{ balance.toFixed(2) }}</span>
               <span class="text-sm text-muted-foreground mb-1 text-gray-500">{{ currency }}</span>
             </div>
-            <p class="text-sm text-muted-foreground mt-4 text-gray-500">Last transaction: {{ lastTransaction }}</p>
+            <p class="text-sm text-muted-foreground mt-4 text-gray-500">Last transaction: {{ lastTransaction | date:'dd/MM/yyyy'}}</p>
           </div>
         </div>
       </div>
@@ -29,8 +29,8 @@
             <div *ngFor="let tx of transactions" class="pb-4 border-b border-gray-200 last:border-b-0">
               <div class="flex items-center justify-between">
                 <div>
-                  <p class="font-medium">{{ tx.description }}</p>
-                  <p class="text-sm text-muted-foreground text-gray-500">{{ tx.date }}</p>
+                  <p class="font-medium">{{ tx.type }}</p>
+                  <p class="text-sm text-muted-foreground text-gray-500">{{ tx.createdAt | date:'dd/MM/yyyy' }}</p>
                 </div>
                 <span
                   class="px-2 py-1 text-sm rounded-full"
