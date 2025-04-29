@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, HostListener } from '@angular/core';
-import { RouterLinkActive, RouterModule,  Router } from '@angular/router';
+import { RouterLinkActive, RouterModule, Router } from '@angular/router';
 import { NgIcon, provideIcons, provideNgIconsConfig } from '@ng-icons/core';
 import {
   heroTicket,
@@ -13,6 +13,7 @@ import {
   heroGlobeAlt,
   heroGlobeEuropeAfrica,
 } from '@ng-icons/heroicons/outline';
+import { featherLogOut } from '@ng-icons/feather-icons';
 import { LanguageService } from '../../services/language/language.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { AuthService } from '../../services/auth/auth.service';
@@ -39,6 +40,7 @@ import { AuthService } from '../../services/auth/auth.service';
       heroMagnifyingGlass,
       heroGlobeAlt,
       heroGlobeEuropeAfrica,
+      featherLogOut,
     }),
     provideNgIconsConfig({
       size: '1.26em',
@@ -46,7 +48,6 @@ import { AuthService } from '../../services/auth/auth.service';
   ],
 })
 export class NavBarComponent {
-
   isMenuOpen = false;
   isMenuUserOpen = false;
   navLinks = [
@@ -72,7 +73,11 @@ export class NavBarComponent {
   ];
   currentLang: 'en' | 'ar' = 'en';
   isAuthenticated = false;
-  constructor(private languageService: LanguageService,private router: Router, private authService:AuthService) {
+  constructor(
+    private languageService: LanguageService,
+    private router: Router,
+    private authService: AuthService
+  ) {
     this.currentLang = this.languageService.getCurrentLanguage();
     this.isAuthenticated = this.authService.isloggedIn();
     console.log(this.authService.isloggedIn());
@@ -115,7 +120,7 @@ export class NavBarComponent {
     }
   }
 
-  logout(){
+  logout() {
     this.closeUserMenu();
     this.authService.logout();
     this.router.navigate(['/login']);

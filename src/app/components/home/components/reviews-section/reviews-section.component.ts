@@ -8,10 +8,12 @@ import {
   matArrowForwardIos,
 } from '@ng-icons/material-icons/baseline';
 import { ReviewService } from '../../../../services/review/review.service';
+import { TranslateModule } from '@ngx-translate/core';
+import { LanguageService } from '../../../../services/language/language.service';
 
 @Component({
   selector: 'app-reviews-section',
-  imports: [CommonModule, NgIcon],
+  imports: [CommonModule, NgIcon, TranslateModule],
   templateUrl: './reviews-section.component.html',
   providers: [
     provideIcons({
@@ -27,8 +29,15 @@ import { ReviewService } from '../../../../services/review/review.service';
 })
 export class ReviewsSectionComponent implements OnInit {
   reviews: any[] = [];
+  currentLang: 'en' | 'ar' = 'en';
 
-  constructor(private reviewService: ReviewService) {}
+  constructor(
+    private reviewService: ReviewService,
+    private languageService: LanguageService
+  ) {
+    const lang = this.languageService.getCurrentLanguage();
+    this.currentLang = lang;
+  }
 
   ngOnInit() {
     this.fetchReviews();
@@ -42,7 +51,7 @@ export class ReviewsSectionComponent implements OnInit {
       },
       error: (err) => {
         console.error('Failed to fetch reviews:', err);
-      }
+      },
     });
   }
 

@@ -10,12 +10,16 @@ import {
   featherBriefcase,
   featherAward,
   featherCoffee,
+  featherShoppingBag,
+  featherMonitor,
 } from '@ng-icons/feather-icons';
 import { heroTicket, heroMap } from '@ng-icons/heroicons/outline';
+import { Router } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-category-list-section',
-  imports: [CommonModule, NgIcon],
+  imports: [CommonModule, NgIcon,TranslateModule],
   templateUrl: './category-list-section.component.html',
   providers: [
     provideIcons({
@@ -27,6 +31,8 @@ import { heroTicket, heroMap } from '@ng-icons/heroicons/outline';
       featherCoffee,
       matColorLensOutline,
       heroMap,
+      featherShoppingBag,
+      featherMonitor,
     }),
     provideNgIconsConfig({
       size: '1.5em',
@@ -37,18 +43,33 @@ export class CategoryListSectionComponent {
   categories = [
     {
       icon: 'featherMusic',
-      name: 'Concerts',
+      name: 'Music',
       count: 127,
       bgColor: 'bg-red-100',
       textColor: 'text-red-500',
     },
     {
       icon: 'featherBriefcase',
-      name: 'Conferences',
+      name: 'Conference',
       count: 89,
       bgColor: 'bg-blue-100',
       textColor: 'text-blue-500',
     },
+    {
+      icon: 'featherCoffee',
+      name: 'Workshop',
+      count: 0,
+      bgColor: 'bg-orange-100',
+      textColor: 'text-orange-500',
+    },
+    {
+      icon: 'featherMonitor',
+      name: 'Tech',
+      count: 0,
+      bgColor: 'bg-teal-100',
+      textColor: 'text-teal-500',
+    },
+
     {
       icon: 'matTheaterComedyOutline',
       name: 'Theater',
@@ -64,32 +85,24 @@ export class CategoryListSectionComponent {
       textColor: 'text-green-500',
     },
     {
-      icon: 'heroTicket',
-      name: 'Festivals',
-      count: 42,
-      bgColor: 'bg-yellow-100',
-      textColor: 'text-yellow-500',
-    },
-    {
-      icon: 'featherCoffee',
-      name: 'Food & Drink',
-      count: 36,
-      bgColor: 'bg-orange-100',
-      textColor: 'text-orange-500',
+      icon: 'featherShoppingBag',
+      name: 'Business',
+      count: 0,
+      bgColor: 'bg-indigo-100',
+      textColor: 'text-indigo-500',
     },
     {
       icon: 'matColorLensOutline',
-      name: 'Arts',
+      name: 'Art',
       count: 58,
       bgColor: 'bg-pink-100',
       textColor: 'text-pink-500',
     },
-    {
-      icon: 'heroMap',
-      name: 'Tours',
-      count: 29,
-      bgColor: 'bg-emerald-100',
-      textColor: 'text-emerald-500',
-    },
   ];
+
+  constructor(private router: Router) {}
+
+  onClickCategory(category: string) {
+    this.router.navigate(['/events'], { queryParams: { search: category } });
+  }
 }

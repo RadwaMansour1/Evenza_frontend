@@ -1,9 +1,10 @@
 <section class="py-16 bg-gray-50 min-h-screen">
   <div class="max-w-7xl mx-auto px-4 text-center">
-    <h2 class="text-3xl font-bold text-gray-800 mb-2">What Our Users Say</h2>
+    <h2 class="text-3xl font-bold text-gray-800 mb-2">
+      {{ "home.reviews.title" | translate }}
+    </h2>
     <p class="text-gray-500 mt-2 mb-15">
-      Don't just take our word for it. Here's what people are saying about their
-      experience with Evenza.
+      {{ "home.reviews.desc" | translate }}
     </p>
 
     <!-- Scrollable Reviews -->
@@ -13,19 +14,26 @@
         class="flex overflow-x-auto gap-6 scroll-smooth snap-x snap-mandatory py-10 [scrollbar-width:none] [-ms-overflow-style:none]"
         style="scrollbar-width: none; -ms-overflow-style: none"
       >
-      <div
-      *ngFor="let review of reviews"
-      class="min-w-[300px] max-w-sm bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 text-left snap-start shrink-0"
-      >
-        <!-- Rating -->
-        <div class="flex justify-start mb-4">
-          <ng-container *ngFor="let star of [].constructor(5); let i = index">
-            <span [ngClass]="{'text-yellow-400': i < review.rating, 'text-gray-300': i >= review.rating}" class="cursor-pointer">
-              <ng-icon [name]="i < review.rating ? 'heroStarSolid' : 'heroStarSolid'" />
-            </span>
-          </ng-container>
-        </div>
-
+        <div
+          *ngFor="let review of reviews"
+          class="min-w-[300px] max-w-sm bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 text-left snap-start shrink-0"
+        >
+          <!-- Rating -->
+          <div class="flex justify-start mb-4">
+            <ng-container *ngFor="let star of [].constructor(5); let i = index">
+              <span
+                [ngClass]="{
+                  'text-yellow-400': i < review.rating,
+                  'text-gray-300': i >= review.rating
+                }"
+                class="cursor-pointer"
+              >
+                <ng-icon
+                  [name]="i < review.rating ? 'heroStarSolid' : 'heroStarSolid'"
+                />
+              </span>
+            </ng-container>
+          </div>
 
           <!-- Feedback -->
           <p class="text-base text-gray-600 mt-4 mb-8">{{ review.comment }}</p>
@@ -51,19 +59,35 @@
       <!-- Arrow Buttons -->
       <div class="flex justify-center gap-6 mt-6">
         <button
-          (click)="scrollLeft(slider)"
+          (click)="
+            currentLang === 'en' ? scrollLeft(slider) : scrollRight(slider)
+          "
           class="w-9 h-9 flex items-center justify-center rounded-full border border-gray-300 hover:bg-purple-500 hover:text-white transition shadow-md shadow-purple-300"
         >
           <span class="block text-xs leading-none">
-            <ng-icon name="matArrowBackIosNew" />
+            <ng-icon
+              [name]="
+                currentLang === 'en'
+                  ? 'matArrowBackIosNew'
+                  : 'matArrowForwardIos'
+              "
+            />
           </span>
         </button>
         <button
-          (click)="scrollRight(slider)"
+          (click)="
+            currentLang === 'en' ? scrollRight(slider) : scrollLeft(slider)
+          "
           class="w-9 h-9 flex items-center justify-center rounded-full border border-gray-300 hover:bg-purple-500 hover:text-white transition shadow-md shadow-purple-300"
         >
           <span class="block text-xs leading-none">
-            <ng-icon name="matArrowForwardIos" />
+            <ng-icon
+              [name]="
+                currentLang === 'en'
+                  ? 'matArrowForwardIos'
+                  : 'matArrowBackIosNew'
+              "
+            />
           </span>
         </button>
       </div>
