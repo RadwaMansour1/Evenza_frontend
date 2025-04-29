@@ -6,6 +6,7 @@ import { heroCalendar, heroUser } from '@ng-icons/heroicons/outline';
 import { eventNames } from 'process';
 import { UserService } from '../../services/profile/user.service';
 import { CommonModule } from '@angular/common';
+import { CONSTANTS } from '../../constants';
 
 @Component({
   selector: 'app-personal-information',
@@ -18,18 +19,18 @@ export class PersonalInformationComponent implements OnInit {
   selectedImagePreview: string | ArrayBuffer | null = null;
   userId:any = ''
   selectedFile: File | null = null;
-  
+
 
   constructor( private fb: FormBuilder, private userService : UserService) {
     console.log('user iddddddd'  , this.userId);
-    const userDataString = localStorage.getItem('userData');
+    const userDataString = localStorage.getItem(CONSTANTS.userData);
     if (userDataString) {
       const userData = JSON.parse(userDataString);
       this.userId = userData.id;
     }
 
     this.profileForm = this.fb.group({
- 
+
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       phone1: ['', Validators.required],
@@ -41,7 +42,7 @@ export class PersonalInformationComponent implements OnInit {
       city: [''],
       state: [''],
       postalCode: [''],
-      photo: [null], 
+      photo: [null],
 
       // _id: [],
       // provider:[],
@@ -55,7 +56,7 @@ export class PersonalInformationComponent implements OnInit {
   // ngOnInit() {
   //   this.userService.getProfile().subscribe({
   //     next: (data: any) => {
-        
+
   //       console.log('daaaaaaaaaaataaaaaaaaaaaaaaaaaaaaa', data);
   //       if (data) {
   //         this.profileForm = {
@@ -101,7 +102,7 @@ export class PersonalInformationComponent implements OnInit {
     this.userService.getProfile().subscribe({
       next: (data: any) => {
         console.log('daaaaaaaaaaataaaaaaaaaaaaaaaaaaaaa', data);
-  
+
         if (data) {
           this.profileForm.patchValue({
             firstName: data.firstName || '',
@@ -123,12 +124,12 @@ export class PersonalInformationComponent implements OnInit {
     });
   }
   onFileSelected(event: any){
-    
+
     const file = event.target.files && event.target.files.length > 0 ? event.target.files[0] : null;
 
     if (file) {
       this.profileForm.patchValue({ photo: file });
-  
+
       const reader = new FileReader();
       reader.onload = () => {
         this.selectedImagePreview = reader.result;
@@ -143,7 +144,7 @@ export class PersonalInformationComponent implements OnInit {
 
   onSubmit(){
     if(this.profileForm.valid){
-      const formData = new FormData(); 
+      const formData = new FormData();
       Object.entries(this.profileForm.value).forEach(([key, value]) => {
         if (key === 'photo') {
           if (value instanceof File) {
@@ -154,12 +155,12 @@ export class PersonalInformationComponent implements OnInit {
         }
       });
 
-      
+
       for (const [key, value] of formData.entries()) {
         console.log('Adding to formData:', key, value);
         console.log(key, value);
       }
-      
+
 
       this.userService.updateProfile(formData).subscribe({
         next:(response) =>{
@@ -205,7 +206,7 @@ export class PersonalInformationComponent implements OnInit {
 
 
 
-  
+
 
 
   // onFileSelected(event: any) {

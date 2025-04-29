@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { FilterCriteria } from '../../models/event.model';
+import { CONSTANTS } from '../../constants';
 
 @Injectable({
   providedIn: 'root',
@@ -52,8 +53,8 @@ export class EventService {
 
   addEvent(eventData: any): Observable<any> {
     const token =
-      sessionStorage.getItem('access_token') ||
-      localStorage.getItem('access_token');
+      sessionStorage.getItem(CONSTANTS.token) ||
+      localStorage.getItem(CONSTANTS.token);
     return this.httpClient.post<any>(
       `${this.apiUrl}/organizer/events`,
       eventData,

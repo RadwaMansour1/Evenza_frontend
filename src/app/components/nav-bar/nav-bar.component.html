@@ -84,7 +84,7 @@
           />
           <span>{{ currentLang === "en" ? "English" : "العربية" }}</span>
         </button>
-        
+
         <!-- User -->
         <div class="relative inline-block">
           <button
@@ -109,6 +109,7 @@
             aria-orientation="vertical"
             aria-labelledby="user-menu-button"
           >
+            @if(!isAuthenticated){
             <a
               routerLink="/login"
               class="cursor-pointer block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
@@ -123,15 +124,32 @@
               role="menuitem"
               (click)="closeUserMenu()"
             >
-              {{ "home.navbar.register" | translate }}
+              {{ "home.navbar.register" | translate }} </a
+            >}@else{
+            <a
+              routerLink="/login"
+              class="cursor-pointer block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+              role="menuitem"
+              (click)="closeUserMenu()"
+            >
+              {{ "home.navbar.profile" | translate }}
             </a>
+            <a
+              routerLink="/signup"
+              class="cursor-pointer block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+              role="menuitem"
+              (click)="closeUserMenu()"
+            >
+              {{ "home.navbar.logout" | translate }}
+            </a>
+            }
           </div>
         </div>
 
         <!-- Wallet -->
         @for (item of navItems; track $index) {
         <button
-        [routerLink]="item.route"
+          [routerLink]="item.route"
           [routerLinkActive]="['bg-purple-600', 'active-link']"
           [routerLinkActiveOptions]="{ exact: true }"
           class="px-2 pt-1 pb-0.5 rounded-md hover:bg-purple-600 group group-[.active-link]:bg-purple-600 transition-all duration-300"
@@ -228,12 +246,10 @@
             <span
               class="text-gray-900 group-hover:text-purple-500 group-[.active-link]:text-purple-500"
             >
-            {{ item.name | translate }}
-          </span>
-
+              {{ item.name | translate }}
+            </span>
+          </div>
         </div>
-      </div>
-  
       </div>
     </div>
   </div>
