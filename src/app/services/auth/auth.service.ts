@@ -46,7 +46,6 @@ export class AuthService {
     sessionStorage.removeItem(CONSTANTS.token);
   }
 
-
   canAccess() {
     if (!this.isAuthenticated()) {
       //redirect to login page
@@ -165,9 +164,9 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem(CONSTANTS.token);
-    localStorage.removeItem('userData');
+    localStorage.removeItem(CONSTANTS.userData);
     sessionStorage.removeItem(CONSTANTS.token);
-    sessionStorage.removeItem('userData');
+    sessionStorage.removeItem(CONSTANTS.userData);
     this.router.navigate(['/login']);
   }
 
@@ -190,5 +189,14 @@ export class AuthService {
       localStorage.getItem(CONSTANTS.token) !== null
     );
   }
+
+  checkIfUserExists(email: string): Observable<{ data: { userExists: boolean } }> {
+    return this.http.post<{ data: { userExists: boolean } }>(
+      `${this.apiUrl}/auth/check-user-existence`,
+      { email }
+    );
+  }
+  
+
 }
 
