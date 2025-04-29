@@ -10,6 +10,7 @@
       <aside class="md:col-span-1">
         <app-event-filters
           [categories]="categories"
+          [initialSearchTerm]="currentFilters.search"
           [cities]="cities"
           (filtersChanged)="onFiltersChanged($event)"
           (resetFilters)="onResetFilters()"

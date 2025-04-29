@@ -14,6 +14,50 @@
       "myTickets": "My Tickets",
       "search": "Search events...",
       "FAQs": "FAQs"
+    },
+    "heroSection": {
+      "discoverAndBook": "Discover and Book Amazing",
+      "events": "Events",
+      "findAndBookTickets": "Find and book tickets for concerts, conferences, theater performances, and more on Evenza – your one-stop platform for unforgettable experiences.",
+      "searchPlaceholder": "Search for events...",
+      "findEventsButton": "Find Events",
+      "concerts": "Concerts",
+      "conferences": "Conferences",
+      "theater": "Theater"
+    },
+    "featuredEvents": {
+      "title": "Featured Events",
+      "description": "Discover the hottest tickets and most anticipated events happening soon.",
+      "exploreMore": "Explore More"
+    },
+    "browseByCategory": {
+      "title": "Browse by Category",
+      "desc": "Explore events by category and find experiences that match your interests",
+      "events": "events"
+    },
+    "howItWorks": {
+      "title": "How It Works",
+      "desc": "Booking tickets on Evenza is simple. Just follow these quick steps to get started.",
+      "step1": {
+        "title": "Find Events",
+        "description": "Browse and search through a wide variety of upcoming events near you or worldwide."
+      },
+      "step2": {
+        "title": "Choose Ticket Type",
+        "description": "Select from Silver, Golden, or Platinum ticket options based on your preference and budget."
+      },
+      "step3": {
+        "title": "Secure Payment",
+        "description": "Complete your payment safely using various methods with instant confirmation."
+      },
+      "step4": {
+        "title": "Receive Your Ticket",
+        "description": "Get your ticket instantly in your Evenza account and via email."
+      }
+    },
+    "reviews": {
+      "title": "What Our Users Say",
+      "desc": "Don't just take our word for it. Here's what people are saying about their experience with Evenza."
     }
   },
   "about": {

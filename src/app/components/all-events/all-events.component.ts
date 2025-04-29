@@ -12,6 +12,7 @@ import {
 import { EventService } from '../../services/event/event.service';
 import { EventCardComponent } from '../event-card/event-card.component';
 import { EventFiltersComponent } from './components/event-filters/event-filters.component';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-all-events',
@@ -50,9 +51,14 @@ export class AllEventsComponent implements OnInit {
     sortOrder: 'asc',
   };
 
-  constructor(private eventService: EventService) {} // Inject the service
+  constructor(private eventService: EventService,private route:ActivatedRoute) {}
 
   ngOnInit() {
+    this.route.queryParams.subscribe((params) => {
+      const searchTerm = params['search'];
+      console.log('Search term from URL:', searchTerm);
+      this.currentFilters.search = searchTerm;
+    });
     // Initial fetch when the component loads
     this.fetchEvents();
   }
@@ -81,7 +87,7 @@ export class AllEventsComponent implements OnInit {
         error: (err: any) => {
           console.error('Error fetching events:', err);
           this.loading = false;
-          this.allEvents = []; 
+          this.allEvents = [];
           this.totalEvents = 0;
           this.totalPages = 0;
         },

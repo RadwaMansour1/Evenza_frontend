@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { heroChatBubbleLeftRight, heroPaperAirplane} from '@ng-icons/heroicons/outline';
@@ -19,7 +19,7 @@ import { CONSTANTS } from '../../constants';
     provideIcons({ heroChatBubbleLeftRight, heroPaperAirplane})
   ]
 })
-export class AddReviewComponent implements OnInit {
+export class AddReviewComponent {
   rating = 0;
   hoverRating = 0;
   message = '';
@@ -29,11 +29,6 @@ export class AddReviewComponent implements OnInit {
   alertType: 'success' | 'error' = 'success';
 
   constructor(private reviewService: ReviewService, private router: Router) {}
-
-  ngOnInit() {
-    const token = localStorage.getItem(CONSTANTS.token);
-    this.isLoggedIn = !!token;
-  }
 
   setRating(value: number) {
     this.rating = value;
@@ -48,12 +43,15 @@ export class AddReviewComponent implements OnInit {
   }
 
   submitFeedback() {
-    const token = localStorage.getItem(CONSTANTS.token);
+    const token = localStorage.getItem(CONSTANTS.token) || sessionStorage.getItem(CONSTANTS.token);
 
     if (!token) {
       this.isLoggedIn = false;
       this.showCustomAlert('You must be logged in to submit a review.', 'error');
 
+      setTimeout(() => {
+        this.router.navigate(['/login']);
+      }, 2000);
       return;
     }
 

@@ -80,7 +80,7 @@ export class RefundComponent implements OnInit{
     this.userService.getProfile().subscribe({
       next:(res)=>{
         console.log("user profile: ",res)
-        this.userId = res._id
+        this.userId = res.data._id
       },
       error:(err)=>{
         throw new Error(err)

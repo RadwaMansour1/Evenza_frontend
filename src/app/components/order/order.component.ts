@@ -74,7 +74,7 @@ export class OrderComponent implements OnInit {
     this.userService.getProfile().subscribe({
       next: (profile) => {
         console.log('User Profile:', profile);
-        this.userProfile = profile;
+        this.userProfile = profile.data;
       },
       error: (err) => {
         console.error('Error fetching profile:', err);
@@ -127,6 +127,7 @@ export class OrderComponent implements OnInit {
       ]
     };
 
+    console.log("Order payload: ",orderPayload)
     this.orderService.createOrder(orderPayload).subscribe({
       next: (res: any) => { // <-- Accept any type for res
         console.log('Order created:', res);

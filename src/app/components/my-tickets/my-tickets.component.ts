@@ -30,7 +30,8 @@ export class MyTicketsComponent implements OnInit{
   ngOnInit(): void {
     this.userService.getProfile().subscribe({
       next:(res)=>{
-        this.ticketsService.getTicketByUserId(res._id).subscribe({
+        console.log("user : ",res)
+        this.ticketsService.getTicketByUserId(res.data._id).subscribe({
           next:(res:any)=>{
             console.log("tickets : ",res)
             this.tickets = res.data;
