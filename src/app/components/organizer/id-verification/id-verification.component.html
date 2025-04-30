@@ -1,0 +1,122 @@
+<section class="min-h-screen bg-gray-50 py-10">
+  <div class="bg-white p-8 rounded-lg shadow-md max-w-2xl mx-auto">
+    <div class="flex justify-center mb-4">
+      <div
+        class="bg-purple-100 text-purple-500 w-14 h-14 rounded-full text-center flex items-center justify-center mx-auto group-hover:scale-110 group-hover:animate-bounce transition-all duration-300"
+      >
+        <span class="flex items-center"
+          ><ng-icon name="heroIdentification" size="1.7em"
+        /></span>
+      </div>
+    </div>
+
+    <h2 class="text-2xl font-semibold text-center text-gray-800 mb-2">
+      ID Verification
+    </h2>
+    <p class="text-center text-gray-500 mb-6 text-sm">
+      To verify your identity as an organizer, please upload a copy of your
+      national ID document
+    </p>
+
+    <div>
+      <h3 class="text-base font-medium text-gray-700 mb-2">
+        Upload National ID
+      </h3>
+
+      <label
+        for="file-upload"
+        class="relative mt-1 flex justify-center items-center h-60 border-2 border-gray-300 border-dashed rounded-md cursor-pointer hover:border-purple-400 transition duration-150 ease-in-out bg-gray-50/50 overflow-hidden"
+      >
+        <div
+          class="absolute inset-0 bg-black/50 flex justify-center items-center opacity-0 hover:opacity-100 transition-opacity"
+        >
+          <span class="text-white text-sm font-medium">Click to change</span>
+        </div>
+
+        <!-- If image selected, show preview -->
+        <div class="space-y-1 text-center">
+          <ng-container *ngIf="selectedImagePreview; else uploadIcon">
+            <img
+              [src]="selectedImagePreview"
+              alt="Selected ID"
+              class="w-full h-full rounded shadow-md object-contain"
+            />
+          </ng-container>
+
+          <ng-template #uploadIcon>
+            <svg
+              class="mx-auto h-12 w-12 text-gray-400"
+              stroke="currentColor"
+              fill="none"
+              viewBox="0 0 48 48"
+              aria-hidden="true"
+            >
+              <path
+                d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            <div class="flex text-sm text-gray-600 justify-center mt-1">
+              <span class="font-medium text-purple-600 hover:text-purple-500">
+                Click to upload
+              </span>
+              <p class="pl-1">or drag and drop</p>
+            </div>
+            <p class="text-xs text-gray-500">JPG, PNG or PDF (max. 5MB)</p>
+          </ng-template>
+        </div>
+
+        <input
+          id="file-upload"
+          name="file-upload"
+          type="file"
+          class="sr-only"
+          accept=".jpg,.jpeg,.png,.pdf"
+          (change)="onFileSelected($event)"
+        />
+      </label>
+    </div>
+
+    <div
+      class="mt-6 bg-blue-50 border border-blue-200 rounded-lg p-4 flex items-start space-x-3"
+    >
+      <div class="flex-shrink-0 text-blue-600">
+        <ng-icon name="heroShieldCheck" size="1.2em"></ng-icon>
+      </div>
+      <div class="flex-grow">
+        <h4 class="text-sm font-semibold text-gray-800">
+          Secure Document Handling
+        </h4>
+        <p class="text-xs text-gray-600 mt-1">
+          Your ID is securely encrypted and will only be used for verification
+          purposes. We follow strict data protection protocols to keep your
+          information safe.
+        </p>
+      </div>
+    </div>
+
+    <div class="mt-8 flex justify-between items-center">
+      <button
+        type="button"
+        (click)="cancel()"
+        class="px-5 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition duration-150 ease-in-out"
+      >
+        Cancel
+      </button>
+      <button
+        type="button"
+        (click)="uploadDocument()"
+        class="group flex items-center justify-center gap-2 px-5 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition duration-150 ease-in-out"
+      >
+        Upload Document
+        <ng-icon
+          name="heroArrowUpTray"
+          size="1.2em"
+          class="group-hover:animate-bounce"
+        ></ng-icon>
+      </button>
+    </div>
+  </div>
+</section>

@@ -29,6 +29,8 @@ import { LoginComponent } from './components/auth/login/login.component';
 import { SetNewPasswordComponent } from './components/auth/set-new-password/set-new-password.component';
 import { PersonalInformationComponent } from './components/personal-information/personal-information.component';
 import { ViewEventsComponent } from './components/organizer/view-events/view-events.component';
+import { IdVerificationComponent } from './components/organizer/id-verification/id-verification.component';
+import { OrganizerHomeComponent } from './components/organizer/organizer-home/organizer-home.component';
 
 export const routes: Routes = [
   {
@@ -134,7 +136,7 @@ export const routes: Routes = [
         title: 'Personal Information',
       },
       {
-        path: 'new-password', 
+        path: 'new-password',
         component: ResetPasswordComponent,
         title: 'New Password',
         canActivate: [],
@@ -155,6 +157,16 @@ export const routes: Routes = [
   },
   //organizer routes
   {
+    path: 'organizer',
+    component: OrganizerHomeComponent,
+    title: 'Organizer Home',
+  },
+  {
+    path: 'organizer/home',
+    component: OrganizerHomeComponent,
+    title: 'Organizer Home',
+  },
+  {
     path: 'organizer/dashboard',
     component: OrganizerDashboardComponent,
     title: 'Organizer Dashboard',
@@ -173,6 +185,11 @@ export const routes: Routes = [
     path: 'organizer/view-events',
     component: ViewEventsComponent,
     title: 'View Events',
+  },
+  {
+    path: 'organizer/id-verification',
+    component: IdVerificationComponent,
+    title: 'ID Verification',
   },
   //not found route
   {

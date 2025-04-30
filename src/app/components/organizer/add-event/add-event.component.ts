@@ -10,7 +10,7 @@ import {
 import { CustomAlertComponent } from '../../shared/custom-alert/custom-alert.component';
 import { LocationPickerComponent } from './location-picker/location-picker.component';
 import { CONSTANTS } from '../../../constants';
-import { OrganizerService } from '../../../services/event/organizer.service';
+import { OrganizerService } from '../../../services/organizer/organizer.service';
 import { RouterLink } from '@angular/router';
 
 @Component({
@@ -68,7 +68,6 @@ export class AddEventComponent {
     let token = sessionStorage.getItem(CONSTANTS.token);
     const payload = this.decodeToken(token!);
     console.log(payload);
-
   }
 
   // handle on select image
