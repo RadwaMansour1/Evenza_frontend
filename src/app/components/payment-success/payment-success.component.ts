@@ -95,11 +95,12 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-payment-success',
   templateUrl:"./success.component.html",
-  imports:[CommonModule]
+  imports:[CommonModule,TranslateModule]
 })
 export class PaymentSuccessComponent implements OnInit {
   sessionId: string | null = null;
@@ -108,27 +109,25 @@ export class PaymentSuccessComponent implements OnInit {
   constructor(private http: HttpClient) {}
 
   async ngOnInit(): Promise<void> {
-    // استخراج session_id من رابط الصفحة
     const urlParams = new URLSearchParams(window.location.search);
-    this.sessionId = urlParams.get('session_id');
-
-    if (this.sessionId) {
-      try {
-        // طلب لخادمك للحصول على الباركود
-        const blob = await this.http
-          .get(`http://localhost:3000/payments/barcode/${this.sessionId}`, { responseType: 'blob' })
-          .toPromise();
-
-        // Check if blob is defined
-        if (blob) {
-          // تحويل الصورة إلى رابط للعرض
-          this.barcodeImageSrc = window.URL.createObjectURL(blob);
-        } else {
-          console.error('Failed to retrieve barcode image.');
-        }
-      } catch (error) {
-        console.error('Error fetching barcode:', error);
+    const session_id = urlParams.get('session_id');
+    const orderId = urlParams.get('orderId');
+    const paymentMethod = urlParams.get('payment_method') || 'stripe';
+  
+    try {
+      const barcodeUrl = paymentMethod === 'stripe'
+        ? `http://localhost:3000/payments/barcode/${session_id}?payment_method=stripe`
+        : `http://localhost:3000/payments/barcode/${orderId}?payment_method=wallet`;
+  
+      const blob = await this.http.get(barcodeUrl, { responseType: 'blob' }).toPromise();
+  
+      if (blob) {
+        this.barcodeImageSrc = window.URL.createObjectURL(blob);
+      } else {
+        console.error('Failed to retrieve QR code image.');
       }
+    } catch (error) {
+      console.error('Error fetching QR code:', error);
     }
   }
 }

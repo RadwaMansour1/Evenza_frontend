@@ -8,6 +8,7 @@
 <!-- <app-payment></app-payment> -->
 <!-- <app-refund></app-refund> -->
 <app-snackbar></app-snackbar>
+<div class="home-wrapper" [class.blurred]="isChatbotOpenClass">
 @if(!isOrganizer){
 <app-nav-bar></app-nav-bar>
 }
@@ -15,3 +16,5 @@
 @if(!isOrganizer){
 <app-footer></app-footer>
 }
+</div>
+<app-chatbot (openChange)="onChatbotOpenChange($event)"></app-chatbot>
