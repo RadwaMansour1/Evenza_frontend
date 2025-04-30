@@ -12,4 +12,9 @@ export class WalletService{
     getTicketByUserId(userId:string):Observable<any>{
         return this.http.get(`${this.apiUrl}/${userId}`)
     }
+
+    bookFromWallet(userId:string , amount:number):Observable<any>{
+        return this.http.post(`${this.apiUrl}/book`,{userId,ticketPrice:amount})
+    }
+
 }

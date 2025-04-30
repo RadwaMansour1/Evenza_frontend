@@ -18,10 +18,11 @@ import { CommonModule } from '@angular/common';
 import { RefundService } from '../../services/refund/refund.service';
 import { UserService } from '../../services/profile/user.service';
 import Swal from 'sweetalert2';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-refund',
-  imports: [FormsModule, NgIcon,CommonModule],
+  imports: [FormsModule, NgIcon,CommonModule,TranslateModule],
   templateUrl: './refund.component.html',
   viewProviders: [
     provideIcons({

@@ -95,11 +95,12 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-payment-success',
   templateUrl:"./success.component.html",
-  imports:[CommonModule]
+  imports:[CommonModule,TranslateModule]
 })
 export class PaymentSuccessComponent implements OnInit {
   sessionId: string | null = null;

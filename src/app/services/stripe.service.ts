@@ -11,7 +11,7 @@ export class StripeService {
   constructor(private http: HttpClient) {}
 
 // Updated frontend handling for wrapped responses
-async checkout(amount: number, userId: string, eventId: string, ticketType: string, quantity: number) {
+async checkout(amount: number, userId: string, orderId:string, eventId: string, ticketType: string, quantity: number) {
   try {
     const stripe = await this.stripePromise;
     if (!stripe) return;

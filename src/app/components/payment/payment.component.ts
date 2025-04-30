@@ -9,10 +9,20 @@ import { StripeService } from '../../services/stripe.service';
 import { ActivatedRoute } from '@angular/router'; // <-- Add this import
 import { OrderService } from '../../services/order/order.service';
 import { EventService } from '../../services/event/event.service';
+import { WalletService } from '../../services/wallet/wallet.service';
+import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core'; // Import TranslateModule
 
 @Component({
   selector: 'app-payment',
-  imports: [FormsModule, NgIcon],
+  standalone: true, // Assuming it's standalone
+  imports: [
+    CommonModule,
+    FormsModule,
+    NgIcon,
+    TranslateModule // Add TranslateModule here
+    // ... other imports for the component
+  ],
   templateUrl: './payment.component.html',
   viewProviders: [
     provideIcons({
@@ -25,11 +35,12 @@ import { EventService } from '../../services/event/event.service';
 })
 export class PaymentComponent implements OnInit {
   constructor(
-    private paypalService: PaypalService,
-    private stripeService: StripeService,
-    private route: ActivatedRoute ,
-    private orderService: OrderService,
-    private eventService: EventService,
+    private readonly paypalService: PaypalService,
+    private readonly stripeService: StripeService,
+    private readonly route: ActivatedRoute ,
+    private readonly orderService: OrderService,
+    private readonly eventService: EventService,
+    private readonly walletService:WalletService,
   ) { }
 
   selectedMethod: string = 'stripe';
@@ -46,6 +57,7 @@ export class PaymentComponent implements OnInit {
   eventId: string ="";
   ticketType: string = "";
 
+  myWallet:number = 0
 
   orderSummary:any = {
     imgUrl : "",
@@ -56,18 +68,17 @@ export class PaymentComponent implements OnInit {
     price:0,
   }
   
+  orderId: string | null = null;
+  order: any = null; // Add a property to hold the order details
   
 
   payWithStripe() {
     console.log('Stripe button clicked');
-    this.stripeService.checkout(this.amount!,this.userId,this.eventId,this.ticketType,this.quantity!);
+    this.stripeService.checkout(this.amount!,this.userId, this.orderId!,this.eventId,this.ticketType,this.quantity!);
   } 
 
-  orderId: string | null = null;
-  order: any = null; // Add a property to hold the order details
 
   ngOnInit(): void {
-    // Only a single callback is needed for queryParams
     this.route.queryParams.subscribe(params => {
       this.orderId = params['orderId'] || null;
       console.log('Order ID:', this.orderId);
@@ -110,6 +121,18 @@ export class PaymentComponent implements OnInit {
             } else {
               console.error('eventId is missing, cannot fetch event.');
             }
+            if(this.userId){
+              this.walletService.getTicketByUserId(this.userId).subscribe({
+                next:(res)=>{
+                  this.myWallet = res.data.balance
+                },
+                error:(err)=>{
+              console.error('userId is missing, cannot fetch wallet data.');
+
+                }
+              })
+            }
+
           },
           error: (err) => {
             console.error('Error fetching order:', err);
@@ -180,14 +203,31 @@ export class PaymentComponent implements OnInit {
     event?.preventDefault(); // Prevent default only if event exists
 
     if (this.selectedMethod === 'evenza') {
-      // Handle Evenza wallet payment logic here
+      
       console.log('Paying with Evenza Wallet...');
-      // Example: Show success/failure message
-      Swal.fire({
-        title: "Wallet Payment",
-        text: "Wallet payment functionality not yet implemented.",
-        icon: "info"
-      });
+      
+      if(this.myWallet < this.total!){
+        Swal.fire({
+          title: "Failed.",
+          text: "Invalid Balance",
+          icon: "error"
+        });
+      }else{
+        this.walletService.bookFromWallet(this.userId,this.total!).subscribe({
+          next:(res)=>{
+            console.log(res)
+           
+          },
+          error:(err)=>{
+            console.log(err)
+            Swal.fire({
+              title: "Failed.",
+              text: "Try Again",
+              icon: "error"
+            });
+          }
+        })
+      }
     }
     // PayPal logic is now handled by renderPayPalButtons via onPaymentMethodChange
   }
