@@ -197,15 +197,31 @@ export class AuthService {
   //   );
   // }
   
+  // checkIfUserExists(email: string): Observable<{
+  //   userExists: {
+  //     userExists: boolean;
+  //     accessToken?: string;
+  //     user?: { id: string; email: string; role: string };
+  //   };
+  // }> {
+  //   return this.http.post<{
+  //     userExists: {
+  //       userExists: boolean;
+  //       accessToken?: string;
+  //       user?: { id: string; email: string; role: string };
+  //     };
+  //   }>(`${this.apiUrl}/auth/check-user-existence`, { email });
+  // }
+  
   checkIfUserExists(email: string): Observable<{
-    userExists: {
+    data: {
       userExists: boolean;
       accessToken?: string;
       user?: { id: string; email: string; role: string };
     };
   }> {
     return this.http.post<{
-      userExists: {
+      data: {
         userExists: boolean;
         accessToken?: string;
         user?: { id: string; email: string; role: string };
@@ -213,17 +229,8 @@ export class AuthService {
     }>(`${this.apiUrl}/auth/check-user-existence`, { email });
   }
   
-  // checkIfUserExists(email: string): Observable<{
-  //   userExists: boolean;
-  //   accessToken?: string;
-  //   user?: { id: string; email: string; role: string };
-  // }> {
-  //   return this.http.post<{
-  //     userExists: boolean;
-  //     accessToken?: string;
-  //     user?: { id: string; email: string; role: string };
-  //   }>(`${this.apiUrl}/auth/check-user-existence`, { email });
-  // }
+  
+
 
 }
 
