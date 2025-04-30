@@ -118,6 +118,7 @@ export class LoginComponent implements OnInit {
   // }
 
 
+
   //fix login to check if user found login else signUp as a newOne
   loginWithGoogle(response: any) {
     if (response) {
@@ -133,7 +134,7 @@ export class LoginComponent implements OnInit {
       this.authService.checkIfUserExists(email).subscribe(
         (userExistsResponse) => {
           console.log('User exists check response:', userExistsResponse);
-          if (userExistsResponse.data.userExists) {
+          if (userExistsResponse) {
 
             console.log("User exists, navigating to /home");
             sessionStorage.setItem(CONSTANTS.userData, JSON.stringify(payload));
@@ -164,8 +165,13 @@ export class LoginComponent implements OnInit {
 
             this.authService.signupWithGoogle(formData).subscribe({
               next: (signupResponse) => {
+
+                const accessToken = signupResponse.data.accessToken;
+                console.log('Access Token (from Nest):', accessToken);
+                localStorage.setItem(CONSTANTS.token, accessToken);
+
                 console.log('User registered successfully:', signupResponse);
-                const accessToken = response.credential;
+                // const accessToken = response.credential;
                 console.log('Access Token:', accessToken);
                 sessionStorage.setItem(CONSTANTS.token, response.credential);
                 sessionStorage.setItem(CONSTANTS.userData, JSON.stringify(signupResponse));

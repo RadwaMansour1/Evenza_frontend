@@ -12,10 +12,11 @@ import {
 import { ForgotPasswordService } from '../../../services/password/forgot.password.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-set-new-password',
-  imports: [FormsModule, ReactiveFormsModule, CommonModule],
+  imports: [FormsModule, ReactiveFormsModule, CommonModule, TranslateModule],
   templateUrl: './set-new-password.component.html',
 })
 export class SetNewPasswordComponent implements OnInit {

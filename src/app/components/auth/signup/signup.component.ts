@@ -16,6 +16,7 @@ import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../../services/auth/auth.service';
 import { SnackbarService } from '../../../services/notification/snackbar.service';
 import { CONSTANTS } from '../../../constants';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-signup',
@@ -25,6 +26,7 @@ import { CONSTANTS } from '../../../constants';
     HttpClientModule,
     GoogleAuthButtonComponent,
     RouterModule,
+    TranslateModule
   ],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.css',
@@ -112,9 +114,13 @@ export class SignupComponent {
       this.authService.signupWithGoogle(formData).subscribe({
         next: (res) => {
           console.log('Google Signup Successfully', res);
-          const accessToken = response.credential;
-          console.log('Access Token:', accessToken);
-          localStorage.setItem(CONSTANTS.token, response.credential);
+          // localStorage.setItem('token', JSON.stringify(payload));
+          // const accessTokenGoogle = response.credential;
+          // console.log('Access Token:', accessTokenGoogle);
+
+          const accessToken = res.data.accessToken;
+          console.log('Access Token (from Nest):', accessToken);
+          localStorage.setItem(CONSTANTS.token, accessToken);
           this.router.navigate(['/select-role'], {
             queryParams: { email: user.email },
           });

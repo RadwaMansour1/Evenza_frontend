@@ -190,13 +190,40 @@ export class AuthService {
     );
   }
 
-  checkIfUserExists(email: string): Observable<{ data: { userExists: boolean } }> {
-    return this.http.post<{ data: { userExists: boolean } }>(
-      `${this.apiUrl}/auth/check-user-existence`,
-      { email }
-    );
+  // checkIfUserExists(email: string): Observable<{ data: { userExists: boolean } }> {
+  //   return this.http.post<{ data: { userExists: boolean } }>(
+  //     `${this.apiUrl}/auth/check-user-existence`,
+  //     { email }
+  //   );
+  // }
+  
+  checkIfUserExists(email: string): Observable<{
+    userExists: {
+      userExists: boolean;
+      accessToken?: string;
+      user?: { id: string; email: string; role: string };
+    };
+  }> {
+    return this.http.post<{
+      userExists: {
+        userExists: boolean;
+        accessToken?: string;
+        user?: { id: string; email: string; role: string };
+      };
+    }>(`${this.apiUrl}/auth/check-user-existence`, { email });
   }
   
+  // checkIfUserExists(email: string): Observable<{
+  //   userExists: boolean;
+  //   accessToken?: string;
+  //   user?: { id: string; email: string; role: string };
+  // }> {
+  //   return this.http.post<{
+  //     userExists: boolean;
+  //     accessToken?: string;
+  //     user?: { id: string; email: string; role: string };
+  //   }>(`${this.apiUrl}/auth/check-user-existence`, { email });
+  // }
 
 }
 

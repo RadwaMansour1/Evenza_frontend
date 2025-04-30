@@ -13,10 +13,10 @@
       <div class="space-y-12">
         <div class="pb-12">
           <h2 class="text-4xl font-bold text-gray-900 tracking-tight">
-            Account Information
+            {{'auth.accountInfo.title'|translate}}
           </h2>
           <p class="text-gray-500 text-xl">
-            Update your personal information and contact details.
+            {{'auth.accountInfo.description'|translate}}
           </p>
 
           <!-- photo -->
@@ -25,7 +25,7 @@
               <label
                 for="photo"
                 class="block text-2xl/6 font-semibold text-gray-900 mb-3.5"
-                >Profile Photo</label
+                >{{'auth.accountInfo.profilePhoto'|translate}}</label
               >
               <div class="mt-2 flex items-center gap-x-3">
                 <div class="shrink-0 cursor-pointer">
@@ -42,7 +42,7 @@
 
                 <label class="block cursor-pointer">
                   <span class="sr-only cursor-pointer"
-                    >Choose profile photo</span
+                    >{{'auth.accountInfo.choosePhoto'|translate}}</span
                   >
                   <input
                     (change)="onFileSelected($event)"
@@ -63,7 +63,7 @@
             <label
               for="first-name"
               class="block font-medium text-gray-900 text-lg"
-              >First name</label
+              >{{'auth.accountInfo.firstName'|translate}}</label
             >
             <div class="mt-2">
               <input
@@ -82,7 +82,7 @@
             <label
               for="last-name"
               class="block font-medium text-gray-900 text-lg"
-              >Last name</label
+              >{{'auth.accountInfo.lastName'|translate}}</label
             >
             <div class="mt-2">
               <input
@@ -102,7 +102,7 @@
             <label
               for="phone-number"
               class="blotext-lg font-semibold text-gray-900"
-              >Phone number 1</label
+              >{{'auth.accountInfo.phone1'|translate}}</label
             >
             <div class="mt-2.5">
               <div
@@ -150,7 +150,7 @@
             <label
               for="phone-number"
               class="blotext-lg font-semibold text-gray-900"
-              >Phone number 2</label
+              >{{'auth.accountInfo.phone2'|translate}}</label
             >
             <div class="mt-2.5">
               <div
@@ -197,7 +197,7 @@
           <!-- email -->
           <div class="sm:col-span-4">
             <label for="email" class="block text-lg font-medium text-gray-900"
-              >Email address</label
+              >{{'auth.accountInfo.email'|translate}}</label
             >
             <div class="mt-2">
               <input
@@ -216,7 +216,7 @@
           <!-- country -->
           <div class="sm:col-span-2">
             <label for="country" class="block text-lg font-medium text-gray-900"
-              >Country</label
+              >{{'auth.accountInfo.country'|translate}}</label
             >
             <div class="mt-2 grid grid-cols-1">
               <select
@@ -226,10 +226,10 @@
                 autocomplete="country-name"
                 class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-2.5 pr-8 pl-3 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-purple-600 sm:text-lg"
               >
-                <option value="" disabled selected>Select Your Country</option>
-                <option value="cairo">Cairo</option>
-                <option value="alex">Alex</option>
-                <option value="giza">Giza</option>
+                <option value="" disabled selected>{{'auth.accountInfo.country'|translate}}</option>
+                <option value="cairo">{{'auth.accountInfo.cairo'|translate}}</option>
+                <option value="alex">{{'auth.accountInfo.alex'|translate}}</option>
+                <option value="giza">{{'auth.accountInfo.giza'|translate}}</option>
               </select>
               <svg
                 class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4"
@@ -250,7 +250,7 @@
           <!-- gender -->
           <div class="sm:col-span-2">
             <label for="country" class="block text-lg font-medium text-gray-900"
-              >Gender</label
+              >{{'auth.accountInfo.country'|translate}}</label
             >
             <div class="mt-2 grid grid-cols-1">
               <select
@@ -260,9 +260,9 @@
                 autocomplete="country-name"
                 class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-2.5 pr-8 pl-3 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-purple-600 sm:text-lg"
               >
-                <option value="" disabled selected>Select Your Gender</option>
-                <option>Male</option>
-                <option>Female</option>
+                <option value="" disabled selected>{{'auth.accountInfo.selectGender'|translate}}</option>
+                <option>{{'auth.accountInfo.male'|translate}}</option>
+                <option>{{'auth.accountInfo.female'|translate}}</option>
               </select>
               <svg
                 class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4"
@@ -285,7 +285,7 @@
             <label
               for="street-address"
               class="block text-lg font-medium text-gray-900"
-              >Street address</label
+              >{{'auth.accountInfo.streetAddress'|translate}}</label
             >
             <div class="mt-2">
               <input
@@ -302,7 +302,7 @@
           <!-- city -->
           <div class="sm:col-span-2 sm:col-start-1">
             <label for="city" class="block text-lg font-medium text-gray-900"
-              >City</label
+              >{{'auth.accountInfo.city'|translate}}</label
             >
             <div class="mt-2">
               <input
@@ -319,7 +319,7 @@
           <!-- state -->
           <div class="sm:col-span-2">
             <label for="region" class="block text-lg font-medium text-gray-900"
-              >State / Province</label
+              >{{'auth.accountInfo.state'|translate}}</label
             >
             <div class="mt-2">
               <input
@@ -338,7 +338,7 @@
             <label
               for="postal-code"
               class="block text-lg font-medium text-gray-900"
-              >ZIP / Postal code</label
+              >{{'auth.accountInfo.postalCode'|translate}}</label
             >
             <div class="mt-2">
               <input
@@ -359,7 +359,7 @@
           type="submit"
           class="rounded-md px-6 py-2 text-md font-semibold text-white shadow-xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 bg-[#9b87f5] hover:bg-[#7E69AB]"
         >
-          Update
+          {{'auth.accountInfo.update'|translate}}
         </button>
       </div>
     </form>
