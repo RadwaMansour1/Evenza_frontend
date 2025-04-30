@@ -7,10 +7,11 @@ import {
   heroCheckCircle,
   heroXMark,
 } from '@ng-icons/heroicons/outline';
-import { EventService } from '../../../services/event/event.service';
 import { CustomAlertComponent } from '../../shared/custom-alert/custom-alert.component';
 import { LocationPickerComponent } from './location-picker/location-picker.component';
 import { CONSTANTS } from '../../../constants';
+import { OrganizerService } from '../../../services/event/organizer.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-add-event',
@@ -21,6 +22,7 @@ import { CONSTANTS } from '../../../constants';
     NgIcon,
     CustomAlertComponent,
     LocationPickerComponent,
+    RouterLink,
   ],
   templateUrl: './add-event.component.html',
   providers: [
@@ -61,7 +63,7 @@ export class AddEventComponent {
   alertMessage: string = '';
   alertType: any = 'success';
 
-  constructor(private eventService: EventService) {
+  constructor(private organizerService: OrganizerService) {
     console.log(sessionStorage.getItem(CONSTANTS.token));
     let token = sessionStorage.getItem(CONSTANTS.token);
     const payload = this.decodeToken(token!);
@@ -147,7 +149,7 @@ export class AddEventComponent {
     formData.append('file', this.selectedImageFile as Blob);
     formData.append('eventHighlights', JSON.stringify(this.eventHighlights));
 
-    this.eventService.addEvent(formData).subscribe({
+    this.organizerService.addEvent(formData).subscribe({
       next: (response) => {
         console.log('Event created successfully', response);
         this.alertMessage = 'Event created successfully';

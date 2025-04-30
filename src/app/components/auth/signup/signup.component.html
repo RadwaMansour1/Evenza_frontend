@@ -5,7 +5,7 @@
     class="text-center bg-gradient-to-r bg-violet-600 to-violet-300 min-h-[180px] sm:p-6 p-4"
   >
     <h4 class="sm:text-3xl text-2xl text-white font-medium mt-3">
-      Create your free account
+      {{'auth.signUp.title'|translate}}
     </h4>
   </div>
   <!-- form -->
@@ -55,13 +55,13 @@
             </g>
           </svg>
 
-          <span>Continue with Facebook</span>
+          <span>{{'auth.signUp.continueWithFacebook'| translate}}</span>
         </button>
       </div>
       <div class="relative flex items-center py-5">
         <div class="flex-grow border-t border-[#e9e3ff]"></div>
         <span class="flex-shrink mx-4 text-[#8E9196]"
-          >Or sign up with email</span
+          >{{'auth.signUp.orSignUpWithEmail'| translate}}</span
         >
         <div class="flex-grow border-t border-[#e9e3ff]"></div>
       </div>
@@ -70,7 +70,7 @@
         <!-- first name -->
         <div>
           <label class="text-md font-medium mb-2 block text-[#1A1F2C]"
-            >First Name</label
+            >{{'auth.signUp.firstName'| translate}}</label
           >
           <input
             name="name"
@@ -88,28 +88,27 @@
           >
             <ng-container
               *ngIf="signUpForm.get('firstName')?.errors?.['required']"
-              >First name is required</ng-container
+              >{{'auth.signUp.firstNameRequired'| translate}}</ng-container
             >
             <ng-container
               *ngIf="signUpForm.get('firstName')?.errors?.['minlength']"
-              >First name must be at least 3 characters long</ng-container
+              >{{'auth.signUp.firstNameMinLength'| translate}}</ng-container
             >
             <ng-container
               *ngIf="signUpForm.get('firstName')?.errors?.['maxlength']"
-              >First name cannot exceed 20 characters</ng-container
+              >{{'auth.signUp.firstNameMaxLength'| translate}}</ng-container
             >
             <ng-container
               *ngIf="signUpForm.get('firstName')?.errors?.['pattern']"
             >
-              First name must contain letters only (no numbers or special
-              characters)
+            {{'auth.signUp.firstNameLettersOnly'| translate}}
             </ng-container>
           </div>
         </div>
         <!-- last name -->
         <div>
           <label class="text-md font-medium mb-2 block text-[#1A1F2C]"
-            >Last Name</label
+            >{{'auth.signUp.lastName'| translate}} </label
           >
           <input
             name="lname"
@@ -127,28 +126,27 @@
           >
             <ng-container
               *ngIf="signUpForm.get('lastName')?.errors?.['required']"
-              >Last name is required</ng-container
+              >{{'auth.signUp.lastNameRequired'| translate}}</ng-container
             >
             <ng-container
               *ngIf="signUpForm.get('lastName')?.errors?.['minlength']"
-              >Last name must be at least 3 characters long</ng-container
+              >{{'auth.signUp.lastNameMinLength'| translate}}</ng-container
             >
             <ng-container
               *ngIf="signUpForm.get('lastName')?.errors?.['maxlength']"
-              >Last name cannot exceed 20 characters</ng-container
+              >{{'auth.signUp.lastNameMaxLength'| translate}}</ng-container
             >
             <ng-container
               *ngIf="signUpForm.get('firstName')?.errors?.['pattern']"
             >
-              Second name must contain letters only (no numbers or special
-              characters)
+            {{'auth.signUp.lastNameLettersOnly'| translate}}
             </ng-container>
           </div>
         </div>
         <!-- email id -->
         <div>
           <label class="text-md font-medium mb-2 block text-[#1A1F2C]"
-            >Email</label
+            > {{'auth.signUp.email'| translate}}</label
           >
           <input
             name="email"
@@ -165,24 +163,24 @@
             class="text-red-600 font-bold text-sm mt-2 ml-0.5"
           >
             <ng-container *ngIf="signUpForm.get('email')?.errors?.['required']"
-              >Email is required</ng-container
+              >{{'auth.signUp.emailRequired'| translate}}</ng-container
             >
             <ng-container *ngIf="signUpForm.get('email')?.errors?.['email']"
-              >Invalid email format</ng-container
+              >{{'auth.signUp.invalidEmail'| translate}}</ng-container
             >
             <ng-container
               *ngIf="signUpForm.get('email')?.errors?.['emailExists']"
-              >Email already exists</ng-container
+              >{{'auth.signUp.emailExists'| translate}}</ng-container
             >
             <ng-container
               *ngIf="signUpForm.get('email')?.errors?.['emailDomain']"
-              >Email domain is not allowed</ng-container
+              >{{'auth.signUp.emailDomainNotAllowed'| translate}}</ng-container
             >
             <ng-container *ngIf="signUpForm.get('email')?.errors?.['minlength']"
-              >Email must be at least 3 characters long</ng-container
+              >{{'auth.signUp.emailMinLength'| translate}}</ng-container
             >
             <ng-container *ngIf="signUpForm.get('email')?.errors?.['maxlength']"
-              >Email cannot exceed 50 characters</ng-container
+              >{{'auth.signUp.emailMaxLength'| translate}}</ng-container
             >
           </div>
         </div>
@@ -205,15 +203,15 @@
         <!-- Select role -->
         <div>
           <label class="text-md font-medium mb-2 block text-[#1A1F2C]"
-            >Select Role</label
+            >{{'auth.signUp.selectRoleLabel'| translate}}</label
           >
           <select
             class="bg-slate-100 w-full text-sm text-slate-800 px-4 py-2.5 rounded border focus:border-blue-600 outline-none transition-all focus:bg-transparent border-[#e9e3ff] focus-visible:ring-[#9b87f5]"
             formControlName="userRole"
           >
-            <option value="" disabled selected>Select your role</option>
-            <option value="user">User</option>
-            <option value="organizer">Organizer</option>
+            <option value="" disabled selected>{{'auth.signUp.selectRole'| translate}}</option>
+            <option value="user">{{'auth.signUp.roleUser'| translate}}</option>
+            <option value="organizer">{{'auth.signUp.roleOrganizer'| translate}}</option>
           </select>
           <div
             *ngIf="
@@ -224,14 +222,14 @@
           >
             <ng-container
               *ngIf="signUpForm.get('userRole')?.errors?.['required']"
-              >Role is required</ng-container
+              >{{'auth.signUp.roleRequired'| translate}}</ng-container
             >
           </div>
         </div>
         <!-- password -->
         <div>
           <label class="text-md font-medium mb-2 block text-[#1A1F2C]"
-            >Password</label
+            >{{'auth.signUp.password'| translate}}</label
           >
           <input
             name="password"
@@ -257,15 +255,15 @@
             <ng-container
               *ngIf="signUpForm.get('password')?.errors?.['required']"
             >
-              Password is required
-            </ng-container>
+            {{'auth.signUp.passwordRequired'| translate}}
+                      </ng-container>
 
             <!-- minlength لو مفيش required -->
             <ng-container
               *ngIf="!signUpForm.get('password')?.errors?.['required'] && signUpForm.get('password')?.errors?.['minlength']"
             >
-              Password must be at least 8 characters long
-            </ng-container>
+            {{'auth.signUp.passwordMinLength'| translate}}
+                      </ng-container>
 
             <!-- weakPassword لو مفيش required ولا minlength -->
             <ng-container
@@ -273,8 +271,7 @@
                                      !signUpForm.get('password')?.errors?.['minlength'] &&
                                      signUpForm.get('password')?.errors?.['weakPassword']"
             >
-              Password must contain at least one uppercase letter, one lowercase
-              letter, one number, and one special character
+            {{'auth.signUp.passwordStrength'| translate}}
             </ng-container>
 
             <!-- maxlength لو مفيش الأخطاء اللي قبل كده -->
@@ -284,14 +281,14 @@
                                      !signUpForm.get('password')?.errors?.['weakPassword'] &&
                                      signUpForm.get('password')?.errors?.['maxlength']"
             >
-              Password cannot exceed 20 characters
-            </ng-container>
+            {{'auth.signUp.passwordMaxLength'| translate}}
+          </ng-container>
           </div>
         </div>
         <!-- confirm password -->
         <div>
           <label class="text-md font-medium mb-2 block text-[#1A1F2C]"
-            >Confirm Password</label
+            > {{'auth.signUp.confirmPassword'| translate}}</label
           >
           <input
             name="cpassword"
@@ -309,25 +306,23 @@
           >
             <ng-container
               *ngIf="signUpForm.get('cpassword')?.errors?.['required']"
-              >Confirm password is required</ng-container
+              >{{'auth.signUp.confirmPasswordRequired'| translate}}</ng-container
             >
             <ng-container
               *ngIf="signUpForm.get('cpassword')?.errors?.['minlength']"
-              >Confirm password must be at least 8 characters long
+              >{{'auth.signUp.confirmPasswordMinLength'| translate}}
             </ng-container>
             <ng-container
               *ngIf="signUpForm.get('cpassword')?.errors?.['pattern']"
-              >Confirm password must contain at least one uppercase letter, one
-              lowercase letter, one number, and one special
-              character</ng-container
+              >{{'auth.signUp.confirmPasswordStrength'| translate}}</ng-container
             >
             <ng-container
               *ngIf="signUpForm.get('cpassword')?.errors?.['maxlength']"
-              >Confirm password cannot exceed 20 characters</ng-container
+              >{{'auth.signUp.confirmPasswordMaxLength'| translate}}</ng-container
             >
             <ng-container
               *ngIf="signUpForm.get('cpassword')?.errors?.['notMatching']"
-              >Passwords do not match</ng-container
+              >{{'auth.signUp.passwordsDoNotMatch'| translate}}</ng-container
             >
           </div>
           <div
@@ -337,7 +332,7 @@
             "
             class="text-red-600 font-bold text-sm mt-2 ml-0.5"
           >
-            Password and Confirm Password do not match.
+          {{'auth.signUp.passwordMismatchError'| translate}}
           </div>
         </div>
 
@@ -353,13 +348,13 @@
             <label
               for="link-checkbox"
               class="ms-2 text-sm font-medium text-gray-900"
-              >I agree with the
+              >{{'auth.signUp.agreeWithTerms'| translate}}
               <a
                 routerLink="/terms-condition"
                 target="_blank"
                 routerLinkActive="router-link-active"
                 class="hover:underline font-medium text-[#9b87f5] hover:text-[#7E69AB]"
-                >terms and conditions</a
+                >{{'auth.signUp.readTerms'| translate}}</a
               >.</label
             >
           </div>
@@ -372,7 +367,7 @@
           >
             <ng-container
               *ngIf="signUpForm.get('acceptTerms')?.errors?.['required']"
-              >Read Our Terms & Conditions</ng-container
+              >{{'auth.signUp.readTermsError'| translate}}</ng-container
             >
           </div>
         </div>
@@ -383,7 +378,7 @@
             type="submit"
             class="py-2.5 px-5 text-sm font-medium tracking-wider rounded shadow-xl focus:outline-none bg-[#9b87f5] hover:bg-[#7E69AB] text-white"
           >
-            <span *ngIf="!isLoading" class="">Sign up</span>
+            <span *ngIf="!isLoading" class="">{{'auth.signUp.submitButton'| translate}}</span>
             <span
               *ngIf="isLoading"
               class="loader border-t-transparent border-solid animate-spin rounded-full border-white h-5 w-5"

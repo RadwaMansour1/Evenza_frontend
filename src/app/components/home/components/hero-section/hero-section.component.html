@@ -7,13 +7,14 @@
       <h1
         class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-gray-900 leading-tight"
       >
-        Discover and Book Amazing <span class="text-purple-500">Events</span>
+        {{ "home.heroSection.discoverAndBook" | translate }}
+        <span class="text-purple-500">{{
+          "home.heroSection.events" | translate
+        }}</span>
       </h1>
 
       <p class="mt-4 text-base sm:text-lg font-medium text-gray-600 max-w-2xl">
-        Find and book tickets for concerts, conferences, theater performances,
-        and more on Evenza – your one-stop platform for unforgettable
-        experiences.
+        {{ "home.heroSection.findAndBookTickets" | translate }}
       </p>
 
       <!-- Search Bar -->
@@ -22,35 +23,52 @@
           class="flex flex-col sm:flex-row sm:items-center sm:space-x-3 space-y-4 sm:space-y-0"
         >
           <input
+            #searchInput
             type="text"
-            placeholder="Search for events..."
+            placeholder="{{ 'home.heroSection.searchPlaceholder' | translate }}"
             class="w-full md:w-[70%] px-4 py-2 border border-gray-300 placeholder:text-gray-400 placeholder:text-base rounded-md text-sm focus:ring-1 focus:ring-purple-500 focus:outline-none hover:ring-1 hover:ring-purple-500 hover:border-purple-500 hover:shadow-md transition-all duration-200"
           />
           <button
-            class="w-full sm:w-auto px-6 py-2 text-base font-medium text-white bg-purple-600 rounded-md hover:bg-purple-700 shadow-md hover:shadow-lg transition-all duration-300"
+            (click)="findEvents(searchInput.value)"
+            class="w-full sm:w-auto px-4 py-1.5 text-base font-medium text-white bg-purple-600 rounded-md hover:bg-purple-700 shadow-md hover:shadow-lg transition-all duration-300"
           >
-            Find Events
+            {{ "home.heroSection.findEventsButton" | translate }}
           </button>
         </div>
 
         <!-- Category Buttons -->
-        <!-- <div class="mt-10 flex flex-wrap gap-3">
+        <div class="mt-10 flex flex-wrap gap-3">
           <button
-            class="px-4 py-2 bg-white border border-gray-200 rounded-md shadow-sm flex items-center gap-2"
+            (click)="findEvents('Concerts')"
+            class="px-4 py-2 bg-white border border-gray-200 rounded-md shadow-sm flex items-center gap-2 hover:-translate-y-1 hover:bg-purple-600 hover:text-white transition-all duration-300 group"
           >
-            <ng-icon name="featherCalendar" /> Concerts
+            <ng-icon
+              name="featherCalendar"
+              class="group-hover:animate-bounce"
+            />
+            {{ "home.heroSection.concerts" | translate }}
           </button>
           <button
-            class="px-4 py-2 bg-white border border-gray-200 rounded-md shadow-sm flex items-center gap-2"
+            (click)="findEvents('Conferences')"
+            class="px-4 py-2 bg-white border border-gray-200 rounded-md shadow-sm flex items-center gap-2 hover:-translate-y-1 hover:bg-purple-600 hover:text-white transition-all duration-300 group"
           >
-            <ng-icon name="featherCalendar" /> Conferences
+            <ng-icon
+              name="featherCalendar"
+              class="group-hover:animate-bounce"
+            />
+            {{ "home.heroSection.conferences" | translate }}
           </button>
           <button
-            class="px-4 py-2 bg-white border border-gray-200 rounded-md shadow-sm flex items-center gap-2"
+            (click)="findEvents('Theater')"
+            class="px-4 py-2 bg-white border border-gray-200 rounded-md shadow-sm flex items-center gap-2 hover:-translate-y-1 hover:bg-purple-600 hover:text-white transition-all duration-300 group"
           >
-            <ng-icon name="featherCalendar" /> Theater
+            <ng-icon
+              name="featherCalendar"
+              class="group-hover:animate-bounce"
+            />
+            {{ "home.heroSection.theater" | translate }}
           </button>
-        </div> -->
+        </div>
       </div>
     </div>
 

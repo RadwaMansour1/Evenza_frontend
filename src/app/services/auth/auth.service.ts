@@ -46,7 +46,6 @@ export class AuthService {
     sessionStorage.removeItem(CONSTANTS.token);
   }
 
-
   canAccess() {
     if (!this.isAuthenticated()) {
       //redirect to login page
@@ -74,7 +73,10 @@ export class AuthService {
       tap((response: any) => {
         if (response.success) {
           localStorage.setItem(CONSTANTS.token, response.token);
-          localStorage.setItem(CONSTANTS.userData, JSON.stringify(response.user));
+          localStorage.setItem(
+            CONSTANTS.userData,
+            JSON.stringify(response.user)
+          );
           this.token = response.token;
         }
       })
@@ -165,9 +167,11 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem(CONSTANTS.token);
-    localStorage.removeItem('userData');
+    localStorage.removeItem(CONSTANTS.userData);
     sessionStorage.removeItem(CONSTANTS.token);
-    sessionStorage.removeItem('userData');
+    sessionStorage.removeItem(CONSTANTS.userData);
+    // refresh the page to clear the token
+    window.location.reload();
     this.router.navigate(['/login']);
   }
 
@@ -190,5 +194,47 @@ export class AuthService {
       localStorage.getItem(CONSTANTS.token) !== null
     );
   }
-}
 
+  // checkIfUserExists(email: string): Observable<{ data: { userExists: boolean } }> {
+  //   return this.http.post<{ data: { userExists: boolean } }>(
+  //     `${this.apiUrl}/auth/check-user-existence`,
+  //     { email }
+  //   );
+  // }
+
+  // checkIfUserExists(email: string): Observable<{
+  //   userExists: {
+  //     userExists: boolean;
+  //     accessToken?: string;
+  //     user?: { id: string; email: string; role: string };
+  //   };
+  // }> {
+  //   return this.http.post<{
+  //     userExists: {
+  //       userExists: boolean;
+  //       accessToken?: string;
+  //       user?: { id: string; email: string; role: string };
+  //     };
+  //   }>(`${this.apiUrl}/auth/check-user-existence`, { email });
+  // }
+
+  checkIfUserExists(email: string): Observable<{
+    data: {
+      userExists: boolean;
+      accessToken?: string;
+      user?: { id: string; email: string; role: string };
+    };
+  }> {
+    return this.http.post<{
+      data: {
+        userExists: boolean;
+        accessToken?: string;
+        user?: { id: string; email: string; role: string };
+      };
+    }>(`${this.apiUrl}/auth/check-user-existence`, { email });
+  }
+
+
+
+
+}

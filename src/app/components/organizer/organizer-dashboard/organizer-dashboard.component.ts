@@ -78,7 +78,7 @@ export class OrganizerDashboardComponent implements OnInit {
     this.router.navigate(['/organizer/wallet']);
   }
   viewEvents() {
-    console.log('Viewing events...');
+    this.router.navigate(['/organizer/view-events']);
   }
   viewAddEvent() {
     this.router.navigate(['/organizer/add-event']);

@@ -37,58 +37,58 @@
         (ngSubmit)="onSubmit()"
         >
           <h3 class="text-purple-700 tracking-tight lg:text-3xl text-2xl font-bold mb-8">
-            Sign in
+            {{"auth.signIn.title"| translate}}
           </h3>
   
           <div class="space-y-6">
      
             <div class="relative">
-              <label class='text-sm font-medium mb-2 block text-[#1A1F2C]'>Email</label>
+              <label class='text-sm font-medium mb-2 block text-[#1A1F2C]'>{{"auth.signIn.emailLabel"| translate}}</label>
               <ng-icon name="heroEnvelope" class="h-5 w-5 text-[#8E9196] absolute left-3 top-1/2 transform mt-1.5" />
               <input name="email" formControlName="email" type="email" required class="bg-slate-100 w-full text-sm text-slate-800 px-4 py-3 pl-10 rounded-md outline-none border focus:border-purple-500 focus:bg-transparent border-[#e9e3ff] focus-visible:ring-[#9b87f5]" placeholder="Enter Email" />
             </div>
             <div *ngIf="signInForm.get('email')?.touched && signInForm.get('email')?.errors" class="text-red-600 font-bold text-sm mt-2 ml-0.5">
               <ng-container *ngIf="signInForm.get('email')?.errors?.['required']">
-                Email is required
+                {{"auth.signIn.emailRequired"| translate}}
               </ng-container>
               <ng-container *ngIf="signInForm.get('email')?.errors?.['email']">
-                Please enter a valid email address
+                {{"auth.signIn.emailInvalid"| translate}}
               </ng-container>
             </div>
   
               <!-- password input  -->
             <div class="relative">
-              <label class='text-sm font-medium mb-2 block text-[#1A1F2C]'>Password</label>
+              <label class='text-sm font-medium mb-2 block text-[#1A1F2C]'>{{"auth.signIn.passwordLabel"| translate}}</label>
               <ng-icon name="heroLockClosed" class="h-5 w-5 text-[#8E9196] absolute left-3 top-1/2 transform mt-1.5" />
               <input name="password" formControlName="password" type="password" required class="bg-slate-100 w-full text-sm text-slate-800 px-4 py-3 pl-10 rounded-md outline-none border focus:border-purple-500 focus:bg-transparent border-[#e9e3ff] focus-visible:ring-[#9b87f5]" placeholder="Enter Password" />
             </div>
             <div *ngIf="signInForm.get('password')?.touched && signInForm.get('password')?.errors" class="text-red-600 font-bold text-sm mt-2 ml-0.5">
               <ng-container *ngIf="signInForm.get('password')?.errors?.['required']">
-                Password is required
+                {{"auth.signIn.passwordRequired"| translate}}
               </ng-container>
               <ng-container *ngIf="signInForm.get('password')?.errors?.['minlength']">
-                Password must be at least 8 characters long
+                {{"auth.signIn.passwordMinLength"| translate}}
               </ng-container>
             </div>
-  
+            
             <div class="flex flex-wrap items-center justify-between gap-4">
-            
-            <div *ngIf="errorMessage" class="error-message" style="color: red; font-size: bold; margin-top: 10px;">
-              {{ errorMessage }}
-            </div>
-  
-            
+              
+              <div *ngIf="errorMessage" class="error-message" style="color: red; font-size: bold; margin-top: 10px;">
+                {{ errorMessage }}
+              </div>
+              
+              
               <!-- remember Me -->
               <div class="flex items-center">
                 <input id="remember-me" name="remember-me" formControlName="rememberMe" type="checkbox" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-slate-300 rounded" />
                 <label for="remember-me" class="ml-3 bock text-sm text-slate-500">
-                  Remember me
+                  {{"auth.signIn.rememberMe"| translate}}
                 </label>
               </div>
               <!-- forgot password -->
               <div class="text-sm">
                 <a routerLink="/forgot-password" class="font-medium text-sm text-[#9b87f5] hover:text-[#7E69AB]">
-                  Forgot your password?
+                  {{"auth.signIn.forgotPassword"| translate}}
                 </a>
               </div>
             </div>
@@ -96,13 +96,14 @@
           
           <div class="!mt-12">
             <button type="submit" class="shadow-xl py-2.5 px-4 text-sm font-semibold rounded  focus:outline-none w-full bg-[#9b87f5] hover:bg-[#7E69AB] text-white">
-              Log in
+              {{"auth.signIn.loginButton"| translate}}
             </button>
           </div>
-  
+          
           <div class="my-4 flex items-center gap-4">
-              <hr class="w-full border-slate-300" />
-              <p class="text-sm text-slate-800 text-center">or</p>
+            <hr class="w-full border-slate-300" />
+            
+              <p class="text-sm text-slate-800 text-center">{{"auth.signIn.or"| translate}}</p>
               <hr class="w-full border-slate-300" />
             </div>
   
@@ -118,13 +119,13 @@
               <!-- ceate account -->
               <div class="mt-6 text-center">
                 <p class="text-[#8E9196]">
-                  Don't have an account?
+                  {{"auth.signIn.noAccount"| translate}} 
                   <a routerLink="/signup" class="text-[#9b87f5] hover:text-[#7E69AB] font-medium">
-                    Sign up
+                    {{"auth.signIn.signupLink"| translate}} 
                   </a>
                 </p>
               </div>
-              <p class="text-sm text-slate-500 text-center mt-4">By signing in, you agree to our <a routerLink="/terms-condition" target="_blank" class="font-medium text-[#9b87f5] hover:text-[#7E69AB]">Terms and Conditions</a></p>
+              <p class="text-sm text-slate-500 text-center mt-4"> {{"auth.signIn.termsAgree"| translate}}  <a routerLink="/terms-condition" target="_blank" class="font-medium text-[#9b87f5] hover:text-[#7E69AB]">{{"auth.signIn.terms"| translate}} </a></p>
             </div>
         </form>
       </div>

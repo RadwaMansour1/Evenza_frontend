@@ -1,9 +1,12 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, formatDate } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormsModule, NgModel, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, NgModel, ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ForgotPasswordService } from '../../../services/password/forgot.password.service';
 import { AuthService } from '../../../services/auth/auth.service';
+import { TranslateModule } from '@ngx-translate/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { CONSTANTS } from '../../../constants';
 
 @Component({
   selector: 'app-reset-password',
@@ -14,35 +17,35 @@ import { AuthService } from '../../../services/auth/auth.service';
 export class ResetPasswordComponent {
   // newPassword = '';
   // confirmPassword = '';
-  token = '';
+  // token = '';
   
-  olPasswordFocused: boolean = false;
-  oldPassword: string = '';
-  newPasswordFocused: boolean = false;
-  newPassword: string = '';
-  confirmPasswordFocused: boolean = false;
-  confirmPassword: string = '';
-  errorMessage: string = '';
-  successMessage: string = '';
-passwordForm: any;
+  // olPasswordFocused: boolean = false;
+  // oldPassword: string = '';
+  // newPasswordFocused: boolean = false;
+  // newPassword: string = '';
+  // confirmPasswordFocused: boolean = false;
+  // confirmPassword: string = '';
+  // errorMessage: string = '';
+  // successMessage: string = '';
+  // passwordForm: any;
 
-  constructor(
-    private route: ActivatedRoute,
-    private resetPasswordService: ForgotPasswordService,
-    private authService: AuthService
-  ) {}
+  // constructor(
+  //   private route: ActivatedRoute,
+  //   private resetPasswordService: ForgotPasswordService,
+  //   private authService: AuthService
+  // ) {}
 
   // ngOnInit() {
   //   this.token = this.route.snapshot.queryParamMap.get('token') || '';
   // }
 
-  onSubmit() {
+  // onSubmit() {
   //   console.log('New password:', this.newPassword);
   //   console.log('Confirm password:', this.confirmPassword);
   //   if (this.newPassword !== this.confirmPassword) {
   //     alert('Passwords do not match');
   //     return;
-    }
+    // }
 
   //   this.resetPasswordService.resetPassword(this.token, this.newPassword)
   //     .subscribe({
@@ -71,25 +74,69 @@ passwordForm: any;
   //       });
   //     }
   // }
-  changePassword() {
-    // تحقق من تطابق كلمة المرور الجديدة مع التأكيد
-    if (this.newPassword !== this.confirmPassword) {
-      this.errorMessage = 'New password and confirm password do not match';
-      return; // هذا السطر يمنع تنفيذ باقي الدالة في حالة عدم تطابق كلمات المرور
-    }
+  // changePassword() {
+  //   // تحقق من تطابق كلمة المرور الجديدة مع التأكيد
+  //   if (this.newPassword !== this.confirmPassword) {
+  //     this.errorMessage = 'New password and confirm password do not match';
+  //     return; // هذا السطر يمنع تنفيذ باقي الدالة في حالة عدم تطابق كلمات المرور
+  //   }
 
-    // استدعاء الخدمة لتغيير كلمة المرور
-    this.authService
-      .changePassword(this.oldPassword, this.newPassword)
-      .subscribe({
-        next: (res) => {
-          this.successMessage = res.message; // رسالة النجاح
-          this.errorMessage = ''; // إعادة تعيين رسالة الخطأ
-        },
-        error: (err) => {
-          this.errorMessage = err.error.message || 'An error occurred'; // رسالة الخطأ
-          this.successMessage = ''; // إعادة تعيين رسالة النجاح
-        },
-      });
+  //   // استدعاء الخدمة لتغيير كلمة المرور
+  //   this.authService
+  //     .changePassword(this.oldPassword, this.newPassword)
+  //     .subscribe({
+  //       next: (res) => {
+  //         this.successMessage = res.message; // رسالة النجاح
+  //         this.errorMessage = ''; // إعادة تعيين رسالة الخطأ
+  //       },
+  //       error: (err) => {
+  //         this.errorMessage = err.error.message || 'An error occurred'; // رسالة الخطأ
+  //         this.successMessage = ''; // إعادة تعيين رسالة النجاح
+  //       },
+  //     });
+  // }
+
+  passwordForm: FormGroup;
+  errorMessage = '';
+  successMessage = '';
+  olPasswordFocused = false;
+  newPasswordFocused = false;
+  confirmPasswordFocused = false;
+
+  constructor(private fb: FormBuilder, private http: HttpClient) {
+    this.passwordForm = this.fb.group({
+      oldPassword: ['', Validators.required],
+      newPassword: ['', [Validators.required, Validators.minLength(6)]],
+      confirmPassword: ['', Validators.required],
+    }, { validators: this.passwordMatchValidator });
+  }
+
+  passwordMatchValidator(form: FormGroup) {
+    const newPassword = form.get('newPassword')?.value;
+    const confirmPassword = form.get('confirmPassword')?.value;
+    return newPassword === confirmPassword ? null : { passwordMismatch: true };
+  }
+
+  onSubmit() {
+    if (this.passwordForm.invalid) return;
+
+    const { oldPassword, newPassword } = this.passwordForm.value;
+    const token = localStorage.getItem(CONSTANTS.token) || sessionStorage.getItem(CONSTANTS.token);
+    console.log('token from storage : ',token);
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+
+    this.http.post('http://localhost:3000/auth/change-password', { oldPassword, newPassword } , { headers })
+    .subscribe({
+      next: () => {
+        this.successMessage = 'Password changed successfully';
+        this.errorMessage = '';
+        this.passwordForm.reset();
+      }, 
+      error: (err) => {
+        this.errorMessage = err?.error?.message || 'Something went wrong';
+        this.successMessage = '';
+      }
+    });
   }
 }

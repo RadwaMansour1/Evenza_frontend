@@ -7,12 +7,12 @@ import {
   heroExclamationCircle,
   heroInformationCircle,
   heroBell,
-  heroXMark
+  heroXMark,
 } from '@ng-icons/heroicons/outline';
 
 @Component({
   selector: 'app-custom-alert',
-  imports: [NgIcon,CommonModule],
+  imports: [NgIcon, CommonModule],
   templateUrl: './custom-alert.component.html',
   styleUrls: ['./custom-alert.component.css'],
   providers: [
@@ -22,14 +22,13 @@ import {
       heroExclamationCircle,
       heroInformationCircle,
       heroBell,
-      heroXMark
+      heroXMark,
     }),
   ],
 })
 export class CustomAlertComponent {
   @Input() message = '';
   @Input() type: 'success' | 'error' | 'warning' | 'info' = 'success';
-
   isVisible = true;
 
   get alertClasses() {

@@ -1,8 +1,10 @@
 <section class="py-16 bg-gray-50">
   <div class="max-w-7xl mx-auto px-4 text-center">
-    <h2 class="text-3xl font-bold text-gray-800 mb-2">Browse by Category</h2>
+    <h2 class="text-3xl font-bold text-gray-800 mb-2">
+      {{ "home.browseByCategory.title" | translate }}
+    </h2>
     <p class="text-gray-500 mb-10">
-      Explore events by category and find experiences that match your interests
+      {{ "home.browseByCategory.desc" | translate }}
     </p>
 
     <div
@@ -10,6 +12,7 @@
     >
       <div
         *ngFor="let category of categories"
+        (click)="onClickCategory(category.name)"
         class="bg-white p-6 rounded-xl shadow-sm group hover:-translate-y-2 hover:shadow-md transition-all duration-300 cursor-pointer text-center"
       >
         <div
@@ -19,7 +22,7 @@
           <span><ng-icon [name]="category.icon" class="w-6 h-6" /></span>
         </div>
         <h3 class="text-lg font-semibold text-gray-900">{{ category.name }}</h3>
-        <p class="text-sm text-gray-500">{{ category.count }} events</p>
+        <p class="text-sm text-gray-500">{{ category.count }} {{"home.browseByCategory.events" | translate}}</p>
       </div>
     </div>
   </div>

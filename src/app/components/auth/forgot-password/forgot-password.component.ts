@@ -4,10 +4,11 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ForgotPasswordService } from '../../../services/password/forgot.password.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-forgot-password',
-  imports: [NgIconsModule, FormsModule, CommonModule, RouterModule],
+  imports: [NgIconsModule, FormsModule, CommonModule, RouterModule , TranslateModule],
   templateUrl: './forgot-password.component.html',
 })
 export class ForgotPasswordComponent {

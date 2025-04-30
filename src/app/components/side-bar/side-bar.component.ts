@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { RouterModule,  Router } from '@angular/router';
 import { AuthService } from '../../services/auth/auth.service';
 import { CONSTANTS } from '../../constants';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-side-bar',

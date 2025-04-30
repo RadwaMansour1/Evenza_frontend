@@ -11,6 +11,7 @@ import { UserService } from '../../services/profile/user.service';
 import { CommonModule } from '@angular/common';
 import { CONSTANTS } from '../../constants';
 import { CustomAlertComponent } from '../shared/custom-alert/custom-alert.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-personal-information',
@@ -19,6 +20,7 @@ import { CustomAlertComponent } from '../shared/custom-alert/custom-alert.compon
     CommonModule,
     FormsModule,
     CustomAlertComponent,
+    TranslateModule
   ],
   templateUrl: './personal-information.component.html',
   styleUrl: './personal-information.component.css',
