@@ -110,7 +110,7 @@ export class LoginComponent implements OnInit {
   //     if (payload.role == 'user') {
   //       this.router.navigate(['/home']);
   //     } else {
-  //       this.router.navigate(['/organizer/dashboard']);
+  //       this.router.navigate(['/organizer/home']);
   //     }
 
   //     //send the token to the server for verification
