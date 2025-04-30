@@ -134,7 +134,7 @@ export const routes: Routes = [
         title: 'Personal Information',
       },
       {
-        path: 'new-password',
+        path: 'new-password', 
         component: ResetPasswordComponent,
         title: 'New Password',
         canActivate: [],
