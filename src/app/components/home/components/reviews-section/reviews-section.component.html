@@ -41,8 +41,8 @@
           <!-- User Info -->
           <div class="flex items-center gap-3">
             <img
-              *ngIf="review.userId.imageURL"
-              [src]="review.userId.imageURL"
+              *ngIf="review.userId.photo"
+              [src]="review.userId.photo"
               alt="{{ review.userId.firstName }} {{ review.userId.lastName }}"
               class="w-12 h-12 rounded-full"
             />
