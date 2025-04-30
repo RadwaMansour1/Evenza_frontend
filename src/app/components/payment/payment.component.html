@@ -46,7 +46,7 @@
             } @else {
                 <span class="flex flex-col gap-4 items-center my-12">
                     <!-- Add translate pipe with interpolation -->
-                    <h3 class="font-medium">{{ 'PAYMENT.WALLET_BALANCE' | translate:{ balance: myWallet } }}</h3>
+                    <h3 class="font-medium">{{ 'PAYMENT.WALLET_BALANCE' | translate:{ balance: myWallet.toFixed(2) } }}</h3>
                     <!-- Add translate pipe -->
                     <button (click)="confirmPayment($event)"
                         class="text-center cursor-pointer bg-purple-400 hover:bg-purple-600 text-white w-full md:w-1/2 xl:w-1/4 p-2 rounded-lg">
@@ -104,14 +104,14 @@
         </span>
         <span class="flex justify-between">
           <h3 class="font-semibold text-gray-600 text-md">{{ 'PAYMENT.TAX' | translate }}</h3>
-          <h3 class="font-semibold text-gray-600 text-md">${{ tax }}</h3>
+          <h3 class="font-semibold text-gray-600 text-md">${{ tax.toFixed(2) }}</h3>
         </span>
       </div>
       <hr class="text-gray-300" />
 
       <span class="flex justify-between">
         <h3 class="font-semibold text-gray-600 text-md">{{ 'PAYMENT.TOTAL' | translate }}</h3>
-        <h3 class="font-semibold text-gray-600 text-md">${{ total }}</h3>
+        <h3 class="font-semibold text-gray-600 text-md">${{ total?.toFixed(2) }}</h3>
       </span>
       <span class="flex gap-2 items-center text-gray-600">
         <ng-icon name="heroInformationCircle" />

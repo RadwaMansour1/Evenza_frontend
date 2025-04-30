@@ -18,9 +18,10 @@ export class RefundService{
         });
     }
 
-     refundToWallet (userId: string, amount:number):Observable<any>{
+     refundToWallet (userId: string,transactionId:string, amount:number):Observable<any>{
         return this.http.post<any>(this.apiWalletUrl,{
             userId,
+            transactionId,
             amount
         });
     }

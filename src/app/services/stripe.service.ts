@@ -21,7 +21,7 @@ async checkout(amount: number, userId: string, orderId:string, eventId: string, 
       timestamp: string, 
       data: { id: string } 
     }>('http://localhost:3000/payments/create-checkout-session', { 
-       amount, userId, eventId, ticketType, quantity 
+       amount, userId,orderId, eventId, ticketType, quantity 
     }).toPromise();
 
     console.log('Stripe session:', response);

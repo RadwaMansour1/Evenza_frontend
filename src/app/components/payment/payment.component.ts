@@ -12,6 +12,9 @@ import { EventService } from '../../services/event/event.service';
 import { WalletService } from '../../services/wallet/wallet.service';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core'; // Import TranslateModule
+import { PaymentService } from '../../services/payment/payment.service';
+import { TicketsService } from '../../services/tickets/tickets.service';
+import { TicketModel } from '../../models/ticket.model';
 
 @Component({
   selector: 'app-payment',
@@ -41,6 +44,8 @@ export class PaymentComponent implements OnInit {
     private readonly orderService: OrderService,
     private readonly eventService: EventService,
     private readonly walletService:WalletService,
+    private readonly paymentService:PaymentService,
+    private readonly ticketService:TicketsService,
   ) { }
 
   selectedMethod: string = 'stripe';
@@ -49,8 +54,8 @@ export class PaymentComponent implements OnInit {
 
   quantity: number|null = null;
   ticketPrice:  number|null = null;
-  serviceFee:  number = 12.75;
-  tax:  number = 7.5;
+  serviceFee:  number = 0;
+  tax:  number = 0;
   total:  number|null =null;
   amount:number|null = null;
   userId: string = "";
@@ -71,6 +76,16 @@ export class PaymentComponent implements OnInit {
   orderId: string | null = null;
   order: any = null; // Add a property to hold the order details
   
+eventDetails: {
+  title: string;
+  date: Date;
+  time: string;
+  location: {
+    address: string;
+    city: string;
+  };
+  imageUrl: string;
+} | null = null;
 
   payWithStripe() {
     console.log('Stripe button clicked');
@@ -95,6 +110,8 @@ export class PaymentComponent implements OnInit {
             this.quantity = orderData.countOfTickets;
             this.orderSummary.numberOfTickets = this.quantity;
             this.ticketPrice = orderData.totalPrice;
+            this.serviceFee = orderData.totalPrice * 0.05;
+            this.tax = orderData.totalPrice * 0.14;
             this.total =this.ticketPrice!+ this.serviceFee + this.tax;
             this.amount =this.total / this.quantity!;
             console.log('orderDetails:', orderData.orderDetails);
@@ -107,6 +124,7 @@ export class PaymentComponent implements OnInit {
                 next: (eventRes: any) => {
                   console.log('Raw eventRes:', eventRes);
                   const eventData = eventRes.data;
+                  this.eventDetails = eventRes.data;
                   console.log('Fetched event:', eventData);
                   this.orderSummary.imgUrl = eventData.imageUrl;
                   this.orderSummary.eventName = eventData.title;
@@ -131,6 +149,7 @@ export class PaymentComponent implements OnInit {
 
                 }
               })
+              
             }
 
           },
@@ -198,37 +217,73 @@ export class PaymentComponent implements OnInit {
     }, 0); // setTimeout ensures DOM is updated
   }
 
-  // This method is now primarily for the Evenza Wallet button click
-  async confirmPayment(event?: Event): Promise<void> { // Make event optional
-    event?.preventDefault(); // Prevent default only if event exists
-
+  async confirmPayment(event?: Event): Promise<void> {
+    event?.preventDefault();
+  
     if (this.selectedMethod === 'evenza') {
-      
-      console.log('Paying with Evenza Wallet...');
-      
-      if(this.myWallet < this.total!){
+      console.log('Initiating payment with Evenza Wallet...');
+  
+      if (this.myWallet < this.total!) {
         Swal.fire({
-          title: "Failed.",
-          text: "Invalid Balance",
-          icon: "error"
+          title: "Insufficient Funds",
+          text: `Your wallet balance is ${this.myWallet}. You need ${this.total} to complete the payment.`,
+          icon: "warning"
         });
-      }else{
-        this.walletService.bookFromWallet(this.userId,this.total!).subscribe({
-          next:(res)=>{
-            console.log(res)
-           
+        return;
+      }
+  
+      try {
+        const walletResponse = await this.walletService.bookFromWallet(this.userId, this.total!).toPromise();
+        console.log("Wallet transaction response:", walletResponse);
+  
+        const paymentData = {
+          userId: this.userId,
+          eventId: this.eventId,
+          orderId: this.orderId!,
+          ticketType: this.ticketType,
+          quantity: this.quantity!,
+          amountPaid: this.total!,
+          currency: "EGP",
+          transactionId: walletResponse.data.transactionId,
+          paymentMethod: "Wallet",
+        };
+  
+        await this.paymentService.createPayment(paymentData).toPromise();
+        console.log("Payment saved successfully");
+        const location = `${this.eventDetails!.location.address}, ${this.eventDetails!.location.city}`;
+        this.ticketService.createTicket({
+          transactionId: walletResponse.data.transactionId,
+          userId: this.userId,
+          eventName: this.eventDetails!.title,
+          ticketType: this.ticketType,
+          date: this.eventDetails!.date,
+          time:this.eventDetails!.time,
+          location:location,
+          purchaseDate: new Date(),
+          price: this.ticketPrice!,
+          quantity: this.quantity!,
+        }).subscribe({
+          next: (res) => {
+            console.log('Ticket created successfully:', res);
           },
-          error:(err)=>{
-            console.log(err)
-            Swal.fire({
-              title: "Failed.",
-              text: "Try Again",
-              icon: "error"
-            });
+          error: (err) => {
+            console.error('Error creating ticket:', err);
           }
         })
+  
+        // الانتقال إلى صفحة النجاح مع البيانات المناسبة
+        const successUrl = `/success?orderId=${this.orderId}&payment_method=wallet`;
+        window.location.href = successUrl;
+      } catch (error) {
+        console.error("Error during payment process:", error);
+        Swal.fire({
+          title: "Payment Error",
+          text: "An error occurred during the payment process. Please try again later.",
+          icon: "error"
+        });
       }
+    } else {
+      console.warn("Selected payment method is not Evenza Wallet.");
     }
-    // PayPal logic is now handled by renderPayPalButtons via onPaymentMethodChange
   }
 }

@@ -26,8 +26,8 @@ export class TicketsService {
   }
 
   // Create a new ticket
-  createTicket(ticketData: TicketModel): Observable<TicketModel> {
-    return this.http.post<TicketModel>(this.apiUrl, ticketData);
+  createTicket(ticketData: any): Observable<any> {
+    return this.http.post<any>(this.apiUrl, ticketData);
   }
 
   // Delete a ticket by ID
