@@ -28,6 +28,7 @@ import { ResetPasswordComponent } from './components/auth/reset-password/reset-p
 import { LoginComponent } from './components/auth/login/login.component';
 import { SetNewPasswordComponent } from './components/auth/set-new-password/set-new-password.component';
 import { PersonalInformationComponent } from './components/personal-information/personal-information.component';
+import { ViewEventsComponent } from './components/organizer/view-events/view-events.component';
 
 export const routes: Routes = [
   {
@@ -167,6 +168,11 @@ export const routes: Routes = [
     path: 'organizer/add-event',
     component: AddEventComponent,
     title: 'Add Event',
+  },
+  {
+    path: 'organizer/view-events',
+    component: ViewEventsComponent,
+    title: 'View Events',
   },
   //not found route
   {

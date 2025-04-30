@@ -73,7 +73,10 @@ export class AuthService {
       tap((response: any) => {
         if (response.success) {
           localStorage.setItem(CONSTANTS.token, response.token);
-          localStorage.setItem(CONSTANTS.userData, JSON.stringify(response.user));
+          localStorage.setItem(
+            CONSTANTS.userData,
+            JSON.stringify(response.user)
+          );
           this.token = response.token;
         }
       })
@@ -167,6 +170,8 @@ export class AuthService {
     localStorage.removeItem(CONSTANTS.userData);
     sessionStorage.removeItem(CONSTANTS.token);
     sessionStorage.removeItem(CONSTANTS.userData);
+    // refresh the page to clear the token
+    window.location.reload();
     this.router.navigate(['/login']);
   }
 
@@ -196,7 +201,7 @@ export class AuthService {
   //     { email }
   //   );
   // }
-  
+
   checkIfUserExists(email: string): Observable<{
     userExists: {
       userExists: boolean;
@@ -212,7 +217,7 @@ export class AuthService {
       };
     }>(`${this.apiUrl}/auth/check-user-existence`, { email });
   }
-  
+
   // checkIfUserExists(email: string): Observable<{
   //   userExists: boolean;
   //   accessToken?: string;
@@ -224,6 +229,4 @@ export class AuthService {
   //     user?: { id: string; email: string; role: string };
   //   }>(`${this.apiUrl}/auth/check-user-existence`, { email });
   // }
-
 }
-

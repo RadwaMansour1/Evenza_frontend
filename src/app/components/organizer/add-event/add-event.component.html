@@ -1,10 +1,16 @@
-<section class="min-h-screen py-16 bg-gray-50">
+<section class="min-h-screen pt-6 pb-12 px-10 bg-gray-50">
   <app-custom-alert
     *ngIf="showAlert"
     [message]="alertMessage"
     [type]="alertType"
   ></app-custom-alert>
 
+  <a
+    routerLink="/organizer/dashboard"
+    class="text-sm text-purple-600 font-medium inline-block mb-1"
+  >
+    &larr; <span class="ms-1 hover:underline">Back</span>
+  </a>
   <div
     class="max-w-3xl mx-auto p-6 md:p-8 bg-white rounded-lg shadow-md border border-gray-200 font-sans"
   >
@@ -142,7 +148,6 @@
         </select>
       </div>
 
-
       <div class="mb-6">
         <label
           for="eventHighlights"
@@ -155,13 +160,15 @@
             id="eventHighlightsInput"
             name="eventHighlightsInput"
             [(ngModel)]="currentHighlight"
-            (keyup.enter)="addHighlight()" class="w-full p-2 rounded-md placeholder:text-gray-500 bg-white border-2 border-gray-200 focus:border-purple-500 focus:outline-none focus:ring-0 hover:border-purple-500 sm:text-sm"
+            (keyup.enter)="addHighlight()"
+            class="w-full p-2 rounded-md placeholder:text-gray-500 bg-white border-2 border-gray-200 focus:border-purple-500 focus:outline-none focus:ring-0 hover:border-purple-500 sm:text-sm"
             placeholder="Add a highlight"
           />
           <button
             type="button"
             (click)="addHighlight()"
-            [disabled]="!currentHighlight.trim()" class="px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 disabled:opacity-50 disabled:cursor-not-allowed"
+            [disabled]="!currentHighlight.trim()"
+            class="px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             Add
           </button>
@@ -178,11 +185,16 @@
               class="text-gray-500 hover:text-red-600 focus:outline-none"
               title="Remove highlight"
             >
-               <ng-icon name="heroXMark" size="1em"></ng-icon>
+              <ng-icon name="heroXMark" size="1em"></ng-icon>
             </button>
           </li>
         </ul>
-        <p *ngIf="eventHighlights.length === 0" class="text-sm text-gray-500 italic">No highlights added yet.</p>
+        <p
+          *ngIf="eventHighlights.length === 0"
+          class="text-sm text-gray-500 italic"
+        >
+          No highlights added yet.
+        </p>
       </div>
 
       <fieldset class="mb-6 border border-gray-300 p-4 rounded-md">
@@ -238,7 +250,7 @@
                   step="1"
                   placeholder="Price"
                   required
-                  class="w-full pl-7 pr-3 py-2 rounded-md placeholder:text-gray-500 bg-white border-2 border-gray-200 focus:border-purple-500 focus:outline-none focus:ring-0 hover:border-purple-500 sm:text-sm"
+                  class="w-full pl-10 pr-3 py-2 rounded-md placeholder:text-gray-500 bg-white border-2 border-gray-200 focus:border-purple-500 focus:outline-none focus:ring-0 hover:border-purple-500 sm:text-sm"
                 />
               </div>
             </div>

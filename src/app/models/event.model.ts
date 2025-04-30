@@ -26,6 +26,7 @@ export interface Event {
   isFree: boolean;
   imageUrl: string;
   organizerId: number;
+  isApproved?: boolean;
 }
 
 export interface FilterCriteria {
