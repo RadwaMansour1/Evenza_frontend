@@ -97,7 +97,7 @@
                 <!-- Add translate pipe -->
                 <div class="text-gray-500">{{ 'MY_TICKETS.TOTAL_LABEL' | translate }}</div>
                 <div class="font-bold text-gray-900">
-                  ${{ ticket.price * ticket.quantity }}
+                  ${{ (ticket.price * ticket.quantity).toFixed(2) }}
                 </div>
               </div>
             </div>
@@ -106,7 +106,7 @@
   
           <div class="flex flex-col gap-2 justify-center h-full">
             <button
-              (click)="navigateEventDetails(ticket._id)"
+              (click)="navigateEventDetails(ticket.eventId)"
               class="w-full bg-gray-50 text-gray-700 border border-gray-200 rounded-lg py-2 font-medium hover:bg-purple-700 hover:border-none hover:text-white transition-all duration-300"
             >
               <!-- Add translate pipe -->

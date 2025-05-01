@@ -87,6 +87,8 @@ eventDetails: {
   imageUrl: string;
 } | null = null;
 
+ticketId:string|null = null;
+
   payWithStripe() {
     console.log('Stripe button clicked');
     this.stripeService.checkout(this.amount!,this.userId, this.orderId!,this.eventId,this.ticketType,this.quantity!);
@@ -230,58 +232,61 @@ eventDetails: {
           icon: "warning"
         });
         return;
+      }else{
+        try {
+          const walletResponse = await this.walletService.bookFromWallet(this.userId, this.total!).toPromise();
+          console.log("Wallet transaction response:", walletResponse);
+    
+          const paymentData = {
+            userId: this.userId,
+            eventId: this.eventId,
+            orderId: this.orderId!,
+            ticketType: this.ticketType,
+            quantity: this.quantity!,
+            amountPaid: this.total!,
+            currency: "EGP",
+            transactionId: walletResponse.data.transactionId,
+            paymentMethod: "Wallet",
+          };
+    
+          await this.paymentService.createPayment(paymentData).toPromise();
+          console.log("Payment saved successfully");
+          const location = `${this.eventDetails!.location.address}, ${this.eventDetails!.location.city}`;
+          this.ticketService.createTicket({
+            transactionId: walletResponse.data.transactionId,
+            userId: this.userId,
+            eventId: this.eventId,
+            eventName: this.eventDetails!.title,
+            ticketType: this.ticketType,
+            date: this.eventDetails!.date,
+            time:this.eventDetails!.time,
+            location:location,
+            purchaseDate: new Date(),
+            price: this.ticketPrice!,
+            quantity: this.quantity!,
+          }).subscribe({
+            next: (res) => {
+              console.log('Ticket created successfully:', res);
+              this.ticketId = res.data._id;
+            },
+            error: (err) => {
+              console.error('Error creating ticket:', err);
+            }
+          })
+    
+          // الانتقال إلى صفحة النجاح مع البيانات المناسبة
+          const successUrl = `/success?tiketId=${this.ticketId}&payment_method=wallet`;
+          window.location.href = successUrl;
+        } catch (error) {
+          console.error("Error during payment process:", error);
+          Swal.fire({
+            title: "Payment Error",
+            text: "An error occurred during the payment process. Please try again later.",
+            icon: "error"
+          });
+        }
       }
   
-      try {
-        const walletResponse = await this.walletService.bookFromWallet(this.userId, this.total!).toPromise();
-        console.log("Wallet transaction response:", walletResponse);
-  
-        const paymentData = {
-          userId: this.userId,
-          eventId: this.eventId,
-          orderId: this.orderId!,
-          ticketType: this.ticketType,
-          quantity: this.quantity!,
-          amountPaid: this.total!,
-          currency: "EGP",
-          transactionId: walletResponse.data.transactionId,
-          paymentMethod: "Wallet",
-        };
-  
-        await this.paymentService.createPayment(paymentData).toPromise();
-        console.log("Payment saved successfully");
-        const location = `${this.eventDetails!.location.address}, ${this.eventDetails!.location.city}`;
-        this.ticketService.createTicket({
-          transactionId: walletResponse.data.transactionId,
-          userId: this.userId,
-          eventName: this.eventDetails!.title,
-          ticketType: this.ticketType,
-          date: this.eventDetails!.date,
-          time:this.eventDetails!.time,
-          location:location,
-          purchaseDate: new Date(),
-          price: this.ticketPrice!,
-          quantity: this.quantity!,
-        }).subscribe({
-          next: (res) => {
-            console.log('Ticket created successfully:', res);
-          },
-          error: (err) => {
-            console.error('Error creating ticket:', err);
-          }
-        })
-  
-        // الانتقال إلى صفحة النجاح مع البيانات المناسبة
-        const successUrl = `/success?orderId=${this.orderId}&payment_method=wallet`;
-        window.location.href = successUrl;
-      } catch (error) {
-        console.error("Error during payment process:", error);
-        Swal.fire({
-          title: "Payment Error",
-          text: "An error occurred during the payment process. Please try again later.",
-          icon: "error"
-        });
-      }
     } else {
       console.warn("Selected payment method is not Evenza Wallet.");
     }

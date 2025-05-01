@@ -54,7 +54,8 @@ export class MyTicketsComponent implements OnInit{
   requestRefund(ticketId: string) {
     this.router.navigate(["/refund"],{queryParams:{ticketId}});
   }
-  navigateEventDetails(arg0: string) {
-    throw new Error('Method not implemented.');
+  navigateEventDetails(eventId: string) {
+    this.router.navigate([`/events/${eventId}`]);
+
   }
 }
