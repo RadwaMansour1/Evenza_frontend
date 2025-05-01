@@ -282,8 +282,10 @@ export class LoginComponent implements OnInit {
                 JSON.stringify(payload)
               );
             }
-            if (payload.role == 'user') this.router.navigate(['/home']);
-            else this.router.navigate(['/organizer/home']);
+            if (payload.role == 'user') {
+              this.router.navigate(['/home']);
+              window.location.reload();
+            } else this.router.navigate(['/organizer/home']);
           }
         },
         (error) => {
