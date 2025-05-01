@@ -56,6 +56,7 @@ export class IdVerificationComponent {
         console.log(res);
         this.selectedImagePreview = null;
         this.selectedImageFile = null;
+        window.location.reload();
       },
       error: (err: any) => {
         console.error('Error uploading document:', err);
