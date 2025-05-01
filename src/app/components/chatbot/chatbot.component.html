@@ -1,0 +1,67 @@
+<div class="fixed bottom-6 right-6 z-10 flex flex-col items-end">
+  <div *ngIf="isChatOpen" class="max-w-md rounded shadow mt-4 relative">
+    <h2 class="text-xl font-bold p-4 text-purple-600 bg-white rounded-t">
+      Evenza Bot
+    </h2>
+
+    <div #chatBox class="space-y-4 max-h-96 overflow-y-auto p-4 bg-white">
+      <div
+        *ngFor="let msg of messages"
+        class="flex flex-col"
+        [ngClass]="{
+          'items-end': msg.sender === 'user',
+          'items-start': msg.sender === 'bot'
+        }"
+      >
+        <span class="text-xs text-gray-500 mb-1">{{ msg.timestamp }}</span>
+        <span
+          [ngClass]="{
+            'bg-purple-500 text-white': msg.sender === 'user',
+            'bg-gray-100 text-gray-800': msg.sender === 'bot'
+          }"
+          class="px-5 py-3 rounded-xl max-w-xs sm:max-w-md break-words"
+          [innerHTML]="msg.text"
+        >
+        </span>
+      </div>
+
+      <div *ngIf="loading" class="text-gray-500 text-sm">Bot is typing...</div>
+    </div>
+
+    <form (ngSubmit)="sendMessage()" class="flex gap-2 p-4 bg-white rounded-b">
+      <input
+        [(ngModel)]="userMessage"
+        name="message"
+        type="text"
+        placeholder="Type your message..."
+        class="flex-1 px-3 py-2 rounded outline-none border border-gray-300 focus:border-purple-500 placeholder-gray-400"
+        autocomplete="off"
+        aria-label="Message"
+        id="chatbotInput"
+      />
+      <button
+        type="submit"
+        [disabled]="loading || !userMessage.trim()"
+        class="bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded"
+      >
+        <ng-icon name="heroPaperAirplaneSolid" size="1.5em"></ng-icon>
+        <span class="sr-only">Send</span>
+      </button>
+    </form>
+  </div>
+
+  <button
+    (click)="toggleChat()"
+    class="w-14 h-14 rounded-full shadow-lg bg-purple-600 text-white p-3 cursor-pointer mt-2"
+    *ngIf="isChatOpen"
+  >
+    <ng-icon name="heroXMarkSolid" size="2em"></ng-icon>
+  </button>
+  <button
+    (click)="toggleChat()"
+    class="hover:scale-105 transition-all duration-200 ease-in-out chatbot w-14 h-14 rounded-full shadow-lg bg-purple-600 text-white p-3 cursor-pointer"
+    *ngIf="!isChatOpen"
+  >
+    <ng-icon name="heroChatBubbleLeftSolid" size="2em"></ng-icon>
+  </button>
+</div>

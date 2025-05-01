@@ -21,7 +21,6 @@ import { PaymentSuccessComponent } from './components/payment-success/payment-su
 import { PaymentComponent } from './components/payment/payment.component';
 import { NgModule } from '@angular/core';
 import { RefundComponent } from './components/refund/refund.component';
-import { OrganizerDashboardComponent } from './components/organizer/organizer-dashboard/organizer-dashboard.component';
 import { OrganizerWalletComponent } from './components/organizer/organizer-wallet/organizer-wallet.component';
 import { AddEventComponent } from './components/organizer/add-event/add-event.component';
 import { ResetPasswordComponent } from './components/auth/reset-password/reset-password.component';
@@ -29,6 +28,7 @@ import { LoginComponent } from './components/auth/login/login.component';
 import { SetNewPasswordComponent } from './components/auth/set-new-password/set-new-password.component';
 import { PersonalInformationComponent } from './components/personal-information/personal-information.component';
 import { ViewEventsComponent } from './components/organizer/view-events/view-events.component';
+import { OrganizerHomeComponent } from './components/organizer/organizer-home/organizer-home.component';
 
 export const routes: Routes = [
   {
@@ -134,7 +134,7 @@ export const routes: Routes = [
         title: 'Personal Information',
       },
       {
-        path: 'new-password', 
+        path: 'new-password',
         component: ResetPasswordComponent,
         title: 'New Password',
         canActivate: [],
@@ -155,9 +155,14 @@ export const routes: Routes = [
   },
   //organizer routes
   {
-    path: 'organizer/dashboard',
-    component: OrganizerDashboardComponent,
-    title: 'Organizer Dashboard',
+    path: 'organizer',
+    component: OrganizerHomeComponent,
+    title: 'Organizer Home',
+  },
+  {
+    path: 'organizer/home',
+    component: OrganizerHomeComponent,
+    title: 'Organizer Home',
   },
   {
     path: 'organizer/wallet',

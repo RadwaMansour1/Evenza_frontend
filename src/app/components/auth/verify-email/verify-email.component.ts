@@ -71,7 +71,7 @@ export class VerifyEmailComponent implements OnInit {
           sessionStorage.setItem(CONSTANTS.userRole, res.data?.user.userRole);
           if (res.data?.user.userRole == 'user')
             this.router.navigate(['/home']);
-          else this.router.navigate(['/organizer/dashboard']);
+          else this.router.navigate(['/organizer/home']);
         },
         error: () => {
           this.errorCount++;
