@@ -11,6 +11,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
   standalone: true,
   imports: [FormsModule, CommonModule, NgIcon],
   templateUrl: './chatbot.component.html',
+  styleUrls: ['./chatbot.component.css'],
   viewProviders:[provideIcons({heroXMarkSolid, heroChatBubbleLeftSolid, heroPaperAirplaneSolid})]
 })
 export class ChatbotComponent implements AfterViewChecked ,OnInit {
