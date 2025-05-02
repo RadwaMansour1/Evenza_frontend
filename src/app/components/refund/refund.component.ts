@@ -48,6 +48,7 @@ export class RefundComponent implements OnInit{
   userId:string | null = null;
   private paymentId:string|null = null;
   private transactionId:string|null = null;
+  private isrefunded:boolean =false;
 
   constructor(
     private readonly route:ActivatedRoute ,
@@ -139,7 +140,15 @@ export class RefundComponent implements OnInit{
         this.refundService.refundToWallet(this.userId,this.transactionId!,this.total!).subscribe({
           next:(res)=>{
             console.log("refunded to wallet: ",res);
-            this.paymentService.updateStatus(this.paymentId!,"Refunded");
+            this.isrefunded = true;
+            this.ticketService.deleteTicket(this.ticketDetails?._id!).subscribe({
+              next:(res)=>{
+                console.log("ticket deleted: ",res);
+              },
+              error:(err)=>{
+                throw new Error(err)
+              }
+            });
             Swal.fire({
               icon: 'success',
               title: 'Refunded Successfully To your Wallet',
@@ -158,7 +167,7 @@ export class RefundComponent implements OnInit{
     if(this.refundReason !== "duplicate")
       this.refundReason = "requested_by_customer"
     
-      this.refundService.refundOriginal(this.ticketDetails?.transactionId! , this.total! , this.refundReason).subscribe({
+      this.refundService.refundOriginal(this.ticketDetails?.transactionId! , this.total! ,this.ticketDetails?._id!, this.refundReason).subscribe({
         next:(res)=>{
           console.log("refunded done successfully: ",res);
           Swal.fire({
@@ -166,6 +175,14 @@ export class RefundComponent implements OnInit{
             title: 'Refunded Successfully',
             text: 'Your refund request has been processed successfully.',
             confirmButtonColor: '#9333ea'
+          });
+          this.paymentService.updateStatus(this.paymentId!,"Refunded").subscribe({
+            next:(res)=>{
+              console.log("payment status updated: ",res);
+            },
+            error:(err)=>{
+              throw new Error(err)
+            }
           });
           this.router.navigate(["/my-tickets"]);
         },
@@ -180,6 +197,16 @@ export class RefundComponent implements OnInit{
         text: 'You Should select the method of refund request.',
         confirmButtonColor: '#9333ea'
       })
+    }
+    if(this.isrefunded){
+      this.paymentService.updateStatus(this.paymentId!,"Refunded").subscribe({
+              next:(res)=>{
+                console.log("payment status updated: ",res);
+              },
+              error:(err)=>{
+                throw new Error(err)
+              }
+            });
     }
   }
 }
