@@ -11,20 +11,27 @@ export class OrganizerService {
 
   constructor(private httpClient: HttpClient) {}
 
+  getOrganizerStatus(): Observable<any> {
+    const token =
+      sessionStorage.getItem(CONSTANTS.token) ||
+      localStorage.getItem(CONSTANTS.token);
+    return this.httpClient.get<any>(`${this.apiUrl}/status`, {
+      headers: {
+        accept: 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  }
   addEvent(eventData: any): Observable<any> {
     const token =
       sessionStorage.getItem(CONSTANTS.token) ||
       localStorage.getItem(CONSTANTS.token);
-    return this.httpClient.post<any>(
-      `${this.apiUrl}/events`,
-      eventData,
-      {
-        headers: {
-          accept: 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    return this.httpClient.post<any>(`${this.apiUrl}/events`, eventData, {
+      headers: {
+        accept: 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
   }
 
   getOrganizerEvents(): Observable<any> {

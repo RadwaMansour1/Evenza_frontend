@@ -2,6 +2,7 @@ export interface TicketModel {
     _id: string;
     transactionId:string,
     userId: string;
+    eventId:string,
     eventName: string;
     ticketType: string;
     date:Date,
@@ -10,6 +11,4 @@ export interface TicketModel {
     purchaseDate:Date,
     price: number;
     quantity: number;
-    createdAt: Date;
-    updatedAt: Date;
 }

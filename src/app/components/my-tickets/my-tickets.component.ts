@@ -11,9 +11,10 @@ import { Router } from '@angular/router';
 import { TicketsService } from '../../services/tickets/tickets.service';
 import { TicketModel } from '../../models/ticket.model';
 import { UserService } from '../../services/profile/user.service';
+import { TranslateModule } from '@ngx-translate/core';
 @Component({
   selector: 'app-my-tickets',
-  imports: [CommonModule, NgIcon],
+  imports: [CommonModule, NgIcon , TranslateModule],
   templateUrl: './my-tickets.component.html',
   providers: [
     provideIcons({ heroTicket, featherCalendar, featherClock, featherMapPin }),
@@ -53,7 +54,8 @@ export class MyTicketsComponent implements OnInit{
   requestRefund(ticketId: string) {
     this.router.navigate(["/refund"],{queryParams:{ticketId}});
   }
-  navigateEventDetails(arg0: string) {
-    throw new Error('Method not implemented.');
+  navigateEventDetails(eventId: string) {
+    this.router.navigate([`/events/${eventId}`]);
+
   }
 }

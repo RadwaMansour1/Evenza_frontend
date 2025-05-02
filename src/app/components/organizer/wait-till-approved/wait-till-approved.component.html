@@ -1,0 +1,50 @@
+<section class="py-16 bg-gray-50 min-h-screen">
+  <div class="bg-white p-8 rounded-lg shadow-md max-w-xl mx-auto my-10">
+    <h2
+      class="text-xl font-semibold text-center text-gray-800 pb-4 border-b border-gray-200 mb-6"
+    >
+      Verification Status
+    </h2>
+
+    <div
+      class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 flex items-start space-x-3 mb-6"
+    >
+      <div class="flex-shrink-0 pt-0.5 text-3xl text-yellow-500">
+        <ng-icon name="heroClock"></ng-icon>
+      </div>
+      <div class="flex-grow">
+        <h3 class="text-sm font-semibold text-yellow-800">
+          Verification in Progress
+        </h3>
+        <p class="text-sm text-yellow-700 mt-1">
+          Your document is being reviewed by our team
+        </p>
+      </div>
+    </div>
+
+    <div class="mb-8">
+      <div class="flex justify-between items-center mb-1">
+        <span class="text-sm font-medium text-gray-700"
+          >Verification in progress</span
+        >
+        <span class="text-xs text-gray-600">Estimated: 24-48 hours</span>
+      </div>
+      <div class="w-full bg-purple-100 rounded-full h-2 mt-2">
+        <div
+          class="bg-gradient-to-r from-purple-500 to-pink-500 h-2 rounded-full loader"
+          [style.width.%]="progressPercent"
+        ></div>
+      </div>
+    </div>
+
+    <div class="bg-sky-50 border border-sky-200 rounded-lg p-5">
+      <h4 class="text-base font-semibold text-gray-800 mb-2">
+        What happens next?
+      </h4>
+      <p class="text-sm text-gray-600 mb-3">Once your document is verified:</p>
+      <ul class="list-disc list-inside space-y-1.5 text-sm text-gray-700">
+        <li *ngFor="let step of nextSteps">{{ step }}</li>
+      </ul>
+    </div>
+  </div>
+</section>

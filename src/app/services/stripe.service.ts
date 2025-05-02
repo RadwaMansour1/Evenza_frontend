@@ -11,7 +11,7 @@ export class StripeService {
   constructor(private http: HttpClient) {}
 
 // Updated frontend handling for wrapped responses
-async checkout(amount: number, userId: string, eventId: string, ticketType: string, quantity: number) {
+async checkout(amount: number, userId: string, orderId:string, eventId: string, ticketType: string, quantity: number) {
   try {
     const stripe = await this.stripePromise;
     if (!stripe) return;
@@ -21,7 +21,7 @@ async checkout(amount: number, userId: string, eventId: string, ticketType: stri
       timestamp: string, 
       data: { id: string } 
     }>('http://localhost:3000/payments/create-checkout-session', { 
-       amount, userId, eventId, ticketType, quantity 
+       amount, userId,orderId, eventId, ticketType, quantity 
     }).toPromise();
 
     console.log('Stripe session:', response);

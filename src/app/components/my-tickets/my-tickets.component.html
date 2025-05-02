@@ -1,7 +1,8 @@
 <div class="min-h-screen bg-gray-50 py-26 px-4">
   <div class="max-w-6xl mx-auto">
     <div class="flex justify-between items-center mb-8">
-      <h1 class="text-3xl font-bold text-gray-800">My Tickets</h1>
+      <!-- Add translate pipe -->
+      <h1 class="text-3xl font-bold text-gray-800">{{ 'MY_TICKETS.PAGE_TITLE' | translate }}</h1>
       <button
         (click)="navigateEvents()"
         class="group flex items-center gap-2 bg-purple-600 hover:bg-purple-700 text-white font-medium px-4 py-2 rounded-md"
@@ -11,13 +12,15 @@
         >
           <ng-icon name="heroTicket" size="1.2em"></ng-icon>
         </span>
-        Browse Events
+        <!-- Add translate pipe -->
+        {{ 'MY_TICKETS.BROWSE_EVENTS_BUTTON' | translate }}
       </button>
     </div>
 
     @if (tickets.length === 0) {
       <div class="flex justify-center items-center">
-        <p class="text-purple-600 text-3xl font-bold">You have no tickets!</p>
+        <!-- Add translate pipe -->
+        <p class="text-purple-600 text-3xl font-bold">{{ 'MY_TICKETS.NO_TICKETS_MESSAGE' | translate }}</p>
       </div>
     }@else {
       <div
@@ -58,7 +61,8 @@
           </div>
           <div class="space-y-3 text-sm">
             <div>
-              <div class="text-gray-500">Ticket ID</div>
+              <!-- Add translate pipe -->
+              <div class="text-gray-500">{{ 'MY_TICKETS.TICKET_ID_LABEL' | translate }}</div>
               <div
                 class="font-semibold text-gray-800 pb-4 border-b-1 border-gray-300"
               >
@@ -66,7 +70,8 @@
               </div>
             </div>
             <div>
-              <div class="text-gray-500">Purchase Date</div>
+              <!-- Add translate pipe -->
+              <div class="text-gray-500">{{ 'MY_TICKETS.PURCHASE_DATE_LABEL' | translate }}</div>
               <div
                 class="font-semibold text-gray-800 pb-4 border-b-1 border-gray-300"
               >
@@ -75,21 +80,24 @@
             </div>
             <div class="flex justify-between">
               <div class="flex flex-col justify-center items-center">
-                <div class="text-gray-500">Price</div>
+                <!-- Add translate pipe -->
+                <div class="text-gray-500">{{ 'MY_TICKETS.PRICE_LABEL' | translate }}</div>
                 <div class="font-bold text-gray-900">
                   ${{ ticket.price.toFixed(2) }}
                 </div>
               </div>
               <div class="flex flex-col justify-center items-center">
-                <div class="text-gray-500">Quantity</div>
+                <!-- Add translate pipe -->
+                <div class="text-gray-500">{{ 'MY_TICKETS.QUANTITY_LABEL' | translate }}</div>
                 <div class="font-bold text-gray-900">
                   {{ ticket.quantity }}
                 </div>
               </div>
               <div class="flex flex-col justify-center items-center">
-                <div class="text-gray-500">Total</div>
+                <!-- Add translate pipe -->
+                <div class="text-gray-500">{{ 'MY_TICKETS.TOTAL_LABEL' | translate }}</div>
                 <div class="font-bold text-gray-900">
-                  ${{ ticket.price * ticket.quantity }}
+                  ${{ (ticket.price * ticket.quantity).toFixed(2) }}
                 </div>
               </div>
             </div>
@@ -98,16 +106,18 @@
   
           <div class="flex flex-col gap-2 justify-center h-full">
             <button
-              (click)="navigateEventDetails(ticket._id)"
+              (click)="navigateEventDetails(ticket.eventId)"
               class="w-full bg-gray-50 text-gray-700 border border-gray-200 rounded-lg py-2 font-medium hover:bg-purple-700 hover:border-none hover:text-white transition-all duration-300"
             >
-              View Event Details
+              <!-- Add translate pipe -->
+              {{ 'MY_TICKETS.VIEW_DETAILS_BUTTON' | translate }}
             </button>
             <button
               (click)="requestRefund(ticket._id)"
               class="w-full bg-gray-50 text-gray-700 border border-gray-200 rounded-lg py-2 font-medium hover:bg-gray-100 hover:border-gray-300"
             >
-              Request Refund
+              <!-- Add translate pipe -->
+              {{ 'MY_TICKETS.REQUEST_REFUND_BUTTON' | translate }}
             </button>
           </div>
         </div>

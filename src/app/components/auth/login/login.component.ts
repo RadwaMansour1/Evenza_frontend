@@ -104,43 +104,41 @@ export class LoginComponent implements OnInit {
   //     const payload = this.decodeToken(response.credential);
 
   //     sessionStorage.setItem(CONSTANTS.userData, JSON.stringify(payload));
-  //     sessionStorage.setItem(CONSTANTS.token, response.credential); 
+  //     sessionStorage.setItem(CONSTANTS.token, response.credential);
 
   //     //navigation
   //     if (payload.role == 'user') {
   //       this.router.navigate(['/home']);
   //     } else {
-  //       this.router.navigate(['/organizer/dashboard']);
+  //       this.router.navigate(['/organizer/home']);
   //     }
 
   //     //send the token to the server for verification
   //   }
   // }
 
-
-
   //fix login to check if user found login else signUp as a newOne
   // loginWithGoogle(response: any) {
   //   if (response) {
   //     const payload = this.decodeToken(response.credential);
-  //     const email = payload.email; 
-  
+  //     const email = payload.email;
+
   //     console.log("Decoded payload:", payload);
   //     console.log("Email:", email);
-  
+
   //     sessionStorage.setItem(CONSTANTS.userData, JSON.stringify(payload));
-  //     sessionStorage.setItem(CONSTANTS.token, response.credential); 
-  
+  //     sessionStorage.setItem(CONSTANTS.token, response.credential);
+
   //     this.authService.checkIfUserExists(email).subscribe(
   //       (userExistsResponse) => {
   //         console.log('User exists check response:', userExistsResponse);
-  //         if (userExistsResponse) { 
+  //         if (userExistsResponse) {
   //           console.log("User exists, navigating to /home");
   //           sessionStorage.setItem(CONSTANTS.userData, JSON.stringify(payload));
   //           this.router.navigate(['/home']);
   //         } else {
   //           console.log("User does not exist, navigating to /select-role");
-           
+
   //           //create user for back end dto
   //           const user = {
   //             firstName: payload.given_name || '',
@@ -149,10 +147,10 @@ export class LoginComponent implements OnInit {
   //             provider: 'google',
   //             providerId: payload.sub,
   //             isVerified: true,
-  //             // imageURL: payload.picture || 'https://default-image-url.com/default.jpg',  
+  //             // imageURL: payload.picture || 'https://default-image-url.com/default.jpg',
   //           };
 
-  //           //create form data 
+  //           //create form data
   //           const formData = new FormData();
   //           formData.append('firstName', user.firstName);
   //           formData.append('lastName', user.lastName);
@@ -192,21 +190,23 @@ export class LoginComponent implements OnInit {
   //   }
   // }
 
-
-  loginWithGoogle(response: any){
-    if(!response) return;
+  loginWithGoogle(response: any) {
+    if (!response) return;
 
     const payload = this.decodeToken(response.credential);
     const email = payload.email;
     this.authService.checkIfUserExists(email).subscribe({
       next: (res) => {
-          console.log('response from back end : ' , res);
+        console.log('response from back end : ', res);
         if (res.data.userExists) {
           console.log('user found navigating to home');
           const token = res.data.accessToken!;
           console.log('token from nest(): ', token);
           localStorage.setItem(CONSTANTS.token, token);
-          sessionStorage.setItem(CONSTANTS.userData, JSON.stringify(res.data.user));
+          sessionStorage.setItem(
+            CONSTANTS.userData,
+            JSON.stringify(res.data.user)
+          );
 
           this.router.navigate(['/home']);
           return;
@@ -231,7 +231,10 @@ export class LoginComponent implements OnInit {
             next: (signupResponse) => {
               const accessToken = signupResponse.data.accessToken;
               localStorage.setItem(CONSTANTS.token, accessToken);
-              sessionStorage.setItem(CONSTANTS.userData, JSON.stringify(signupResponse.data.user));
+              sessionStorage.setItem(
+                CONSTANTS.userData,
+                JSON.stringify(signupResponse.data.user)
+              );
               this.router.navigate(['/select-role'], {
                 queryParams: { email: user.email },
               });
@@ -247,9 +250,9 @@ export class LoginComponent implements OnInit {
         this.errorMessage = 'Error, please try again';
       },
     });
-}
+  }
 
-onSubmit() {
+  onSubmit() {
     if (this.signInForm.valid) {
       const loginData: LoginRequest = {
         email: this.signInForm.value.email,
@@ -279,8 +282,10 @@ onSubmit() {
                 JSON.stringify(payload)
               );
             }
-            if (payload.role == 'user') this.router.navigate(['/home']);
-            else this.router.navigate(['/organizer/dashboard']);
+            if (payload.role == 'user') {
+              this.router.navigate(['/home']);
+              window.location.reload();
+            } else this.router.navigate(['/organizer/home']);
           }
         },
         (error) => {
@@ -295,6 +300,6 @@ onSubmit() {
     } else {
       this.errorMessage = 'Please fill in all required fields.';
       console.log('Form is invalid');
-    }
-  }
+    }
+  }
 }

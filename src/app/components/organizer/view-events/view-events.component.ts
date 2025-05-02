@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { OrganizerService } from '../../../services/event/organizer.service';
+import { OrganizerService } from '../../../services/organizer/organizer.service';
 import { DateFormatPipe } from '../../../pipes/date-format.pipe';
 import { Event } from '../../../models/event.model';
 import { NgIcon, provideIcons, provideNgIconsConfig } from '@ng-icons/core';

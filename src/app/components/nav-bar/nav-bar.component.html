@@ -49,6 +49,8 @@
         <div class="relative w-72 hidden lg:block">
           <input
             type="text"
+            [(ngModel)]="searchQuery"
+            (keydown.enter)="onSearch()"
             placeholder="{{ 'home.navbar.search' | translate }}"
             class="w-full pl-10 pr-10 py-1.5 rounded-md border border-gray-300 text-base placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-purple-500 focus:border-purple-500 focus:shadow-md hover:ring-1 hover:ring-purple-500 hover:border-purple-500 hover:shadow-md transition-all duration-200"
           />

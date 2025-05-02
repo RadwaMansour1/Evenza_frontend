@@ -4,7 +4,7 @@
       <span class="text-purple-600">
         <ng-icon name="featherFilter" size="0.8em"></ng-icon>
       </span>
-      All Events
+      {{ "events.title" | translate }}
     </h1>
     <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
       <aside class="md:col-span-1">
@@ -28,8 +28,12 @@
         <div
           class="text-center py-16 px-6 bg-white rounded-lg border border-gray-200 shadow-sm"
         >
-          <h3 class="text-lg font-medium text-gray-900">No Events Found</h3>
-          <p class="mt-1 text-sm text-gray-500">Try adjusting your filters.</p>
+          <h3 class="text-lg font-medium text-gray-900">
+            {{ "events.noEvents.title" | translate }}
+          </h3>
+          <p class="mt-1 text-sm text-gray-500">
+            {{ "events.noEvents.desc" | translate }}
+          </p>
         </div>
         } }@else {
         <div class="w-full h-[60vh] flex justify-center items-center">
@@ -45,17 +49,18 @@
             [disabled]="currentPage === 1"
             class="px-4 py-1.5 border rounded-md bg-white text-gray-700 disabled:opacity-50 hover:bg-orange-500 hover:text-white transition-all duration-300 ease-in-out"
           >
-            Previous
+            {{ "events.previous" | translate }}
           </button>
           <span class="px-4 py-1.5 text-gray-700">
-            Page {{ currentPage }} of {{ totalPages }}
+            {{ "events.page" | translate }} {{ currentPage }} {{ "events.of" | translate }}
+            {{ totalPages }}
           </span>
           <button
             (click)="onPageChange(currentPage + 1)"
             [disabled]="currentPage === totalPages"
             class="px-4 py-1.5 border rounded-md bg-white text-gray-700 disabled:opacity-50 hover:bg-orange-500 hover:text-white transition-all duration-300 ease-in-out"
           >
-            Next
+            {{ "events.next" | translate }}
           </button>
         </div>
         }

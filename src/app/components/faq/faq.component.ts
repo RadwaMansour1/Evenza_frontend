@@ -5,6 +5,7 @@ import {
   heroChevronDown,
   heroQuestionMarkCircle,
 } from '@ng-icons/heroicons/outline';
+import { TranslateModule } from '@ngx-translate/core';
 
 // Interface to define the structure of an FAQ item
 interface FaqItem {
@@ -15,7 +16,7 @@ interface FaqItem {
 
 @Component({
   selector: 'app-faq',
-  imports: [CommonModule, NgIcon],
+  imports: [CommonModule, NgIcon, TranslateModule],
   templateUrl: './faq.component.html',
   providers: [provideIcons({ heroChevronDown, heroQuestionMarkCircle })],
 })
@@ -23,33 +24,53 @@ export class FaqComponent {
   // Array to hold your FAQ data
   faqs: FaqItem[] = [
     {
-      question: 'How do I purchase tickets?',
-      answer:
-        'You can purchase tickets by browsing our events, selecting the one you\'re interested in, and clicking the "Book Now" button. Follow the checkout process to complete your purchase.',
+      question: 'faq.q1',
+      answer: 'faq.a1',
       isOpen: false,
     },
     {
-      question: 'What payment methods do you accept?',
-      answer:
-        'We accept major credit cards including Visa, Mastercard, American Express, and Discover. We also support payment via PayPal and Evenza Wallet.',
+      question: 'faq.q2',
+      answer: 'faq.a2',
       isOpen: false,
     },
     {
-      question: 'Can I get a refund for my tickets?',
-      answer:
-        "Refund policies vary by event. Generally, refunds are available up to 48 hours before the event starts. Check the specific event's details for its refund policy",
+      question: 'faq.q3',
+      answer: 'faq.a3',
       isOpen: false,
     },
     {
-      question: 'How do I become an event organizer?',
-      answer:
-        'To become an event organizer, sign up for an account and select "Organizer" as your role. You\'ll need to provide identification for verification before you can create events.',
+      question: 'faq.q4',
+      answer: 'faq.a4',
       isOpen: false,
     },
     {
-      question: 'Where can I find my tickets?',
-      answer:
-        'After purchasing, you can find your tickets in the "My Tickets" section of your account. They will also be sent to your registered email address.',
+      question: 'faq.q5',
+      answer: 'faq.a5',
+      isOpen: false,
+    },
+    {
+      question: 'faq.q6',
+      answer: 'faq.a6',
+      isOpen: false,
+    },
+    {
+      question: 'faq.q7',
+      answer: 'faq.a7',
+      isOpen: false,
+    },
+    {
+      question: 'faq.q8',
+      answer: 'faq.a8',
+      isOpen: false,
+    },
+    {
+      question: 'faq.q9',
+      answer: 'faq.a9',
+      isOpen: false,
+    },
+    {
+      question: 'faq.q10',
+      answer: 'faq.a10',
       isOpen: false,
     },
   ];

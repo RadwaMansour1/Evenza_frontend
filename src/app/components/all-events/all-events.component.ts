@@ -13,6 +13,7 @@ import { EventService } from '../../services/event/event.service';
 import { EventCardComponent } from '../event-card/event-card.component';
 import { EventFiltersComponent } from './components/event-filters/event-filters.component';
 import { ActivatedRoute } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-all-events',
@@ -22,6 +23,7 @@ import { ActivatedRoute } from '@angular/router';
     EventCardComponent,
     NgIconComponent,
     EventFiltersComponent,
+    TranslateModule,
   ],
   templateUrl: './all-events.component.html',
   viewProviders: [provideIcons({ featherFilter })],
@@ -58,9 +60,11 @@ export class AllEventsComponent implements OnInit {
       const searchTerm = params['search'];
       console.log('Search term from URL:', searchTerm);
       this.currentFilters.search = searchTerm;
+      // Initial fetch when the component loads
+      this.fetchEvents();
     });
     // Initial fetch when the component loads
-    this.fetchEvents();
+    // this.fetchEvents();
   }
 
   // Method to fetch events based on current state

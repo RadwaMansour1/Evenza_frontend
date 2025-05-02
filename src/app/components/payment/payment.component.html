@@ -1,11 +1,11 @@
 
 <div class="flex flex-col gap-6 px-24 py-26 h-screen">
-        <h1 class="text-4xl font-bold">Complete Your Purchase</h1>
+        <h1 class="text-4xl font-bold">{{ 'PAYMENT.COMPLETE_PURCHASE' | translate }}</h1>
     <div class="flex flex-col lg:flex-row gap-6 items-center ">
         <div class="flex flex-col gap-6 bg-white rounded-lg p-6 h-full w-full lg:w-3/5 shadow-lg">
             <span class="flex items-center gap-3">
                 <ng-icon name="heroCreditCard" class="text-2xl " color="#9333ea"/>
-                <h1 class="text-2xl font-bold">Payment Method</h1>
+                <h1 class="text-2xl font-bold">{{ 'PAYMENT.PAYMENT_METHOD' | translate }}</h1>
             </span>
             <!-- Use ngModelChange to detect changes -->
             <!-- <label for="paypal" class="flex gap-2.5 w-full border-1 border-gray-200 rounded-lg py-2 px-3">
@@ -16,17 +16,17 @@
             <label for="stripe" class="flex gap-2.5 w-full border-1 border-gray-200 rounded-lg py-2 px-3">
                 <input type="radio" name="paymentMethod" id="stripe" value="stripe" class="accent-purple-500"
                 [(ngModel)]="selectedMethod" (change)="onPaymentMethodChange('stripe')">
-                <span class="font-semibold">Stripe</span>
+                <span class="font-semibold">{{ 'PAYMENT.STRIPE_LABEL' | translate }}</span>
               </label>
             <label for="evenza" class="flex gap-2.5 w-full border-1 border-gray-200 rounded-lg py-2 px-3">
                 <input type="radio" id="evenza" name="paymentMethod" value="evenza" class="accent-purple-500"
                     [(ngModel)]="selectedMethod" (ngModelChange)="onPaymentMethodChange($event)">
-                <span class="font-semibold">Evenza Wallet</span>
+                <span class="font-semibold">{{ 'PAYMENT.WALLET_LABEL' | translate }}</span>
             </label>
             @if (selectedMethod === "paypal") {
                 <span class="flex flex-col gap-4 items-center my-12">
-                    <!-- Removed the button, text is optional -->
-                    <h3 class="font-medium">Select PayPal or Card below to complete your payment</h3>
+                    <!-- Add translate pipe -->
+                    <h3 class="font-medium">{{ 'PAYMENT.PAYPAL_INSTRUCTION' | translate }}</h3>
                     <!-- Container where PayPal buttons will be rendered -->
                     <div id="paypal-button-container" class="w-full md:w-1/2 xl:w-1/4">
                         <!-- Buttons render here -->
@@ -35,26 +35,29 @@
             }
             @else if (selectedMethod === "stripe") {
                 <span class="flex flex-col gap-4 items-center my-12">
-                    <!-- ... existing code ... -->
-                <h3 class="font-medium">You Will be redirected to payment page to enter your card details and complete payment</h3>
-                <button class="text-center cursor-pointer bg-purple-400 hover:bg-purple-600 text-white w-full md:w-1/2 xl:w-1/4 p-2 rounded-lg" 
-                (click)="payWithStripe()">
-                    Continue
-                  </button>
+                    <!-- Add translate pipe -->
+                    <h3 class="font-medium">{{ 'PAYMENT.STRIPE_INSTRUCTION' | translate }}</h3>
+                    <!-- Add translate pipe -->
+                    <button class="text-center cursor-pointer bg-purple-400 hover:bg-purple-600 text-white w-full md:w-1/2 xl:w-1/4 p-2 rounded-lg"
+                    (click)="payWithStripe()">
+                        {{ 'PAYMENT.CONTINUE_BUTTON' | translate }}
+                    </button>
                 </span>
             } @else {
                 <span class="flex flex-col gap-4 items-center my-12">
-                    <h3 class="font-medium">Your Enveza Wallet Balance: $240.20</h3>
-                    <!-- Button now calls the simplified confirmPayment -->
+                    <!-- Add translate pipe with interpolation -->
+                    <h3 class="font-medium">{{ 'PAYMENT.WALLET_BALANCE' | translate:{ balance: myWallet.toFixed(2) } }}</h3>
+                    <!-- Add translate pipe -->
                     <button (click)="confirmPayment($event)"
-                        class="text-center cursor-pointer bg-purple-400 hover:bg-purple-600 text-white w-full md:w-1/2 xl:w-1/4 p-2 rounded-lg">Pay
-                        from wallet
+                        class="text-center cursor-pointer bg-purple-400 hover:bg-purple-600 text-white w-full md:w-1/2 xl:w-1/4 p-2 rounded-lg">
+                        {{ 'PAYMENT.PAY_WALLET_BUTTON' | translate }}
                     </button>
                 </span>
             }
             <span class="flex items-center mt-auto gap-2">
                 <ng-icon name="heroShieldCheck" class="text-xl " color="#9333ea" />
-                <h3>all transaction are secure and encrypted</h3>
+                <!-- Add translate pipe -->
+                <h3>{{ 'PAYMENT.SECURE_NOTE' | translate }}</h3>
             </span>
         </div>
 
@@ -62,7 +65,7 @@
     <div
       class="flex flex-col gap-6 bg-white rounded-lg p-6 h-full w-full lg:w-2/6 shadow-lg"
     >
-      <h1 class="text-2xl font-bold">Order Summary</h1>
+      <h1 class="text-2xl font-bold">{{ 'PAYMENT.ORDER_SUMMARY' | translate }}</h1>
 
       <div class="flex gap-3 items-center">
         <div class="rounded-lg w-20 h-16">
@@ -90,31 +93,33 @@
 
       <div class="flex flex-col gap-3">
         <span class="flex justify-between">
-          <h3 class="font-semibold text-gray-600 text-md">Ticket Price</h3>
+          <h3 class="font-semibold text-gray-600 text-md">{{ 'PAYMENT.TICKET_PRICE' | translate }}</h3>
           <h3 class="font-semibold text-gray-600 text-md">
             ${{ ticketPrice }}
           </h3>
         </span>
         <span class="flex justify-between">
-          <h3 class="font-semibold text-gray-600 text-md">Service Fee</h3>
-          <h3 class="font-semibold text-gray-600 text-md">${{ serviceFee }}</h3>
+          <h3 class="font-semibold text-gray-600 text-md">{{ 'PAYMENT.SERVICE_FEE' | translate }}</h3>
+          <h3 class="font-semibold text-gray-600 text-md">${{ serviceFee.toFixed(2) }}</h3>
         </span>
         <span class="flex justify-between">
-          <h3 class="font-semibold text-gray-600 text-md">Tax</h3>
-          <h3 class="font-semibold text-gray-600 text-md">${{ tax }}</h3>
+          <h3 class="font-semibold text-gray-600 text-md">{{ 'PAYMENT.TAX' | translate }}</h3>
+          <h3 class="font-semibold text-gray-600 text-md">${{ tax.toFixed(2) }}</h3>
         </span>
       </div>
       <hr class="text-gray-300" />
 
       <span class="flex justify-between">
-        <h3 class="font-semibold text-gray-600 text-md">Total</h3>
-        <h3 class="font-semibold text-gray-600 text-md">${{ total }}</h3>
+        <h3 class="font-semibold text-gray-600 text-md">{{ 'PAYMENT.TOTAL' | translate }}</h3>
+        <h3 class="font-semibold text-gray-600 text-md">${{ total?.toFixed(2) }}</h3>
       </span>
       <span class="flex gap-2 items-center text-gray-600">
         <ng-icon name="heroInformationCircle" />
+        <!-- Apply translate pipe to the prefix text -->
         <h3>
-          By completing this purchase, you agree to our
-          <span class="text-purple-600">Terms Of Service</span>
+          {{ 'PAYMENT.AGREEMENT_TEXT' | translate }}
+          <!-- Apply translate pipe to the link text -->
+          <span class="text-purple-600 cursor-pointer hover:underline">{{ 'PAYMENT.TERMS_LINK_TEXT' | translate }}</span>
         </h3>
       </span>
     </div>

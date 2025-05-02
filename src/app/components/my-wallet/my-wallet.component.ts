@@ -4,10 +4,11 @@ import { NgIcon, provideIcons } from '@ng-icons/core';
 import { heroArrowDown, heroArrowUp, heroWallet  } from '@ng-icons/heroicons/outline';
 import { WalletService } from '../../services/wallet/wallet.service';
 import { UserService } from '../../services/profile/user.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-my-wallet',
-  imports: [CommonModule, NgIcon ],
+  imports: [CommonModule, NgIcon,TranslateModule  ],
   templateUrl: './my-wallet.component.html',
   viewProviders: [provideIcons({ heroArrowDown, heroArrowUp, heroWallet })],
 })

@@ -18,10 +18,13 @@ import { CommonModule } from '@angular/common';
 import { RefundService } from '../../services/refund/refund.service';
 import { UserService } from '../../services/profile/user.service';
 import Swal from 'sweetalert2';
+import { TranslateModule } from '@ngx-translate/core';
+import { PaymentService } from '../../services/payment/payment.service';
+import { PaymentModel } from '../../models/payment.model';
 
 @Component({
   selector: 'app-refund',
-  imports: [FormsModule, NgIcon,CommonModule],
+  imports: [FormsModule, NgIcon,CommonModule,TranslateModule],
   templateUrl: './refund.component.html',
   viewProviders: [
     provideIcons({
@@ -43,13 +46,18 @@ export class RefundComponent implements OnInit{
   refundDeadline: Date | null = null; 
   total:number|null = null;
   userId:string | null = null;
+  private paymentId:string|null = null;
+  private transactionId:string|null = null;
+  private isrefunded:boolean =false;
 
   constructor(
     private readonly route:ActivatedRoute ,
     private readonly router:Router,
     private readonly ticketService:TicketsService,
     private readonly refundService:RefundService,
-    private readonly userService:UserService){}
+    private readonly userService:UserService,
+    private readonly paymentService:PaymentService,
+  ){}
 
   ngOnInit(): void {
     if(this.refundReason !== "duplicate"){
@@ -63,8 +71,10 @@ export class RefundComponent implements OnInit{
           console.log("ticket details: ", ticket);
           this.ticketDetails = ticket.data;
 
-          if(this.ticketDetails)
-          this.total = this.ticketDetails?.price * this.ticketDetails?.quantity
+
+          if(this.ticketDetails){
+            this.total = this.ticketDetails?.price * this.ticketDetails?.quantity
+          }
 
           if (this.ticketDetails?.date) {
             const eventDate = new Date(this.ticketDetails.date);
@@ -81,6 +91,40 @@ export class RefundComponent implements OnInit{
       next:(res)=>{
         console.log("user profile: ",res)
         this.userId = res.data._id
+        if(this.userId){
+          this.paymentService.getPaymentsByUserId(this.userId).subscribe({
+            next:(res:any)=>{
+              console.log("payments : ",res)
+              const payments:any[] = res.data;
+              payments.find((payment) => {
+                if (payment.transactionId === this.ticketDetails?.transactionId) {
+                  this.paymentId = payment._id;
+                  console.log("payment id: ",this.paymentId)
+                  return true;
+                }
+                return false;
+              });
+              if(this.paymentId){
+                this.paymentService.getPaymentById(this.paymentId).subscribe({
+                  next:(res:any)=>{
+                    console.log("payment details: ",res)
+                    this.transactionId = res.data.transactionId;
+                    console.log("transaction id: ",this.transactionId)
+                  },
+                  error:(err)=>{
+                    throw new Error(err)
+                  }
+                })
+              }
+
+              
+            },
+            error:(err)=>{
+              console.log("payments error");
+              throw new Error (err);
+            }
+          })
+        }
       },
       error:(err)=>{
         throw new Error(err)
@@ -93,9 +137,18 @@ export class RefundComponent implements OnInit{
     console.log("user id: ",this.userId)
     if(this.refundMethod === "wallet"){
       if(this.userId){
-        this.refundService.refundToWallet(this.userId,this.total!).subscribe({
+        this.refundService.refundToWallet(this.userId,this.transactionId!,this.total!).subscribe({
           next:(res)=>{
-            console.log("refunded to wallet: ",res)
+            console.log("refunded to wallet: ",res);
+            this.isrefunded = true;
+            this.ticketService.deleteTicket(this.ticketDetails?._id!).subscribe({
+              next:(res)=>{
+                console.log("ticket deleted: ",res);
+              },
+              error:(err)=>{
+                throw new Error(err)
+              }
+            });
             Swal.fire({
               icon: 'success',
               title: 'Refunded Successfully To your Wallet',
@@ -114,7 +167,7 @@ export class RefundComponent implements OnInit{
     if(this.refundReason !== "duplicate")
       this.refundReason = "requested_by_customer"
     
-      this.refundService.refundOriginal(this.ticketDetails?.transactionId! , this.total! , this.refundReason).subscribe({
+      this.refundService.refundOriginal(this.ticketDetails?.transactionId! , this.total! ,this.ticketDetails?._id!, this.refundReason).subscribe({
         next:(res)=>{
           console.log("refunded done successfully: ",res);
           Swal.fire({
@@ -122,6 +175,14 @@ export class RefundComponent implements OnInit{
             title: 'Refunded Successfully',
             text: 'Your refund request has been processed successfully.',
             confirmButtonColor: '#9333ea'
+          });
+          this.paymentService.updateStatus(this.paymentId!,"Refunded").subscribe({
+            next:(res)=>{
+              console.log("payment status updated: ",res);
+            },
+            error:(err)=>{
+              throw new Error(err)
+            }
           });
           this.router.navigate(["/my-tickets"]);
         },
@@ -136,6 +197,16 @@ export class RefundComponent implements OnInit{
         text: 'You Should select the method of refund request.',
         confirmButtonColor: '#9333ea'
       })
+    }
+    if(this.isrefunded){
+      this.paymentService.updateStatus(this.paymentId!,"Refunded").subscribe({
+              next:(res)=>{
+                console.log("payment status updated: ",res);
+              },
+              error:(err)=>{
+                throw new Error(err)
+              }
+            });
     }
   }
 }

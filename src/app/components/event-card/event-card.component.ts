@@ -11,10 +11,11 @@ import {
 import { RouterModule } from '@angular/router';
 import { TimeFormatPipe } from '../../pipes/time-format.pipe';
 import { DateFormatPipe } from '../../pipes/date-format.pipe';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-event-card',
-  imports: [CommonModule, NgIconComponent,RouterModule,TimeFormatPipe,DateFormatPipe],
+  imports: [CommonModule, NgIconComponent,RouterModule,TimeFormatPipe,DateFormatPipe,TranslateModule],
   templateUrl: './event-card.component.html',
   viewProviders: [
     provideIcons({
