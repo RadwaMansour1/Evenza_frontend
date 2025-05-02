@@ -17,6 +17,7 @@ import { featherLogOut } from '@ng-icons/feather-icons';
 import { LanguageService } from '../../services/language/language.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { AuthService } from '../../services/auth/auth.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-nav-bar',
@@ -26,6 +27,7 @@ import { AuthService } from '../../services/auth/auth.service';
     RouterModule,
     TranslateModule,
     RouterLinkActive,
+    FormsModule,
   ],
   standalone: true,
   templateUrl: './nav-bar.component.html',
@@ -73,6 +75,10 @@ export class NavBarComponent {
   ];
   currentLang: 'en' | 'ar' = 'en';
   isAuthenticated = false;
+
+  searchQuery: string = '';
+
+
   constructor(
     private languageService: LanguageService,
     private router: Router,
@@ -124,5 +130,13 @@ export class NavBarComponent {
     this.closeUserMenu();
     this.authService.logout();
     this.router.navigate(['/login']);
+  }
+
+  onSearch() {
+    if (this.searchQuery) {
+      this.router.navigate(['/events'], {
+        queryParams: { search: this.searchQuery },
+      });
+    }
   }
 }

@@ -16,7 +16,7 @@ export class UserService {
 
   getProfile(): Observable<any> {
     const token = localStorage.getItem(CONSTANTS.token)  || sessionStorage.getItem(CONSTANTS.token);
-    console.log('tokeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeen:', token);
+    console.log('tokeeen:', token);
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.get<any>(`${this.apiUrl}/`,{ headers });
     // return this.http.get<ProfileResponse>(this.apiUrl, { headers }).pipe(

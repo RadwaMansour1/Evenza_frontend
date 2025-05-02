@@ -171,8 +171,11 @@ export class AuthService {
     sessionStorage.removeItem(CONSTANTS.token);
     sessionStorage.removeItem(CONSTANTS.userData);
     // refresh the page to clear the token
-    window.location.reload();
-    this.router.navigate(['/login']);
+    // window.location.reload();
+    // this.router.navigate(['/login']);
+    this.router.navigate(['/login']).then(()=>{
+      window.location.reload();
+    });
   }
 
   changePassword(oldPassword: string, newPassword: string): Observable<any> {

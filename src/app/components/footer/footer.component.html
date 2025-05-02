@@ -4,11 +4,11 @@
       <!-- Evenza Description + Socials -->
       <div>
         <h2 class="text-xl font-bold text-purple-600">
-          <ng-icon name="featherCalendar" /> Evenza
+          <ng-icon name="featherCalendar" />
+          {{ "footer.descriptionTitle" | translate }}
         </h2>
         <p class="mt-2 text-base text-gray-600">
-          Discover and book amazing events near you with ease. Your go-to
-          platform for fun, networking, and learning.
+          {{ "footer.descriptionText" | translate }}
         </p>
 
         <!-- Social Media Icons -->
@@ -42,72 +42,115 @@
 
       <!-- Quick Links -->
       <div>
-        <h3 class="text-md font-semibold text-gray-900 mb-2">Quick Links</h3>
+        <h3 class="text-md font-semibold text-gray-900 mb-2">
+          {{ "footer.quickLinks.title" | translate }}
+        </h3>
         <ul class="space-y-1 text-sm text-gray-600">
-          <li><a href="#" class="hover:text-purple-600">Home</a></li>
-          <li><a href="#" class="hover:text-purple-600">Events</a></li>
-          <li><a href="#" class="hover:text-purple-600">About</a></li>
-          <li><a href="#" class="hover:text-purple-600">My Tickets</a></li>
+          <li>
+            <a href="#" class="hover:text-purple-600">{{
+              "footer.quickLinks.home" | translate
+            }}</a>
+          </li>
+          <li>
+            <a href="#" class="hover:text-purple-600">{{
+              "footer.quickLinks.events" | translate
+            }}</a>
+          </li>
+          <li>
+            <a href="#" class="hover:text-purple-600">{{
+              "footer.quickLinks.about" | translate
+            }}</a>
+          </li>
+          <li>
+            <a href="#" class="hover:text-purple-600">{{
+              "footer.quickLinks.faq" | translate
+            }}</a>
+          </li>
         </ul>
       </div>
 
       <!-- Support -->
       <div>
-        <h3 class="text-md font-semibold text-gray-900 mb-2">Support</h3>
+        <h3 class="text-md font-semibold text-gray-900 mb-2">
+          {{ "footer.support.title" | translate }}
+        </h3>
         <ul class="space-y-1 text-sm text-gray-600">
-          <li><a href="#" class="hover:text-purple-600">Contact Us</a></li>
-          <li><a href="#" class="hover:text-purple-600">Help Center</a></li>
           <li>
-            <a href="#" class="hover:text-purple-600">Terms of Service</a>
+            <a href="#" class="hover:text-purple-600">{{
+              "footer.support.contact" | translate
+            }}</a>
           </li>
-          <li><a href="#" class="hover:text-purple-600">Privacy Policy</a></li>
+          <li>
+            <a href="#" class="hover:text-purple-600">{{
+              "footer.support.help" | translate
+            }}</a>
+          </li>
+          <li>
+            <a href="#" class="hover:text-purple-600">{{
+              "footer.support.terms" | translate
+            }}</a>
+          </li>
+          <li>
+            <a href="#" class="hover:text-purple-600">{{
+              "footer.support.privacy" | translate
+            }}</a>
+          </li>
         </ul>
       </div>
 
       <!-- Stay Updated -->
       <div>
-        <h3 class="text-md font-semibold text-gray-900 mb-2">Stay Updated</h3>
+        <h3 class="text-md font-semibold text-gray-900 mb-2">
+          {{ "footer.newsletter.title" | translate }}
+        </h3>
         <p class="text-sm text-gray-600 mb-3">
-          Subscribe to get the latest updates and events near you.
+          {{ "footer.newsletter.desc" | translate }}
         </p>
         <form class="flex items-center space-x-2 mb-4">
           <input
             type="email"
-            placeholder="Your email"
+            placeholder="{{ 'footer.newsletter.placeholder' | translate }}"
             class="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-purple-500 placeholder-gray-400"
           />
           <button
             type="submit"
             class="px-3 py-2 text-sm text-white bg-purple-600 rounded-md hover:bg-purple-700 transition-all duration-300"
           >
-            Subscribe
+            {{ "footer.newsletter.button" | translate }}
           </button>
         </form>
 
         <!-- Contact Info -->
         <div class="text-sm text-gray-600 space-y-1">
           <p>
-            Email:
+            {{ "footer.contactInfo.email" | translate }}:
             <a
-              href="mailto:support@evenza.com"
+              href="mailto:evenza123@gmail.com"
               class="text-purple-600 hover:underline"
-              >support.com</a
+              >{{ email }}</a
             >
           </p>
           <p>
-            Phone:
+            {{ "footer.contactInfo.phone" | translate }}:
             <a href="tel:+15551234567" class="text-purple-600 hover:underline"
               >+1 (555) 123-4567</a
             >
           </p>
-          <p>Address: <span class="text-purple-600 hover:underline">123 Main Street, Anytown, USA</span></p>
+          <p>
+            {{ "footer.contactInfo.address" | translate }}:
+            <span class="text-purple-600 hover:underline"
+              >123 Main Street, Dokki, Giza</span
+            >
+          </p>
         </div>
       </div>
     </div>
 
     <!-- Bottom -->
-    <div class="mt-10 border-t border-gray-300 pt-4 text-center text-sm text-gray-500">
-      &copy; 2025 Evenza. All rights reserved.
+    <div
+      class="mt-10 border-t border-gray-300 pt-4 text-center text-sm text-gray-500"
+    >
+      {{ "footer.copyright" | translate }}
     </div>
   </div>
 </footer>

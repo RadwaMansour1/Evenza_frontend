@@ -1,4 +1,10 @@
-import { AfterViewInit, Component, HostBinding, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  HostBinding,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { Router, RouterModule, RouterOutlet } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
@@ -7,6 +13,7 @@ import { LanguageService } from './services/language/language.service';
 import { SnackbarComponent } from './components/snackbar/snackbar.component';
 import { CommonModule } from '@angular/common';
 import { ChatbotComponent } from './components/chatbot/chatbot.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @Component({
   selector: 'app-root',
@@ -18,12 +25,13 @@ import { ChatbotComponent } from './components/chatbot/chatbot.component';
     RouterModule,
     SnackbarComponent,
     CommonModule,
-    ChatbotComponent
+    ChatbotComponent,
+    CommonModule,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
-export class AppComponent implements OnInit , AfterViewInit{
+export class AppComponent implements OnInit, AfterViewInit {
   isOrganizer = false;
   @ViewChild(ChatbotComponent) chatbotComponent!: ChatbotComponent;
   @HostBinding('class.chatbot-open') isChatbotOpenClass = false;
@@ -61,6 +69,10 @@ export class AppComponent implements OnInit , AfterViewInit{
 
   private checkIfOrganizer(url: string) {
     this.isOrganizer = url.includes('organizer');
+    if (this.isOrganizer) {
+      this.languageService.switchLanguage('en');
+      localStorage.setItem('app_lang', 'en');
+    }
   }
 
   private focusChatbotInput() {

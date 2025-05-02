@@ -11,31 +11,131 @@
     </div>
   </div> -->
 
-  
+  <!-- children here -->
+  <!-- <router-outlet></router-outlet>  -->
 
-<div class="mt-10 min-h-screen flex flex-col  bg-[#F8FAFC]">
-  <div class="flex-grow container py-8">
-    <div class="flex flex-col md:flex-row gap-8">
-      <!-- Sidebar  -->
-      <aside class="w-full md:w-64 shrink-0">
-        <nav class="space-y-2">
-          <a
-            *ngFor="let link of navLinks"
-            (click)="link.label === 'Log Out' ? signOut() : null"
-            [routerLink]="link.path"
-            routerLinkActive="bg-[#8B5CF6] text-white"
-            class="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors bg-[#F8FAFC] hover:bg-purple-200 hoer:text-whitve text-muted-foreground"
-          >
-            <ng-icon [name]="link.icon" class="h-5 w-5 stroke-[2.5] "></ng-icon>
-            <span class="font-medium text-xl text-gray-500 ">{{ link.label }}</span>
-          </a>
-  
-        </nav>
-      </aside>
-      <main class="flex-1 min-w-0 md:mr-60 ">
-        <!-- children here -->
-        <router-outlet></router-outlet> 
-      </main>
-    </div>
+<div class="min-h-screen flex items-center justify-center p-8 bg-[#F8FAFC] "> 
+  <div class="mt-4 w-full max-w-4xl">
+    <main class="w-full max-w-4xl bg-[#F8FAFC]  rounded-lg p-5 px-0">
+      <section *ngIf="showName">
+        <div class="min-h-screen flex flex-col bg-background ">
+        
+          <div class="flex-grow py-10 ">
+            <div class="container max-w-5xl">
+              <div class="mb-10">
+                <h1 class="text-3xl font-display tracking-tight  font-bold flex items-center gap-2  " >
+                  <span class="h-8 w-8 text-purple-700">
+                    <ng-icon name="featherUser"></ng-icon>
+                  </span>
+                  My Profile
+                </h1>
+                <p id="title-description" class="text-muted-foreground text-gray-500 mt-2 text-lg tracking-wide">
+                  Manage your account settings and preferences
+                </p>
+              </div>
+        
+              <div class="bg-card border  border-neutral-400/40 rounded-lg overflow-hidden">
+                <div class="border-b border-neutral-400/40 bg-muted/30 bg-gray-300/10">
+
+                  <!-- Mobile Menu Button -->
+                  <div class="lg:hidden relative flex justify-end p-3">
+                    <button (click)="toggleMobileMenu()" class="text-gray-700 focus:outline-none">
+                      <span class="p-2 cursor-pointer text-xl">
+                        <ng-icon name="featherMoreVertical" ></ng-icon>
+                      </span>
+                    </button>
+
+                    <!-- Dropdown Menu -->
+                    <div *ngIf="mobileMenuOpen" class="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-50 transition-transform transform hover:scale-105 hover:shadow-xl duration-300">
+                      <button (click)="selectTab('account')" class="w-full text-left px-4 py-2 hover:bg-purple-100 cursor-pointer transition-transform transform hover:scale-105 hover:shadow-xl hover:rounded duration-300 ">Account Information</button>
+                      <button (click)="selectTab('security')" class="w-full text-left px-4 py-2 hover:bg-purple-100 cursor-pointer transition-transform transform hover:scale-105 hover:shadow-xl hover:rounded duration-300 ">Security Settings</button>
+                      <button (click)="selectTab('logout')" class="w-full text-left px-4 py-2 hover:bg-purple-100 cursor-pointer transition-transform transform hover:scale-105 hover:shadow-xl hover:rounded duration-300">Logout</button>
+                    </div>
+                  </div>
+
+                  <!-- large screens -->
+                  <div class="p-3 lg:p-0 hidden lg:flex">
+                    <button
+                      id="account-information"
+                      class="px-6 py-3 rounded-none cursor-pointer"
+                      [ngClass]="{
+                        'border-b-2  border-[#8B5CF6]  text-black bg-transparent': activeTab === 'account',
+                        'text-gray-500': activeTab !== 'account'
+                      }"
+                      (click)="setActiveTab('account')"
+                    >
+                      Account Information
+                    </button>
+                    <button
+                      id="security-settings"
+                      class="px-6 py-3 rounded-none cursor-pointer"
+                      [ngClass]="{
+                        'border-b-2 border-evenza-primary border-[#8B5CF6]  text-black text-foreground  bg-transparent': activeTab === 'security',
+                        'text-gray-500': activeTab !== 'security'
+                      }"
+                      (click)="setActiveTab('security')"
+                    >
+                      Security Settings
+                    </button>
+                    <button
+                      id="logout"
+                      class="px-6 py-3 rounded-none cursor-pointer"
+                      [ngClass]="{
+                        'border-b-2 border-evenza-primary border-[#8B5CF6]  text-black text-foreground  bg-transparent': activeTab === 'logout',
+                        'text-gray-500': activeTab !== 'logout'
+                      }"
+                      (click)="setActiveTab('logout')"
+                    >
+                      Logout
+                    </button>
+                  </div>
+                </div>
+        
+                <div class="p-6 bg-white">
+                  <ng-container [ngSwitch]="activeTab">
+                    <ng-container *ngSwitchCase="'account'">
+                      <app-personal-information ></app-personal-information>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'security'">
+                      <app-reset-password></app-reset-password>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'logout'">
+                      <app-logout></app-logout>
+                    </ng-container>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+        </div>   
+      </section>
+    </main>
   </div>
 </div>
+<!-- <div class="flex-grow container py-8">
+  <div class="flex flex-col md:flex-row gap-8"> -->
+
+    <!-- Sidebar  -->
+    <!-- <aside class="w-full md:w-64 shrink-0">
+      <nav class="space-y-2">
+        <a
+          *ngFor="let link of navLinks"
+          (click)="link.label === 'Log Out' ? signOut() : null"
+          [routerLink]="link.path"
+          routerLinkActive="bg-[#8B5CF6] text-white"
+          class="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors bg-[#F8FAFC] hover:bg-purple-200 hoer:text-whitve "
+        >
+          <ng-icon [name]="link.icon" class="h-6 w-6 stroke-[2.5]"></ng-icon>
+          <span class="font-medium text-xl text-gray-500 ">{{ link.label }}</span>
+        </a>
+
+      </nav>
+    </aside> -->
+
+         <!-- flex-1 min-w-0 md:mr-60  Call el main-->
+  <!-- </div>
+</div> -->
+
+
+      

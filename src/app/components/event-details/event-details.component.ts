@@ -14,6 +14,7 @@ import { Event } from '../../models/event.model';
 import { DateFormatPipe } from '../../pipes/date-format.pipe';
 import { CustomAlertComponent } from '../shared/custom-alert/custom-alert.component';
 import { TimeFormatPipe } from '../../pipes/time-format.pipe';
+import { TranslateModule } from '@ngx-translate/core';
 @Component({
   selector: 'app-event-details',
   imports: [
@@ -23,6 +24,7 @@ import { TimeFormatPipe } from '../../pipes/time-format.pipe';
     DateFormatPipe,
     TimeFormatPipe,
     CustomAlertComponent,
+    TranslateModule,
   ],
   templateUrl: './event-details.component.html',
   providers: [
