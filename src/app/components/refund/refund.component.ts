@@ -21,6 +21,7 @@ import Swal from 'sweetalert2';
 import { TranslateModule } from '@ngx-translate/core';
 import { PaymentService } from '../../services/payment/payment.service';
 import { PaymentModel } from '../../models/payment.model';
+import { RefundsRequestsService } from '../../services/refundRequests/refundRequests.service';
 
 @Component({
   selector: 'app-refund',
@@ -57,12 +58,10 @@ export class RefundComponent implements OnInit{
     private readonly refundService:RefundService,
     private readonly userService:UserService,
     private readonly paymentService:PaymentService,
+    private readonly refundRequestService:RefundsRequestsService
   ){}
 
   ngOnInit(): void {
-    if(this.refundReason !== "duplicate"){
-      this.refundReason = "requested_by_customer";
-    }
     this.route.queryParams.subscribe((params) => {
       const ticketId = params['ticketId'];
       console.log("ticket id: ", ticketId);
@@ -133,80 +132,159 @@ export class RefundComponent implements OnInit{
   }
 
    submitRefund(){
-    console.log(this.refundMethod)
-    console.log("user id: ",this.userId)
-    if(this.refundMethod === "wallet"){
-      if(this.userId){
-        this.refundService.refundToWallet(this.userId,this.transactionId!,this.total!).subscribe({
-          next:(res)=>{
-            console.log("refunded to wallet: ",res);
-            this.isrefunded = true;
-            this.ticketService.deleteTicket(this.ticketDetails?._id!).subscribe({
-              next:(res)=>{
-                console.log("ticket deleted: ",res);
-              },
-              error:(err)=>{
-                throw new Error(err)
-              }
-            });
-            Swal.fire({
-              icon: 'success',
-              title: 'Refunded Successfully To your Wallet',
-              text: 'Your refund request has been processed successfully.',
-              confirmButtonColor: '#9333ea'
-            });
-            this.router.navigate(["/my-tickets"]);
-          },
-          error:(err)=>{
-            throw new Error(err)
-          }
-        })
-      }
-    }else if(this.refundMethod === "original"){
-    console.log("method: ",this.refundMethod)
-    if(this.refundReason !== "duplicate")
-      this.refundReason = "requested_by_customer"
     
-      this.refundService.refundOriginal(this.ticketDetails?.transactionId! , this.total! ,this.ticketDetails?._id!, this.refundReason).subscribe({
-        next:(res)=>{
-          console.log("refunded done successfully: ",res);
+    // if(this.refundMethod === "wallet"){
+     
+    //   if(this.userId){
+    //     this.refundService.refundToWallet(this.userId,this.transactionId!,this.total!).subscribe({
+    //       next:(res)=>{
+    //         console.log("refunded to wallet: ",res);
+    //         this.isrefunded = true;
+    //         this.ticketService.deleteTicket(this.ticketDetails?._id!).subscribe({
+    //           next:(res)=>{
+    //             console.log("ticket deleted: ",res);
+    //           },
+    //           error:(err)=>{
+    //             throw new Error(err)
+    //           }
+    //         });
+    //         this.refundService.createRefund(this.paymentId!,this.total!).subscribe({
+    //           next:(res)=>{
+    //             console.log("refund created: ",res);
+    //           },
+    //           error:(err)=>{
+    //             throw new Error(err)
+    //           }
+    //         });
+    //         Swal.fire({
+    //           icon: 'success',
+    //           title: 'Refunded Request has been Sent',
+    //           text: 'Your refund request has been processed successfully.',
+    //           confirmButtonColor: '#9333ea'
+    //         });
+    //         this.router.navigate(["/my-tickets"]);
+    //       },
+    //       error:(err)=>{
+    //         throw new Error(err)
+    //       }
+    //     })
+    //   }
+    // }else if(this.refundMethod === "original"){
+    // console.log("method: ",this.refundMethod)
+    // if(this.refundReason !== "duplicate")
+    //   this.refundReason = "requested_by_customer"
+    
+    //   this.refundService.refundOriginal(this.ticketDetails?.transactionId! , this.total! ,this.ticketDetails?._id!, this.refundReason).subscribe({
+    //     next:(res)=>{
+    //       console.log("refunded done successfully: ",res);
+    //       Swal.fire({
+    //         icon: 'success',
+    //         title: 'Refunded Request has been Sent',
+    //         text: 'Your refund request has been processed successfully.',
+    //         confirmButtonColor: '#9333ea'
+    //       });
+    //       this.paymentService.updateStatus(this.paymentId!,"Refunded").subscribe({
+    //         next:(res)=>{
+    //           console.log("payment status updated: ",res);
+    //         },
+    //         error:(err)=>{
+    //           throw new Error(err)
+    //         }
+    //       });
+    //       this.router.navigate(["/my-tickets"]);
+    //     },
+    //     error:(err)=>{
+    //       throw new Error(err);
+    //     }
+    //   })
+    // }
+
+    this.refundRequestService.getRefundsRequests().subscribe({
+      next:(res)=>{
+        const refundsrequests = res.data
+        const index = refundsrequests.findIndex((request:any)=>request.paymentId === this.paymentId)
+        if (index !== -1){
           Swal.fire({
-            icon: 'success',
-            title: 'Refunded Successfully',
-            text: 'Your refund request has been processed successfully.',
+            icon:'error',
+            title: 'Refund Request Already Sent',
+            text: 'You already sent a refund request for this payment.',
             confirmButtonColor: '#9333ea'
-          });
-          this.paymentService.updateStatus(this.paymentId!,"Refunded").subscribe({
-            next:(res)=>{
-              console.log("payment status updated: ",res);
-            },
-            error:(err)=>{
-              throw new Error(err)
+          })
+        }else{
+          if(this.refundReason === ""){
+            Swal.fire({
+              icon:'error',
+              title: 'Select the reason for Refund',
+              text: 'You Should select the reason of refund request.',
+              confirmButtonColor: '#9333ea'
+            })
+          }else{
+          if(this.refundMethod !== ""){
+            console.log({
+              userId: this.userId ,paymentId:this.paymentId ,tiketId:this.ticketDetails?._id,amount:this.total
+            })
+            if(this.userId && this.paymentId && this.ticketDetails?._id){
+              this.refundRequestService.createRefundRequest(
+                this.userId , 
+                this.paymentId ,
+                this.ticketDetails?._id,
+                this.refundMethod,
+                this.refundReason,
+                this.total!
+                ).subscribe({
+                next:(res)=>{
+                  console.log("refund request created: ",res);
+                  Swal.fire({
+                    icon:'success',
+                    title: 'Refunded Request has been Sent',
+                    text: 'Your refund request has been processed successfully.',
+                    confirmButtonColor: '#9333ea'
+                  });
+                  this.router.navigate(["/my-tickets"]);
+                },
+                error:(err)=>{
+                  Swal.fire({
+                    icon:'error',
+                    title: 'try again',
+                    text: 'err in sending the request.',
+                    confirmButtonColor: '#9333ea'
+                  })
+                  throw new Error(err);
+                }
+              })
+            }else{
+              Swal.fire({
+                icon:'error',
+                title: 'Missing Parameter For the request',
+                text: 'You Should select the method of refund request.',
+                confirmButtonColor: '#9333ea'
+              })
             }
-          });
-          this.router.navigate(["/my-tickets"]);
-        },
-        error:(err)=>{
-          throw new Error(err);
+          }else{
+            Swal.fire({
+              icon:'error',
+              title: 'Select Refund Method',
+              text: 'You Should select the method of refund request.',
+              confirmButtonColor: '#9333ea'
+            })
+          }
+          }
         }
-      })
-    }else{
-      Swal.fire({
-        icon:'error',
-        title: 'Select Refund Method',
-        text: 'You Should select the method of refund request.',
-        confirmButtonColor: '#9333ea'
-      })
-    }
-    if(this.isrefunded){
-      this.paymentService.updateStatus(this.paymentId!,"Refunded").subscribe({
-              next:(res)=>{
-                console.log("payment status updated: ",res);
-              },
-              error:(err)=>{
-                throw new Error(err)
-              }
-            });
-    }
+      },
+      error:(err)=>{
+        console.log("error in getting all requests ",err)
+      }
+    })
+    
+    // if(this.isrefunded){
+    //   this.paymentService.updateStatus(this.paymentId!,"Refunded").subscribe({
+    //           next:(res)=>{
+    //             console.log("payment status updated: ",res);
+    //           },
+    //           error:(err)=>{
+    //             throw new Error(err)
+    //           }
+    //         });
+    // }
   }
 }

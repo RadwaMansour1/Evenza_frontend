@@ -46,6 +46,7 @@ export class PaymentComponent implements OnInit {
     private readonly walletService:WalletService,
     private readonly paymentService:PaymentService,
     private readonly ticketService:TicketsService,
+
   ) { }
 
   selectedMethod: string = 'stripe';
@@ -92,6 +93,8 @@ ticketId:string|null = null;
   payWithStripe() {
     console.log('Stripe button clicked');
     this.stripeService.checkout(this.amount!,this.userId, this.orderId!,this.eventId,this.ticketType,this.quantity!);
+    // const successUrl = `/success?orderId=${this.orderId}&ticketId=${this.userId}&payment_method=wallet`;
+    // window.location.href = successUrl;
   } 
 
 
@@ -219,6 +222,78 @@ ticketId:string|null = null;
     }, 0); // setTimeout ensures DOM is updated
   }
 
+  // async confirmPayment(event?: Event): Promise<void> {
+  //   event?.preventDefault();
+  
+  //   if (this.selectedMethod === 'evenza') {
+  //     console.log('Initiating payment with Evenza Wallet...');
+  
+  //     if (this.myWallet < this.total!) {
+  //       Swal.fire({
+  //         title: "Insufficient Funds",
+  //         text: `Your wallet balance is ${this.myWallet}. You need ${this.total} to complete the payment.`,
+  //         icon: "warning"
+  //       });
+  //       return;
+  //     }else{
+  //       try {
+  //         const walletResponse = await this.walletService.bookFromWallet(this.userId, this.total!).toPromise();
+  //         console.log("Wallet transaction response:", walletResponse);
+    
+  //         const paymentData = {
+  //           userId: this.userId,
+  //           eventId: this.eventId,
+  //           orderId: this.orderId!,
+  //           ticketType: this.ticketType,
+  //           quantity: this.quantity!,
+  //           amountPaid: this.total!,
+  //           currency: "EGP",
+  //           transactionId: walletResponse.data.transactionId,
+  //           paymentMethod: "Wallet",
+  //         };
+    
+  //         await this.paymentService.createPayment(paymentData).toPromise();
+  //         console.log("Payment saved successfully");
+  //         const location = `${this.eventDetails!.location.address}, ${this.eventDetails!.location.city}`;
+  //         this.ticketService.createTicket({
+  //           transactionId: walletResponse.data.transactionId,
+  //           userId: this.userId,
+  //           eventId: this.eventId,
+  //           eventName: this.eventDetails!.title,
+  //           ticketType: this.ticketType,
+  //           date: this.eventDetails!.date,
+  //           time:this.eventDetails!.time,
+  //           location:location,
+  //           purchaseDate: new Date(),
+  //           price: this.ticketPrice!,
+  //           quantity: this.quantity!,
+  //         }).subscribe({
+  //           next: (res) => {
+  //             console.log('Ticket created successfully:', res);
+  //             this.ticketId = res.data._id;
+  //           },
+  //           error: (err) => {
+  //             console.error('Error creating ticket:', err);
+  //           }
+  //         })
+    
+  //         // الانتقال إلى صفحة النجاح مع البيانات المناسبة
+  //         const successUrl = `/success?tiketId=${this.ticketId}&payment_method=wallet`;
+  //         window.location.href = successUrl;
+  //       } catch (error) {
+  //         console.error("Error during payment process:", error);
+  //         Swal.fire({
+  //           title: "Payment Error",
+  //           text: "An error occurred during the payment process. Please try again later.",
+  //           icon: "error"
+  //         });
+  //       }
+  //     }
+  
+  //   } else {
+  //     console.warn("Selected payment method is not Evenza Wallet.");
+  //   }
+  // }
   async confirmPayment(event?: Event): Promise<void> {
     event?.preventDefault();
   
@@ -232,63 +307,61 @@ ticketId:string|null = null;
           icon: "warning"
         });
         return;
-      }else{
-        try {
-          const walletResponse = await this.walletService.bookFromWallet(this.userId, this.total!).toPromise();
-          console.log("Wallet transaction response:", walletResponse);
-    
-          const paymentData = {
-            userId: this.userId,
-            eventId: this.eventId,
-            orderId: this.orderId!,
-            ticketType: this.ticketType,
-            quantity: this.quantity!,
-            amountPaid: this.total!,
-            currency: "EGP",
-            transactionId: walletResponse.data.transactionId,
-            paymentMethod: "Wallet",
-          };
-    
-          await this.paymentService.createPayment(paymentData).toPromise();
-          console.log("Payment saved successfully");
-          const location = `${this.eventDetails!.location.address}, ${this.eventDetails!.location.city}`;
-          this.ticketService.createTicket({
-            transactionId: walletResponse.data.transactionId,
-            userId: this.userId,
-            eventId: this.eventId,
-            eventName: this.eventDetails!.title,
-            ticketType: this.ticketType,
-            date: this.eventDetails!.date,
-            time:this.eventDetails!.time,
-            location:location,
-            purchaseDate: new Date(),
-            price: this.ticketPrice!,
-            quantity: this.quantity!,
-          }).subscribe({
-            next: (res) => {
-              console.log('Ticket created successfully:', res);
-              this.ticketId = res.data._id;
-            },
-            error: (err) => {
-              console.error('Error creating ticket:', err);
-            }
-          })
-    
-          // الانتقال إلى صفحة النجاح مع البيانات المناسبة
-          const successUrl = `/success?tiketId=${this.ticketId}&payment_method=wallet`;
-          window.location.href = successUrl;
-        } catch (error) {
-          console.error("Error during payment process:", error);
-          Swal.fire({
-            title: "Payment Error",
-            text: "An error occurred during the payment process. Please try again later.",
-            icon: "error"
-          });
-        }
+      }
+  
+      try {
+        const walletResponse = await this.walletService.bookFromWallet(this.userId, this.total!).toPromise();
+        console.log("Wallet transaction response:", walletResponse);
+  
+        const paymentData = {
+          userId: this.userId,
+          eventId: this.eventId,
+          orderId: this.orderId!,
+          ticketType: this.ticketType,
+          quantity: this.quantity!,
+          amountPaid: this.total!,
+          currency: "EGP",
+          transactionId: walletResponse.data.transactionId,
+          paymentMethod: "Wallet",
+        };
+  
+        await this.paymentService.createPayment(paymentData).toPromise();
+        console.log("Payment saved successfully");
+
+        const location = `${this.eventDetails!.location.address}, ${this.eventDetails!.location.city}`;
+        
+        const ticketResponse = await this.ticketService.createTicket({
+          transactionId: walletResponse.data.transactionId,
+          userId: this.userId,
+          eventId: this.eventId,
+          eventName: this.eventDetails!.title,
+          ticketType: this.ticketType,
+          date: this.eventDetails!.date,
+          time: this.eventDetails!.time,
+          location: location,
+          purchaseDate: new Date(),
+          price: this.ticketPrice!,
+          quantity: this.quantity!,
+        }).toPromise();
+
+        console.log('Ticket created successfully:', ticketResponse);
+        this.ticketId = ticketResponse.data._id; 
+
+        // انتقال إلى صفحة النجاح مع تمرير ticketId الصحيح
+        const successUrl = `/success?orderId=${this.orderId}&ticketId=${this.ticketId}&payment_method=wallet`;
+        window.location.href = successUrl;
+
+      } catch (error) {
+        console.error("Error during payment process:", error);
+        Swal.fire({
+          title: "Payment Error",
+          text: "An error occurred during the payment process. Please try again later.",
+          icon: "error"
+        });
       }
   
     } else {
       console.warn("Selected payment method is not Evenza Wallet.");
     }
-  }
+}
 }
