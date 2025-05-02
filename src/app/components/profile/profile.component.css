@@ -1,0 +1,23 @@
+/* h1 {
+    font-family: 'Verdana', sans-serif;
+}
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Outfit&display=swap');
+
+.font-display {
+  font-family: 'Outfit', sans-serif;
+  font-weight: bold;
+  letter-spacing: normal;
+  font-size: xx-large;
+}
+
+#title-description{
+    font-family: 'Outfit', sans-serif;
+}
+
+#account-information,
+#security-settings,
+#logout {
+  font-family: 'Outfit', sans-serif;
+}

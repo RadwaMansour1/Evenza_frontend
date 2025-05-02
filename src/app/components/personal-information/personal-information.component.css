@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit&display=swap');
+
+.font-display , input {
+  font-family: 'Outfit', sans-serif;
+}
+
+/* .font-display {
+    font-family: 'Outfit', sans-serif;
+ }
+   */
+
+#card-one, 
+#card-two,
+#card-three {
+  font-family: 'Outfit', sans-serif;
+
+}

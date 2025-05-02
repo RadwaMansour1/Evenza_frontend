@@ -6,6 +6,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { LanguageService } from './services/language/language.service';
 import { SnackbarComponent } from './components/snackbar/snackbar.component';
 import { CommonModule } from '@angular/common';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @Component({
   selector: 'app-root',
@@ -16,7 +17,7 @@ import { CommonModule } from '@angular/common';
     FooterComponent,
     RouterModule,
     SnackbarComponent,
-    CommonModule
+    CommonModule,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
