@@ -5,7 +5,7 @@
         <span class="text-purple-600 flex items-center justify-center group">
           <ng-icon name="heroQuestionMarkCircle" size="2em" class="group-hover:animate-bounce transition-all duration-300"></ng-icon
         ></span>
-        <h1 class="text-3xl font-bold">Frequently Asked Questions</h1>
+        <h1 class="text-3xl font-bold">{{ "faq.title" | translate }}</h1>
       </div>
 
       <div class="space-y-4">
@@ -17,7 +17,7 @@
             class="w-full flex justify-between items-center p-4 font-medium text-left text-gray-800 hover:bg-gray-50"
             (click)="toggleAnswer(item)"
           >
-            {{ item.question }}
+            {{ item.question |translate}}
             <ng-icon
               name="heroChevronDown"
               class="w-5 h-5 transition-transform duration-300"
@@ -25,7 +25,7 @@
             ></ng-icon>
           </button>
           <div *ngIf="item.isOpen" class="px-4 pb-4 text-gray-600">
-            {{ item.answer }}
+            {{ item.answer |translate}}
           </div>
         </div>
       </div>

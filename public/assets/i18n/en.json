@@ -165,65 +165,65 @@
     "MESSAGE": "Here is Your Ticket:"
   },
   "REFUND": {
-  "PAGE_TITLE": "Request a Refund",
-  "REQUEST_HEADING": "Refund Request",
-  "REASON_SUBHEADING": "Reason for Refund",
-  "REASON_CONFLICT": "Schedule Conflict",
-  "REASON_PLANS": "Change of Plans",
-  "REASON_MISTAKE": "Purchased by Mistake",
-  "REASON_OTHER": "Other",
-  "METHOD_SUBHEADING": "Refund Method",
-  "METHOD_ORIGINAL": "Original Payment Method",
-  "METHOD_ORIGINAL_DESC": "Refund will be processed to the original payment method used for purchase",
-  "METHOD_WALLET": "Eventure Wallet",
-  "METHOD_WALLET_DESC": "Refund will be credited to your Eventure Account for future purchases",
-  "NOTES_HEADING": "Refund Notes:",
-  "NOTE_PROCESSING_TIME": "Your refund of ${{amount}} will be processed within 5-7 business days", 
-  "NOTE_FEES": "Service fees of $12.50 are non-refundable", 
-  "NOTE_CONFIRMATION": "You will receive an email confirmation once your refund is processed",
-  "SUBMIT_BUTTON": "Submit Request",
-  "EXPECT_NEXT_HEADING": "What to Expect Next",
-  "STEP1_TITLE": "Confirmation",
-  "STEP1_DESC": "We'll send you an email confirmation your refund request",
-  "STEP2_TITLE": "Processing",
-  "STEP2_DESC": "Your refund will be processed within 5-7 business days",
-  "STEP3_TITLE": "Completion",
-  "STEP3_DESC": "You'll recieve a final email once funds are released to your account",
-  "TICKET_DETAILS_HEADING": "Ticket Details",
-  "TICKET_ID_LABEL": "Ticket ID",
-  "PURCHASE_DATE_LABEL": "Purchase Date",
-  "TICKET_PRICE_LABEL": "Ticket Price",
-  "QUANTITY_LABEL": "Quantity",
-  "TOTAL_PRICE_LABEL": "Total Price",
-  "SERVICE_FEE_LABEL": "Service Fee (non-refundable)",
-  "REFUNDABLE_AMOUNT_LABEL": "Refundable Amount",
-  "DEADLINE_LABEL": "Refund deadline"
-},
+    "PAGE_TITLE": "Request a Refund",
+    "REQUEST_HEADING": "Refund Request",
+    "REASON_SUBHEADING": "Reason for Refund",
+    "REASON_CONFLICT": "Schedule Conflict",
+    "REASON_PLANS": "Change of Plans",
+    "REASON_MISTAKE": "Purchased by Mistake",
+    "REASON_OTHER": "Other",
+    "METHOD_SUBHEADING": "Refund Method",
+    "METHOD_ORIGINAL": "Original Payment Method",
+    "METHOD_ORIGINAL_DESC": "Refund will be processed to the original payment method used for purchase",
+    "METHOD_WALLET": "Eventure Wallet",
+    "METHOD_WALLET_DESC": "Refund will be credited to your Eventure Account for future purchases",
+    "NOTES_HEADING": "Refund Notes:",
+    "NOTE_PROCESSING_TIME": "Your refund of ${{amount}} will be processed within 5-7 business days",
+    "NOTE_FEES": "Service fees of $12.50 are non-refundable",
+    "NOTE_CONFIRMATION": "You will receive an email confirmation once your refund is processed",
+    "SUBMIT_BUTTON": "Submit Request",
+    "EXPECT_NEXT_HEADING": "What to Expect Next",
+    "STEP1_TITLE": "Confirmation",
+    "STEP1_DESC": "We'll send you an email confirmation your refund request",
+    "STEP2_TITLE": "Processing",
+    "STEP2_DESC": "Your refund will be processed within 5-7 business days",
+    "STEP3_TITLE": "Completion",
+    "STEP3_DESC": "You'll recieve a final email once funds are released to your account",
+    "TICKET_DETAILS_HEADING": "Ticket Details",
+    "TICKET_ID_LABEL": "Ticket ID",
+    "PURCHASE_DATE_LABEL": "Purchase Date",
+    "TICKET_PRICE_LABEL": "Ticket Price",
+    "QUANTITY_LABEL": "Quantity",
+    "TOTAL_PRICE_LABEL": "Total Price",
+    "SERVICE_FEE_LABEL": "Service Fee (non-refundable)",
+    "REFUNDABLE_AMOUNT_LABEL": "Refundable Amount",
+    "DEADLINE_LABEL": "Refund deadline"
+  },
 
-"MY_TICKETS": {
-  "PAGE_TITLE": "My Tickets",
-  "BROWSE_EVENTS_BUTTON": "Browse Events",
-  "NO_TICKETS_MESSAGE": "You have no tickets!",
-  "TICKET_ID_LABEL": "Ticket ID",
-  "PURCHASE_DATE_LABEL": "Purchase Date",
-  "PRICE_LABEL": "Price",
-  "QUANTITY_LABEL": "Quantity",
-  "TOTAL_LABEL": "Total",
-  "VIEW_DETAILS_BUTTON": "View Event Details",
-  "REQUEST_REFUND_BUTTON": "Request Refund"
-},
+  "MY_TICKETS": {
+    "PAGE_TITLE": "My Tickets",
+    "BROWSE_EVENTS_BUTTON": "Browse Events",
+    "NO_TICKETS_MESSAGE": "You have no tickets!",
+    "TICKET_ID_LABEL": "Ticket ID",
+    "PURCHASE_DATE_LABEL": "Purchase Date",
+    "PRICE_LABEL": "Price",
+    "QUANTITY_LABEL": "Quantity",
+    "TOTAL_LABEL": "Total",
+    "VIEW_DETAILS_BUTTON": "View Event Details",
+    "REQUEST_REFUND_BUTTON": "Request Refund"
+  },
 
   "MY_WALLET": {
     "PAGE_TITLE": "My Wallet",
     "AVAILABLE_BALANCE_LABEL": "Available Balance",
     "LAST_TRANSACTION_LABEL": "Last transaction",
     "RECENT_TRANSACTIONS_HEADING": "Recent Transactions",
-    "TX_TYPE_REFUND": "Refund", 
-    "TX_TYPE_PURCHASE": "Purchase", 
+    "TX_TYPE_REFUND": "Refund",
+    "TX_TYPE_PURCHASE": "Purchase",
     "NO_TRANSACTIONS_HEADING": "No Transactions Yet",
     "NO_TRANSACTIONS_DESC": "Your transaction history will appear here"
   },
- 
+
   "notFound": {
     "title": "Oops! Page Not Found",
     "description": "The page you're looking for seems to have taken an unexpected detour. Don't worry, we'll help you find your way back to the exciting world of events.",
@@ -232,7 +232,7 @@
     "needHelp": "Need help navigating?",
     "contactSupport": "Contact our support team"
   },
-  "auth":{
+  "auth": {
     "signIn": {
       "title": "Sign In",
       "emailLabel": "Email",
@@ -295,13 +295,13 @@
       "firstNameMinLength": "First name must be at least 3 characters",
       "firstNameMaxLength": "First name cannot exceed 20 characters",
       "firstNameLettersOnly": "First name must contain letters only (no numbers or symbols)",
-  
+
       "lastName": "Last Name",
       "lastNameRequired": "Last name is required",
       "lastNameMinLength": "Last name must be at least 3 characters",
       "lastNameMaxLength": "Last name cannot exceed 20 characters",
       "lastNameLettersOnly": "Last name must contain letters only (no numbers or symbols)",
-  
+
       "email": "Email",
       "emailRequired": "Email is required",
       "invalidEmail": "Invalid email format",
@@ -309,19 +309,19 @@
       "emailDomainNotAllowed": "Email domain is not allowed",
       "emailMinLength": "Email must be at least 3 characters",
       "emailMaxLength": "Email cannot exceed 50 characters",
-  
+
       "selectRoleLabel": "Select Your Role",
       "selectRole": "Select Your Role",
       "roleUser": "User",
       "roleOrganizer": "Organizer",
       "roleRequired": "Role is required",
-  
+
       "password": "Password",
       "passwordRequired": "Password is required",
       "passwordMinLength": "Password must be at least 8 characters long",
       "passwordStrength": "Password must contain an uppercase letter, lowercase letter, number, and special character",
       "passwordMaxLength": "Password cannot exceed 20 characters",
-  
+
       "confirmPassword": "Confirm Password",
       "confirmPasswordRequired": "Confirm password is required",
       "confirmPasswordMinLength": "Confirm password must be at least 8 characters",
@@ -329,7 +329,7 @@
       "confirmPasswordMaxLength": "Confirm password cannot exceed 20 characters",
       "passwordsDoNotMatch": "Passwords do not match",
       "passwordMismatchError": "Password and confirmation do not match",
-  
+
       "agreeWithTerms": "I agree to the",
       "readTerms": "Terms and Conditions",
       "readTermsError": "Read Our Terms & Conditions",
@@ -415,5 +415,123 @@
 
     "fifteen.title": "15. User Acknowledgment",
     "fifteen.content": "By using our services, you acknowledge that you have read and understood these terms and conditions, and agree to comply with them. You also agree to follow all applicable laws during your use of the services."
+  },
+  "events": {
+    "title": "All Events",
+    "previous": "Previous",
+    "next": "Next",
+    "page": "Page",
+    "of": "of",
+    "filter": {
+      "fTitle": "Filters",
+      "search": "Search",
+      "searchEvents": "Search events...",
+      "city": "City",
+      "category": "Category",
+      "priceRange": "Price Range (EGP)",
+      "min": "Min",
+      "max": "Max",
+      "free": "Show only free events",
+      "dateRange": "Date Range",
+      "date": "Date",
+      "price": "Price",
+      "title": "Title",
+      "sort": "Sort by",
+      "asc": "Ascending",
+      "desc": "Descending",
+      "reset": "Reset Filters"
+    },
+    "noEvents": {
+      "title": "No Events Found",
+      "desc": "There are no events that match your search criteria. Please try adjusting your filters."
+    },
+    "card": {
+      "bookNow": "Book Now",
+      "free": "Free",
+      "egp": "EGP"
+    }
+  },
+  "eventDetails": {
+    "egp": "EGP",
+    "tickets": "Tickets",
+    "bookTickets": "Book Tickets",
+    "selectTickets": "Select Tickets",
+    "available": "Available",
+    "soldOut": "Sold Out",
+    "Silver": "Silver",
+    "Golden": "Golden",
+    "Platinum": "Platinum",
+    "prices": "* Prices not include taxes and fees.",
+    "eTicket": "* E-tickets will be sent to your email after purchase.",
+    "aboutThisEvent": "About This Event",
+    "eventHighlights": "Event Highlights",
+    "organizer": "Organizer",
+    "organizedBy": "This event is organized by",
+    "viewOrganizer": "View Organizer",
+    "location": "Location",
+    "getDirections": "Get Directions",
+    "free": "This event is free!",
+    "freeDesc": "Get your ticket now and join us for an amazing experience!",
+    "getTicket": "Get Ticket Now",
+    "share": "Share This Event"
+  },
+  "footer": {
+    "descriptionTitle": "Evenza",
+    "descriptionText": "Discover and book amazing events near you with ease. Your go-to platform for fun, networking, and learning.",
+    "socials": {
+      "facebook": "Facebook",
+      "twitter": "Twitter",
+      "instagram": "Instagram",
+      "linkedin": "LinkedIn"
+    },
+    "quickLinks": {
+      "title": "Quick Links",
+      "home": "Home",
+      "events": "Events",
+      "about": "About",
+      "faq": "FAQs"
+    },
+    "support": {
+      "title": "Support",
+      "contact": "Contact Us",
+      "help": "Help Center",
+      "terms": "Terms of Service",
+      "privacy": "Privacy Policy"
+    },
+    "newsletter": {
+      "title": "Stay Updated",
+      "desc": "Subscribe to get the latest updates and events near you.",
+      "placeholder": "Your email",
+      "button": "Subscribe"
+    },
+    "contactInfo": {
+      "email": "Email",
+      "phone": "Phone",
+      "address": "Address"
+    },
+    "copyright": "© 2025 Evenza. All rights reserved."
+  },
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "q1": "How do I purchase tickets?",
+    "a1": "You can purchase tickets by browsing our events, selecting the one you're interested in, and clicking the \"Book Now\" button. Follow the checkout process to complete your purchase.",
+    "q2": "What payment methods do you accept?",
+    "a2": "We accept Stripe and Evenza Wallet for secure and fast payments.",
+    "q3": "Can I get a refund for my tickets?",
+    "a3": "Yes, you can request a refund up to 48 hours before the event. The request will be reviewed by our team and processed within 5-7 business days. No service fees will be refunded.",
+    "q4": "How do I become an event organizer?",
+    "a4": "To become an event organizer, sign up for an account and choose \"Organizer\" as your role. You’ll need to upload a valid ID for verification before creating events.",
+    "q5": "Where can I find my tickets?",
+    "a5": "Your tickets will be sent to your email and will also be available in the \"My Tickets\" section of your account.",
+    "q6": "Do I need to create an account to book tickets?",
+    "a6": "Yes, creating an account helps us securely store your bookings, manage your tickets, and provide personalized event recommendations.",
+    "q7": "Can I transfer my ticket to someone else?",
+    "a7": "Ticket transfers are currently not available. Each ticket is tied to the original purchaser and cannot be transferred.",
+    "q8": "What happens if an event is cancelled?",
+    "a8": "If an event is cancelled, you will automatically receive a full refund to your original payment method within 5–7 business days.",
+    "q9": "How can I contact customer support?",
+    "a9": "You can contact our support team via the 'Help' section on our website or by emailing evenza123@gmail.com.",
+    "q10": "Is there a mobile app available?",
+    "a10": "Evenza is a web app, accessible on any device through your browser. You can browse events, book tickets, and manage your account easily without installing anything."
   }
 }
