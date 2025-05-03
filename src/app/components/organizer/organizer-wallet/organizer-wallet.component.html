@@ -28,7 +28,7 @@
   </div>
 
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8" *ngIf="!loading && !errorMessage">
-    <div class="p-6 rounded-lg shadow border border-purple-200 bg-gradient-to-br from-purple-100 to-white  hover:-translate-y-2 transition-all duration-300">
+    <div class="p-6 rounded-lg shadow border border-purple-200 bg-gradient-to-br from-purple-100 to-white  hover:-translate-y-2 transition-all duration-300">
       <p class="text-gray-600 text-lg py-1">Total Balance</p>
       <p class="text-3xl font-extrabold text-purple-600">
         {{ walletData?.totalBalance ? (walletData.totalBalance | number:'1.2-2') : '0.00' }} EGP
@@ -113,27 +113,45 @@
               <label class="block text-sm font-medium text-gray-700">Payment Method</label>
               <div class="flex flex-col space-y-2">
                 <label class="inline-flex items-center">
-                  <input type="radio" class="form-radio text-purple-600 focus:ring-purple-500 checked:bg-purple-600" name="paymentMethod" value="vodafoneCash" [(ngModel)]="paymentMethod">
-                  <span class="ml-2 text-gray-900">Vodafone Cash</span>
+                  <input
+                    type="radio"
+                    class="form-radio text-purple-600 focus:ring-purple-500 checked:bg-purple-600"
+                    name="paymentMethod"
+                    value="E-Wallet"
+                    [(ngModel)]="paymentMethod"
+                  />
+                  <span class="ml-2 text-gray-900">E-Wallet</span>
                 </label>
                 <label class="inline-flex items-center">
-                  <input type="radio" class="form-radio text-purple-600 focus:ring-purple-500 checked:bg-purple-600" name="paymentMethod" value="instapay" [(ngModel)]="paymentMethod">
-                  <span class="ml-2 text-gray-900">Instapay</span>
+                  <input
+                    type="radio"
+                    class="form-radio text-purple-600 focus:ring-purple-500 checked:bg-purple-600"
+                    name="paymentMethod"
+                    value="InstaPay"
+                    [(ngModel)]="paymentMethod"
+                  />
+                  <span class="ml-2 text-gray-900">InstaPay</span>
                 </label>
                 <label class="inline-flex items-center">
-                  <input type="radio" class="form-radio text-purple-600 focus:ring-purple-500 checked:bg-purple-600" name="paymentMethod" value="bank" [(ngModel)]="paymentMethod">
-                  <span class="ml-2 text-gray-900">Bank Transfer</span>
+                  <input
+                    type="radio"
+                    class="form-radio text-purple-600 focus:ring-purple-500 checked:bg-purple-600"
+                    name="paymentMethod"
+                    value="Bank"
+                    [(ngModel)]="paymentMethod"
+                  />
+                  <span class="ml-2 text-gray-900">Bank</span>
                 </label>
               </div>
             </div>
 
-            <div class="space-y-2" *ngIf="paymentMethod === 'vodafoneCash'">
+            <div class="space-y-2" *ngIf="paymentMethod === 'E-Wallet'">
               <label for="phoneNumber" class="block text-sm font-medium text-gray-700">Phone Number</label>
-              <input type="text" id="phoneNumber" name="phoneNumber" [(ngModel)]="paymentFormData.phoneNumber" class="shadow-sm focus:ring-purple-500 focus:border-purple-500 block w-full sm:text-sm border-gray-300 rounded-md h-10 px-3" placeholder="+201234567890" required>
+              <input type="text" id="phoneNumber" name="phoneNumber" [(ngModel)]="paymentFormData.walletPhoneNumber" class="shadow-sm focus:ring-purple-500 focus:border-purple-500 block w-full sm:text-sm border-gray-300 rounded-md h-10 px-3" placeholder="+201234567890" required>
               <p class="text-sm text-gray-500">Enter the Vodafone Cash registered phone number</p>
             </div>
 
-            <ng-container *ngIf="paymentMethod === 'instapay' || paymentMethod === 'bank'">
+            <ng-container *ngIf="paymentMethod === 'InstaPay' || paymentMethod === 'Bank'">
               <div class="space-y-2">
                 <label for="accountNumber" class="block text-sm font-medium text-gray-700">Account Number</label>
                 <input type="text" id="accountNumber" name="accountNumber" [(ngModel)]="paymentFormData.accountNumber" class="shadow-sm focus:ring-purple-500 focus:border-purple-500 block w-full sm:text-sm border-gray-300 rounded-md h-10 px-3" placeholder="Account number" required>

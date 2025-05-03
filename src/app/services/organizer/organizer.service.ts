@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CONSTANTS } from '../../constants';
+import { TransferInfo, TransferInfoResponse } from '../../models/transfer-info.model';
 
 @Injectable({
   providedIn: 'root',
@@ -22,6 +23,7 @@ export class OrganizerService {
       },
     });
   }
+
   addEvent(eventData: any): Observable<any> {
     const token =
       sessionStorage.getItem(CONSTANTS.token) ||
@@ -57,4 +59,29 @@ export class OrganizerService {
       },
     });
   }
+
+  updateAndSaveTransferInfo(dto: TransferInfo): Observable<any> {
+    const token =
+      sessionStorage.getItem(CONSTANTS.token) ||
+      localStorage.getItem(CONSTANTS.token);
+    return this.httpClient.post<any>(`${this.apiUrl}/wallet/transfer-info`, dto, {
+      headers: {
+        accept: 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  }
+
+  getTransferInfo(): Observable<TransferInfoResponse> {
+    const token =
+      sessionStorage.getItem(CONSTANTS.token) ||
+      localStorage.getItem(CONSTANTS.token);
+    return this.httpClient.get<TransferInfoResponse>(`${this.apiUrl}/wallet/transfer-info`, {
+      headers: {
+        accept: 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  }
+
 }
