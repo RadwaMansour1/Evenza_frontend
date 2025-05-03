@@ -8,15 +8,17 @@ import {
   Output,
 } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-event-filters',
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule,TranslateModule],
   templateUrl: './event-filters.component.html',
 })
 export class EventFiltersComponent implements OnInit, OnDestroy {
   @Input() categories: string[] = [];
   @Input() cities: string[] = [];
+  @Input() initialSearchTerm?: string | null = '';
 
   @Output() filtersChanged = new EventEmitter<any>();
   @Output() resetFilters = new EventEmitter<void>();
@@ -41,7 +43,7 @@ export class EventFiltersComponent implements OnInit, OnDestroy {
     this.detectScreenSize();
     window.addEventListener('resize', this.detectScreenSize.bind(this));
     this.filterForm = this.fb.group({
-      search: [''],
+      search: [this.initialSearchTerm ?? ''],
       category: ['All'],
       minPrice: [null],
       maxPrice: [null],

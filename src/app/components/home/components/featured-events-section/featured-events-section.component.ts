@@ -2,18 +2,26 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { EventCardComponent } from './components/event-card/event-card.component';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { heroChevronRight } from '@ng-icons/heroicons/outline';
+import { heroChevronLeft, heroChevronRight } from '@ng-icons/heroicons/outline';
 import { Router } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import { LanguageService } from '../../../../services/language/language.service';
 
 @Component({
   selector: 'app-featured-events-section',
-  imports: [CommonModule, EventCardComponent, NgIcon],
+  imports: [CommonModule, EventCardComponent, NgIcon, TranslateModule],
   templateUrl: './featured-events-section.component.html',
-  providers: [provideIcons({ heroChevronRight })],
+  providers: [provideIcons({ heroChevronRight,heroChevronLeft })],
 })
 export class FeaturedEventsSectionComponent {
-
-  constructor(private router: Router) {}
+  currentLang: 'en' | 'ar' = 'en';
+  constructor(
+    private router: Router,
+    private languageService: LanguageService
+  ) {
+    const lang = this.languageService.getCurrentLanguage();
+    this.currentLang = lang;
+  }
   featuredEvents = [
     {
       image:

@@ -8,7 +8,7 @@ export interface Location {
   };
 }
 export interface Ticket {
-  level: 'silver' | 'golden' | 'platinum';
+  level: 'Silver' | 'Golden' | 'Platinum';
   price: number;
   quantity: number;
 }
@@ -22,9 +22,11 @@ export interface Event {
   location: Location;
   category: string;
   ticketsAvailable: Ticket[];
+  eventHighlights?: string[];
   isFree: boolean;
   imageUrl: string;
   organizerId: number;
+  isApproved?: boolean;
 }
 
 export interface FilterCriteria {
@@ -55,9 +57,35 @@ export const EVENT_CATEGORIES = [
 ];
 export const EVENT_CITIES = [
   'All',
-  'New York',
-  'San Francisco',
-  'London',
-  'Paris',
-  'Online',
+  'Cairo',
+  'Alexandria',
+  'Giza',
+  'Sharm El-Sheikh',
+  'Hurghada',
+  'Luxor',
+  'Aswan',
+  'Tanta',
+  'Mansoura',
+  'Zagazig',
+  'Fayoum',
+  'Beni Suef',
+  'Minya',
+  'Assiut',
+  'Sohag',
+  'Qena',
+  'Damietta',
+  'Port Said',
+  'Ismailia',
+  'Suez',
+  'Kafr El-Sheikh',
+  'Damanhur',
+  'Mahalla El-Kubra',
+  'Banha',
+  'Arish',
+  '10th of Ramadan',
+  '6th of October City',
+  'Obour',
+  'New Cairo',
+  'New Capital',
 ];
+

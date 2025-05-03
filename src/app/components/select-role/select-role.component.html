@@ -1,0 +1,63 @@
+
+<!-- ///////////////////////   -->
+
+
+<div class="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-white to-[#f5f3ff] p-4 md:p-6">
+    <div class="w-full max-w-md text-center">
+      
+      <!-- Logo -->
+      <div class="flex justify-center mb-8 text-4xl font-bold text-[#9b87f5]">
+        <h1>Evenza</h1>
+      </div>
+  
+      <!-- Header -->
+      <div class="mb-8">
+        <h1 class="text-3xl font-bold text-[#1A1F2C] mb-2">Tell us who you are</h1>
+        <p class="text-[#8E9196]">How would you like to use the app?</p>
+        <p *ngIf="errorMessage" class="text-red-500 font-bold text-sm mt-2">{{ errorMessage }}</p>
+      </div>
+  
+      <!-- Role Selection Cards -->
+      <div class="p-6 shadow-lg rounded-xl border border-[#f0ecff] bg-white">
+        <div class="grid gap-4">
+          
+          <!-- Organizer Card -->
+          <div
+            id="organizer"
+            class="border-2 border-transparent hover:border-[#9b87f5] transition p-4 rounded-xl cursor-pointer group"
+            (click)="selectRole('organizer')"
+            [ngClass]="{'border-[#9b87f5] bg-[#f6f4ff]': selectedRole === 'organizer'}"
+          >
+            <div class="mb-2 text-[#9b87f5] text-2xl">
+              <i class="icon-clipboard"></i>
+            </div>
+            <h3 class="text-lg font-semibold text-[#1A1F2C]">I'm an Organizer</h3>
+            <p class="text-sm text-gray-600">I want to create and manage events</p>
+          </div>
+  
+          <!-- User Card -->
+          <div
+            id="user"
+            class="border-2 border-transparent hover:border-[#9b87f5] transition p-4 rounded-xl cursor-pointer group"
+            (click)="selectRole('user')"
+            [ngClass]="{'border-[#9b87f5] bg-[#f6f4ff]': selectedRole === 'user'}"
+          >
+            <div class="mb-2 text-[#9b87f5] text-2xl">
+              <i class="icon-user"></i>
+            </div>
+            <h3 class="text-lg font-semibold text-[#1A1F2C]">I'm a User</h3>
+            <p class="text-sm text-gray-600">I want to discover and join events</p>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Continue Button -->
+      <button
+        class="cursor-pointer w-full mt-6 bg-[#9b87f5] hover:bg-[#7E69AB] text-dark font-medium py-2 rounded-lg transition flex items-center justify-center"
+        (click)="continueWithRole()">
+          <span>Continue</span>
+      </button>
+  
+    </div> 
+  </div>
+  

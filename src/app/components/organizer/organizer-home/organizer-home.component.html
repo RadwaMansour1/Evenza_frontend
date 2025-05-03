@@ -1,0 +1,8 @@
+@if(organizerStatus=='approved' && isUploadDocument==true &&
+documentStatus=='approved'){
+<app-organizer-dashboard></app-organizer-dashboard>
+}@else if (organizerStatus=='pending' && isUploadDocument==true) {
+<app-wait-till-approved></app-wait-till-approved>
+}@else if(organizerStatus=='pending' && isUploadDocument==false) {
+<app-id-verification></app-id-verification>
+}

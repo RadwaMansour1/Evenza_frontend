@@ -1,8 +1,10 @@
-<section class="py-26 bg-gray-50  min-h-screen">
+<section class="py-26 bg-gray-50 min-h-screen">
   <div class="max-w-7xl mx-auto px-4 text-center">
-    <h2 class="text-3xl font-bold text-gray-800 mb-2">How It Works</h2>
+    <h2 class="text-3xl font-bold text-gray-800 mb-2">
+      {{ "home.howItWorks.title" | translate }}
+    </h2>
     <p class="text-gray-500 mb-16">
-      Booking tickets on Evenza is quick and easy. Here's how it works in a few simple steps.
+      {{ "home.howItWorks.desc" | translate }}
     </p>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 relative">
@@ -11,23 +13,29 @@
         class="relative bg-white py-10 px-6 rounded-xl shadow-sm group hover:shadow-md hover:-translate-y-2 transition-all duration-300 cursor-pointer text-center"
       >
         <!-- Step Number -->
-        <div class="absolute -top-3 -right-3 w-6 h-6 bg-purple-500 text-white text-xs font-bold flex items-center justify-center rounded-full shadow-md">
+        <div
+          class="absolute -top-3 -right-3 w-6 h-6 bg-purple-500 text-white text-xs font-bold flex items-center justify-center rounded-full shadow-md"
+        >
           {{ i + 1 }}
         </div>
 
         <!-- Step Icon -->
         <div
-          class="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-4  group-hover:scale-110 group-hover:animate-bounce transition-all duration-300"
+          class="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 group-hover:animate-bounce transition-all duration-300"
           [ngClass]="[step.bgColor, step.textColor]"
         >
           <ng-icon [name]="step.icon"></ng-icon>
         </div>
 
         <!-- Step Title -->
-        <h3 class="text-lg font-semibold text-gray-900">{{ step.title }}</h3>
+        <h3 class="text-lg font-semibold text-gray-900">
+          {{ step.title | translate }}
+        </h3>
 
         <!-- Step Description -->
-        <p class="text-sm text-gray-500 mt-2">{{ step.description }}</p>
+        <p class="text-sm text-gray-500 mt-2">
+          {{ step.description | translate }}
+        </p>
       </div>
     </div>
   </div>

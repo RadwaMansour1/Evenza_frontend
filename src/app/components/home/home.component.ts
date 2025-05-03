@@ -9,7 +9,6 @@ import { ReviewsSectionComponent } from './components/reviews-section/reviews-se
 @Component({
   selector: 'app-home',
   imports: [
-    NgIcon,
     ReviewsSectionComponent,
     FeaturedEventsSectionComponent,
     HeroSectionComponent,

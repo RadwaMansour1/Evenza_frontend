@@ -49,6 +49,8 @@
         <div class="relative w-72 hidden lg:block">
           <input
             type="text"
+            [(ngModel)]="searchQuery"
+            (keydown.enter)="onSearch()"
             placeholder="{{ 'home.navbar.search' | translate }}"
             class="w-full pl-10 pr-10 py-1.5 rounded-md border border-gray-300 text-base placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-purple-500 focus:border-purple-500 focus:shadow-md hover:ring-1 hover:ring-purple-500 hover:border-purple-500 hover:shadow-md transition-all duration-200"
           />
@@ -84,12 +86,13 @@
           />
           <span>{{ currentLang === "en" ? "English" : "العربية" }}</span>
         </button>
+
         <!-- User -->
         <div class="relative inline-block">
           <button
             (click)="toggleUserMenu()"
             type="button"
-            class="px-2 pt-1 pb-0.5 rounded-md hover:bg-purple-600 group hover:text-white transition-all duration-300"
+            class="cursor-pointer px-2 pt-1 pb-0.5 rounded-md hover:bg-purple-600 group hover:text-white transition-all duration-300"
             id="user-menu-button"
             [attr.aria-expanded]="isMenuUserOpen"
             aria-haspopup="true"
@@ -108,46 +111,56 @@
             aria-orientation="vertical"
             aria-labelledby="user-menu-button"
           >
+            @if(!isAuthenticated){
             <a
-              href="#"
-              class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+              routerLink="/login"
+              class="cursor-pointer block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
               role="menuitem"
               (click)="closeUserMenu()"
             >
               {{ "home.navbar.login" | translate }}
             </a>
             <a
-              href="#"
-              class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+              routerLink="/signup"
+              class="cursor-pointer block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
               role="menuitem"
               (click)="closeUserMenu()"
             >
-              {{ "home.navbar.register" | translate }}
+              {{ "home.navbar.register" | translate }} </a
+            >}@else{
+            <a
+              routerLink="/profile"
+              class="cursor-pointer block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+              role="menuitem"
+              (click)="closeUserMenu()"
+            >
+              {{ "home.navbar.profile" | translate }}
             </a>
+            <a
+              class="cursor-pointer block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+              role="menuitem"
+              (click)="logout()"
+            >
+              {{ "home.navbar.logout" | translate }}
+            </a>
+            }
           </div>
         </div>
 
-        <!-- Wallet -->
+        @if(isAuthenticated){ @for (item of navItems; track $index) {
         <button
-          class="px-2 pt-1 pb-0.5 rounded-md hover:bg-purple-600 group hover:text-white transition-all duration-300"
+          [routerLink]="item.route"
+          [routerLinkActive]="['bg-purple-600', 'active-link']"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="px-2 pt-1 pb-0.5 rounded-md hover:bg-purple-600 group group-[.active-link]:bg-purple-600 transition-all duration-300"
         >
           <span
-            class="text-gray-700 transition-all duration-300 group-hover:text-white"
+            class="text-gray-700 transition-all duration-300 group-hover:text-white group-[.active-link]:text-white"
           >
-            <ng-icon name="heroWallet" />
+            <ng-icon [name]="item.icon" />
           </span>
         </button>
-
-        <!-- MyTickets -->
-        <button
-          class="px-2 pt-1 pb-0.5 rounded-md hover:bg-purple-600 group hover:text-white transition-all duration-300"
-        >
-          <span
-            class="text-gray-700 transition-all duration-300 group-hover:text-white"
-          >
-            <ng-icon name="heroTicket" />
-          </span>
-        </button>
+        }}
       </div>
     </div>
 
@@ -198,43 +211,81 @@
               {{ currentLang === "ar" ? "العربية" : "English" }}
             </span>
           </div>
-
+          @if(!isAuthenticated){
           <div
             class="flex text-base py-2 font-medium items-center group hover:text-purple-500"
+            [routerLink]="'/login'"
+            [routerLinkActive]="'active-link'"
+            [routerLinkActiveOptions]="{ exact: true }"
           >
-            <ng-icon
-              name="heroUser"
-              class="text-gray-700 me-2 group-hover:text-purple-500"
-            />
-            <span class="text-gray-900 group-hover:text-purple-500"
+            <span
+              class="flex items-center group-hover:text-purple-500 text-gray-700 group-[.active-link]:text-purple-500 me-2"
+            >
+              <ng-icon name="heroUser" />
+            </span>
+            <span
+              class="text-gray-900 group-hover:text-purple-500 group-[.active-link]:text-purple-500"
               >{{ "home.navbar.login" | translate }}/{{
                 "home.navbar.register" | translate
               }}</span
             >
           </div>
+          }@else{
+          <div
+            class="flex text-base py-2 font-medium items-center group hover:text-purple-500"
+            [routerLink]="'/profile'"
+            [routerLinkActive]="'active-link'"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <span
+              class="flex items-center group-hover:text-purple-500 text-gray-700 group-[.active-link]:text-purple-500 me-2"
+            >
+              <ng-icon name="heroUser" />
+            </span>
+            <span
+              class="text-gray-900 group-hover:text-purple-500 group-[.active-link]:text-purple-500"
+              >{{ "home.navbar.profile" | translate }}</span
+            >
+          </div>
 
           <div
             class="flex text-base py-2 font-medium items-center group hover:text-purple-500"
+            [routerLink]="'/login'"
+            [routerLinkActive]="'active-link'"
+            [routerLinkActiveOptions]="{ exact: true }"
+            (click)="logout()"
           >
-            <ng-icon
-              name="heroWallet"
-              class="text-gray-700 me-2 group-hover:text-purple-500"
-            />
-            <span class="text-gray-900 group-hover:text-purple-500">{{
-              "home.navbar.myWallet" | translate
-            }}</span>
+            <span
+              class="flex items-center group-hover:text-purple-500 text-gray-700 group-[.active-link]:text-purple-500 me-2"
+            >
+              <ng-icon name="featherLogOut" />
+            </span>
+            <span
+              class="text-gray-900 group-hover:text-purple-500 group-[.active-link]:text-purple-500"
+              >{{ "home.navbar.logout" | translate }}</span
+            >
           </div>
+          } @if(isAuthenticated){
           <div
+            *ngFor="let item of navItems"
             class="flex text-base py-2 font-medium items-center group hover:text-purple-500"
+            [routerLink]="item.route"
+            [routerLinkActive]="'active-link'"
+            [routerLinkActiveOptions]="{ exact: true }"
           >
-            <ng-icon
-              name="heroTicket"
-              class="text-gray-700 me-2 group-hover:text-purple-500"
-            />
-            <span class="text-gray-900 group-hover:text-purple-500">{{
-              "home.navbar.myTickets" | translate
-            }}</span>
+            <span
+              class="flex items-center group-hover:text-purple-500 text-gray-700 group-[.active-link]:text-purple-500 me-2"
+            >
+              <ng-icon [name]="item.icon" />
+            </span>
+
+            <span
+              class="text-gray-900 group-hover:text-purple-500 group-[.active-link]:text-purple-500"
+            >
+              {{ item.name | translate }}
+            </span>
           </div>
+          }
         </div>
       </div>
     </div>

@@ -13,6 +13,8 @@ import { EventService } from '../../services/event/event.service';
 import { Event } from '../../models/event.model';
 import { DateFormatPipe } from '../../pipes/date-format.pipe';
 import { CustomAlertComponent } from '../shared/custom-alert/custom-alert.component';
+import { TimeFormatPipe } from '../../pipes/time-format.pipe';
+import { TranslateModule } from '@ngx-translate/core';
 @Component({
   selector: 'app-event-details',
   imports: [
@@ -20,7 +22,9 @@ import { CustomAlertComponent } from '../shared/custom-alert/custom-alert.compon
     NgIcon,
     RouterModule,
     DateFormatPipe,
+    TimeFormatPipe,
     CustomAlertComponent,
+    TranslateModule,
   ],
   templateUrl: './event-details.component.html',
   providers: [
@@ -72,12 +76,12 @@ export class EventDetailsComponent implements OnInit {
   }
 
   // New properties based on the second image
-  eventHighlights: string[] = [
-    'Over 50 artists across 5 stages',
-    'Food and drink from top NYC restaurants',
-    'Art installations and interactive experiences',
-    'Family-friendly activities area',
-  ];
+  // eventHighlights: string[] = [
+  //   'Over 50 artists across 5 stages',
+  //   'Food and drink from top NYC restaurants',
+  //   'Art installations and interactive experiences',
+  //   'Family-friendly activities area',
+  // ];
   organizerName = 'NYC Music Productions';
 
   get mapUrl(): string {
@@ -87,9 +91,11 @@ export class EventDetailsComponent implements OnInit {
       : `https://www.google.com/maps/search/?api=1&query=${loc.address},${loc.city}`;
   }
 
-  bookTickets() {
-    throw new Error('Method not implemented.');
-  }
+  // bookTickets() {
+  //   this.route.navigate(['/order']);
+
+  // }
+
   getTicketNow() {
     throw new Error('Method not implemented.');
   }

@@ -1,0 +1,691 @@
+<div class="flex flex-col py-8 mx-auto bg-white md:h-auto lg:py-0 ">
+  <div class="w-full sm:max-w-4xl p-6 sm:p-2 ">
+    <app-custom-alert
+      *ngIf="showAlert"
+      [message]="alertMessage"
+      [type]="alertType"
+    ></app-custom-alert>
+
+    <form
+      [formGroup]="profileForm"
+      (ngSubmit)="onSubmit()"
+      class="w-full max-w-4xl md:space-y-5"
+    >
+      <div class="space-y-4">
+        <!-- row one -->
+        <div class="flex justify-between w-full">
+          <h2 class="text-2xl font-display font-semibold">{{'auth.accountInfo.title'|translate}}</h2>
+          <!-- edit profile button -->
+          <button
+          type="button"
+          [ngClass]="editing() 
+          ? 'border border-input border-gray-300 bg-background bg-white hover:bg-accent hover:bg-[#F97316] hover:text-accent-foreground hover:text-gray-900 py-2 px-4 hover:-translate-y-1 transition-all duration-300 group rounded gap-2 cursor-pointer' 
+          : 'px-4 py-2 bg-white border border-gray-200 rounded-md shadow-sm flex items-center gap-2 hover:-translate-y-1 hover:bg-purple-600 hover:text-white transition-all duration-300 group cursor-pointer'"
+          (click)="toggleEdit()"
+            >
+            <svg 
+            *ngIf="!editing()"
+            xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" 
+            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5M18.5 2.5a2.121 2.121 0 113 3L12 15l-4 1 1-4 9.5-9.5z" />
+            </svg>
+            {{ editing() ? 'Cancel Editing' : 'Edit Profile' }}
+      
+          </button>
+        </div>
+
+
+        <!-- row two -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 ">
+          <!-- Left column (profile image + button) -->
+          <div class="flex flex-col items-center ">
+              <!-- NEW IMAGE -->
+              <div id="avatar-container" class="mt-4 relative flex shrink-0 overflow-hidden rounded-full h-32 w-32 border-2 border-[#8B5CF6]">
+                <div id="avatar-image" class="aspect-square h-full w-full" >
+                  <img
+                  id="preview_img"
+                  [src]="selectedImagePreview || profileImageUrl"
+                  alt="Profile photo"
+                />
+                </div>
+              </div>
+    
+              <!-- upload button -->
+              <div class="block cursor-pointer" *ngIf="editing()">
+                <span class="sr-only cursor-pointer">{{'auth.accountInfo.choosePhoto'|translate}}</span
+                >
+                <!-- class="cursor-pointer block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100" -->
+                <input
+                  type="file"
+                  style="display: none"
+                  #fileInput
+                  (change)="onFileSelected($event)"
+                  />
+                  <div
+                  class="px-4 py-2 mt-2 rounded-lg bg-violet-50 text-violet-700 font-semibold hover:bg-violet-100 text-sm inline-block"
+                  (click)="fileInput.click()"
+                  >
+                <span class="ext-violet-700 mr-1 hover:animate-bounce">
+                  <ng-icon name="featherUpload "></ng-icon>
+                </span>
+                  {{ 'auth.accountInfo.choosePhoto' | translate }}
+                </div>
+              </div>
+          </div>
+    
+          <!-- Right column (form fields) -->
+          <div class="md:col-span-2 w-full">
+            <div class="border-b border-gray-900/10 pb-12">
+              <div class="mt-3 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-4">
+                <!-- first name -->
+                <div class="sm:col-span-2"  >
+                  <label
+                    for="first-name"
+                    class="font-display text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    >{{'auth.accountInfo.firstName'|translate}}</label
+                    >
+                    <!-- class="block font-medium text-gray-900 text-lg"  -->
+                  <div class="mt-2">
+                    <!-- class="block w-full rounded-md bg-white px-3 py-2.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-purple-600 sm:text-lg" -->
+                    <input
+                      [readonly]="!editing()"
+                      formControlName="firstName"
+                      type="text"
+                      name="first-name"
+                      id="first-name"
+                      autocomplete="given-name"
+                      class="flex h-10 w-full rounded-md border border-input border-gray-300 bg-background bg-white px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground file:text-gray-500 placeholder:text-muted-foreground placeholder:text-gray-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring  focus-visible:ring-purple-400 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
+                      />
+                    
+                  </div>
+                </div>
+      
+                <!-- last name -->
+                <div class="sm:col-span-2" >
+                  <label
+                    for="last-name"
+                    class="font-display text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    >{{'auth.accountInfo.lastName'|translate}}</label
+                    >
+                    <!-- class="block font-medium text-gray-900 text-lg" -->
+                  <div class="mt-2">
+                    <input
+                      [readonly]="!editing()"
+                      formControlName="lastName"
+                      type="text"
+                      name="last-name"
+                      id="last-name"
+                      autocomplete="family-name"
+                      class="flex h-10 w-full rounded-md border border-input border-gray-300 bg-background bg-white px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground file:text-gray-500 placeholder:text-muted-foreground placeholder:text-gray-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring  focus-visible:ring-purple-400 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
+                      />
+                      <!-- class="block w-full rounded-md bg-white px-3 py-2.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-purple-600 sm:text-lg" -->
+                  </div>
+                </div>
+      
+                
+                <!-- phone 1 -->
+                <div class="sm:col-span-2" *ngIf="editing()">
+                  <label
+                    for="phone-number1"
+                    class="font-display text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    >{{'auth.accountInfo.phone1'|translate}}</label
+                  >
+                  <!-- class="blotext-lg font-semibold text-gray-900" -->
+                  <div class="mt-2.5">
+                    <div
+                    
+                    >
+                    <!-- class="flex rounded-md bg-white outline-1 -outline-offset-1 outline-gray-300 has-[input:focus-within]:outline-2 has-[input:focus-within]:-outline-offset-2 has-[input:focus-within]:outline-indigo-600 " -->
+                      <!-- <div class="grid shrink-0 grid-cols-1 focus-within:relative">
+                        <select
+                          id="country"
+                          name="country"
+                          autocomplete="country"
+                          aria-label="Country"
+                          class="col-start-1 row-start-1 w-full appearance-none rounded-md py-2.5 pr-7 pl-3.5 text-gray-500 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-purple-600 text-lg"
+                        >
+                          <option>Eg</option>
+                          <option>+02</option>
+                        </select>
+                        <svg
+                          class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4"
+                          viewBox="0 0 16 16"
+                          fill="currentColor"
+                          aria-hidden="true"
+                          data-slot="icon"
+                        >
+                          <path
+                            fill-rule="evenodd"
+                            d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z"
+                            clip-rule="evenodd"
+                          />
+                        </svg>
+                      </div> -->
+                      <input
+                        formControlName="phone1"
+                        type="text"
+                        name="phone-number1"
+                        id="phone-number1"
+                        class="flex h-10 w-full rounded-md border border-input border-gray-300 bg-background bg-white px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground file:text-gray-500 placeholder:text-muted-foreground placeholder:text-gray-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring  focus-visible:ring-purple-400 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
+                        placeholder="123-456-7890"
+                        />
+                        <!-- class="block min-w-0 grow py-1.5 pr-3 pl-1 text-gray-900 placeholder:text-gray-400 focus:outline-none text-lg" -->
+                    </div>
+                  </div>
+                </div>
+      
+                <!-- phone 2 -->
+                <div class="sm:col-span-2" *ngIf="editing()">
+                  <label
+                    for="phone-number2"
+                    class="font-display text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    >{{'auth.accountInfo.phone2'|translate}}</label
+                    >
+                    <!-- class="blotext-lg font-semibold text-gray-900" -->
+                  <div class="mt-2.5">
+                    <div>
+                    <!-- class="flex rounded-md bg-white outline-1 -outline-offset-1 outline-gray-300 has-[input:focus-within]:outline-2 has-[input:focus-within]:-outline-offset-2 has-[input:focus-within]:outline-indigo-600" -->
+                      <!-- <div class="grid shrink-0 grid-cols-1 focus-within:relative">
+                        <select
+                          id="country"
+                          name="country"
+                          autocomplete="country"
+                          aria-label="Country"
+                          class="col-start-1 row-start-1 w-full appearance-none rounded-md py-2 pr-7 pl-3.5 text-gray-500 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-purple-600 text-lg"
+                        >
+                          <option>US</option>
+                          <option>CA</option>
+                          <option>EU</option>
+                        </select>
+                        <svg
+                          class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4"
+                          viewBox="0 0 16 16"
+                          fill="currentColor"
+                          aria-hidden="true"
+                          data-slot="icon"
+                        >
+                          <path
+                            fill-rule="evenodd"
+                            d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z"
+                            clip-rule="evenodd"
+                          />
+                        </svg>
+                      </div> -->
+                      <input
+                        formControlName="phone2"
+                        type="text"
+                        name="phone-number2"
+                        id="phone-number2"
+                        class="flex h-10 w-full rounded-md border border-input border-gray-300 bg-background bg-white px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground file:text-gray-500 placeholder:text-muted-foreground placeholder:text-gray-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring  focus-visible:ring-purple-400 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
+                        placeholder="123-456-7890"
+                        />
+                        <!-- class="block min-w-0 grow py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-lg" -->
+                    </div>
+                  </div>
+                </div>
+      
+                <!-- email -->
+                <div class="sm:col-span-4" >
+                  <label for="email" 
+                  class="font-display text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                  >{{'auth.accountInfo.email'|translate}}</label
+                  >
+                  <!-- class="block text-lg font-medium text-gray-900" -->
+                  <div class="mt-2">
+                    <input
+                      [readonly]="!editing()"
+                      formControlName="email"
+                      id="email"
+                      name="email"
+                      type="email"
+                      autocomplete="email"
+                      required
+                      class="flex h-10 w-full rounded-md border border-input border-gray-300 bg-background bg-white px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground file:text-gray-500 placeholder:text-muted-foreground placeholder:text-gray-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring  focus-visible:ring-purple-400 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
+                      />
+                      <!-- class="block w-full rounded-md bg-white px-3 py-2.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-purple-600 sm:text-lg" -->
+                  </div>
+                </div>
+
+                <div *ngIf="editing()" class="border-b border-gray-900/10 pb-4 sm:col-span-4">
+                  <!-- line -->
+                </div>
+
+                <!-- Social Accounts -->
+
+                <h3 *ngIf="editing()" class="sm:col-span-4 text-lg font-semibold">Social Media Profiles</h3>
+
+                <!-- Facebook -->
+                <div *ngIf="editing()" class="sm:col-span-2"  >
+                  <label
+                    for="facebook"
+                    class="font-display text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    >Facebook
+                  </label>
+                     
+                  <div *ngIf="editing()" class="mt-2">
+                    <div class="flex items-center">
+                      <!-- <div class="bg-blue-100 p-2 rounded-l-md border-y border-l border-gray-300">
+                        <span class="text-blue-400">
+                          <ng-icon name="featherFacebook" ></ng-icon>
+                        </span>
+                      </div> -->
+                      <div class="bg-blue-100 py-1 px-2 rounded-l-md border-y border-l border-gray-300">
+                        <span class="text-blue-700 text-xl">
+                          <ng-icon name="featherFacebook"></ng-icon>
+                        </span>
+                      </div>
+                      <input
+                      formControlName="facebook"
+                      type="text"
+                      name="facebook"
+                      id="facebook"
+                      class="flex h-10 w-full rounded-md border border-input border-gray-300 bg-background bg-white px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground file:text-gray-500 placeholder:text-muted-foreground placeholder:text-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring  focus-visible:ring-purple-400 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm rounded-l-none flex-grow"
+                      placeholder="facebook.com/username"
+                      />
+
+                    </div>
+                  </div>
+                </div>
+      
+                <!-- Instagram -->
+                <div *ngIf="editing()" class="sm:col-span-2" >
+                  <label
+                    for="instagram"
+                    class="font-display text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    >Instagram</label
+                    >
+                  <div class="mt-2">
+                    <div class="flex items-center">
+                      <div class="bg-red-100 py-1 px-2 rounded-l-md border-y border-l border-gray-300">
+                        <span class="text-xl h-5 w-5 text-pink-600">
+                          <ng-icon name="featherInstagram"></ng-icon>
+                        </span>
+                      </div>
+                    <input
+                      formControlName="instagram"
+                      type="text"
+                      name="instagram"
+                      id="instagram"
+                      class="flex h-10 w-full rounded-md border border-input border-gray-300 bg-background bg-white px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium  file:text-gray-500  placeholder:text-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring  focus-visible:ring-purple-400 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm rounded-l-none flex-grow"
+                      placeholder="instagram.com/username"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Twitter -->
+                <div *ngIf="editing()" class="sm:col-span-2"  >
+                  <label
+                    for="twitter"
+                    class="font-display text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    >Twitter</label>
+                  <div class="mt-2">
+                    <div class="flex items-center">
+                      <div class="bg-blue-100 py-1 px-2 rounded-l-md border-y border-l border-gray-300">
+                        <span class="text-blue-700 text-xl">
+                          <ng-icon name="featherTwitter"></ng-icon>
+                        </span>
+                      </div>
+                      <input
+                        type="text"
+                        name="twitter"
+                        id="twitter"
+                        class="flex h-10 w-full rounded-md border border-input border-gray-300 bg-background bg-white px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground file:text-gray-500 placeholder:text-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring  focus-visible:ring-purple-400 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm rounded-l-none flex-grow"
+                        placeholder="twitter.com/username"
+                        formControlName="twitter"
+                        />
+                    </div>
+                  </div>
+                </div>
+      
+                <!-- LinkedIn -->
+                <div *ngIf="editing()" class="sm:col-span-2" >
+                  <label
+                    for="linkedin"
+                    class="font-display text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    >LinkedIn</label
+                    >
+                  <div class="mt-2">
+                    <div class="flex items-center">
+                      <div class="bg-blue-100 py-1 px-2 rounded-l-md border-y border-l border-gray-300">
+                        <span class="text-blue-700 text-xl">
+                          <ng-icon name="featherLinkedin"></ng-icon>
+                        </span>
+                      </div>
+                    <input
+                      formControlName="linkedin"
+                      type="text"
+                      name="linkedin"
+                      id="linkedin"
+                      class="flex h-10 w-full rounded-md border border-input border-gray-300 bg-background bg-white px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground file:text-gray-500 placeholder:text-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring  focus-visible:ring-purple-400 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm rounded-l-none flex-grow"
+                      placeholder="linkedin.com/username"
+                      />
+                      </div> 
+                  </div>
+                </div>
+                
+                <!-- Website -->
+                <div *ngIf="editing()" class="sm:col-span-2" >
+                  <label
+                    for="website"
+                    class="font-display text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    >Website</label
+                    >
+                  <div class="mt-2">
+                    <div class="flex items-center">
+                      <div class="bg-gray-100  py-1 px-2 rounded-l-md border-y border-l border-gray-300">
+                        <span class="text-gray-600 text-xl">
+                          <ng-icon name="featherGlobe"></ng-icon>
+                        </span> 
+                      </div>
+                    <input
+                      formControlName="website"
+                      type="text"
+                      name="website"
+                      id="website"
+                      class="flex h-10 w-full rounded-md border border-input border-gray-300 bg-background bg-white px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground file:text-gray-500 placeholder:text-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring  focus-visible:ring-purple-400 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm rounded-l-none flex-grow rounded-l-none flex-grow"
+                      placeholder="yourdomain.com"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div *ngIf="editing()" class="border-b border-gray-900/10 pb-4 sm:col-span-4">
+                  <!-- line -->
+                </div>
+
+                <h3 *ngIf="editing()" class="sm:col-span-4 text-lg font-semibold">Address Information</h3>
+
+                <!-- country -->
+                <div class="sm:col-span-2" *ngIf="editing()">
+                  <label for="country" 
+                  class="font-display text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    >{{'auth.accountInfo.country'|translate}}</label
+                  >
+                  <div class="mt-2 grid grid-cols-1">
+                    <select
+                      formControlName="country"
+                      id="country"
+                      name="country"
+                      autocomplete="country-name"
+                      class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-2.5 pr-8 pl-3 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-purple-600 sm:text-lg"
+                      >
+                      <option value="" disabled selected>{{'auth.accountInfo.country' | translate}}</option>
+                      <option *ngFor="let country of countries" [value]="country.value">
+                        {{ country.label | translate }}
+                      </option>
+                    </select>
+                    <svg
+                      class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4"
+                      viewBox="0 0 16 16"
+                      fill="currentColor"
+                      aria-hidden="true"
+                      data-slot="icon"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z"
+                        clip-rule="evenodd"
+                      />
+                    </svg>
+                  </div>
+                </div>
+      
+                <!-- gender -->
+                <div class="sm:col-span-2" *ngIf="editing()">
+                  <label for="country" 
+                  class="font-display text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    >{{'auth.accountInfo.gender'|translate}}</label
+                  >
+                  <div class="mt-2 grid grid-cols-1">
+                    <select
+                      formControlName="gender"
+                      id="country"
+                      name="country"
+                      autocomplete="country-name"
+                      class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-2.5 pr-8 pl-3 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-purple-600 sm:text-lg"
+                    >
+                      <option value="" disabled selected>{{'auth.accountInfo.selectGender'|translate}}</option>
+                      <option>{{'auth.accountInfo.male'|translate}}</option>
+                      <option>{{'auth.accountInfo.female'|translate}}</option>
+                    </select>
+                    <svg
+                      class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4"
+                      viewBox="0 0 16 16"
+                      fill="currentColor"
+                      aria-hidden="true"
+                      data-slot="icon"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z"
+                        clip-rule="evenodd"
+                      />
+                    </svg>
+                  </div>
+                </div>
+      
+                <!-- street address -->
+                <div class="sm:col-span-4" *ngIf="editing()">
+                  <label
+                    for="street-address"
+                    class="font-display text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    >{{'auth.accountInfo.streetAddress'|translate}}</label
+                  >
+                  <div class="mt-2">
+                    <input
+                      formControlName="streetAddress"
+                      type="text"
+                      name="street-address"
+                      id="street-address"
+                      autocomplete="street-address"
+                      class="flex h-10 w-full rounded-md border border-input border-gray-300 bg-background bg-white px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground file:text-gray-500 placeholder:text-muted-foreground placeholder:text-gray-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring  focus-visible:ring-purple-400 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
+    
+                      />
+                      <!-- class="block w-full rounded-md bg-white px-3 py-2.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-purple-600 sm:text-lg" -->
+                  </div>
+                </div>
+      
+                <!-- city -->
+                <div class="sm:col-span-2 sm:col-start-1" *ngIf="editing()">
+                  <label for="city" 
+                  class="font-display text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    >{{'auth.accountInfo.city'|translate}}</label
+                  >
+                  <div class="mt-2">
+                    <input
+                      formControlName="city"
+                      type="text"
+                      name="city"
+                      id="city"
+                      autocomplete="address-level2"
+                      class="flex h-10 w-full rounded-md border border-input border-gray-300 bg-background bg-white px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground file:text-gray-500 placeholder:text-muted-foreground placeholder:text-gray-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring  focus-visible:ring-purple-400 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
+                      />
+                      <!-- class="block w-full rounded-md bg-white px-3 py-2.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-purple-600 sm:text-lg" -->
+                  </div>
+                </div>
+      
+                <!-- state -->
+                <div class="sm:col-span-2" *ngIf="editing()">
+                  <label for="region" 
+                  class="font-display text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    >{{'auth.accountInfo.state'|translate}}</label
+                  >
+                  <div class="mt-2">
+                    <input
+                      formControlName="state"
+                      type="text"
+                      name="region"
+                      id="region"
+                      autocomplete="address-level1"
+                      class="flex h-10 w-full rounded-md border border-input border-gray-300 bg-background bg-white px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground file:text-gray-500 placeholder:text-muted-foreground placeholder:text-gray-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring  focus-visible:ring-purple-400 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
+    
+                      />
+                      <!-- class="block w-full rounded-md bg-white px-3 py-2.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-purple-600 sm:text-lg" -->
+                  </div>
+                </div>
+      
+                <!-- postalCode -->
+                <div class="sm:col-span-2" *ngIf="editing()">
+                  <label
+                    for="postal-code"
+                    class="font-display text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    >{{'auth.accountInfo.postalCode'|translate}}</label
+                  >
+                  <div class="mt-2">
+                    <input
+                      formControlName="postalCode"
+                      type="text"
+                      name="postal-code"
+                      id="postal-code"
+                      autocomplete="postal-code"
+                      class="flex h-10 w-full rounded-md border border-input border-gray-300 bg-background bg-white px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground file:text-gray-500 placeholder:text-muted-foreground placeholder:text-gray-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring  focus-visible:ring-purple-400 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
+    
+                      />
+                      <!-- class="block w-full rounded-md bg-white px-3 py-2.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-purple-600 sm:text-lg" -->
+                  </div>
+                </div>
+              </div>
+            </div>  
+            
+            <div class="mt-6 flex items-center justify-start gap-x-6" *ngIf="editing()">
+              <button
+                type="submit"
+                class="rounded-md px-6 py-2 text-md font-semibold text-white shadow-xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 bg-[#9b87f5] hover:bg-[#7E69AB]"
+              >
+                {{'auth.accountInfo.update'|translate}}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div> 
+    </form>
+  </div>
+</div>
+
+        <!-- <div class="pb-12"> -->
+          <!-- <p class="text-gray-500 text-xl">
+            {{'auth.accountInfo.description'|translate}}
+          </p> -->
+          <!-- photo -->
+          <!-- <div class="mt-5 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+            <div class="col-span-full"> -->
+              <!-- <label
+                for="photo"
+                class="block text-2xl/6 font-semibold text-gray-900 mb-3.5"
+                >{{'auth.accountInfo.profilePhoto'|translate}}</label
+              > -->
+              <!-- <div class="flex items-center gap-x-3"> -->
+    
+                <!-- OLD IMAGE -->
+                <!-- <div class="shrink-0 cursor-pointer">
+                  <img
+                    id="preview_img"
+                    [src]="
+                      selectedImagePreview ||
+                      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTL_JlCFnIGX5omgjEjgV9F3sBRq14eTERK9w&s'
+                    "
+                    alt="Profile photo"
+                    class="mt-4 h-35 w-35 object-cover rounded-full"
+                  />
+                </div> -->
+    <!-- 
+              </div>
+            </div>
+          </div>
+        </div> -->
+
+
+
+
+  <!-- Read-Only Cards -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8" *ngIf="!editing()">
+    <!-- CARD ONE -->
+    <div id="card-one" class="rounded-lg border  tracking-wide border-neutral-400/40 bg-card bg-white text-card-foreground text-gray-900 shadow-sm transition-transform transform hover:-translate-y-2  duration-500">
+        <!-- CARD HEADER -->
+      <div id="card-header" class="flex flex-col space-y-1.5 p-6 pb-2">
+        <div id="card-title" class="font-semibold leading-none tracking-wider text-lg" >Contact Information</div>
+      </div>
+        <!-- CARD CONTENT -->
+         <div id="card-content" class="p-6 pt-0">
+            <dl class="space-y-2">
+                <div>
+                  <dt class="text-sm font-medium text-muted-foreground text-gray-600">Email</dt>
+                  <dd>{{ profileForm.get('email')?.value || 'Not provided yet' }}<dd>
+                </div>
+                <div>
+                  <dt class="text-sm font-medium text-muted-foreground text-gray-600">Phone</dt>
+                  <dd>{{ profileForm.get('phone1')?.value || 'Not provided yet' }}</dd>
+                </div>
+            </dl>
+          </div>
+    </div>
+
+    <!-- CARD TWO -->
+    <div id="card-two" class="rounded-lg border  tracking-wide  border-neutral-400/40 bg-card bg-white text-card-foreground text-gray-900 shadow-sm transition-transform transform hover:-translate-y-2  duration-500">
+        <!-- CARD HEADER -->
+      <div id="card-header" class="flex flex-col space-y-1.5 p-6 pb-2">
+        <div id="card-title" class="font-semibold leading-none tracking-wider text-lg" >Address</div>
+      </div>
+        <!-- CARD CONTENT -->
+         <div id="card-content" class="p-6 pt-0">
+            <p class="text-sm">
+              {{ profileForm.get('address')?.value  || 'Not provided yet'}} <br/>
+              {{ profileForm.get('city')?.value || 'Not provided yet' }}, {{ profileForm.get('state')?.value || 'Not provided yet' }},{{ profileForm.get('postalCode')?.value || 'Not provided yet' }} 
+              {{ profileForm.get('country')?.value  || 'Not provided yet'}} 
+            </p>
+          </div>
+    </div>
+
+    <!-- CARD THREE -->
+    <div id="card-three" class="rounded-lg border  tracking-wide border-neutral-400/40 bg-card bg-white text-card-foreground text-gray-900 shadow-sm transition-transform transform hover:-translate-y-2  duration-500">
+        <!-- CARD HEADER -->
+      <div id="card-header" class="flex flex-col space-y-1.5 p-6 pb-2">
+        <div id="card-title" class="font-semibold leading-none tracking-wider text-lg" >Social Media</div>
+      </div>
+        <!-- CARD CONTENT -->
+        <div id="card-content" class="p-6 pt-0">
+          <div class="space-y-1">
+            <div class="flex items-center gap-2">
+              <span class="text-blue-400 text-lg">
+                <ng-icon name="featherFacebook"></ng-icon>
+              </span>
+              <span class="text-base text-gray-800">
+                {{ profileForm.get('facebook')?.value || 'Not provided' }}
+              </span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-pink-400 text-lg">
+                <ng-icon name="featherInstagram"></ng-icon>
+              </span>
+              <span class="text-base text-gray-800">
+                {{ profileForm.get('instagram')?.value || 'Not provided' }}
+              </span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-blue-400 text-lg">
+                <ng-icon name="featherTwitter"></ng-icon>
+              </span>
+              <span class="text-base text-gray-800">
+                {{ profileForm.get('twitter')?.value || 'Not provided' }}
+              </span>
+            </div>
+          </div>
+        </div>
+    </div>
+<!-- 
+  border-input = border-gray-300;
+  bg-background = bg-white;
+  hover:bg-accent = hover:bg-[#F97316];
+  hover:text-accent-foreground = hover:text-gray-900;
+  bg-primary = bg-purple-600;
+  border-border = border-gray-300
+  text-primary-foreground = text-white;
+  border-evenza-primary = border-[#8B5CF6];
+  bg-muted = bg-gray-200;
+  text-destructive = text-red-600 أو text-red-700;
+  focus-visible:ring-ring = focus-visible:ring-purple-500
+  outline : border border-input bg-background hover:bg-accent hover:text-accent-foreground ؛
+  <input> =flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm
+-->

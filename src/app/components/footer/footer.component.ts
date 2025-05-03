@@ -7,10 +7,11 @@ import {
   featherLinkedin,
   featherCalendar,
 } from '@ng-icons/feather-icons';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-footer',
-  imports: [NgIcon],
+  imports: [NgIcon,TranslateModule],
   templateUrl: './footer.component.html',
   providers: [
     provideIcons({
@@ -22,4 +23,6 @@ import {
     }),
   ],
 })
-export class FooterComponent {}
+export class FooterComponent {
+  email='evenza123@gmail.com';
+}

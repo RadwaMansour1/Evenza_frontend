@@ -1,0 +1,331 @@
+<section class="min-h-screen pt-6 pb-12 px-10 bg-gray-50">
+  <app-custom-alert
+    *ngIf="showAlert"
+    [message]="alertMessage"
+    [type]="alertType"
+  ></app-custom-alert>
+
+  <a
+    routerLink="/organizer/dashboard"
+    class="text-sm text-purple-600 font-medium inline-block mb-1"
+  >
+    &larr; <span class="ms-1 hover:underline">Back</span>
+  </a>
+  <div
+    class="max-w-3xl mx-auto p-6 md:p-8 bg-white rounded-lg shadow-md border border-gray-200 font-sans"
+  >
+    <h2 class="text-2xl font-bold text-gray-800 mb-6">Create New Event</h2>
+
+    <form (ngSubmit)="onSubmit()" #eventForm="ngForm">
+      <div class="mb-4">
+        <label
+          for="eventTitle"
+          class="block text-sm font-medium text-gray-700 mb-1"
+          >Event Title</label
+        >
+        <input
+          type="text"
+          id="eventTitle"
+          name="eventTitle"
+          [(ngModel)]="eventTitle"
+          required
+          class="w-full p-2 rounded-md placeholder:text-gray-500 bg-white border-2 border-gray-200 focus:border-purple-500 focus:outline-none focus:ring-0 hover:border-purple-500 sm:text-sm"
+          placeholder="Enter event title"
+        />
+      </div>
+
+      <div class="mb-4">
+        <label
+          for="description"
+          class="block text-sm font-medium text-gray-700 mb-1"
+          >Description</label
+        >
+        <textarea
+          id="description"
+          name="description"
+          [(ngModel)]="description"
+          rows="4"
+          class="w-full p-2 rounded-md placeholder:text-gray-500 bg-white border-2 border-gray-200 focus:border-purple-500 focus:outline-none focus:ring-0 hover:border-purple-500 sm:text-sm"
+          placeholder="Describe your event"
+        ></textarea>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+        <div>
+          <label
+            for="eventDate"
+            class="block text-sm font-medium text-gray-700 mb-1"
+            >Date</label
+          >
+          <input
+            type="date"
+            id="eventDate"
+            name="eventDate"
+            [(ngModel)]="eventDate"
+            required
+            class="w-full p-2 rounded-md placeholder:text-gray-500 bg-white border-2 border-gray-200 focus:border-purple-500 focus:outline-none focus:ring-0 hover:border-purple-500 sm:text-sm"
+          />
+        </div>
+        <div>
+          <label
+            for="eventTime"
+            class="block text-sm font-medium text-gray-700 mb-1"
+            >Time</label
+          >
+          <input
+            type="time"
+            id="eventTime"
+            name="eventTime"
+            [(ngModel)]="eventTime"
+            required
+            class="w-full p-2 rounded-md placeholder:text-gray-500 bg-white border-2 border-gray-200 focus:border-purple-500 focus:outline-none focus:ring-0 hover:border-purple-500 sm:text-sm"
+          />
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label
+          for="address"
+          class="block text-sm font-medium text-gray-700 mb-1"
+          >Address</label
+        >
+        <div class="flex items-center space-x-2">
+          <input
+            type="text"
+            id="address"
+            name="address"
+            [(ngModel)]="address"
+            readonly
+            class="w-full p-2 rounded-md placeholder:text-gray-500 bg-white border-2 border-gray-200 focus:border-purple-500 focus:outline-none focus:ring-0 sm:text-sm"
+            placeholder="Select location using the button below"
+          />
+          <button
+            type="button"
+            (click)="locationPicker.openLocationDialog()"
+            class="group flex items-center gap-2 px-3 py-2 bg-orange-500 text-white rounded-md hover:bg-orange-600 text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-400"
+            title="Select location on map"
+          >
+            <ng-icon
+              name="heroMapPin"
+              class="group-hover:animate-bounce"
+              size="1.5em"
+            ></ng-icon>
+          </button>
+        </div>
+      </div>
+
+      <app-location-picker
+        [initialLatitude]="latitude"
+        [initialLongitude]="longitude"
+        (locationSelected)="handleLocationSelected($event)"
+        #locationPicker
+      ></app-location-picker>
+
+      <div class="mb-4">
+        <label
+          for="category"
+          class="block text-sm font-medium text-gray-700 mb-1"
+          >Category</label
+        >
+        <select
+          id="category"
+          name="category"
+          [(ngModel)]="category"
+          required
+          class="w-full p-2 rounded-md placeholder:text-gray-500 bg-white border-2 border-gray-200 focus:border-purple-500 focus:outline-none focus:ring-0 hover:border-purple-500 sm:text-sm"
+        >
+          <option value="" disabled>Select a category</option>
+          <option value="Music">Music</option>
+          <option value="Conference">Conference</option>
+          <option value="Workshop">Workshop</option>
+          <option value="Tech">Tech</option>
+          <option value="Art">Art</option>
+          <option value="Theater">Theater</option>
+          <option value="Business">Business</option>
+          <option value="Sports">Sports</option>
+          <option value="Exhibition">Exhibition</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+
+      <div class="mb-6">
+        <label
+          for="eventHighlights"
+          class="block text-sm font-medium text-gray-700 mb-1"
+          >Event Highlights</label
+        >
+        <div class="flex items-center space-x-2 mb-2">
+          <input
+            type="text"
+            id="eventHighlightsInput"
+            name="eventHighlightsInput"
+            [(ngModel)]="currentHighlight"
+            (keyup.enter)="addHighlight()"
+            class="w-full p-2 rounded-md placeholder:text-gray-500 bg-white border-2 border-gray-200 focus:border-purple-500 focus:outline-none focus:ring-0 hover:border-purple-500 sm:text-sm"
+            placeholder="Add a highlight"
+          />
+          <button
+            type="button"
+            (click)="addHighlight()"
+            [disabled]="!currentHighlight.trim()"
+            class="px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            Add
+          </button>
+        </div>
+        <ul *ngIf="eventHighlights.length > 0" class="space-y-2">
+          <li
+            *ngFor="let highlight of eventHighlights; let i = index"
+            class="flex items-center justify-between bg-purple-100 border border-gray-200 rounded-md p-2 text-sm text-gray-800"
+          >
+            <span>{{ highlight }}</span>
+            <button
+              type="button"
+              (click)="removeHighlight(i)"
+              class="text-gray-500 hover:text-red-600 focus:outline-none"
+              title="Remove highlight"
+            >
+              <ng-icon name="heroXMark" size="1em"></ng-icon>
+            </button>
+          </li>
+        </ul>
+        <p
+          *ngIf="eventHighlights.length === 0"
+          class="text-sm text-gray-500 italic"
+        >
+          No highlights added yet.
+        </p>
+      </div>
+
+      <fieldset class="mb-6 border border-gray-300 p-4 rounded-md">
+        <legend class="text-lg font-medium text-gray-800 px-2">Tickets</legend>
+
+        <div class="flex items-center mb-4">
+          <input
+            id="isFreeEvent"
+            name="isFreeEvent"
+            type="checkbox"
+            [(ngModel)]="isFreeEvent"
+            class="h-4 w-4 text-purple-600 border-gray-300 rounded focus:ring-purple-500"
+          />
+          <label
+            for="isFreeEvent"
+            class="ml-2 block text-sm font-medium text-gray-900"
+          >
+            This is a Free Event
+          </label>
+        </div>
+
+        <div *ngIf="!isFreeEvent" class="space-y-4">
+          <p class="text-sm text-gray-600">
+            Define ticket types, prices, and quantities:
+          </p>
+          <div
+            *ngFor="let ticket of ticketTypes; let i = index"
+            class="grid grid-cols-1 sm:grid-cols-3 gap-3 items-center border-t border-gray-200 pt-3 first:border-t-0"
+          >
+            <div class="sm:col-span-1">
+              <label
+                [for]="'ticketName' + i"
+                class="block text-sm font-medium text-gray-700"
+                >{{ ticket.level }} Ticket</label
+              >
+            </div>
+            <div class="sm:col-span-1">
+              <label [for]="'ticketPrice' + i" class="sr-only"
+                >Price for {{ ticket.level }}</label
+              >
+              <div class="relative rounded-md shadow-sm">
+                <div
+                  class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
+                >
+                  <span class="text-gray-500 sm:text-sm">EGP</span>
+                </div>
+                <input
+                  type="number"
+                  [name]="'ticketPrice' + i"
+                  [id]="'ticketPrice' + i"
+                  [(ngModel)]="ticket.price"
+                  min="0"
+                  step="1"
+                  placeholder="Price"
+                  required
+                  class="w-full pl-10 pr-3 py-2 rounded-md placeholder:text-gray-500 bg-white border-2 border-gray-200 focus:border-purple-500 focus:outline-none focus:ring-0 hover:border-purple-500 sm:text-sm"
+                />
+              </div>
+            </div>
+            <div class="sm:col-span-1">
+              <label [for]="'ticketQuantity' + i" class="sr-only"
+                >Quantity for {{ ticket.level }}</label
+              >
+              <input
+                type="number"
+                [name]="'ticketQuantity' + i"
+                [id]="'ticketQuantity' + i"
+                [(ngModel)]="ticket.quantity"
+                min="0"
+                step="1"
+                placeholder="Quantity"
+                required
+                class="w-full p-2 rounded-md placeholder:text-gray-500 bg-white border-2 border-gray-200 focus:border-purple-500 focus:outline-none focus:ring-0 hover:border-purple-500 sm:text-sm"
+              />
+            </div>
+          </div>
+        </div>
+        <div *ngIf="isFreeEvent" class="text-center py-4 text-gray-500 italic">
+          No tickets needed for free events.
+        </div>
+      </fieldset>
+
+      <div class="mb-6">
+        <label
+          for="eventImage"
+          class="block text-sm font-medium text-gray-700 mb-1"
+          >Event Image</label
+        >
+        <input
+          type="file"
+          id="eventImage"
+          name="eventImage"
+          accept="image/*"
+          (change)="onFileSelected($event)"
+          class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-purple-100 file:text-purple-700 hover:file:bg-purple-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
+        />
+        <div
+          *ngIf="selectedImagePreview"
+          class="mt-4 border border-gray-200 rounded-md p-2 inline-block"
+        >
+          <img
+            [src]="selectedImagePreview"
+            alt="Event Image Preview"
+            class="max-h-48 rounded-md"
+          />
+        </div>
+      </div>
+
+      <div class="flex justify-end space-x-3 pt-4 border-t border-gray-200">
+        <button
+          type="button"
+          (click)="onCancel()"
+          class="px-4 py-2 bg-white border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+        >
+          Cancel
+        </button>
+        <button
+          type="submit"
+          [disabled]="
+            !eventForm.form.valid ||
+            !latitude ||
+            !longitude ||
+            address === '' ||
+            eventHighlights.length === 0 ||
+            !selectedImageFile
+          "
+          class="px-4 py-2 bg-purple-600 border border-transparent rounded-md shadow-sm text-sm font-medium text-white hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          Create Event
+        </button>
+      </div>
+    </form>
+  </div>
+</section>

@@ -1,0 +1,65 @@
+<div class="min-h-screen flex items-center justify-center bg-background px-4 bg-gray-50">
+  <main class="flex-grow container max-w-6xl py-12">
+    <div class="flex flex-col items-start justify-center w-full space-y-12">
+
+      <div class="flex flex-col items-start text-left">
+        <!-- Add translate pipe -->
+        <h1 class="text-3xl font-bold text-foreground  mt-12 sticky top-4 bg-gray-50 py-2">{{ 'MY_WALLET.PAGE_TITLE' | translate }}</h1>
+      </div>
+
+      <!-- Wallet Balance Card -->
+      <div class="rounded-xl bg-gradient-to-br from-purple-100 to-purple-50 p-6 shadow-lg w-full">
+        <div class="flex items-center gap-4">
+          <div>
+            <!-- Add translate pipe -->
+            <h3 class="text-lg font-semibold text-muted-foreground mb-2 text-gray-500">{{ 'MY_WALLET.AVAILABLE_BALANCE_LABEL' | translate }}</h3>
+            <div class="flex items-end gap-2">
+              <!-- Note: Currency symbol and balance are dynamic -->
+              <span class="text-4xl font-bold text-evenza-primary text-purple-600">EGP {{ balance.toFixed(2) }}</span>
+              <span class="text-sm text-muted-foreground mb-1 text-gray-500">{{ currency }}</span>
+            </div>
+            <!-- Add translate pipe -->
+            <p class="text-sm text-muted-foreground mt-4 text-gray-500">{{ 'MY_WALLET.LAST_TRANSACTION_LABEL' | translate }}: {{ lastTransaction | date:'dd/MM/yyyy'}}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent Transactions Section -->
+      <div class="rounded-xl bg-white p-6 shadow-lg w-full">
+        <!-- Add translate pipe -->
+        <h3 class="text-lg font-semibold text-muted-foreground mb-4 text-gray-500">{{ 'MY_WALLET.RECENT_TRANSACTIONS_HEADING' | translate }}</h3>
+
+        <div *ngIf="transactions.length > 0; else noTransactions">
+          <div class="flex flex-col space-y-4">
+            <div *ngFor="let tx of transactions" class="pb-4 border-b border-gray-200 last:border-b-0">
+              <div class="flex items-center justify-between">
+                <div>
+                  <!-- Translate transaction type (assuming 'refund' and potentially others are keys) -->
+                  <p class="font-medium">{{ 'MY_WALLET.TX_TYPE_' + tx.type.toUpperCase() | translate }}</p>
+                  <p class="text-sm text-muted-foreground text-gray-500">{{ tx.createdAt | date:'dd/MM/yyyy' }}</p>
+                </div>
+                <span
+                  class="px-2 py-1 text-sm rounded-full"
+                  [ngClass]="tx.type === 'refund' ? 'bg-emerald-500 text-white' : 'bg-pink-500 text-white'">
+                  <!-- Note: Amount formatting is dynamic -->
+                  {{ tx.type === 'refund' ? '+' : '-' }}${{ formatAmount(tx.amount) }}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <ng-template #noTransactions>
+          <div class="text-center py-8">
+            <ng-icon name="heroWallet" class="h-12 w-12 text-muted-foreground mx-auto mb-4"></ng-icon>
+            <!-- Add translate pipe -->
+            <h3 class="text-xl font-semibold mb-2">{{ 'MY_WALLET.NO_TRANSACTIONS_HEADING' | translate }}</h3>
+            <!-- Add translate pipe -->
+            <p class="text-muted-foreground">{{ 'MY_WALLET.NO_TRANSACTIONS_DESC' | translate }}</p>
+          </div>
+        </ng-template>
+      </div>
+
+    </div>
+  </main>
+</div>

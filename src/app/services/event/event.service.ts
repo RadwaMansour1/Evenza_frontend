@@ -17,7 +17,6 @@ export class EventService {
     limit: number = 6,
     filters: FilterCriteria = {}
   ): Observable<any> {
-
     let params = new HttpParams();
 
     console.log(filters);
@@ -50,4 +49,6 @@ export class EventService {
   getEventById(id: string): Observable<any> {
     return this.httpClient.get<any>(`${this.apiUrl}/events/${id}`);
   }
+
+
 }

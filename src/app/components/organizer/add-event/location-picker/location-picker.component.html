@@ -1,0 +1,90 @@
+<div
+  *ngIf="isLocationDialogOpen"
+  class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 p-4"
+>
+  <div class="bg-white rounded-lg shadow-xl max-w-md w-full p-6 relative">
+    <button
+      (click)="closeLocationDialog()"
+      class="absolute top-3 right-3 text-gray-500 hover:text-gray-700 text-lg font-semibold"
+      aria-label="Close dialog"
+    >
+      &times;
+    </button>
+    <h3 class="text-xl font-bold text-gray-800 mb-4">Select Event Location</h3>
+
+    <!-- Search Bar -->
+    <div class="mb-4 relative">
+      <label for="location-search" class="sr-only">Search Location</label>
+      <input
+        id="location-search"
+        type="search"
+        [(ngModel)]="searchQuery"
+        (input)="onSearchInputChange($event)"
+        placeholder="Search for a location..."
+        class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-purple-500 focus:border-purple-500 pl-10"
+      />
+      <div
+        class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
+      >
+        <ng-icon
+          name="heroMagnifyingGlass"
+          class="h-5 w-5 text-gray-400"
+        ></ng-icon>
+      </div>
+    </div>
+    <div class="h-75 relative">
+      <ul
+        *ngIf="searchResults && searchResults.length > 0"
+        class="absolute z-10 w-full bg-white border border-gray-300 rounded-md shadow-lg max-h-36 overflow-y-auto"
+      >
+        <li
+          *ngFor="let result of searchResults"
+          (click)="selectSearchResult(result)"
+          class="px-4 py-2 cursor-pointer hover:bg-gray-100 text-sm text-gray-700 truncate"
+        >
+          {{ result.display_name }}
+        </li>
+      </ul>
+      <div
+        id="dialogMap"
+        class="h-75 absolute z-1 w-full rounded-md border border-gray-300 mb-4"
+      >
+        <span class="text-gray-500 p-4 text-center block pt-20"
+          >Loading map...</span
+        >
+      </div>
+      
+    </div>
+    <p class="text-sm text-gray-600 mb-4">
+      Drag the marker to pinpoint the exact location on the map.
+    </p>
+
+    <div class="flex flex-col space-y-3">
+      <button
+        type="button"
+        (click)="useMyLocationInDialog()"
+        class="w-full group py-2 px-4 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 text-center flex items-center justify-center gap-2"
+      >
+        <ng-icon
+          name="heroMapPin"
+          class="group-hover:animate-bounce"
+          size="1.26em"
+        ></ng-icon>
+        <span>Use My Location</span>
+      </button>
+
+      <button
+        type="button"
+        (click)="confirmLocation()"
+        class="w-full group py-2 px-4 bg-green-600 text-white rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 text-center flex justify-center items-center gap-2"
+      >
+        <ng-icon
+          name="heroCheckCircle"
+          class="group-hover:animate-bounce"
+          size="1.26em"
+        ></ng-icon>
+        <span>Confirm Selected Location</span>
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,65 +1,18 @@
-<!-- <div class="px-36 flex flex-col gap-6">
-    <div class="m-auto w-full text-center flex flex-col gap-3">
-        <h1 class="text-3xl font-bold mt-6">Initiate Refund</h1>
-        <p class="text-gray-600 font-semibold">Your request to cancel the "the event" on "2/5/2025" has been recived Please confirm your refund details below to proceed</p>
-    </div>
-     <div>
-        <h1 class="text-2xl font-bold mt-6">Event Details</h1>
-        <hr class="text-gray-300 my-6">
-        <span class="flex flex-col md:flex-row justify-between items-center ">
-            <h3 class="text-gray-400 text-lg font-semibold">Event</h3>
-            <p class="text-lg font-semibold text-gray-600">the event</p>
-        </span>
-        <hr class="text-gray-300 my-6">
-        <span class="flex flex-col md:flex-row justify-between items-center ">
-            <h3 class="text-gray-400 text-lg font-semibold">Date</h3>
-            <p class="text-lg font-semibold text-gray-600">2/5/2025</p>
-        </span>
-        <hr class="text-gray-300 my-6">
-        <span class="flex flex-col md:flex-row justify-between items-center">
-            <h3 class="text-gray-400 text-lg font-semibold">Ticket Type</h3>
-            <p class="text-lg font-semibold text-gray-600">General Admission</p>
-        </span>
-     </div>
-     <div class="flex flex-col  gap-6">
-        <h1 class="text-2xl font-bold mt-6">Refund Amount</h1>
-        <span class="flex flex-col md:flex-row justify-between items-center">
-            <h3 class="text-gray-400 text-lg font-semibold">Total Refund Due</h3>
-            <p class="text-lg font-semibold text-gray-600">$210</p>
-        </span>
-     </div>
-     <div class="flex flex-col gap-4">
-        <h1 class="font-bold text-2xl ">Refund Method</h1>
-        <label for="credit" class="flex justify-between w-full border-1 border-gray-200 rounded-lg py-2 px-3 cursor-pointer">
-            <div class="flex flex-col">
-                <span class="font-semibold">OriginalPaymentMethod</span>
-                <span class="font-semibold text-gray-400">Refund will be issued to the card used for purchase</span>
-            </div>
-            <input type="radio" id="credit" name="refundMethod" value="creditcard" class="accent-blue-500">
-        </label>
-        <label for="paypal" class="flex justify-between w-full border-1 border-gray-200 rounded-lg py-2 px-3">
-            <div class="flex flex-col">
-                <span class="font-semibold">Eventure Wallet</span>
-                <span class="font-semibold text-gray-400">Refund will be credited to your Eventure account for future purchases</span>
-            </div>
-            <input type="radio" id="paypal" name="refundMethod" value="paypal" class="accent-blue-500">
-        </label>
-        <button class="cursor-pointer bg-blue-600 text-white w-full md:w-1/2 xl:w-1/3 p-2 rounded-lg">Confirm Refund Request</button>
-     </div>
-
-</div> -->
 
 <div class="flex flex-col gap-6 px-24 py-26 min-h-screen bg-gray-50">
-  <h1 class="text-4xl font-bold">Request a Refund</h1>
+  <!-- Add translate pipe -->
+  <h1 class="text-4xl font-bold">{{ 'REFUND.PAGE_TITLE' | translate }}</h1>
   <div class="flex flex-col lg:flex-row gap-6">
     <div class="flex flex-col gap-4 pb-10 h-full w-full lg:w-3/5">
       <!-- ------------------------ First Part--------------------------- -->
       <div class="flex flex-col gap-6 bg-white rounded-lg p-6 shadow-lg">
         <span class="flex items-center gap-1.5">
           <ng-icon name="heroCurrencyDollar" class="text-2xl" color="#9333ea" />
-          <h1 class="text-2xl font-bold">Refund Request</h1>
+          <!-- Add translate pipe -->
+          <h1 class="text-2xl font-bold">{{ 'REFUND.REQUEST_HEADING' | translate }}</h1>
         </span>
-        <h3 class="text-lg font-semibold">Reason for Refund</h3>
+        <!-- Add translate pipe -->
+        <h3 class="text-lg font-semibold">{{ 'REFUND.REASON_SUBHEADING' | translate }}</h3>
         <label
           for="conflict"
           class="flex gap-2.5 w-full border-1 border-gray-200 rounded-lg py-2 px-3"
@@ -68,11 +21,12 @@
             type="radio"
             id="conflict"
             name="refundReason"
-            value="conflict"
+            value="Schedule Conflict"
             class="accent-purple-500"
             [(ngModel)]="refundReason"
           />
-          <span class="font-semibold">Schedule Conflict</span>
+          <!-- Add translate pipe -->
+          <span class="font-semibold">{{ 'REFUND.REASON_CONFLICT' | translate }}</span>
         </label>
         <label
           for="plans"
@@ -82,11 +36,12 @@
             type="radio"
             id="plans"
             name="refundReason"
-            value="plans"
+            value="Change of Plans"
             class="accent-purple-500"
             [(ngModel)]="refundReason"
           />
-          <span class="font-semibold">Change of Plans</span>
+          <!-- Add translate pipe -->
+          <span class="font-semibold">{{ 'REFUND.REASON_PLANS' | translate }}</span>
         </label>
         <label
           for="mistake"
@@ -96,11 +51,12 @@
             type="radio"
             id="mistake"
             name="refundReason"
-            value="mistake"
+            value="Purchased by Mistake"
             class="accent-purple-500"
             [(ngModel)]="refundReason"
           />
-          <span class="font-semibold">Purchased by Mistake</span>
+          <!-- Add translate pipe -->
+          <span class="font-semibold">{{ 'REFUND.REASON_MISTAKE' | translate }}</span>
         </label>
         <label
           for="other"
@@ -110,25 +66,54 @@
             type="radio"
             id="other"
             name="refundReason"
-            value="other"
+            value="Other"
             class="accent-purple-500"
             [(ngModel)]="refundReason"
           />
-          <span class="font-semibold">Other</span>
+          <!-- Add translate pipe -->
+          <span class="font-semibold">{{ 'REFUND.REASON_OTHER' | translate }}</span>
         </label>
 
+        <!-- Refund Method Selection -->
         <div class="flex flex-col gap-1.5">
-          <h3 class="text-lg font-semibold">Refund Method</h3>
-          <span class="flex flex-col border-1 border-gray-200 rounded-lg p-4">
+          <!-- Add translate pipe -->
+          <h3 class="text-lg font-semibold">{{ 'REFUND.METHOD_SUBHEADING' | translate }}</h3>
+          <label class="flex flex-col border-1 border-gray-200 rounded-lg p-4 cursor-pointer">
             <span class="flex items-center gap-3">
+              <input
+                type="radio"
+                name="refundMethod"
+                value="original"
+                class="accent-purple-500"
+                [(ngModel)]="refundMethod"
+              />
               <ng-icon name="heroCreditCard" class="text-xl" color="gray" />
-              <h2 class="text-xl font-semibold">Original Payment Method</h2>
+              <!-- Add translate pipe -->
+              <h2 class="text-xl font-semibold">{{ 'REFUND.METHOD_ORIGINAL' | translate }}</h2>
             </span>
+            <!-- Add translate pipe -->
             <h3 class="text-gray-700">
-              Refund will be processed to the original payment method used for
-              purchase
+              {{ 'REFUND.METHOD_ORIGINAL_DESC' | translate }}
             </h3>
-          </span>
+          </label>
+          <label class="flex flex-col border-1 border-gray-200 rounded-lg p-4 cursor-pointer">
+            <span class="flex items-center gap-3">
+              <input
+                type="radio"
+                name="refundMethod"
+                value="wallet"
+                class="accent-purple-500"
+                [(ngModel)]="refundMethod"
+              />
+              <ng-icon name="heroCreditCard" class="text-xl" color="gray" />
+              <!-- Add translate pipe -->
+              <h2 class="text-xl font-semibold">{{ 'REFUND.METHOD_WALLET' | translate }}</h2>
+            </span>
+            <!-- Add translate pipe -->
+            <h3 class="text-gray-700">
+              {{ 'REFUND.METHOD_WALLET_DESC' | translate }}
+            </h3>
+          </label>
         </div>
         <span
           class="flex flex-col border-1 border-gray-200 rounded-lg p-4 bg-gray-100"
@@ -139,26 +124,32 @@
               class="text-3xl"
               color="purple"
             />
-            <h2 class="text-xl font-semibold">Refund Notes:</h2>
+            <!-- Add translate pipe -->
+            <h2 class="text-xl font-semibold">{{ 'REFUND.NOTES_HEADING' | translate }}</h2>
           </span>
           <ul class="list-disc pl-16 text-gray-600 text-md">
+            <!-- Add translate pipe with interpolation -->
             <li>
-              Your refund of $99.00 will be processed within 5-7 business days
+              {{ 'REFUND.NOTE_PROCESSING_TIME' | translate: { amount: total } }}
             </li>
-            <li>Service fees of $12.50 are non-refundable</li>
+            <!-- Add translate pipe -->
+            <li>{{ 'REFUND.NOTE_FEES' | translate }}</li>
+            <!-- Add translate pipe -->
             <li>
-              You will receive an email confirmation once your refund is
-              processed
+              {{ 'REFUND.NOTE_CONFIRMATION' | translate }}
             </li>
           </ul>
         </span>
+        <!-- Add translate pipe -->
+        <button class="p-2 rounded-lg bg-purple-500 hover:bg-purple-700 text-white w-full lg:w-1/3 ms-auto cursor-pointer" (click)="submitRefund()">{{ 'REFUND.SUBMIT_BUTTON' | translate }}</button>
       </div>
 
       <!---------------------------- Second Part -------------------------- -->
       <div class="flex flex-col gap-6 bg-white rounded-lg p-6 shadow-lg">
         <span class="flex items-center gap-3">
           <ng-icon name="heroCheckCircle" class="text-3xl" color="green" />
-          <h2 class="text-3xl font-semibold">What to Expect Next</h2>
+          <!-- Add translate pipe -->
+          <h2 class="text-3xl font-semibold">{{ 'REFUND.EXPECT_NEXT_HEADING' | translate }}</h2>
         </span>
 
         <div class="flex flex-col lg:flex-row gap-3">
@@ -212,26 +203,27 @@
     >
       <span class="flex items-center gap-3">
         <ng-icon name="heroTicket" class="text-3xl" color="purple" />
-        <h1 class="text-2xl font-bold">Ticket Details</h1>
+        <!-- Add translate pipe -->
+        <h1 class="text-2xl font-bold">{{ 'REFUND.TICKET_DETAILS_HEADING' | translate }}</h1>
       </span>
 
       <span class="py-1 px-10 rounded-full w-fit bg-purple-500">
-        <h2 class="font-semibold text-white">General Admission</h2>
+        <h2 class="font-semibold text-white">{{ticketDetails?.ticketType}}</h2>
       </span>
 
       <span class="flex flex-col">
-        <h2 class="text-xl font-bold">Champions League Match</h2>
+        <h2 class="text-xl font-bold">{{ticketDetails?.eventName}}</h2>
         <span class="flex gap-2 items-center text-gray-600">
           <ng-icon name="heroCalendar" />
-          <h3>{{ date }}</h3>
+          <h3>{{ ticketDetails?.date | date:'dd/MM/yyyy'}}</h3>
         </span>
         <span class="flex gap-2 items-center text-gray-600">
           <ng-icon name="heroClock" />
-          <h3>{{ startTime }} - {{ endTime }}</h3>
+          <h3>{{ ticketDetails?.time }}</h3>
         </span>
         <span class="flex gap-2 items-center text-gray-600">
           <ng-icon name="heroMapPin" />
-          <h3>{{ place }}</h3>
+          <h3>{{ ticketDetails?.location }}</h3>
         </span>
       </span>
 
@@ -239,38 +231,54 @@
 
       <div class="flex flex-col gap-3">
         <span class="flex justify-between">
-          <h3 class="font-semibold text-gray-400 text-md">Ticket ID</h3>
-          <h3 class="font-semibold text-md">{{ ticketId }}</h3>
+          <!-- Add translate pipe -->
+          <h3 class="font-semibold text-gray-400 text-md">{{ 'REFUND.TICKET_ID_LABEL' | translate }}</h3>
+          <h3 class="font-semibold text-md">{{ ticketDetails?._id }}</h3>
         </span>
         <span class="flex justify-between">
-          <h3 class="font-semibold text-gray-400 text-md">Purchase Date</h3>
-          <h3 class="font-semibold text-md">{{ purchaseDate }}</h3>
+          <!-- Add translate pipe -->
+          <h3 class="font-semibold text-gray-400 text-md">{{ 'REFUND.PURCHASE_DATE_LABEL' | translate }}</h3>
+          <h3 class="font-semibold text-md">{{ ticketDetails?.purchaseDate | date:'dd/MM/yyyy - hh:mm aa' }}</h3>
         </span>
-        <span class="flex justify-between">
+        <!-- <span class="flex justify-between">
           <h3 class="font-semibold text-gray-400 text-md">Status</h3>
           <h3 class="font-semibold text-md">{{ status }}</h3>
-        </span>
+        </span> -->
       </div>
       <hr class="text-gray-300" />
 
       <span class="flex justify-between">
-        <h3 class="font-semibold text-md">Ticket Price</h3>
-        <h3 class="font-medium text-gray-600 text-lg">${{ price }}</h3>
+        <!-- Add translate pipe -->
+        <h3 class="font-semibold text-md">{{ 'REFUND.TICKET_PRICE_LABEL' | translate }}</h3>
+        <h3 class="font-medium text-gray-600 text-lg">${{ ticketDetails?.price }}</h3>
       </span>
       <span class="flex justify-between">
+        <!-- Add translate pipe -->
+        <h3 class="font-semibold text-md">{{ 'REFUND.QUANTITY_LABEL' | translate }}</h3>
+        <h3 class="font-medium text-gray-600 text-lg">x{{ ticketDetails?.quantity }}</h3>
+      </span>
+      <span class="flex justify-between">
+        <!-- Add translate pipe -->
+        <h3 class="font-semibold text-md">{{ 'REFUND.TOTAL_PRICE_LABEL' | translate }}</h3>
+        <h3 class="font-medium text-gray-600 text-lg">${{ total }}</h3>
+      </span>
+      <span class="flex justify-between">
+        <!-- Add translate pipe -->
         <h3 class="font-semibold text-gray-400 text-md">
-          Service Fee (non-refundable)
+          {{ 'REFUND.SERVICE_FEE_LABEL' | translate }}
         </h3>
-        <h3 class="font-medium text-gray-400 text-lg">$12.50</h3>
+        <h3 class="font-medium text-gray-400 text-lg">$12.50</h3> <!-- Assuming fee is fixed -->
       </span>
       <hr class="text-gray-300" />
       <span class="flex justify-between">
-        <h3 class="font-semibold text-xl">Refundable Amount</h3>
-        <h3 class="font-semibold text-purple-500 text-lg">${{ price }}</h3>
+        <!-- Add translate pipe -->
+        <h3 class="font-semibold text-xl">{{ 'REFUND.REFUNDABLE_AMOUNT_LABEL' | translate }}</h3>
+        <h3 class="font-semibold text-purple-500 text-lg">${{ ticketDetails?.price }}</h3>
       </span>
       <span class="flex gap-2 items-center font-semibold text-gray-600">
         <ng-icon name="heroCalendar" />
-        <h3>Refund deadline: {{ date }}</h3>
+        <!-- Add translate pipe -->
+        <h3>{{ 'REFUND.DEADLINE_LABEL' | translate }}: {{ refundDeadline | date:'dd/MM/yyyy' }}</h3>
       </span>
     </div>
   </div>
