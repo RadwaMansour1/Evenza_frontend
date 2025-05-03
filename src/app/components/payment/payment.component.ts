@@ -15,6 +15,7 @@ import { TranslateModule } from '@ngx-translate/core'; // Import TranslateModule
 import { PaymentService } from '../../services/payment/payment.service';
 import { TicketsService } from '../../services/tickets/tickets.service';
 import { TicketModel } from '../../models/ticket.model';
+import { UserService } from '../../services/profile/user.service';
 
 @Component({
   selector: 'app-payment',
@@ -46,6 +47,8 @@ export class PaymentComponent implements OnInit {
     private readonly walletService:WalletService,
     private readonly paymentService:PaymentService,
     private readonly ticketService:TicketsService,
+    private readonly userService:UserService,
+
 
   ) { }
 
@@ -62,6 +65,7 @@ export class PaymentComponent implements OnInit {
   userId: string = "";
   eventId: string ="";
   ticketType: string = "";
+  userEmail:string="";
 
   myWallet:number = 0
 
@@ -99,6 +103,14 @@ ticketId:string|null = null;
 
 
   ngOnInit(): void {
+    this.userService.getProfile().subscribe({
+      next:(res)=>{
+        this.userEmail = res.data.email;
+      },
+      error:(err)=>{
+        console.error('Error fetching user email:', err);
+      }
+    })
     this.route.queryParams.subscribe(params => {
       this.orderId = params['orderId'] || null;
       console.log('Order ID:', this.orderId);
@@ -329,7 +341,6 @@ ticketId:string|null = null;
         console.log("Payment saved successfully");
 
         const location = `${this.eventDetails!.location.address}, ${this.eventDetails!.location.city}`;
-        
         const ticketResponse = await this.ticketService.createTicket({
           transactionId: walletResponse.data.transactionId,
           userId: this.userId,
@@ -342,6 +353,8 @@ ticketId:string|null = null;
           purchaseDate: new Date(),
           price: this.ticketPrice!,
           quantity: this.quantity!,
+          userEmail:this.userEmail,
+          orderId:this.orderId!
         }).toPromise();
 
         console.log('Ticket created successfully:', ticketResponse);
