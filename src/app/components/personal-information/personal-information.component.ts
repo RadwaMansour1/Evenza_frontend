@@ -15,7 +15,7 @@ import { CONSTANTS } from '../../constants';
 import { CustomAlertComponent } from '../shared/custom-alert/custom-alert.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { featherUpload } from '@ng-icons/feather-icons';
+import { featherFacebook, featherGlobe, featherInstagram, featherLinkedin, featherTwitter, featherUpload } from '@ng-icons/feather-icons';
 
 @Component({
   selector: 'app-personal-information',
@@ -29,7 +29,7 @@ import { featherUpload } from '@ng-icons/feather-icons';
   ],
   templateUrl: './personal-information.component.html',
   styleUrl: './personal-information.component.css',
-  viewProviders:[provideIcons({featherUpload})]
+  viewProviders:[provideIcons({featherUpload,featherFacebook,featherInstagram,featherTwitter,featherLinkedin,featherGlobe})]
 })
 export class PersonalInformationComponent implements OnInit {
   profileForm: FormGroup;
@@ -54,21 +54,24 @@ export class PersonalInformationComponent implements OnInit {
     }
 
     this.profileForm = this.fb.group({
-      firstName: ['Hassan', Validators.required],
-      lastName: ['ZIDAN', Validators.required],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
       phone1: ['', Validators.required],
       phone2: [''],
       email: ['', [Validators.required, Validators.email]],
       country: ['', Validators.required],
       gender: ['', Validators.required],
-      address: [''],
+      streetAddress: [''],
       city: [''],
       state: [''],
       postalCode: [''],
       photo: [null],
       facebook: [''],
       instagram: [''],
-      linkedin: ['']
+      twitter:[''],
+      linkedin: [''],
+      website: [''],
+
     });
   }
 
@@ -115,13 +118,15 @@ export class PersonalInformationComponent implements OnInit {
             email: data.email || '',
             country: data.country || '',
             gender: data.gender || '',
-            address: data.address || '',
+            streetAddress: data.streetAddress || '',
             city: data.city || '',
             state: data.state || '',
             postalCode: data.postalCode || '',
             facebook: data.facebook || '',
             instagram: data.instagram || '',
-            linkedin: data.linkedin || ''
+            linkedin: data.linkedin || '',
+            twitter: data.twitter || '',
+            website: data.website || ''
           });
           this.selectedImagePreview = data.photo;
         }
@@ -133,11 +138,20 @@ export class PersonalInformationComponent implements OnInit {
       },
     });
   }
+  //new edit
+    get profileImageUrl(): string {
+      const firstName = this.profileForm?.value?.firstName || '';
+      const lastName = this.profileForm?.value?.lastName || '';
+      const fullName = `${firstName} ${lastName}`.trim();
+      const encodedName = encodeURIComponent(fullName);
+      return `https://api.dicebear.com/7.x/initials/svg?seed=${encodedName}`;
+    }
 
   //new edit
   toggleEdit() {
     this.editing.update((val) => !val);
   }
+
 
   onFileSelected(event: any) {
     const file =

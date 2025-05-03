@@ -17,6 +17,7 @@
           <h2 class="text-2xl font-display font-semibold">{{'auth.accountInfo.title'|translate}}</h2>
           <!-- edit profile button -->
           <button
+          type="button"
           [ngClass]="editing() 
           ? 'border border-input border-gray-300 bg-background bg-white hover:bg-accent hover:bg-[#F97316] hover:text-accent-foreground hover:text-gray-900 py-2 px-4 hover:-translate-y-1 transition-all duration-300 group rounded gap-2 cursor-pointer' 
           : 'px-4 py-2 bg-white border border-gray-200 rounded-md shadow-sm flex items-center gap-2 hover:-translate-y-1 hover:bg-purple-600 hover:text-white transition-all duration-300 group cursor-pointer'"
@@ -44,7 +45,7 @@
                 <div id="avatar-image" class="aspect-square h-full w-full" >
                   <img
                   id="preview_img"
-                  [src]="selectedImagePreview || 'https://api.dicebear.com/7.x/initials/svg?seed=Hassan Zidan'"
+                  [src]="selectedImagePreview || profileImageUrl"
                   alt="Profile photo"
                 />
                 </div>
@@ -126,7 +127,7 @@
                 <!-- phone 1 -->
                 <div class="sm:col-span-2" *ngIf="editing()">
                   <label
-                    for="phone-number"
+                    for="phone-number1"
                     class="font-display text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                     >{{'auth.accountInfo.phone1'|translate}}</label
                   >
@@ -164,8 +165,8 @@
                       <input
                         formControlName="phone1"
                         type="text"
-                        name="phone-number"
-                        id="phone-number"
+                        name="phone-number1"
+                        id="phone-number1"
                         class="flex h-10 w-full rounded-md border border-input border-gray-300 bg-background bg-white px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground file:text-gray-500 placeholder:text-muted-foreground placeholder:text-gray-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring  focus-visible:ring-purple-400 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
                         placeholder="123-456-7890"
                         />
@@ -177,7 +178,7 @@
                 <!-- phone 2 -->
                 <div class="sm:col-span-2" *ngIf="editing()">
                   <label
-                    for="phone-number"
+                    for="phone-number2"
                     class="font-display text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                     >{{'auth.accountInfo.phone2'|translate}}</label
                     >
@@ -214,8 +215,8 @@
                       <input
                         formControlName="phone2"
                         type="text"
-                        name="phone-number"
-                        id="phone-number"
+                        name="phone-number2"
+                        id="phone-number2"
                         class="flex h-10 w-full rounded-md border border-input border-gray-300 bg-background bg-white px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground file:text-gray-500 placeholder:text-muted-foreground placeholder:text-gray-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring  focus-visible:ring-purple-400 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
                         placeholder="123-456-7890"
                         />
@@ -246,91 +247,155 @@
                   </div>
                 </div>
 
-                <div class="border-b border-gray-900/10 pb-4 sm:col-span-4">
+                <div *ngIf="editing()" class="border-b border-gray-900/10 pb-4 sm:col-span-4">
                   <!-- line -->
                 </div>
 
                 <!-- Social Accounts -->
 
+                <h3 *ngIf="editing()" class="sm:col-span-4 text-lg font-semibold">Social Media Profiles</h3>
+
                 <!-- Facebook -->
-                <div class="sm:col-span-2"  >
+                <div *ngIf="editing()" class="sm:col-span-2"  >
                   <label
                     for="facebook"
                     class="font-display text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                    >Facebook</label>
+                    >Facebook
+                  </label>
                      
-                  <div class="mt-2">
+                  <div *ngIf="editing()" class="mt-2">
                     <div class="flex items-center">
-                      <div class="bg-blue-100 p-2 rounded-l-md border-y border-l border-border">
-                        <ng-icon name="featherFacebook"></ng-icon>
+                      <!-- <div class="bg-blue-100 p-2 rounded-l-md border-y border-l border-gray-300">
+                        <span class="text-blue-400">
+                          <ng-icon name="featherFacebook" ></ng-icon>
+                        </span>
+                      </div> -->
+                      <div class="bg-blue-100 py-1 px-2 rounded-l-md border-y border-l border-gray-300">
+                        <span class="text-blue-700 text-xl">
+                          <ng-icon name="featherFacebook"></ng-icon>
+                        </span>
                       </div>
                       <input
                       formControlName="facebook"
                       type="text"
                       name="facebook"
                       id="facebook"
-                      class="flex h-10 w-full rounded-md border border-input border-gray-300 bg-background bg-white px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground file:text-gray-500 placeholder:text-muted-foreground placeholder:text-gray-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring  focus-visible:ring-purple-400 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
+                      class="flex h-10 w-full rounded-md border border-input border-gray-300 bg-background bg-white px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground file:text-gray-500 placeholder:text-muted-foreground placeholder:text-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring  focus-visible:ring-purple-400 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm rounded-l-none flex-grow"
+                      placeholder="facebook.com/username"
                       />
+
                     </div>
                   </div>
                 </div>
       
                 <!-- Instagram -->
-                <div class="sm:col-span-2" >
+                <div *ngIf="editing()" class="sm:col-span-2" >
                   <label
                     for="instagram"
                     class="font-display text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                     >Instagram</label
                     >
                   <div class="mt-2">
+                    <div class="flex items-center">
+                      <div class="bg-red-100 py-1 px-2 rounded-l-md border-y border-l border-gray-300">
+                        <span class="text-xl h-5 w-5 text-pink-600">
+                          <ng-icon name="featherInstagram"></ng-icon>
+                        </span>
+                      </div>
                     <input
                       formControlName="instagram"
                       type="text"
                       name="instagram"
                       id="instagram"
-                      class="flex h-10 w-full rounded-md border border-input border-gray-300 bg-background bg-white px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground file:text-gray-500 placeholder:text-muted-foreground placeholder:text-gray-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring  focus-visible:ring-purple-400 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
+                      class="flex h-10 w-full rounded-md border border-input border-gray-300 bg-background bg-white px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium  file:text-gray-500  placeholder:text-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring  focus-visible:ring-purple-400 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm rounded-l-none flex-grow"
+                      placeholder="instagram.com/username"
                       />
+                    </div>
                   </div>
                 </div>
 
                 <!-- Twitter -->
-                <div class="sm:col-span-2"  >
+                <div *ngIf="editing()" class="sm:col-span-2"  >
                   <label
                     for="twitter"
                     class="font-display text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                     >Twitter</label>
                   <div class="mt-2">
-                    <input
-                      type="text"
-                      name="twitter"
-                      id="twitter"
-                      class="flex h-10 w-full rounded-md border border-input border-gray-300 bg-background bg-white px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground file:text-gray-500 placeholder:text-muted-foreground placeholder:text-gray-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring  focus-visible:ring-purple-400 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
-                      />
+                    <div class="flex items-center">
+                      <div class="bg-blue-100 py-1 px-2 rounded-l-md border-y border-l border-gray-300">
+                        <span class="text-blue-700 text-xl">
+                          <ng-icon name="featherTwitter"></ng-icon>
+                        </span>
+                      </div>
+                      <input
+                        type="text"
+                        name="twitter"
+                        id="twitter"
+                        class="flex h-10 w-full rounded-md border border-input border-gray-300 bg-background bg-white px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground file:text-gray-500 placeholder:text-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring  focus-visible:ring-purple-400 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm rounded-l-none flex-grow"
+                        placeholder="twitter.com/username"
+                        formControlName="twitter"
+                        />
+                    </div>
                   </div>
                 </div>
       
                 <!-- LinkedIn -->
-                <div class="sm:col-span-2" >
+                <div *ngIf="editing()" class="sm:col-span-2" >
                   <label
                     for="linkedin"
                     class="font-display text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                     >LinkedIn</label
                     >
                   <div class="mt-2">
+                    <div class="flex items-center">
+                      <div class="bg-blue-100 py-1 px-2 rounded-l-md border-y border-l border-gray-300">
+                        <span class="text-blue-700 text-xl">
+                          <ng-icon name="featherLinkedin"></ng-icon>
+                        </span>
+                      </div>
                     <input
                       formControlName="linkedin"
                       type="text"
                       name="linkedin"
                       id="linkedin"
-                      class="flex h-10 w-full rounded-md border border-input border-gray-300 bg-background bg-white px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground file:text-gray-500 placeholder:text-muted-foreground placeholder:text-gray-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring  focus-visible:ring-purple-400 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
+                      class="flex h-10 w-full rounded-md border border-input border-gray-300 bg-background bg-white px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground file:text-gray-500 placeholder:text-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring  focus-visible:ring-purple-400 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm rounded-l-none flex-grow"
+                      placeholder="linkedin.com/username"
                       />
+                      </div> 
+                  </div>
+                </div>
+                
+                <!-- Website -->
+                <div *ngIf="editing()" class="sm:col-span-2" >
+                  <label
+                    for="website"
+                    class="font-display text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    >Website</label
+                    >
+                  <div class="mt-2">
+                    <div class="flex items-center">
+                      <div class="bg-gray-100  py-1 px-2 rounded-l-md border-y border-l border-gray-300">
+                        <span class="text-gray-600 text-xl">
+                          <ng-icon name="featherGlobe"></ng-icon>
+                        </span> 
+                      </div>
+                    <input
+                      formControlName="website"
+                      type="text"
+                      name="website"
+                      id="website"
+                      class="flex h-10 w-full rounded-md border border-input border-gray-300 bg-background bg-white px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground file:text-gray-500 placeholder:text-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring  focus-visible:ring-purple-400 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm rounded-l-none flex-grow rounded-l-none flex-grow"
+                      placeholder="yourdomain.com"
+                      />
+                    </div>
                   </div>
                 </div>
 
-                <div class="border-b border-gray-900/10 pb-4 sm:col-span-4">
+                <div *ngIf="editing()" class="border-b border-gray-900/10 pb-4 sm:col-span-4">
                   <!-- line -->
                 </div>
-                
+
+                <h3 *ngIf="editing()" class="sm:col-span-4 text-lg font-semibold">Address Information</h3>
 
                 <!-- country -->
                 <div class="sm:col-span-2" *ngIf="editing()">
@@ -410,7 +475,7 @@
                   >
                   <div class="mt-2">
                     <input
-                      formControlName="address"
+                      formControlName="streetAddress"
                       type="text"
                       name="street-address"
                       id="street-address"
@@ -580,28 +645,42 @@
         <div id="card-title" class="font-semibold leading-none tracking-wider text-lg" >Social Media</div>
       </div>
         <!-- CARD CONTENT -->
-         <div id="card-content" class="p-6 pt-0">
-            <dl class="space-y-2">
-                <div>
-                  <dt class="text-sm font-medium text-muted-foreground text-gray-600">Email</dt>
-                  <dd>{{ profileForm.get('email')?.value }}<dd>
-                </div>
-                <div>
-                  <dt class="text-sm font-medium text-muted-foreground text-gray-600">Phone</dt>
-                  <dd>{{ profileForm.get('phone1')?.value }}</dd>
-                </div>
-            </dl>
+        <div id="card-content" class="p-6 pt-0">
+          <div class="space-y-1">
+            <div class="flex items-center gap-2">
+              <span class="text-blue-400 text-lg">
+                <ng-icon name="featherFacebook"></ng-icon>
+              </span>
+              <span class="text-base text-gray-800">
+                {{ profileForm.get('facebook')?.value || 'Not provided' }}
+              </span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-pink-400 text-lg">
+                <ng-icon name="featherInstagram"></ng-icon>
+              </span>
+              <span class="text-base text-gray-800">
+                {{ profileForm.get('instagram')?.value || 'Not provided' }}
+              </span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-blue-400 text-lg">
+                <ng-icon name="featherTwitter"></ng-icon>
+              </span>
+              <span class="text-base text-gray-800">
+                {{ profileForm.get('twitter')?.value || 'Not provided' }}
+              </span>
+            </div>
           </div>
+        </div>
     </div>
-</div>
-
-
 <!-- 
   border-input = border-gray-300;
   bg-background = bg-white;
   hover:bg-accent = hover:bg-[#F97316];
   hover:text-accent-foreground = hover:text-gray-900;
   bg-primary = bg-purple-600;
+  border-border = border-gray-300
   text-primary-foreground = text-white;
   border-evenza-primary = border-[#8B5CF6];
   bg-muted = bg-gray-200;
