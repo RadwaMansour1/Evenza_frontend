@@ -1,0 +1,106 @@
+<div class="p-8 bg-purple-50">
+  <h1 class="text-3xl font-semibold mb-4">Reviews</h1>
+  <p class="text-gray-600 mb-8">Manage user reviews for events</p>
+  
+  <div class="flex justify-end mb-6">
+    <div class="relative">
+      <select
+        class="appearance-none border border-purple-200 rounded-lg py-2 px-4 pr-8 leading-tight focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
+        [(ngModel)]="selectedFilter"
+        (change)="onFilterChange(selectedFilter)">
+        <option value="all">All Reviews</option>
+        <option value="pending">Pending Reviews</option>
+        <option value="approved">Approved Reviews</option>
+      </select>
+      <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-purple-600">
+        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+          <path d="M5.516 7.548L10 12.03l4.484-4.482L16 9.03l-6 6-6-6z"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+      
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div *ngFor="let review of filteredReviews" class="bg-white shadow-sm rounded-lg p-6 relative review-card">
+      
+      <!-- Status -->
+      <div
+        class="absolute top-4 right-4 px-3 py-1 text-xs font-semibold rounded-full"
+        [ngClass]="getStatusLabel(review).color">
+        {{ getStatusLabel(review).label }}
+      </div>
+      
+      <h3 class="text-lg font-semibold mb-1">{{ review.userId.firstName }} {{ review.userId.lastName }}</h3>
+      
+      <!-- Rating -->
+      <div class="flex items-center mb-3">
+        <ng-container *ngFor="let star of [1,2,3,4,5]">
+          <svg *ngIf="star <= review.rating" class="w-5 h-5 text-yellow-400 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 17.3l6.18 3.64-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.67L5.82 21z"/></svg>
+          <svg *ngIf="star > review.rating" class="w-5 h-5 text-gray-300 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 17.3l6.18 3.64-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.67L5.82 21z"/></svg>
+        </ng-container>
+      </div>
+      
+   
+      
+      <!-- Comment -->
+      <p class="text-gray-700 mb-4">{{ review.comment }}</p>
+      
+      <!-- Posted Date -->
+      <p class="text-gray-500 text-sm">Posted on {{ review.createdAt | date: 'mediumDate' }}</p>
+      
+      <!-- Actions -->
+      <div *ngIf="!review.isVisible" class="flex gap-2 mt-4">
+        <button class="flex items-center gap-2 px-4 py-2 rounded-lg bg-purple-100 text-purple-700 hover:bg-purple-200 transition-colors">
+          <ng-icon name="heroCheckCircle" class="w-5 h-5"></ng-icon> Approve
+        </button>
+        <button class="flex items-center gap-2 px-4 py-2 rounded-lg bg-red-100 text-red-700 hover:bg-red-200 transition-colors">
+          <ng-icon name="heroXCircle" class="w-5 h-5"></ng-icon> Delete
+        </button>
+      </div>
+      
+      <div class="absolute bottom-4 right-4">
+        <button 
+          type="button" 
+          (click)="openDeleteModal(review)" 
+          class="px-4 py-2 bg-red-600 text-white rounded-lg shadow-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
+        >
+          Delete
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+  
+  <!-- Empty State -->
+  <div *ngIf="filteredReviews.length === 0" class="flex flex-col items-center justify-center py-16">
+    <ng-icon name="heroStar" class="w-12 h-12 text-purple-300 mb-3"></ng-icon>
+    <h3 class="text-lg font-medium text-gray-900">No reviews found</h3>
+    <p class="text-gray-500 mt-1">There are no reviews matching your current filter.</p>
+  </div>
+
+
+  <!-- Delete Confirmation Modal -->
+<div *ngIf="isDeleteModalOpen" class="modal-backdrop">
+  <div class="modal-content">
+    <h2 class="text-lg font-bold mb-4">Confirm Deletion</h2>
+    <p class="text-gray-700 mb-6">Are you sure you want to delete this review?</p>
+    <div class="flex justify-end space-x-2">
+      <button 
+        type="button" 
+        (click)="closeDeleteModal()" 
+        class="px-4 py-2 bg-gray-300 text-gray-700 rounded-lg"
+      >
+        Cancel
+      </button>
+      <button 
+        type="button" 
+        (click)="confirmDelete()" 
+        class="px-4 py-2 bg-red-600 text-white rounded-lg"
+      >
+        Delete
+      </button>
+    </div>
+  </div>
+</div>
+</div>

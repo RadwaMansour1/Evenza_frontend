@@ -1,0 +1,152 @@
+<!-- src/app/modules/bookings/bookings.component.html -->
+<div class="p-6 bg-purple-50">
+  <h1 class="text-4xl font-bold text-gray-800 mb-6">Booking Management</h1>
+
+  <!-- Search and Filter Bar -->
+  <div class="flex flex-col sm:flex-row gap-4 mb-6">
+    <div class="relative flex-grow">
+      <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+        <ng-icon name="heroMagnifyingGlass" class="text-purple-400"></ng-icon>
+      </div>
+      <input
+        type="text"
+        [(ngModel)]="searchTerm"
+        (ngModelChange)="filterBookings()"
+        placeholder="Search bookings..."
+        class="pl-10 w-full p-2 border border-purple-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
+      >
+    </div>
+
+    <select
+      [(ngModel)]="selectedStatus"
+      (change)="filterBookings()"
+      class="p-2 border border-purple-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
+    >
+      <option value="all">All Statuses</option>
+      <option value="pending">Pending</option>
+      <option value="confirmed">Confirmed</option>
+      <option value="cancelled">Cancelled</option>
+      <option value="refunded">Refunded</option>
+    </select>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="isLoading" class="flex justify-center items-center h-64">
+    <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-purple-500"></div>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="error" class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-6">
+    <p>{{ error }}</p>
+    <button (click)="loadBookings()" class="mt-2 text-sm text-red-600 hover:text-red-800">
+      Retry
+    </button>
+  </div>
+
+  <!-- Bookings Table -->
+  <div *ngIf="!isLoading" class="bg-white shadow-lg rounded-lg overflow-hidden">
+    <div class="overflow-x-auto">
+      <table class="min-w-full divide-y divide-gray-200">
+        <thead class="bg-purple-400 text-white">
+          <tr>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Event</th>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">User</th>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Ticket Type</th>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Quantity</th>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Total</th>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Purchase Date</th>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Status</th>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Actions</th>
+          </tr>
+        </thead>
+        <tbody class="bg-white divide-y divide-gray-200">
+          <tr *ngFor="let booking of filteredBookings" class="hover:bg-purple-50">
+            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+              {{ getEventName(booking) }}
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <div class="text-sm text-gray-900">
+                {{ (booking.userId?.firstName && booking.userId?.lastName) 
+                    ? booking.userId?.firstName + ' ' + booking.userId?.lastName 
+                    : 'User not found' }}
+              </div>
+              <div class="text-sm text-gray-500">{{ booking.userId?.email || 'No email available' }}</div>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+              {{ getTicketType(booking) | titlecase }}
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+              {{ booking.countOfTickets }}
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <span class="text-sm font-medium text-purple-600">{{ formatCurrency(booking.totalPrice) }}</span>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+              {{ formatDate(booking.createdAt) }}
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <span [class]="'px-2 inline-flex text-xs leading-5 font-semibold rounded-full ' + getStatusClass(booking.status)">
+                {{ booking.status | titlecase }}
+              </span>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+              <div class="flex items-center space-x-2">
+                <button 
+                  *ngIf="booking.status === 'pending'"
+                  (click)="updateStatus(booking._id, 'confirmed')"
+                  class="text-green-600 hover:text-green-900 cursor-pointer"
+                  title="Confirm"
+                >
+                  <ng-icon name="heroCheckCircle" class="w-5 h-5"></ng-icon>
+                </button>
+                <button 
+                  *ngIf="booking.status === 'confirmed'"
+                  (click)="updateStatus(booking._id, 'cancelled')"
+                  class="text-yellow-600 hover:text-yellow-900 cursor-pointer"
+                  title="Cancel"
+                >
+                  <ng-icon name="heroXCircle" class="w-5 h-5"></ng-icon>
+                </button>
+                <button 
+                  *ngIf="booking.status === 'confirmed' || booking.status === 'cancelled'"
+                  (click)="updateStatus(booking._id, 'refunded')"
+                  class="text-purple-600 hover:text-purple-900 cursor-pointer"
+                  title="Refund"
+                >
+                  <ng-icon name="heroArrowPath" class="w-5 h-5"></ng-icon>
+                </button>
+                <button 
+                  (click)="deleteBooking(booking._id)"
+                  class="text-red-600 hover:text-red-900 cursor-pointer"
+                  title="Delete"
+                >
+                  <ng-icon name="heroTrash" class="w-5 h-5"></ng-icon>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Empty State -->
+    <div *ngIf="filteredBookings.length === 0 && !isLoading" class="text-center py-12">
+      <ng-icon name="heroTicket" class="mx-auto h-12 w-12 text-purple-400"></ng-icon>
+      <h3 class="mt-2 text-sm font-medium text-gray-900">No bookings found</h3>
+      <p class="mt-1 text-sm text-gray-500">Try adjusting your search or filter criteria</p>
+      <!-- <button (click)="resetFilters()" class="mt-4 px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700">
+        Reset Filters
+      </button> -->
+    </div>
+  </div>
+
+  <!-- Export Bookings Button -->
+  <!-- <div class="mt-6 flex justify-end">
+    <button 
+      (click)="exportBookings()" 
+      class="px-6 py-3 bg-purple-600 text-white font-medium rounded-lg hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
+    >
+      Export Bookings
+    </button>
+  </div> -->
+</div>

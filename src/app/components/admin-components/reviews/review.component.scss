@@ -1,0 +1,150 @@
+// Reviews Component SCSS - Evenza Theme
+
+// Theme Variables
+$purple-50: #f5f3ff;
+$purple-100: #ede9fe;
+$purple-200: #ddd6fe;
+$purple-300: #c4b5fd;
+$purple-400: #a78bfa;
+$purple-500: #8b5cf6;
+$purple-600: #7c3aed;
+$purple-700: #6d28d9;
+$purple-800: #5b21b6;
+
+$yellow-400: #facc15;
+$gray-300: #d1d5db;
+$gray-500: #6b7280;
+$gray-600: #4b5563;
+$gray-700: #374151;
+
+// Status Colors
+// .status-badge {
+//   &.pending {
+//     @apply bg-yellow-100 text-yellow-800;
+//   }
+  
+//   &.approved {
+//     @apply bg-green-100 text-green-800;
+//   }
+  
+//   &.rejected {
+//     @apply bg-red-100 text-red-800;
+//   }
+// }
+
+// Review Card
+.review-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border-top: 3px solid transparent;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  }
+  
+  &.pending {
+    border-top-color: $yellow-400;
+  }
+  
+  &.approved {
+    border-top-color: #10b981; // Emerald 500
+  }
+  
+  &.rejected {
+    border-top-color: #ef4444; // Red 500
+  }
+}
+
+// Filter Select
+select {
+  appearance: none;
+  background-color: white;
+  transition: all 0.2s ease;
+  
+  &:focus {
+    box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.2);
+    border-color: $purple-600;
+  }
+}
+
+// Action Buttons
+button {
+  transition: all 0.2s ease;
+  
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.2);
+  }
+}
+
+// Star Ratings
+.star-rating {
+  display: flex;
+  align-items: center;
+  
+  svg {
+    transition: all 0.2s ease;
+  }
+}
+
+// Add custom scrollbar for overflow content
+.review-comment {
+  max-height: 100px;
+  overflow-y: auto;
+  
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background: $purple-50;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background-color: $purple-300;
+    border-radius: 20px;
+  }
+}
+
+// Empty State
+.empty-state {
+  color: $gray-500;
+  
+  svg {
+    color: $purple-300;
+  }
+}
+
+// Override getStatusLabel function in TS to use our theming
+// Add this to your component.ts file
+/*
+getStatusLabel(review: any) {
+  if (!review.isVisible && review.isRejected) {
+    return { label: 'Rejected', color: 'status-badge rejected' };
+  } else if (!review.isVisible) {
+    return { label: 'Pending', color: 'status-badge pending' };
+  } else {
+    return { label: 'Approved', color: 'status-badge approved' };
+  }
+}
+*/
+
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5); // Semi-transparent black
+  z-index: 50; // Ensure it appears above other elements
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: white;
+  border-radius: 0.5rem; // Rounded corners
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  width: 24rem; // Width of the modal
+  z-index: 51; // Ensure it appears above the backdrop
+}

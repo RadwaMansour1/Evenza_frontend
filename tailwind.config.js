@@ -1,4 +1,9 @@
 module.exports = {
+  content: [
+    "./src/**/*.{js,jsx,ts,tsx}",
+    "./public/index.html",
+    "./public/**/*.html",
+  ],
   theme: {
     extend: {
       fontFamily: {
@@ -7,5 +12,7 @@ module.exports = {
         poppins: ["Poppins", "sans-serif"],
       },
     },
+    
   },
-};
+  plugins: [],
+}
