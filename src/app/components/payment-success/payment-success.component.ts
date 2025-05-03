@@ -6,28 +6,37 @@ import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-payment-success',
-  templateUrl:"./success.component.html",
-  imports:[CommonModule,TranslateModule]
+  templateUrl: "./success.component.html",
+  imports: [CommonModule, TranslateModule]
 })
 export class PaymentSuccessComponent implements OnInit {
-  sessionId: string | null = null;
   barcodeImageSrc: string | null = null;
 
   constructor(private http: HttpClient) {}
 
   async ngOnInit(): Promise<void> {
     const urlParams = new URLSearchParams(window.location.search);
-    const session_id = urlParams.get('session_id');
-    const tiketId = urlParams.get('tiketId');
+    const sessionId = urlParams.get('session_id');
+    const orderId = urlParams.get('orderId');
+    const ticketId = urlParams.get('ticketId');
     const paymentMethod = urlParams.get('payment_method') || 'stripe';
-  
+
     try {
-      const barcodeUrl = paymentMethod === 'stripe'
-        ? `http://localhost:3000/payments/barcode/${tiketId}?payment_method=stripe`
-        : `http://localhost:3000/payments/barcode/${tiketId}?payment_method=wallet`;
-  
+      console.log({
+        orderId:orderId,
+        tiketId:ticketId
+      })
+
+      // const barcodeUrl =paymentMethod === "stripe" ?
+      // `http://localhost:3000/payments/barcode/${orderId}/${ticketId}?payment_method=${paymentMethod}`
+      // :
+      // `http://localhost:3000/payments/barcode/${orderId}/${ticketId}?payment_method=${paymentMethod}`;
+
+      const barcodeUrl =`http://localhost:3000/payments/barcode/${orderId}/${ticketId}?payment_method=${paymentMethod}`;
+
+
       const blob = await this.http.get(barcodeUrl, { responseType: 'blob' }).toPromise();
-  
+
       if (blob) {
         this.barcodeImageSrc = window.URL.createObjectURL(blob);
       } else {

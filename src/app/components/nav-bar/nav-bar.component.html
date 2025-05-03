@@ -129,7 +129,7 @@
               {{ "home.navbar.register" | translate }} </a
             >}@else{
             <a
-              routerLink="/profile/personal-information"
+              routerLink="/profile"
               class="cursor-pointer block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
               role="menuitem"
               (click)="closeUserMenu()"
@@ -233,7 +233,7 @@
           }@else{
           <div
             class="flex text-base py-2 font-medium items-center group hover:text-purple-500"
-            [routerLink]="'/profile/personal-information'"
+            [routerLink]="'/profile'"
             [routerLinkActive]="'active-link'"
             [routerLinkActiveOptions]="{ exact: true }"
           >

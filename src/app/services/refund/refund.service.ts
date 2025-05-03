@@ -6,6 +6,7 @@ import { Observable } from "rxjs";
   providedIn: 'root'
 })
 export class RefundService{
+    private apiUrl = "http://localhost:3000/refunds"
     private apiOriginalUrl = "http://localhost:3000/payments/refund"
     private apiWalletUrl = "http://localhost:3000/wallet/refund"
     constructor(private http:HttpClient){}
@@ -24,6 +25,13 @@ export class RefundService{
             userId,
             transactionId,
             amount
+        });
+    }
+
+    createRefund(paymentId:string , refundAmount:number):Observable<{paymentId:string , refundAmount:number}>{
+        return this.http.post<{paymentId:string, refundAmount:number}>(this.apiUrl,{
+            paymentId,
+            refundAmount
         });
     }
 
