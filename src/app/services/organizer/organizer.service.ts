@@ -45,4 +45,16 @@ export class OrganizerService {
       },
     });
   }
+
+  getOrganizerWallet(): Observable<any> {
+    const token =
+      sessionStorage.getItem(CONSTANTS.token) ||
+      localStorage.getItem(CONSTANTS.token);
+    return this.httpClient.get<any>(`${this.apiUrl}/wallet`, {
+      headers: {
+        accept: 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  }
 }
