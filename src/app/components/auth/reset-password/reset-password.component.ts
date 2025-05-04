@@ -10,11 +10,12 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CONSTANTS } from '../../../constants';
 import { featherKey, featherShield, featherSmartphone } from '@ng-icons/feather-icons';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { NgxSpinnerService, NgxSpinnerModule } from 'ngx-spinner';
 
 
 @Component({
   selector: 'app-reset-password',
-  imports: [CommonModule, FormsModule,ReactiveFormsModule,NgIcon,MatSlideToggleModule,TranslateModule
+  imports: [CommonModule, FormsModule,ReactiveFormsModule,NgIcon,MatSlideToggleModule,TranslateModule,NgxSpinnerModule
 ],
   templateUrl: './reset-password.component.html',
   styleUrl: './reset-password.component.css',
@@ -110,12 +111,13 @@ export class ResetPasswordComponent {
   newPasswordFocused = false;
   confirmPasswordFocused = false;
   securityForm: FormGroup;
+  isLoading: boolean = false;
 
   // new
   passwordStrength: 'Weak' | 'Medium' | 'Strong' = 'Weak';
   lastPasswordChangeDate: Date | null = null;
   enableTwoWayVerification: 'Enabled' | 'Disabled' = 'Disabled';
-  constructor(private fb: FormBuilder, private http: HttpClient) {
+  constructor(private fb: FormBuilder, private http: HttpClient,private spinner: NgxSpinnerService) {
     this.passwordForm = this.fb.group({
       oldPassword: ['', Validators.required],
       newPassword: ['', [Validators.required, Validators.minLength(6)]],
@@ -193,7 +195,8 @@ export class ResetPasswordComponent {
 
   onSubmit() {
     if (this.passwordForm.invalid) return;
-
+    this.spinner.show(); 
+    this.isLoading = true; 
     const { oldPassword, newPassword } = this.passwordForm.value;
     const token = localStorage.getItem(CONSTANTS.token) || sessionStorage.getItem(CONSTANTS.token);
     console.log('token from storage : ',token);
@@ -203,8 +206,11 @@ export class ResetPasswordComponent {
     this.http.post('http://localhost:3000/auth/change-password', { oldPassword, newPassword } , { headers })
     .subscribe({
       next: () => {
+        this.spinner.show(); 
+        this.isLoading = true; 
         this.successMessage = 'Password changed successfully';
         this.errorMessage = '';
+     
         // new
         this.successMessage = 'Password updated successfully.';
         this.lastPasswordChangeDate = new Date(); // أو من backend
@@ -212,6 +218,8 @@ export class ResetPasswordComponent {
         this.passwordForm.reset();
       }, 
       error: (err) => {
+        this.isLoading = false;
+        this.spinner.hide();
         this.errorMessage = err?.error?.message || 'Something went wrong';
         this.successMessage = '';
       }

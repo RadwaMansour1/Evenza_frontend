@@ -252,7 +252,9 @@
       "signupLink": "Create account",
       "termsAgree": "By signing in, you agree to the",
       "terms": "Terms & Conditions",
-      "errorMessage": "An error occurred while signing in. Please try again."
+      "errorMessage": "An error occurred while signing in. Please try again.",
+      "loadingText": "Signing in..."
+
     },
     "forgotPassword": {
       "title": "Forgot Password",
@@ -260,6 +262,7 @@
       "emailLabel": "Email",
       "emailPlaceholder": "name@example.com",
       "submitButton": "Send Reset Link",
+      "submitting": "Sending...",
       "confirmationTitle": "Check Your Email",
       "confirmationMessage": "We've sent a password reset link to {{ email }}",
       "backToForm": "Back to form",
@@ -333,12 +336,14 @@
       "agreeWithTerms": "I agree to the",
       "readTerms": "Terms and Conditions",
       "readTermsError": "Read Our Terms & Conditions",
-      "submitButton": "Sign Up",
 
       "enterName": "Enter name",
       "enterLastName": "Enter last name",
       "enterEmail": "Enter email",
-      "enterPassword": "Enter password"
+      "enterPassword": "Enter password",
+
+      "submitButton": "Sign Up",
+      "processingText": "Processing..."
 
     },
     "emailVerification": {
@@ -410,7 +415,9 @@
       "twitter": "Twitter",
       "linkedin": "LinkedIn",
       "website": "Website",
-      "addressInformation": "Address Information"
+      "addressInformation": "Address Information",
+      "updating": "Updating..."
+
     },
     "security": {
       "title": "Security Settings",
@@ -421,6 +428,7 @@
         "new": "New Password",
         "confirm": "Confirm password",
         "submit": "Update password",
+        "submitting": "Changing...",
         "error": "There was an error updating your password.",
         "success": "Your password was updated successfully."
        }

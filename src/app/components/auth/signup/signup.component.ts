@@ -17,6 +17,7 @@ import { AuthService } from '../../../services/auth/auth.service';
 import { SnackbarService } from '../../../services/notification/snackbar.service';
 import { CONSTANTS } from '../../../constants';
 import { TranslateModule } from '@ngx-translate/core';
+import { NgxSpinnerService, NgxSpinnerModule } from 'ngx-spinner';
 
 @Component({
   selector: 'app-signup',
@@ -26,7 +27,8 @@ import { TranslateModule } from '@ngx-translate/core';
     HttpClientModule,
     GoogleAuthButtonComponent,
     RouterModule,
-    TranslateModule
+    TranslateModule,
+    NgxSpinnerModule
   ],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.css',
@@ -43,7 +45,8 @@ export class SignupComponent {
     private fb: FormBuilder,
     private authService: AuthService,
     private router: Router,
-    private snackbar: SnackbarService
+    private snackbar: SnackbarService,
+    private spinner: NgxSpinnerService
   ) {
     this.signUpForm = this.fb.group(
       {
@@ -183,8 +186,8 @@ export class SignupComponent {
       this.signUpForm.markAllAsTouched(); // Mark fields to show validation errors
       return;
     }
-
-    this.isLoading = true; // Set loading indicator
+    this.spinner.show(); 
+    this.isLoading = true; 
 
     // Prepare user data (excluding role, as it's passed separately)
     const user: User = {
@@ -211,6 +214,7 @@ export class SignupComponent {
           this.signUpForm.reset();
           this.selectedImageFile = undefined; // Clear selected file
           this.isLoading = false;
+          this.spinner.hide();
 
           // Navigate to verify email page
           this.router.navigate(['/verify-email'], {
@@ -219,6 +223,7 @@ export class SignupComponent {
         },
         error: (err) => {
           this.isLoading = false;
+          this.spinner.hide();
           if (err.status === 409) {
             // Conflict (Email likely exists)
             this.signUpForm.get('email')?.setErrors({ emailExists: true });
