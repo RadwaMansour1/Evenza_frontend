@@ -1,5 +1,5 @@
-<div class="mt-8  min-h-screen flex fle-col items-center justify-center py-6 px-4 bg-violet-600 " style="background-color: #FBFAFF">
-    <div class="grid md:ml-110 md:grid-cols-2 items-center gap-10 max-w-6xl max-md:max-w-md w-full ">
+<div class="mt-8  min-h-screen flex flex-col items-center justify-center py-6 px-4 bg-violet-600 " style="background-color: #FBFAFF">
+    <!-- <div class="grid md:grid-cols-2 items-center gap-10 max-w-6xl max-md:max-w-md w-full "> -->
         <!-- welcoming card -->
         <!-- <div class="animate-gradient-x font-inter bg- backdrop-blur-2xl  p-8 rounded-2xl border border-white/20 shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] space-y-6 bg-transparent bg-gradient-to-br from-purple-600 via-purple-700 to-blue-800" > -->
           <!-- logo -->
@@ -32,7 +32,7 @@
         
 
         <!-- sign in card -->
-        <form class="max-w-md md:ml-auto w-full border border-[#f0ecff] bg-white shadow-[0_2px_13px_-6px_rgba(0,0,0,0.4)] sm:p-8 p-4 rounded-lg" action="javascript:void(0);"
+        <form class="max-w-md md:mx-auto w-full border border-[#f0ecff] bg-white shadow-[0_2px_13px_-6px_rgba(0,0,0,0.4)] sm:p-8 p-4 rounded-lg" action="javascript:void(0);"
         [formGroup]="signInForm"
         (ngSubmit)="onSubmit()"
         >
@@ -45,7 +45,7 @@
             <div class="relative">
               <label class='text-sm font-medium mb-2 block text-[#1A1F2C]'>{{"auth.signIn.emailLabel"| translate}}</label>
               <ng-icon name="heroEnvelope" class="h-5 w-5 text-[#8E9196] absolute left-3 top-1/2 transform mt-1.5" />
-              <input name="email" formControlName="email" type="email" required class="bg-slate-100 w-full text-sm text-slate-800 px-4 py-3 pl-10 rounded-md outline-none border focus:border-purple-500 focus:bg-transparent border-[#e9e3ff] focus-visible:ring-[#9b87f5]" placeholder="Enter Email" />
+              <input name="email" formControlName="email" type="email" required class="bg-slate-100 w-full text-sm text-slate-800 px-4 py-3 pl-10 rounded-md outline-none border focus:border-purple-500 focus:bg-transparent border-[#e9e3ff] focus-visible:ring-[#9b87f5]" [placeholder]="'auth.signUp.enterEmail' | translate"/>
             </div>
             <div *ngIf="signInForm.get('email')?.touched && signInForm.get('email')?.errors" class="text-red-600 font-bold text-sm mt-2 ml-0.5">
               <ng-container *ngIf="signInForm.get('email')?.errors?.['required']">
@@ -60,7 +60,7 @@
             <div class="relative">
               <label class='text-sm font-medium mb-2 block text-[#1A1F2C]'>{{"auth.signIn.passwordLabel"| translate}}</label>
               <ng-icon name="heroLockClosed" class="h-5 w-5 text-[#8E9196] absolute left-3 top-1/2 transform mt-1.5" />
-              <input name="password" formControlName="password" type="password" required class="bg-slate-100 w-full text-sm text-slate-800 px-4 py-3 pl-10 rounded-md outline-none border focus:border-purple-500 focus:bg-transparent border-[#e9e3ff] focus-visible:ring-[#9b87f5]" placeholder="Enter Password" />
+              <input name="password" formControlName="password" type="password" required class="bg-slate-100 w-full text-sm text-slate-800 px-4 py-3 pl-10 rounded-md outline-none border focus:border-purple-500 focus:bg-transparent border-[#e9e3ff] focus-visible:ring-[#9b87f5]" [placeholder]="'auth.signUp.password' | translate" />
             </div>
             <div *ngIf="signInForm.get('password')?.touched && signInForm.get('password')?.errors" class="text-red-600 font-bold text-sm mt-2 ml-0.5">
               <ng-container *ngIf="signInForm.get('password')?.errors?.['required']">
@@ -80,8 +80,8 @@
               
               <!-- remember Me -->
               <div class="flex items-center">
-                <input id="remember-me" name="remember-me" formControlName="rememberMe" type="checkbox" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-slate-300 rounded" />
-                <label for="remember-me" class="ml-3 bock text-sm text-slate-500">
+                <input id="remember-me" name="remember-me" formControlName="rememberMe" type="checkbox" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-slate-300 rounded " />
+                <label for="remember-me" class="ml-3 bLock text-sm text-slate-500">
                   {{"auth.signIn.rememberMe"| translate}}
                 </label>
               </div>
@@ -128,5 +128,5 @@
               <p class="text-sm text-slate-500 text-center mt-4"> {{"auth.signIn.termsAgree"| translate}}  <a routerLink="/terms-condition" target="_blank" class="font-medium text-[#9b87f5] hover:text-[#7E69AB]">{{"auth.signIn.terms"| translate}} </a></p>
             </div>
         </form>
-      </div>
+      <!-- </div> -->
 </div>

@@ -1,3 +1,4 @@
+import { NgIcon, provideIcons } from '@ng-icons/core';
 import { CommonModule, formatDate } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule, NgModel, ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -7,12 +8,17 @@ import { AuthService } from '../../../services/auth/auth.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CONSTANTS } from '../../../constants';
+import { featherKey, featherShield, featherSmartphone } from '@ng-icons/feather-icons';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+
 
 @Component({
   selector: 'app-reset-password',
-  imports: [CommonModule, FormsModule,ReactiveFormsModule],
+  imports: [CommonModule, FormsModule,ReactiveFormsModule,NgIcon,MatSlideToggleModule,TranslateModule
+],
   templateUrl: './reset-password.component.html',
   styleUrl: './reset-password.component.css',
+  viewProviders:[provideIcons({featherShield,featherKey,featherSmartphone})]
 })
 export class ResetPasswordComponent {
   // newPassword = '';
@@ -95,6 +101,7 @@ export class ResetPasswordComponent {
   //       },
   //     });
   // }
+  
 
   passwordForm: FormGroup;
   errorMessage = '';
@@ -102,14 +109,81 @@ export class ResetPasswordComponent {
   olPasswordFocused = false;
   newPasswordFocused = false;
   confirmPasswordFocused = false;
+  securityForm: FormGroup;
 
+  // new
+  passwordStrength: 'Weak' | 'Medium' | 'Strong' = 'Weak';
+  lastPasswordChangeDate: Date | null = null;
+  enableTwoWayVerification: 'Enabled' | 'Disabled' = 'Disabled';
   constructor(private fb: FormBuilder, private http: HttpClient) {
     this.passwordForm = this.fb.group({
       oldPassword: ['', Validators.required],
       newPassword: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', Validators.required],
     }, { validators: this.passwordMatchValidator });
+
+    this.securityForm = this.fb.group({
+      twoFactorEnabled: [false],
+      emailNotifications: [false],
+      sessionTimeout: [15],
+    });
   }
+  // new 
+  
+
+  ngOnInit(): void {
+    this.passwordForm = this.fb.group({
+      oldPassword: ['', Validators.required],
+      newPassword: ['', Validators.required],
+      confirmPassword: ['', Validators.required]
+    });
+    // هنا بتحط المراقبة على حقل الباسورد الجديد
+    this.passwordForm.get('newPassword')?.valueChanges.subscribe(password => {
+      this.checkPasswordStrength(password);
+    });
+    // مراقبة Two-Factor Authentication
+    this.securityForm.get('twoFactorEnabled')?.valueChanges.subscribe(value => {
+      this.enableTwoWayVerification = value ? 'Enabled' : 'Disabled';
+      this.updateSecurityPanel(value); // تستدعي فنكشن تحدث الـ UI
+
+    });
+    this.securityForm.get('emailNotifications')?.valueChanges.subscribe(value => {
+      if (value) {
+        // شغل الـ session management تلقائيًا لو emailNotifications مفعلة
+        this.securityForm.get('sessionTimeout')?.enable();
+      } else {
+        this.securityForm.get('sessionTimeout')?.disable();
+      }
+    });
+    // disable sessionTimeout مبدئيًا لو Email Notifications مش مفعلة
+    if (!this.securityForm.get('emailNotifications')?.value) {
+      this.securityForm.get('sessionTimeout')?.disable();
+    }
+
+  }
+  updateSecurityPanel(value: any) {
+    throw new Error('Method not implemented.');
+  }
+
+  checkPasswordStrength(password: string): void {
+    const hasUpperCase = /[A-Z]/.test(password);
+    const hasLowerCase = /[a-z]/.test(password);
+    const hasNumbers = /\d/.test(password);
+    const hasSpecial = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+    const lengthValid = password.length >= 8;
+  
+    let score = 0;
+    if (hasUpperCase) score++;
+    if (hasLowerCase) score++;
+    if (hasNumbers) score++;
+    if (hasSpecial) score++;
+    if (lengthValid) score++;
+  
+    if (score <= 2) this.passwordStrength = 'Weak';
+    else if (score === 3 || score === 4) this.passwordStrength = 'Medium';
+    else if (score === 5) this.passwordStrength = 'Strong';
+  }
+  // ended here
 
   passwordMatchValidator(form: FormGroup) {
     const newPassword = form.get('newPassword')?.value;
@@ -131,6 +205,10 @@ export class ResetPasswordComponent {
       next: () => {
         this.successMessage = 'Password changed successfully';
         this.errorMessage = '';
+        // new
+        this.successMessage = 'Password updated successfully.';
+        this.lastPasswordChangeDate = new Date(); // أو من backend
+        // ended here
         this.passwordForm.reset();
       }, 
       error: (err) => {
@@ -138,5 +216,22 @@ export class ResetPasswordComponent {
         this.successMessage = '';
       }
     });
+
+   
+    // if (this.securityForm.valid) {
+    //   const securitySettings = this.securityForm.value;
+    //   const token = localStorage.getItem(CONSTANTS.token) || sessionStorage.getItem(CONSTANTS.token);
+    //   const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+    //   this.http.post('http://localhost:3000/users/security-settings', securitySettings, { headers }).subscribe({
+    //      next: () => {
+    //       this.successMessage = 'Security settings updated successfully.';
+    //     },        
+    //      error: (err) => {
+    //       this.errorMessage = err?.error?.message || 'Failed to update security settings';
+    //     }
+    //   });
+        
+    // }
   }
 }

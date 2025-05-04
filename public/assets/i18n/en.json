@@ -355,7 +355,13 @@
       "agreeWithTerms": "I agree to the",
       "readTerms": "Terms and Conditions",
       "readTermsError": "Read Our Terms & Conditions",
-      "submitButton": "Sign Up"
+      "submitButton": "Sign Up",
+
+      "enterName": "Enter name",
+      "enterLastName": "Enter last name",
+      "enterEmail": "Enter email",
+      "enterPassword": "Enter password"
+
     },
     "emailVerification": {
       "title": "Email Verification",
@@ -366,8 +372,8 @@
       "resend": "Resend"
     },
     "accountInfo": {
-      "title": "Account Information",
-      "description": "Update your personal and contact information.",
+      "title": "My Profile",
+      "description": "Manage your account settings and preferences",
       "profilePhoto": "Profile Photo",
       "choosePhoto": "Change Photo",
       "firstName": "First Name",
@@ -409,8 +415,69 @@
       "damietta": "Damietta",
       "state": "State / Province",
       "postalCode": "Postal Code",
-      "update": "Save Changes"
+      "update": "Save Changes",
+      "tabs": {
+        "accountInformation": "Account Information",
+        "securitySettings": "Security Settings",
+        "logout": "Logout"
+      },
+      "edit": "Edit Profile",
+      "cancelEdit":"Cancel Editing",
+      "contactInformation": "Contact Information",
+      "notProvided": "Not provided yet",
+      "socialMedia": "Social Media",
+      "socialMediaProfiles": "Social Media Profiles",
+      "facebook": "Facebook",
+      "instagram": "Instagram",
+      "twitter": "Twitter",
+      "linkedin": "LinkedIn",
+      "website": "Website",
+      "addressInformation": "Address Information"
+    },
+    "security": {
+      "title": "Security Settings",
+      "changePassword": {
+        "title": "Change Password",
+        "description": "Update your password regularly to keep your account secure",
+        "current": "Current Password",
+        "new": "New Password",
+        "confirm": "Confirm password",
+        "submit": "Update password",
+        "error": "There was an error updating your password.",
+        "success": "Your password was updated successfully."
+       }
+    },
+    "status": {
+        "title": "Security Status",
+        "passwordStrength": "Password Strength",
+        "lastChange": "Last Password Change",
+        "notChanged": "Not changed before",
+        "strength": {
+          "weak": "Weak",
+          "medium": "Medium",
+          "strong": "Strong"
+        }
+    },  
+    "logout":{
+      "accountAccess": "Account Access",
+      "logoutTitle": "Logout",
+      "logoutDescription": "End your current session and return to the homepage",
+      "logoutInfo1": "Logging out will end your current session.",
+      "logoutInfo2": "You'll need to sign in again to access your account.",
+      "logoutButton": "Log Out",
+    
+      "securityTipsTitle": "Account Security Tips",
+      "securityTip1": "Always log out when using shared or public devices",
+      "securityTip2": "Ensure your password is strong and unique",
+      "securityTip3": "Use a combination of letters, numbers, and special characters",
+      "securityTip4": "Check your active sessions regularly",
+    
+      "recentActivityTitle": "Recent Account Activity",
+      "lastLogin": "Last Login",
+      "lastLoginInfo": "Today, 2:45 PM from Giza, Egypt",
+      "suspiciousActivityWarning": "If you don't recognize this activity, please change your password immediately and contact support."
     }
+    
   },
   "terms": {
     "title": "Terms and Conditions",

@@ -1,0 +1,90 @@
+<div class="p-8 bg-purple-50">
+  <div class="flex justify-between items-center mb-4">
+    <h1 class="text-3xl font-semibold text-gray-800">Analytics Dashboard</h1>
+    <button 
+      (click)="refreshData()" 
+      class="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700"
+      [disabled]="isLoading">
+      Refresh Data
+    </button>
+  </div>
+
+  <p class="text-gray-600 mb-8">Quick overview of platform statistics</p>
+
+  <!-- Loading State -->
+  <div *ngIf="isLoading" class="text-center py-8">
+    <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600 mx-auto"></div>
+    <p class="mt-4 text-gray-600">Loading analytics data...</p>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="error" class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-8">
+    <p>{{ error }}</p>
+  </div>
+
+  <!-- Content -->
+  <ng-container *ngIf="!isLoading && !error && analyticsData">
+    <!-- Stats Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+      <div class="bg-white shadow rounded-lg p-6 text-center hover:shadow-lg transition-all">
+        <p class="text-gray-600 mb-2">Total Events</p>
+        <p class="text-2xl font-bold text-purple-600">{{ analyticsData.totalEvents }}</p>
+      </div>
+      <div class="bg-white shadow rounded-lg p-6 text-center hover:shadow-lg transition-all">
+        <p class="text-gray-600 mb-2">Total Orders</p>
+        <p class="text-2xl font-bold text-purple-600">{{ analyticsData.totalOrders }}</p>
+      </div>
+      <div class="bg-white shadow rounded-lg p-6 text-center hover:shadow-lg transition-all">
+        <p class="text-gray-600 mb-2">Total Revenue</p>
+        <p class="text-2xl font-bold text-purple-600">{{ analyticsData.totalRevenue | currency }}</p>
+      </div>
+      <div class="bg-white shadow rounded-lg p-6 text-center hover:shadow-lg transition-all">
+        <p class="text-gray-600 mb-2">Avg. Satisfaction</p>
+        <p class="text-2xl font-bold text-purple-600">{{ analyticsData.avgSatisfaction }}</p>
+      </div>
+    </div>
+
+    <!-- Chart -->
+    <div class="chart-container" style="position: relative; height: 400px; width: 100%;">
+      <canvas baseChart
+  [type]="'radar'"
+  [datasets]="radarChartData.datasets"
+  [labels]="radarChartData.labels"
+  [legend]="true"
+  [options]="radarChartOptions">
+</canvas>
+    </div>
+  </ng-container>
+</div>
+<div class="bg-white shadow rounded-lg p-6 mb-8 hover:shadow-lg transition-all">
+  <div class="flex justify-between items-center mb-4">
+    <h2 class="text-xl font-semibold text-gray-800">Top Performing Events</h2>
+    <p class="text-sm text-gray-600">Events with highest ticket sales</p>
+  </div>
+  <br>
+  <!-- padding -->
+  <div class="overflow-x-auto pad1 ">
+    <table class="min-w-full divide-y divide-gray-200">
+      <thead class="bg-gray-50">
+        <tr>
+          <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Event Name</th>
+          <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tickets Sold</th>
+          <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Revenue</th>
+        </tr>
+      </thead>
+      <tbody class="bg-white divide-y divide-gray-200">
+        <tr *ngFor="let event of topEvents" class="hover:bg-gray-50">
+          <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+            {{ event.eventName }}
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+            {{ event.ticketsSold }}
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+            {{ event.totalRevenue | currency }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

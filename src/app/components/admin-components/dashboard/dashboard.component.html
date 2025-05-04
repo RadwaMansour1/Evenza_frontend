@@ -1,0 +1,232 @@
+<!-- src/app/modules/dashboard/dashboard.component.html -->
+<div class="p-6">
+  <!-- Header -->
+  <div class="mb-8">
+    <h1 class="text-3xl font-bold text-gray-800">Event Hive Dashboard</h1>
+    <p class="text-gray-600">Real-time overview of your event platform</p>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="isLoading" class="flex flex-col items-center justify-center h-64">
+    <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500 mb-4"></div>
+    <p class="text-gray-500">Loading dashboard data...</p>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="error && !isLoading" class="bg-red-50 border-l-4 border-red-500 p-4 mb-6 rounded">
+    <div class="flex">
+      <div class="flex-shrink-0">
+        <svg class="h-5 w-5 text-red-500" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+        </svg>
+      </div>
+      <div class="ml-3">
+        <h3 class="text-sm font-medium text-red-800">Failed to load data</h3>
+        <div class="mt-2 text-sm text-red-700">
+          <p>{{ error }}</p>
+        </div>
+        <button (click)="loadDashboardData()" class="mt-3 inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+          Retry
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dashboard Content -->
+  <div *ngIf="dashboardData && !isLoading" class="space-y-8">
+    <!-- Stats Cards Grid -->
+    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-5">
+      <!-- Total Sales -->
+      <div class="bg-white overflow-hidden shadow rounded-lg">
+        <div class="p-5">
+          <div class="flex items-center">
+            <div class="flex-shrink-0 bg-purple-100 rounded-md p-3">
+              <ng-icon name="heroTicket" class="h-6 w-6 text-purple-600"></ng-icon>
+            </div>
+            <div class="ml-5 w-0 flex-1">
+              <dl>
+                <dt class="text-sm font-medium text-gray-500 truncate">Total Sales</dt>
+                <dd class="flex items-baseline">
+                  <div class="text-2xl font-semibold text-gray-900">
+                    {{ (dashboardData?.stats?.totalSales ?? 0).toLocaleString() }}
+                  </div>
+                </dd>
+              </dl>
+            </div>
+          </div>
+        </div>
+        <div class="bg-gray-50 px-5 py-3">
+          <div class="text-sm">
+            <span class="font-medium text-green-600">+12%</span> from last month
+          </div>
+        </div>
+      </div>
+
+      <!-- Revenue -->
+      <div class="bg-white overflow-hidden shadow rounded-lg">
+        <div class="p-5">
+          <div class="flex items-center">
+            <div class="flex-shrink-0 bg-green-100 rounded-md p-3">
+              <ng-icon name="heroCurrencyDollar" class="h-6 w-6 text-green-600"></ng-icon>
+            </div>
+            <div class="ml-5 w-0 flex-1">
+              <dl>
+                <dt class="text-sm font-medium text-gray-500 truncate">Revenue</dt>
+                <dd class="flex items-baseline">
+                  <div class="text-2xl font-semibold text-gray-900">
+                    {{ formatCurrency(dashboardData?.stats?.totalRevenue ?? 0) }}
+                  </div>
+                </dd>
+              </dl>
+            </div>
+          </div>
+        </div>
+        <div class="bg-gray-50 px-5 py-3">
+          <div class="text-sm">
+            <span class="font-medium text-green-600">+8%</span> from last month
+          </div>
+        </div>
+      </div>
+
+      <!-- Active Events -->
+      <div class="bg-white overflow-hidden shadow rounded-lg">
+        <div class="p-5">
+          <div class="flex items-center">
+            <div class="flex-shrink-0 bg-blue-100 rounded-md p-3">
+              <ng-icon name="heroCalendar" class="h-6 w-6 text-blue-600"></ng-icon>
+            </div>
+            <div class="ml-5 w-0 flex-1">
+              <dl>
+                <dt class="text-sm font-medium text-gray-500 truncate">Active Events</dt>
+                <dd class="flex items-baseline">
+                  <div class="text-2xl font-semibold text-gray-900">
+                    {{ dashboardData?.stats?.totalEvents ?? 0 }}
+                  </div>
+                </dd>
+              </dl>
+            </div>
+          </div>
+        </div>
+        <div class="bg-gray-50 px-5 py-3">
+          <div class="text-sm">
+            <span class="font-medium text-green-600">+5%</span> from last month
+          </div>
+        </div>
+      </div>
+
+      <!-- Total Users -->
+      <div class="bg-white overflow-hidden shadow rounded-lg">
+        <div class="p-5">
+          <div class="flex items-center">
+            <div class="flex-shrink-0 bg-yellow-100 rounded-md p-3">
+              <ng-icon name="heroUsers" class="h-6 w-6 text-yellow-600"></ng-icon>
+            </div>
+            <div class="ml-5 w-0 flex-1">
+              <dl>
+                <dt class="text-sm font-medium text-gray-500 truncate">Total Users</dt>
+                <dd class="flex items-baseline">
+                  <div class="text-2xl font-semibold text-gray-900">
+                    {{ (dashboardData?.stats?.totalUsers ?? 0).toLocaleString() }}
+                  </div>
+                </dd>
+              </dl>
+            </div>
+          </div>
+        </div>
+        <div class="bg-gray-50 px-5 py-3">
+          <div class="text-sm">
+            <span class="font-medium text-green-600">+3%</span> from last month
+          </div>
+        </div>
+      </div>
+
+      <!-- Pending Approvals -->
+      <div class="bg-white overflow-hidden shadow rounded-lg">
+        <div class="p-5">
+          <div class="flex items-center">
+            <div class="flex-shrink-0 bg-red-100 rounded-md p-3">
+              <ng-icon name="heroClock" class="h-6 w-6 text-red-600"></ng-icon>
+            </div>
+            <div class="ml-5 w-0 flex-1">
+              <dl>
+                <dt class="text-sm font-medium text-gray-500 truncate">Pending Approvals</dt>
+                <dd class="flex items-baseline">
+                  <div class="text-2xl font-semibold text-gray-900">
+                    {{ dashboardData?.stats?.pendingApprovals ?? 0 }}
+                  </div>
+                </dd>
+              </dl>
+            </div>
+          </div>
+        </div>
+        <div class="bg-gray-50 px-5 py-3">
+          <div class="text-sm">
+            <a [routerLink]="['/events/pending']" class="font-medium text-blue-600 hover:text-blue-500">
+              Review now
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Revenue Overview Section -->
+    <div class="bg-white shadow rounded-lg overflow-hidden">
+      <div class="px-6 py-5 border-b border-gray-200">
+        <div class="flex items-center justify-between">
+          <h2 class="text-lg font-medium text-gray-900">Revenue Overview</h2>
+          <div class="flex">
+            <select class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
+              <option>Last 7 days</option>
+              <option>Last 30 days</option>
+              <option selected>Last 12 months</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="px-6 py-5">
+        <div class="grid grid-cols-2 gap-6 sm:grid-cols-4">
+          <div *ngFor="let amount of dashboardData?.revenue?.amounts ?? []; let i = index" class="bg-gray-50 p-4 rounded-lg">
+            <p class="text-sm font-medium text-gray-500 truncate">{{ dashboardData && dashboardData.revenue && dashboardData.revenue.labels ? dashboardData.revenue.labels[i] : '' }}</p>
+            <p class="mt-1 text-2xl font-semibold text-gray-900">{{ formatCurrency(amount ?? 0) }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Popular Events Section -->
+    <div class="bg-white shadow rounded-lg overflow-hidden">
+      <div class="px-6 py-5 border-b border-gray-200">
+        <h2 class="text-lg font-medium text-gray-900">Popular Events</h2>
+      </div>
+      <div class="divide-y divide-gray-200">
+        <div *ngFor="let event of dashboardData?.popularEvents ?? []; trackBy: trackByEventId" class="px-6 py-4 hover:bg-gray-50">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center">
+              <div class="flex-shrink-0 h-10 w-10 bg-blue-100 rounded-full flex items-center justify-center">
+                <ng-icon name="heroTicket" class="h-5 w-5 text-blue-600"></ng-icon>
+              </div>
+              <div class="ml-4">
+                <h3 class="text-sm font-medium text-gray-900">{{ event?.title }}</h3>
+                <p class="text-sm text-gray-500">{{ event?.category }}</p>
+              </div>
+            </div>
+            <div class="ml-4 flex-shrink-0 flex">
+              <div class="mr-6 text-right">
+                <p class="text-sm font-medium text-gray-900">{{ (event?.ticketsSold ?? 0).toLocaleString() }}</p>
+                <p class="text-sm text-gray-500">tickets sold</p>
+              </div>
+              <a [routerLink]="['/events', event.id]" class="inline-flex items-center px-3 py-1.5 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                View
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="px-6 py-4 border-t border-gray-200">
+        <a [routerLink]="['/events']" class="text-sm font-medium text-blue-600 hover:text-blue-500">
+          View all events
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

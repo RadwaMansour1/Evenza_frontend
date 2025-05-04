@@ -13,7 +13,7 @@ import { UserService } from '../../services/profile/user.service';
 import { CommonModule } from '@angular/common';
 import { CONSTANTS } from '../../constants';
 import { CustomAlertComponent } from '../shared/custom-alert/custom-alert.component';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule,  TranslateService } from '@ngx-translate/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { featherFacebook, featherGlobe, featherInstagram, featherLinkedin, featherTwitter, featherUpload } from '@ng-icons/feather-icons';
 
@@ -43,8 +43,10 @@ export class PersonalInformationComponent implements OnInit {
   // new edit
   @Input() user!: { id: string; name: string; email: string };
   editing = signal(false);
+  direction: 'rtl' | 'ltr' = 'ltr';
 
-  constructor(private fb: FormBuilder, private userService: UserService
+
+  constructor(private fb: FormBuilder, private userService: UserService,
   ) {
     console.log('user id', this.userId);
     const userDataString = localStorage.getItem(CONSTANTS.userData);
@@ -73,6 +75,7 @@ export class PersonalInformationComponent implements OnInit {
       website: [''],
 
     });
+
   }
 
   countries = [
