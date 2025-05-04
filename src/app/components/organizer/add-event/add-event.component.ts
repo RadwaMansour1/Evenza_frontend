@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
@@ -22,7 +22,6 @@ import { RouterLink } from '@angular/router';
     NgIcon,
     CustomAlertComponent,
     LocationPickerComponent,
-    RouterLink,
   ],
   templateUrl: './add-event.component.html',
   providers: [
@@ -63,7 +62,10 @@ export class AddEventComponent {
   alertMessage: string = '';
   alertType: any = 'success';
 
-  constructor(private organizerService: OrganizerService) {
+  constructor(
+    private organizerService: OrganizerService,
+    private location: Location
+  ) {
     console.log(sessionStorage.getItem(CONSTANTS.token));
     let token = sessionStorage.getItem(CONSTANTS.token);
     const payload = this.decodeToken(token!);
@@ -198,5 +200,8 @@ export class AddEventComponent {
       console.error('Error decoding token', error);
       return null;
     }
+  }
+  goBack(): void {
+    this.location.back();
   }
 }

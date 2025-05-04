@@ -132,15 +132,12 @@
             <li>
               {{ 'REFUND.NOTE_PROCESSING_TIME' | translate: { amount: total } }}
             </li>
-            <!-- Add translate pipe -->
             <li>{{ 'REFUND.NOTE_FEES' | translate }}</li>
-            <!-- Add translate pipe -->
             <li>
               {{ 'REFUND.NOTE_CONFIRMATION' | translate }}
             </li>
           </ul>
         </span>
-        <!-- Add translate pipe -->
         <button class="p-2 rounded-lg bg-purple-500 hover:bg-purple-700 text-white w-full lg:w-1/3 ms-auto cursor-pointer" (click)="submitRefund()">{{ 'REFUND.SUBMIT_BUTTON' | translate }}</button>
       </div>
 
@@ -161,9 +158,11 @@
             >
               <h1 class="font-semibold text-2xl text-fuchsia-600">1</h1>
             </div>
-            <h2 class="font-semibold text-lg">Confirmation</h2>
+            <!-- Apply translation pipe -->
+            <h2 class="font-semibold text-lg">{{ 'REFUND.EXPECT_CONFIRMATION_TITLE' | translate }}</h2>
+            <!-- Apply translation pipe -->
             <h4 class="font-semibold text-gray-500 text-center">
-              We'll send you an email confirmation your refund request
+              {{ 'REFUND.EXPECT_CONFIRMATION_DESC' | translate }}
             </h4>
           </span>
           <span
@@ -174,9 +173,11 @@
             >
               <h1 class="font-semibold text-2xl text-fuchsia-600">2</h1>
             </div>
-            <h2 class="font-semibold text-lg">Processing</h2>
+             <!-- Apply translation pipe -->
+            <h2 class="font-semibold text-lg">{{ 'REFUND.EXPECT_PROCESSING_TITLE' | translate }}</h2>
+             <!-- Apply translation pipe -->
             <h4 class="font-semibold text-gray-500 text-center">
-              Your refund will be processed within 5-7 business days
+              {{ 'REFUND.EXPECT_PROCESSING_DESC' | translate }}
             </h4>
           </span>
           <span
@@ -187,10 +188,11 @@
             >
               <h1 class="font-semibold text-2xl text-fuchsia-600">3</h1>
             </div>
-            <h2 class="font-semibold text-lg">Completion</h2>
+             <!-- Apply translation pipe -->
+            <h2 class="font-semibold text-lg">{{ 'REFUND.EXPECT_COMPLETION_TITLE' | translate }}</h2>
+             <!-- Apply translation pipe -->
             <h4 class="font-semibold text-gray-500 text-center">
-              You'll recieve a final email once funds are released to your
-              account
+              {{ 'REFUND.EXPECT_COMPLETION_DESC' | translate }}
             </h4>
           </span>
         </div>

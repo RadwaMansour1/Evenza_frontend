@@ -196,7 +196,29 @@
     "TOTAL_PRICE_LABEL": "السعر الإجمالي",
     "SERVICE_FEE_LABEL": "رسوم الخدمة (غير قابلة للاسترداد)",
     "REFUNDABLE_AMOUNT_LABEL": "المبلغ القابل للاسترداد",
-    "DEADLINE_LABEL": "الموعد النهائي للاسترداد"
+    "DEADLINE_LABEL": "الموعد النهائي للاسترداد",  
+    "ALREADY_SENT_TITLE": "تم إرسال طلب الاسترداد بالفعل",
+    "ALREADY_SENT_TEXT": "لقد قمت بالفعل بإرسال طلب استرداد لهذه الدفعة.",
+    "SELECT_REASON_TITLE": "اختر سبب الاسترداد",
+    "SELECT_REASON_TEXT": "يجب عليك اختيار سبب طلب الاسترداد.",
+    "REQUEST_SENT_TITLE": "تم إرسال طلب الاسترداد",
+    "REQUEST_SENT_TEXT": "تم إرسال طلب الاسترداد الخاص بك بنجاح.",
+    "REQUEST_ERROR_TITLE": "فشل الطلب",
+    "REQUEST_ERROR_TEXT": "حدث خطأ أثناء إرسال الطلب. يرجى المحاولة مرة أخرى.",
+    "MISSING_PARAM_TITLE": "معلومات ناقصة",
+    "MISSING_PARAM_TEXT": "المعلومات المطلوبة لطلب الاسترداد غير متوفرة.", 
+    "SELECT_METHOD_TITLE": "اختر طريقة الاسترداد",
+    "SELECT_METHOD_TEXT": "يجب عليك اختيار طريقة طلب الاسترداد.",
+    "EXPECT_CONFIRMATION_TITLE": "التأكيد",
+    "EXPECT_CONFIRMATION_DESC": "سنرسل لك بريدًا إلكترونيًا يؤكد طلب استرداد أموالك",
+    "EXPECT_PROCESSING_TITLE": "المعالجة",
+    "EXPECT_PROCESSING_DESC": "ستتم معالجة استرداد أموالك في غضون 5-7 أيام عمل",
+    "EXPECT_COMPLETION_TITLE": "الإتمام",
+    "EXPECT_COMPLETION_DESC": "ستتلقى بريدًا إلكترونيًا نهائيًا بمجرد تحرير الأموال إلى حسابك"
+  },
+  "COMMON": {
+    "ERROR_FETCHING_DATA_TITLE": "خطأ",
+    "ERROR_FETCHING_DATA_TEXT": "تعذر استرداد البيانات اللازمة. يرجى المحاولة مرة أخرى لاحقًا."
   },
 
   "MY_TICKETS": {

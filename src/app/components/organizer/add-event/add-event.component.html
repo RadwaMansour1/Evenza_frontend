@@ -6,10 +6,10 @@
   ></app-custom-alert>
 
   <a
-    routerLink="/organizer/dashboard"
+    (click)="goBack()"
     class="text-sm text-purple-600 font-medium inline-block mb-1"
   >
-    &larr; <span class="ms-1 hover:underline">Back</span>
+    &larr; <span class="ms-1 hover:underline cursor-pointer">Back</span>
   </a>
   <div
     class="max-w-3xl mx-auto p-6 md:p-8 bg-white rounded-lg shadow-md border border-gray-200 font-sans"
