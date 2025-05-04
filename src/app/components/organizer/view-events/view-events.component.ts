@@ -5,6 +5,7 @@ import { OrganizerService } from '../../../services/organizer/organizer.service'
 import { DateFormatPipe } from '../../../pipes/date-format.pipe';
 import { Event } from '../../../models/event.model';
 import { NgIcon, provideIcons, provideNgIconsConfig } from '@ng-icons/core';
+import { Location } from '@angular/common';
 import {
   heroMapPin,
   heroTicket,
@@ -16,18 +17,11 @@ import {
   heroArrowUturnLeft,
 } from '@ng-icons/heroicons/outline';
 import { TimeFormatPipe } from '../../../pipes/time-format.pipe';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-view-events',
-  imports: [
-    CommonModule,
-    FormsModule,
-    DateFormatPipe,
-    TimeFormatPipe,
-    NgIcon,
-    RouterLink,
-  ],
+  imports: [CommonModule, FormsModule, DateFormatPipe, TimeFormatPipe, NgIcon],
   templateUrl: './view-events.component.html',
   providers: [
     provideIcons({
@@ -62,6 +56,7 @@ export class ViewEventsComponent implements OnInit {
 
   constructor(
     private organizerService: OrganizerService,
+    private location: Location,
     private router: Router
   ) {}
   ngOnInit(): void {
@@ -110,24 +105,7 @@ export class ViewEventsComponent implements OnInit {
     this.router.navigate(['/organizer/add-event']);
   }
 
-  viewEvent(eventId: string): void {
-    console.log('Viewing event:', eventId);
-    // Implement routing or modal open
-  }
-
-  editEvent(eventId: string): void {
-    console.log('Editing event:', eventId);
-    // Navigate to edit form
-  }
-
-  deleteEvent(eventId: string): void {
-    const confirmDelete = confirm(
-      'Are you sure you want to delete this event?'
-    );
-    if (confirmDelete) {
-      // this.events = this.events.filter((event) => event._id !== eventId);
-      this.applyFilters();
-      console.log('Deleted event:', eventId);
-    }
+  goBack(): void {
+    this.location.back();
   }
 }
