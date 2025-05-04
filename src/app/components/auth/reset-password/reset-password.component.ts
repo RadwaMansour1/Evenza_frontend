@@ -14,7 +14,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 @Component({
   selector: 'app-reset-password',
-  imports: [CommonModule, FormsModule,ReactiveFormsModule,NgIcon,MatSlideToggleModule
+  imports: [CommonModule, FormsModule,ReactiveFormsModule,NgIcon,MatSlideToggleModule,TranslateModule
 ],
   templateUrl: './reset-password.component.html',
   styleUrl: './reset-password.component.css',
@@ -218,20 +218,20 @@ export class ResetPasswordComponent {
     });
 
    
-    if (this.securityForm.valid) {
-      const securitySettings = this.securityForm.value;
-      const token = localStorage.getItem(CONSTANTS.token) || sessionStorage.getItem(CONSTANTS.token);
-      const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    // if (this.securityForm.valid) {
+    //   const securitySettings = this.securityForm.value;
+    //   const token = localStorage.getItem(CONSTANTS.token) || sessionStorage.getItem(CONSTANTS.token);
+    //   const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
-      this.http.post('http://localhost:3000/users/security-settings', securitySettings, { headers }).subscribe({
-         next: () => {
-          this.successMessage = 'Security settings updated successfully.';
-        },        
-         error: (err) => {
-          this.errorMessage = err?.error?.message || 'Failed to update security settings';
-        }
-      });
+    //   this.http.post('http://localhost:3000/users/security-settings', securitySettings, { headers }).subscribe({
+    //      next: () => {
+    //       this.successMessage = 'Security settings updated successfully.';
+    //     },        
+    //      error: (err) => {
+    //       this.errorMessage = err?.error?.message || 'Failed to update security settings';
+    //     }
+    //   });
         
-    }
+    // }
   }
 }
