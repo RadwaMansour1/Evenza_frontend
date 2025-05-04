@@ -1,20 +1,41 @@
 <!-- <div class="bg-white min-h-screen flex flex-col justify-between"> -->
+<!-- <app-nav-bar></app-nav-bar> -->
+
 <!-- <main class="flex-grow">
   </main>
   <app-footer></app-footer> -->
 <!-- </div> -->
 <!-- <app-home></app-home> -->
 <!-- <app-event-details></app-event-details> -->
+<!-- <router-outlet></router-outlet> -->
+<!-- <app-dashboard></app-dashboard> -->
+<!-- <app-payment></app-payment> -->
+<!-- <app-refund></app-refund> -->
+<!-- <app-footer></app-footer> -->
+
+<!-- <div class="flex">
+  <app-sidebar></app-sidebar>
+  <div class="flex-1 min-h-screen bg-gray-100">
+    <app-header></app-header>
+    <div class="p-4">
+      <app-dashboard></app-dashboard>
+    </div>
+  </div>
+</div> -->
+
+<!-- <app-event-details></app-event-details> -->
 <!-- <app-payment></app-payment> -->
 <!-- <app-refund></app-refund> -->
 <app-snackbar></app-snackbar>
 <div class="home-wrapper" [class.blurred]="isChatbotOpenClass">
-@if(!isOrganizer){
-<app-nav-bar></app-nav-bar>
-}
-<router-outlet></router-outlet>
-@if(!isOrganizer){
-<app-footer></app-footer>
-}
+  @if (isAdmin) {
+  <app-admin-layout></app-admin-layout>
+  }@else { @if(!isOrganizer){
+  <app-nav-bar></app-nav-bar>
+  }
+  <router-outlet></router-outlet>
+  @if(!isOrganizer){
+  <app-footer></app-footer>
+  }}
 </div>
 <app-chatbot (openChange)="onChatbotOpenChange($event)"></app-chatbot>

@@ -1,0 +1,176 @@
+<div class="p-6 bg-purple-50 min-h-screen">
+  <h1 class="text-4xl font-bold text-gray-800 mb-6">Edit Event</h1>
+
+  <!-- Loading State -->
+  <div *ngIf="isLoading" class="flex justify-center items-center h-64">
+    <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-purple-500"></div>
+  </div>
+
+  <!-- Edit Form -->
+  <div *ngIf="!isLoading && event" class="bg-white shadow-lg rounded-lg p-6">
+    <form (ngSubmit)="saveEvent()">
+      <!-- Title -->
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-700">Title</label>
+        <input 
+          type="text" 
+          [(ngModel)]="event.title" 
+          name="title" 
+          class="w-full p-2 border border-gray-300 rounded-lg"
+        />
+      </div>
+
+      <!-- Description -->
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-700">Description</label>
+        <textarea 
+          [(ngModel)]="event.description" 
+          name="description" 
+          class="w-full p-2 border border-gray-300 rounded-lg"
+        ></textarea>
+      </div>
+
+      <!-- Category -->
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-700">Category</label>
+        <input 
+          type="text" 
+          [(ngModel)]="event.category" 
+          name="category" 
+          class="w-full p-2 border border-gray-300 rounded-lg"
+        />
+      </div>
+
+      <!-- Date -->
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-700">Date</label>
+        <input 
+          type="date" 
+          [(ngModel)]="event.date" 
+          name="date" 
+          class="w-full p-2 border border-gray-300 rounded-lg"
+        />
+      </div>
+
+      <!-- Time -->
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-700">Time</label>
+        <input 
+          type="time" 
+          [(ngModel)]="event.time" 
+          name="time" 
+          class="w-full p-2 border border-gray-300 rounded-lg"
+        />
+      </div>
+
+      <!-- Location -->
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-700">Location</label>
+        <input 
+          type="text" 
+          [(ngModel)]="event.location.address" 
+          name="address" 
+          placeholder="Address"
+          class="w-full p-2 border border-gray-300 rounded-lg"
+        />
+        <input 
+          type="text" 
+          [(ngModel)]="event.location.city" 
+          name="city" 
+          placeholder="City"
+          class="w-full p-2 border border-gray-300 rounded-lg mt-2"
+        />
+      </div>
+
+      <!-- Image URL -->
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-700">Image URL</label>
+        <input 
+          type="text" 
+          [(ngModel)]="event.imageUrl" 
+          name="imageUrl" 
+          class="w-full p-2 border border-gray-300 rounded-lg"
+        />
+      </div>
+
+      <!-- Is Free -->
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-700">Is Free</label>
+        <input 
+          type="checkbox" 
+          [(ngModel)]="event.isFree" 
+          name="isFree" 
+          class="mr-2"
+        />
+        <span>Free Event</span>
+      </div>
+
+      <!-- Event Highlights -->
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-700">Event Highlights</label>
+        <textarea 
+          [(ngModel)]="event.eventHighlights" 
+          name="eventHighlights" 
+          class="w-full p-2 border border-gray-300 rounded-lg"
+        ></textarea>
+      </div>
+
+      <!-- Is Approved -->
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-700">Is Approved</label>
+        <input 
+          type="checkbox" 
+          [(ngModel)]="event.isApproved" 
+          name="isApproved" 
+          class="mr-2"
+        />
+        <span>Approved</span>
+      </div>
+
+      <!-- Tickets Available -->
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-700">Tickets Available</label>
+        <div *ngFor="let ticket of event.ticketsAvailable; let i = index" class="mb-2">
+          <input 
+            type="text" 
+            [(ngModel)]="event.ticketsAvailable[i].level" 
+            name="ticketLevel{{i}}" 
+            placeholder="Level"
+            class="w-full p-2 border border-gray-300 rounded-lg mb-1"
+          />
+          <input 
+            type="number" 
+            [(ngModel)]="event.ticketsAvailable[i].price" 
+            name="ticketPrice{{i}}" 
+            placeholder="Price"
+            class="w-full p-2 border border-gray-300 rounded-lg mb-1"
+          />
+          <input 
+            type="number" 
+            [(ngModel)]="event.ticketsAvailable[i].quantity" 
+            name="ticketQuantity{{i}}" 
+            placeholder="Quantity"
+            class="w-full p-2 border border-gray-300 rounded-lg"
+          />
+        </div>
+      </div>
+
+      <!-- Buttons -->
+      <div class="flex justify-end space-x-2">
+        <button 
+          type="button" 
+          (click)="router.navigate(['/events'])" 
+          class="px-4 py-2 bg-gray-300 text-gray-700 rounded-lg"
+        >
+          Cancel
+        </button>
+        <button 
+          type="submit" 
+          class="px-4 py-2 bg-purple-600 text-white rounded-lg"
+        >
+          Save
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
