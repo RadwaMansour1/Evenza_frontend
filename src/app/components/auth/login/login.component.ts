@@ -14,6 +14,8 @@ import { AuthService } from '../../../services/auth/auth.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { LanguageService } from '../../../services/language/language.service';
 import { CONSTANTS } from '../../../constants';
+import { NgxSpinnerService, NgxSpinnerModule } from 'ngx-spinner';
+
 
 @Component({
   selector: 'app-login',
@@ -23,6 +25,7 @@ import { CONSTANTS } from '../../../constants';
     CommonModule,
     NgIconsModule,
     TranslateModule,
+    NgxSpinnerModule
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
@@ -34,11 +37,14 @@ export class LoginComponent implements OnInit {
   signInForm: FormGroup;
   currentLang: 'en' | 'ar' = 'en';
   textArray = 'Evenza'.split('');
+  isLoading: boolean = false;
+
 
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private languageService: LanguageService
+    private languageService: LanguageService,
+    private spinner: NgxSpinnerService
   ) {
     this.currentLang = this.languageService.getCurrentLanguage();
     this.signInForm = this.fb.group({
@@ -258,11 +264,15 @@ export class LoginComponent implements OnInit {
         email: this.signInForm.value.email,
         password: this.signInForm.value.password,
       };
+      this.spinner.show(); 
+      this.isLoading = true; 
 
       this.authService.login(loginData).subscribe(
         (response) => {
           console.log('Login response:', response);
           const token = response.data?.access_token;
+          this.isLoading = false;
+          this.spinner.hide();
 
           if (token) {
             if (this.signInForm.value.rememberMe) {
@@ -289,6 +299,9 @@ export class LoginComponent implements OnInit {
           }
         },
         (error) => {
+          this.isLoading = false;
+          this.spinner.hide();
+          
           if (error.status === 401) {
             this.errorMessage = 'The Email or password is incorrect.';
           } else {

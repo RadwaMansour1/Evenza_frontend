@@ -555,9 +555,41 @@
             <div class="mt-6 flex items-center justify-start gap-x-6" *ngIf="editing()">
               <button
                 type="submit"
-                class="rounded-md px-6 py-2 text-md font-semibold text-white shadow-xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 bg-[#9b87f5] hover:bg-[#7E69AB]"
+                [disabled]="isLoading"
+                class="rounded-md px-6 py-2 text-md font-semibold text-white shadow-xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 bg-[#9b87f5] hover:bg-[#7E69AB] flex items-center justify-center gap-2"
               >
-                {{'auth.accountInfo.update'|translate}}
+
+            <svg
+              *ngIf="isLoading"
+              class="animate-spin h-5 w-5 text-white"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <circle
+                class="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                stroke-width="4"
+              ></circle>
+              <path
+                class="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+              ></path>
+            </svg>
+
+            <span>
+              {{
+                isLoading
+                  ? ('auth.accountInfo.updating' | translate)
+                  : ('auth.accountInfo.update' | translate)
+              }}
+            </span>
+
+                <!-- {{'auth.accountInfo.update'|translate}} -->
               </button>
             </div>
           </div>
@@ -677,6 +709,16 @@
           </div>
         </div>
     </div>
+
+
+<ngx-spinner
+      bdColor="rgba(0, 0, 0, 0.5)"
+      size="medium"
+      color="#fff"
+      type="ball-scale-multiple"
+      [fullScreen]="true">
+</ngx-spinner>
+
 <!-- 
   border-input = border-gray-300;
   bg-background = bg-white;

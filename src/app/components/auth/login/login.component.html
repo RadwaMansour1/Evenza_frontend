@@ -95,8 +95,42 @@
           </div>
           
           <div class="!mt-12">
-            <button type="submit" class="shadow-xl py-2.5 px-4 text-sm font-semibold rounded  focus:outline-none w-full bg-[#9b87f5] hover:bg-[#7E69AB] text-white">
-              {{"auth.signIn.loginButton"| translate}}
+            <button 
+            type="submit" 
+            [disabled]="isLoading"
+            class="shadow-xl py-2.5 px-4 text-sm font-semibold rounded  focus:outline-none w-full bg-[#9b87f5] hover:bg-[#7E69AB] text-white  flex items-center justify-center gap-2">
+              
+            <svg
+              *ngIf="isLoading"
+              class="animate-spin h-5 w-5 text-white"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <circle
+                class="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                stroke-width="4"
+              ></circle>
+              <path
+                class="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+              ></path>
+            </svg>
+            
+            <span>
+              {{
+                isLoading
+                  ? ('auth.signIn.loadingText' | translate)
+                  : ('auth.signIn.loginButton' | translate)
+              }}
+            </span>
+            
+            <!-- {{"auth.signIn.loginButton"| translate}} -->
             </button>
           </div>
           
@@ -130,3 +164,11 @@
         </form>
       <!-- </div> -->
 </div>
+
+<ngx-spinner
+bdColor="rgba(0, 0, 0, 0.5)"
+size="medium"
+color="#fff"
+type="ball-scale-multiple"
+[fullScreen]="true">
+</ngx-spinner>

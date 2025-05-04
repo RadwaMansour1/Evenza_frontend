@@ -16,6 +16,7 @@ import { CustomAlertComponent } from '../shared/custom-alert/custom-alert.compon
 import { TranslateModule,  TranslateService } from '@ngx-translate/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { featherFacebook, featherGlobe, featherInstagram, featherLinkedin, featherTwitter, featherUpload } from '@ng-icons/feather-icons';
+import { NgxSpinnerService, NgxSpinnerModule } from 'ngx-spinner';
 
 @Component({
   selector: 'app-personal-information',
@@ -26,6 +27,7 @@ import { featherFacebook, featherGlobe, featherInstagram, featherLinkedin, feath
     CustomAlertComponent,
     TranslateModule,
     NgIcon,
+    NgxSpinnerModule
   ],
   templateUrl: './personal-information.component.html',
   styleUrl: './personal-information.component.css',
@@ -44,9 +46,13 @@ export class PersonalInformationComponent implements OnInit {
   @Input() user!: { id: string; name: string; email: string };
   editing = signal(false);
   direction: 'rtl' | 'ltr' = 'ltr';
+  isLoading: boolean = false;
 
 
-  constructor(private fb: FormBuilder, private userService: UserService,
+
+
+  constructor(private fb: FormBuilder, private userService: UserService, private spinner: NgxSpinnerService
+
   ) {
     console.log('user id', this.userId);
     const userDataString = localStorage.getItem(CONSTANTS.userData);
@@ -178,6 +184,8 @@ export class PersonalInformationComponent implements OnInit {
 
   onSubmit() {
     if (this.profileForm.valid) {
+      this.spinner.show(); 
+      this.isLoading = true; 
       const formData = new FormData();
       Object.entries(this.profileForm.value).forEach(([key, value]) => {
         if (key === 'photo') {
@@ -201,11 +209,15 @@ export class PersonalInformationComponent implements OnInit {
           this.alertType = 'success';
           this.showAlert = true;
           this.editing.set(false);
+          this.spinner.show(); 
+          this.isLoading = true; 
         },
         error: (error) => {
           this.alertMessage = 'Ops,there is a problem ,please try again later!';
           this.alertType = 'error';
           this.showAlert = true;
+          this.isLoading = false;
+          this.spinner.hide();
         },
       });
     } else {
