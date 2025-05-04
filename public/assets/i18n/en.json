@@ -197,7 +197,29 @@
     "TOTAL_PRICE_LABEL": "Total Price",
     "SERVICE_FEE_LABEL": "Service Fee (non-refundable)",
     "REFUNDABLE_AMOUNT_LABEL": "Refundable Amount",
-    "DEADLINE_LABEL": "Refund deadline"
+    "DEADLINE_LABEL": "Refund deadline",
+    "ALREADY_SENT_TITLE": "Refund Request Already Sent",
+    "ALREADY_SENT_TEXT": "You already sent a refund request for this payment.",
+    "SELECT_REASON_TITLE": "Select Reason for Refund",
+    "SELECT_REASON_TEXT": "You should select the reason for the refund request.",
+    "REQUEST_SENT_TITLE": "Refund Request Sent",
+    "REQUEST_SENT_TEXT": "Your refund request has been sent successfully.",
+    "REQUEST_ERROR_TITLE": "Request Failed",
+    "REQUEST_ERROR_TEXT": "An error occurred while sending the request. Please try again.",
+    "MISSING_PARAM_TITLE": "Missing Information",
+    "MISSING_PARAM_TEXT": "Required information for the refund request is missing.",
+    "SELECT_METHOD_TITLE": "Select Refund Method",
+    "SELECT_METHOD_TEXT": "You should select the method for the refund request.",
+    "EXPECT_CONFIRMATION_TITLE": "Confirmation",
+    "EXPECT_CONFIRMATION_DESC": "We'll send you an email confirming your refund request",
+    "EXPECT_PROCESSING_TITLE": "Processing",
+    "EXPECT_PROCESSING_DESC": "Your refund will be processed within 5-7 business days",
+    "EXPECT_COMPLETION_TITLE": "Completion",
+    "EXPECT_COMPLETION_DESC": "You'll receive a final email once funds are released to your account"
+  },
+  "COMMON": {
+    "ERROR_FETCHING_DATA_TITLE": "Error",
+    "ERROR_FETCHING_DATA_TEXT": "Could not retrieve necessary data. Please try again later."
   },
 
   "MY_TICKETS": {
