@@ -591,6 +591,7 @@
     "getDirections": "Get Directions",
     "free": "This event is free!",
     "freeDesc": "Get your ticket now and join us for an amazing experience!",
+    "alreadyGetTicket":"🎉 Wow! You already got your free ticket",
     "getTicket": "Get Ticket Now",
     "share": "Share This Event"
   },
