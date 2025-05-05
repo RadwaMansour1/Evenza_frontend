@@ -132,7 +132,7 @@
             <li>
               {{ 'REFUND.NOTE_PROCESSING_TIME' | translate: { amount: total } }}
             </li>
-            <li>{{ 'REFUND.NOTE_FEES' | translate }}</li>
+            <li>{{ 'REFUND.NOTE_FEES' | translate : {serviceFee} }}</li>
             <li>
               {{ 'REFUND.NOTE_CONFIRMATION' | translate }}
             </li>
@@ -252,7 +252,7 @@
       <span class="flex justify-between">
         <!-- Add translate pipe -->
         <h3 class="font-semibold text-md">{{ 'REFUND.TICKET_PRICE_LABEL' | translate }}</h3>
-        <h3 class="font-medium text-gray-600 text-lg">${{ ticketDetails?.price }}</h3>
+        <h3 class="font-medium text-gray-600 text-lg">{{ ticketDetails?.price }} EGP</h3>
       </span>
       <span class="flex justify-between">
         <!-- Add translate pipe -->
@@ -262,20 +262,20 @@
       <span class="flex justify-between">
         <!-- Add translate pipe -->
         <h3 class="font-semibold text-md">{{ 'REFUND.TOTAL_PRICE_LABEL' | translate }}</h3>
-        <h3 class="font-medium text-gray-600 text-lg">${{ total }}</h3>
+        <h3 class="font-medium text-gray-600 text-lg">{{ total }} EGP</h3>
       </span>
       <span class="flex justify-between">
         <!-- Add translate pipe -->
         <h3 class="font-semibold text-gray-400 text-md">
           {{ 'REFUND.SERVICE_FEE_LABEL' | translate }}
         </h3>
-        <h3 class="font-medium text-gray-400 text-lg">$12.50</h3> <!-- Assuming fee is fixed -->
+        <h3 class="font-medium text-gray-400 text-lg">{{serviceFee}} EGP</h3> <!-- Assuming fee is fixed -->
       </span>
       <hr class="text-gray-300" />
       <span class="flex justify-between">
         <!-- Add translate pipe -->
         <h3 class="font-semibold text-xl">{{ 'REFUND.REFUNDABLE_AMOUNT_LABEL' | translate }}</h3>
-        <h3 class="font-semibold text-purple-500 text-lg">${{ ticketDetails?.price }}</h3>
+        <h3 class="font-semibold text-purple-500 text-lg">{{ ticketDetails?.price }} EGP</h3>
       </span>
       <span class="flex gap-2 items-center font-semibold text-gray-600">
         <ng-icon name="heroCalendar" />
