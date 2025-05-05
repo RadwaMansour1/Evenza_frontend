@@ -1,10 +1,4 @@
 <section class="min-h-screen pt-6 pb-12 px-10 bg-gray-50">
-  <app-custom-alert
-    *ngIf="showAlert"
-    [message]="alertMessage"
-    [type]="alertType"
-  ></app-custom-alert>
-
   <a
     (click)="goBack()"
     class="text-sm text-purple-600 font-medium inline-block mb-1"
@@ -216,6 +210,27 @@
           </label>
         </div>
 
+        <div *ngIf="isFreeEvent" class="space-y-4">
+          <div class="flex justify-between gap-4 items-center">
+            <label
+              for="freeTickets"
+              class="text-sm font-medium text-gray-600 mb-1 whitespace-nowrap italic"
+            >
+              Number of Free Tickets
+            </label>
+            <input
+              id="freeTickets"
+              name="freeTickets"
+              type="number"
+              [(ngModel)]="freeTicketCount"
+              min="0"
+              step="1"
+              placeholder="Enter number of free tickets"
+              class="w-full p-2 rounded-md placeholder:text-gray-500 bg-white border-2 border-gray-200 focus:border-purple-500 focus:outline-none focus:ring-0 hover:border-purple-500 sm:text-sm"
+            />
+          </div>
+        </div>
+
         <div *ngIf="!isFreeEvent" class="space-y-4">
           <p class="text-sm text-gray-600">
             Define ticket types, prices, and quantities:
@@ -272,9 +287,6 @@
             </div>
           </div>
         </div>
-        <div *ngIf="isFreeEvent" class="text-center py-4 text-gray-500 italic">
-          No tickets needed for free events.
-        </div>
       </fieldset>
 
       <div class="mb-6">
@@ -328,4 +340,12 @@
       </div>
     </form>
   </div>
+  <ngx-spinner
+    bdColor="rgba(0, 0, 0, 0.5)"
+    size="medium"
+    color="#fff"
+    type="ball-scale-multiple"
+    [fullScreen]="true"
+  >
+  </ngx-spinner>
 </section>

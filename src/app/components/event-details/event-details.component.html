@@ -4,13 +4,6 @@
     class="animate-spin rounded-full h-16 w-16 border-t-4 border-purple-600"
   ></div>
 </div>
-
-<!-- Event Details Section -->
-<app-custom-alert
-  *ngIf="showAlert"
-  [message]="alertMessage"
-  [type]="alertType"
-></app-custom-alert>
 <section
   class="relative h-[60vh] md:h-[70vh] bg-cover bg-center text-white mt-16"
   [style.backgroundImage]="'url(' + event.imageUrl + ')'"
