@@ -43,7 +43,7 @@
         </div>
         <!-- <div class="text-center py-16">Loading events...</div> -->
         } @if ( showPagination() ) {
-        <div class="flex justify-center mt-10 space-x-2">
+        <div class="flex justify-center mt-10 space-x-2 rtl:space-x-reverse">
           <button
             (click)="onPageChange(currentPage - 1)"
             [disabled]="currentPage === 1"
