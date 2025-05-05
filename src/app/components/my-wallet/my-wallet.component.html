@@ -42,7 +42,7 @@
                   class="px-2 py-1 text-sm rounded-full"
                   [ngClass]="tx.type === 'refund' ? 'bg-emerald-500 text-white' : 'bg-pink-500 text-white'">
                   <!-- Note: Amount formatting is dynamic -->
-                  {{ tx.type === 'refund' ? '+' : '-' }}${{ formatAmount(tx.amount) }}
+                  {{ tx.type === 'refund' ? '+' : '-' }}{{ formatAmount(tx.amount) }} EGP
                 </span>
               </div>
             </div>
