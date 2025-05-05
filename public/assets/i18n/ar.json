@@ -153,7 +153,7 @@
     "PAYPAL_INSTRUCTION": "اختر PayPal أو البطاقة أدناه لإتمام عملية الدفع",
     "STRIPE_INSTRUCTION": "سيتم إعادة توجيهك إلى صفحة الدفع لإدخال تفاصيل بطاقتك وإتمام الدفع",
     "CONTINUE_BUTTON": "متابعة",
-    "WALLET_BALANCE": "رصيد محفظة إيفنزا الخاص بك: ${{balance}}",
+    "WALLET_BALANCE": "رصيد محفظة إيفنزا الخاص بك: {{balance}} EGP",
     "PAY_WALLET_BUTTON": "الدفع من المحفظة",
     "SECURE_NOTE": "جميع المعاملات آمنة ومشفرة",
     "AGREEMENT_TEXT": "بإتمام عملية الشراء هذه، فإنك توافق على",
@@ -177,8 +177,8 @@
     "METHOD_WALLET": "محفظة إيفينزا",
     "METHOD_WALLET_DESC": "سيتم إضافة الاسترداد إلى حساب إيفينزا الخاص بك للمشتريات المستقبلية",
     "NOTES_HEADING": "ملاحظات الاسترداد:",
-    "NOTE_PROCESSING_TIME": "سيتم معالجة استردادك بمبلغ ${{amount}} خلال 5-7 أيام عمل",
-    "NOTE_FEES": "رسوم الخدمة البالغة 12.50 دولار غير قابلة للاسترداد",
+    "NOTE_PROCESSING_TIME": "سيتم معالجة استردادك بمبلغ {{amount}} EGP خلال 5-7 أيام عمل",
+    "NOTE_FEES": "رسوم الخدمة البالغة {{serviceFee}} EGP  غير قابلة للاسترداد",
     "NOTE_CONFIRMATION": "ستتلقى رسالة تأكيد عبر البريد الإلكتروني بمجرد معالجة استردادك",
     "SUBMIT_BUTTON": "إرسال الطلب",
     "EXPECT_NEXT_HEADING": "ماذا تتوقع بعد ذلك",
@@ -233,13 +233,14 @@
     "VIEW_DETAILS_BUTTON": "عرض تفاصيل الفعالية",
     "REQUEST_REFUND_BUTTON": "طلب استرداد"
   },
-  "MY_WALLET": {
+ "MY_WALLET": {
     "PAGE_TITLE": "محفظتي",
     "AVAILABLE_BALANCE_LABEL": "الرصيد المتاح",
     "LAST_TRANSACTION_LABEL": "آخر معاملة",
     "RECENT_TRANSACTIONS_HEADING": "المعاملات الأخيرة",
     "TX_TYPE_REFUND": "استرداد",
     "TX_TYPE_PURCHASE": "شراء",
+    "TX_TYPE_BOOKING": "حجز", 
     "NO_TRANSACTIONS_HEADING": "لا توجد معاملات بعد",
     "NO_TRANSACTIONS_DESC": "سيظهر سجل معاملاتك هنا"
   },

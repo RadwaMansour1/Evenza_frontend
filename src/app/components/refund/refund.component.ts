@@ -47,6 +47,7 @@ export class RefundComponent implements OnInit{
   refundDeadline: Date | null = null; 
   total:number|null = null;
   userId:string | null = null;
+  serviceFee:number = 0;
   private paymentId:string|null = null;
   private transactionId:string|null = null;
   private isrefunded:boolean =false;
@@ -59,7 +60,7 @@ export class RefundComponent implements OnInit{
     private readonly userService:UserService,
     private readonly paymentService:PaymentService,
     private readonly refundRequestService:RefundsRequestsService,
-    private readonly translate:TranslateService
+    private translate: TranslateService // Inject TranslateService
   ){}
 
   ngOnInit(): void {
@@ -73,7 +74,8 @@ export class RefundComponent implements OnInit{
 
 
           if(this.ticketDetails){
-            this.total = this.ticketDetails?.price * this.ticketDetails?.quantity
+            this.total = this.ticketDetails?.price * this.ticketDetails?.quantity;
+            this.serviceFee = this.total * 0.05;
           }
 
           if (this.ticketDetails?.date) {
