@@ -83,7 +83,7 @@
                 <!-- Add translate pipe -->
                 <div class="text-gray-500">{{ 'MY_TICKETS.PRICE_LABEL' | translate }}</div>
                 <div class="font-bold text-gray-900">
-                  ${{ ticket.price.toFixed(2) }}
+                  {{ ticket.price.toFixed(2) }} EGP
                 </div>
               </div>
               <div class="flex flex-col justify-center items-center">
@@ -97,7 +97,7 @@
                 <!-- Add translate pipe -->
                 <div class="text-gray-500">{{ 'MY_TICKETS.TOTAL_LABEL' | translate }}</div>
                 <div class="font-bold text-gray-900">
-                  ${{ (ticket.price * ticket.quantity).toFixed(2) }}
+                  {{ (ticket.price * ticket.quantity).toFixed(2) }} EGP
                 </div>
               </div>
             </div>
