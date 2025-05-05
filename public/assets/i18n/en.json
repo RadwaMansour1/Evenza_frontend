@@ -154,7 +154,7 @@
     "PAYPAL_INSTRUCTION": "Select PayPal or Card below to complete your payment",
     "STRIPE_INSTRUCTION": "You Will be redirected to payment page to enter your card details and complete payment",
     "CONTINUE_BUTTON": "Continue",
-    "WALLET_BALANCE": "Your Enveza Wallet Balance: ${{balance}}",
+    "WALLET_BALANCE": "Your Enveza Wallet Balance: {{balance}} EGP",
     "PAY_WALLET_BUTTON": "Pay from wallet",
     "SECURE_NOTE": "All transactions are secure and encrypted",
     "AGREEMENT_TEXT": "By completing this purchase, you agree to our",
@@ -178,8 +178,8 @@
     "METHOD_WALLET": "Eventure Wallet",
     "METHOD_WALLET_DESC": "Refund will be credited to your Eventure Account for future purchases",
     "NOTES_HEADING": "Refund Notes:",
-    "NOTE_PROCESSING_TIME": "Your refund of ${{amount}} will be processed within 5-7 business days",
-    "NOTE_FEES": "Service fees of $12.50 are non-refundable",
+    "NOTE_PROCESSING_TIME": "Your refund of {{amount}} EGP will be processed within 5-7 business days",
+    "NOTE_FEES": "Service fees of {{serviceFee}} EGP are non-refundable",
     "NOTE_CONFIRMATION": "You will receive an email confirmation once your refund is processed",
     "SUBMIT_BUTTON": "Submit Request",
     "EXPECT_NEXT_HEADING": "What to Expect Next",
@@ -197,7 +197,29 @@
     "TOTAL_PRICE_LABEL": "Total Price",
     "SERVICE_FEE_LABEL": "Service Fee (non-refundable)",
     "REFUNDABLE_AMOUNT_LABEL": "Refundable Amount",
-    "DEADLINE_LABEL": "Refund deadline"
+    "DEADLINE_LABEL": "Refund deadline",
+    "ALREADY_SENT_TITLE": "Refund Request Already Sent",
+    "ALREADY_SENT_TEXT": "You already sent a refund request for this payment.",
+    "SELECT_REASON_TITLE": "Select Reason for Refund",
+    "SELECT_REASON_TEXT": "You should select the reason for the refund request.",
+    "REQUEST_SENT_TITLE": "Refund Request Sent",
+    "REQUEST_SENT_TEXT": "Your refund request has been sent successfully.",
+    "REQUEST_ERROR_TITLE": "Request Failed",
+    "REQUEST_ERROR_TEXT": "An error occurred while sending the request. Please try again.",
+    "MISSING_PARAM_TITLE": "Missing Information",
+    "MISSING_PARAM_TEXT": "Required information for the refund request is missing.",
+    "SELECT_METHOD_TITLE": "Select Refund Method",
+    "SELECT_METHOD_TEXT": "You should select the method for the refund request.",
+    "EXPECT_CONFIRMATION_TITLE": "Confirmation",
+    "EXPECT_CONFIRMATION_DESC": "We'll send you an email confirming your refund request",
+    "EXPECT_PROCESSING_TITLE": "Processing",
+    "EXPECT_PROCESSING_DESC": "Your refund will be processed within 5-7 business days",
+    "EXPECT_COMPLETION_TITLE": "Completion",
+    "EXPECT_COMPLETION_DESC": "You'll receive a final email once funds are released to your account"
+  },
+  "COMMON": {
+    "ERROR_FETCHING_DATA_TITLE": "Error",
+    "ERROR_FETCHING_DATA_TEXT": "Could not retrieve necessary data. Please try again later."
   },
 
   "MY_TICKETS": {
@@ -220,6 +242,7 @@
     "RECENT_TRANSACTIONS_HEADING": "Recent Transactions",
     "TX_TYPE_REFUND": "Refund",
     "TX_TYPE_PURCHASE": "Purchase",
+    "TX_TYPE_BOOKING": "Booking", 
     "NO_TRANSACTIONS_HEADING": "No Transactions Yet",
     "NO_TRANSACTIONS_DESC": "Your transaction history will appear here"
   },
@@ -252,7 +275,9 @@
       "signupLink": "Create account",
       "termsAgree": "By signing in, you agree to the",
       "terms": "Terms & Conditions",
-      "errorMessage": "An error occurred while signing in. Please try again."
+      "errorMessage": "An error occurred while signing in. Please try again.",
+      "loadingText": "Signing in..."
+
     },
     "forgotPassword": {
       "title": "Forgot Password",
@@ -260,6 +285,7 @@
       "emailLabel": "Email",
       "emailPlaceholder": "name@example.com",
       "submitButton": "Send Reset Link",
+      "submitting": "Sending...",
       "confirmationTitle": "Check Your Email",
       "confirmationMessage": "We've sent a password reset link to {{ email }}",
       "backToForm": "Back to form",
@@ -333,7 +359,15 @@
       "agreeWithTerms": "I agree to the",
       "readTerms": "Terms and Conditions",
       "readTermsError": "Read Our Terms & Conditions",
-      "submitButton": "Sign Up"
+
+      "enterName": "Enter name",
+      "enterLastName": "Enter last name",
+      "enterEmail": "Enter email",
+      "enterPassword": "Enter password",
+
+      "submitButton": "Sign Up",
+      "processingText": "Processing..."
+
     },
     "emailVerification": {
       "title": "Email Verification",
@@ -344,8 +378,8 @@
       "resend": "Resend"
     },
     "accountInfo": {
-      "title": "Account Information",
-      "description": "Update your personal and contact information.",
+      "title": "My Profile",
+      "description": "Manage your account settings and preferences",
       "profilePhoto": "Profile Photo",
       "choosePhoto": "Change Photo",
       "firstName": "First Name",
@@ -387,8 +421,72 @@
       "damietta": "Damietta",
       "state": "State / Province",
       "postalCode": "Postal Code",
-      "update": "Save Changes"
+      "update": "Save Changes",
+      "tabs": {
+        "accountInformation": "Account Information",
+        "securitySettings": "Security Settings",
+        "logout": "Logout"
+      },
+      "edit": "Edit Profile",
+      "cancelEdit":"Cancel Editing",
+      "contactInformation": "Contact Information",
+      "notProvided": "Not provided yet",
+      "socialMedia": "Social Media",
+      "socialMediaProfiles": "Social Media Profiles",
+      "facebook": "Facebook",
+      "instagram": "Instagram",
+      "twitter": "Twitter",
+      "linkedin": "LinkedIn",
+      "website": "Website",
+      "addressInformation": "Address Information",
+      "updating": "Updating..."
+
+    },
+    "security": {
+      "title": "Security Settings",
+      "changePassword": {
+        "title": "Change Password",
+        "description": "Update your password regularly to keep your account secure",
+        "current": "Current Password",
+        "new": "New Password",
+        "confirm": "Confirm password",
+        "submit": "Update password",
+        "submitting": "Changing...",
+        "error": "There was an error updating your password.",
+        "success": "Your password was updated successfully."
+       }
+    },
+    "status": {
+        "title": "Security Status",
+        "passwordStrength": "Password Strength",
+        "lastChange": "Last Password Change",
+        "notChanged": "Not changed before",
+        "strength": {
+          "weak": "Weak",
+          "medium": "Medium",
+          "strong": "Strong"
+        }
+    },  
+    "logout":{
+      "accountAccess": "Account Access",
+      "logoutTitle": "Logout",
+      "logoutDescription": "End your current session and return to the homepage",
+      "logoutInfo1": "Logging out will end your current session.",
+      "logoutInfo2": "You'll need to sign in again to access your account.",
+      "logoutButton": "Log Out",
+    
+      "securityTipsTitle": "Account Security Tips",
+      "securityTip1": "Always log out when using shared or public devices",
+      "securityTip2": "Ensure your password is strong and unique",
+      "securityTip3": "Use a combination of letters, numbers, and special characters",
+      "securityTip4": "Check your active sessions regularly",
+    
+      "recentActivityTitle": "Recent Account Activity",
+      "lastLogin": "Last Login",
+      "lastLoginInfo": "Today, 2:45 PM from Giza, Egypt",
+      "suspiciousActivityWarning": "If you don't recognize this activity, please change your password immediately and contact support."
     }
+    
   },
   "terms": {
     "title": "Terms and Conditions",

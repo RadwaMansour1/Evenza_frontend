@@ -153,7 +153,7 @@
     "PAYPAL_INSTRUCTION": "اختر PayPal أو البطاقة أدناه لإتمام عملية الدفع",
     "STRIPE_INSTRUCTION": "سيتم إعادة توجيهك إلى صفحة الدفع لإدخال تفاصيل بطاقتك وإتمام الدفع",
     "CONTINUE_BUTTON": "متابعة",
-    "WALLET_BALANCE": "رصيد محفظة إيفنزا الخاص بك: ${{balance}}",
+    "WALLET_BALANCE": "رصيد محفظة إيفنزا الخاص بك: {{balance}} EGP",
     "PAY_WALLET_BUTTON": "الدفع من المحفظة",
     "SECURE_NOTE": "جميع المعاملات آمنة ومشفرة",
     "AGREEMENT_TEXT": "بإتمام عملية الشراء هذه، فإنك توافق على",
@@ -177,8 +177,8 @@
     "METHOD_WALLET": "محفظة إيفينزا",
     "METHOD_WALLET_DESC": "سيتم إضافة الاسترداد إلى حساب إيفينزا الخاص بك للمشتريات المستقبلية",
     "NOTES_HEADING": "ملاحظات الاسترداد:",
-    "NOTE_PROCESSING_TIME": "سيتم معالجة استردادك بمبلغ ${{amount}} خلال 5-7 أيام عمل",
-    "NOTE_FEES": "رسوم الخدمة البالغة 12.50 دولار غير قابلة للاسترداد",
+    "NOTE_PROCESSING_TIME": "سيتم معالجة استردادك بمبلغ {{amount}} EGP خلال 5-7 أيام عمل",
+    "NOTE_FEES": "رسوم الخدمة البالغة {{serviceFee}} EGP  غير قابلة للاسترداد",
     "NOTE_CONFIRMATION": "ستتلقى رسالة تأكيد عبر البريد الإلكتروني بمجرد معالجة استردادك",
     "SUBMIT_BUTTON": "إرسال الطلب",
     "EXPECT_NEXT_HEADING": "ماذا تتوقع بعد ذلك",
@@ -196,7 +196,29 @@
     "TOTAL_PRICE_LABEL": "السعر الإجمالي",
     "SERVICE_FEE_LABEL": "رسوم الخدمة (غير قابلة للاسترداد)",
     "REFUNDABLE_AMOUNT_LABEL": "المبلغ القابل للاسترداد",
-    "DEADLINE_LABEL": "الموعد النهائي للاسترداد"
+    "DEADLINE_LABEL": "الموعد النهائي للاسترداد",  
+    "ALREADY_SENT_TITLE": "تم إرسال طلب الاسترداد بالفعل",
+    "ALREADY_SENT_TEXT": "لقد قمت بالفعل بإرسال طلب استرداد لهذه الدفعة.",
+    "SELECT_REASON_TITLE": "اختر سبب الاسترداد",
+    "SELECT_REASON_TEXT": "يجب عليك اختيار سبب طلب الاسترداد.",
+    "REQUEST_SENT_TITLE": "تم إرسال طلب الاسترداد",
+    "REQUEST_SENT_TEXT": "تم إرسال طلب الاسترداد الخاص بك بنجاح.",
+    "REQUEST_ERROR_TITLE": "فشل الطلب",
+    "REQUEST_ERROR_TEXT": "حدث خطأ أثناء إرسال الطلب. يرجى المحاولة مرة أخرى.",
+    "MISSING_PARAM_TITLE": "معلومات ناقصة",
+    "MISSING_PARAM_TEXT": "المعلومات المطلوبة لطلب الاسترداد غير متوفرة.", 
+    "SELECT_METHOD_TITLE": "اختر طريقة الاسترداد",
+    "SELECT_METHOD_TEXT": "يجب عليك اختيار طريقة طلب الاسترداد.",
+    "EXPECT_CONFIRMATION_TITLE": "التأكيد",
+    "EXPECT_CONFIRMATION_DESC": "سنرسل لك بريدًا إلكترونيًا يؤكد طلب استرداد أموالك",
+    "EXPECT_PROCESSING_TITLE": "المعالجة",
+    "EXPECT_PROCESSING_DESC": "ستتم معالجة استرداد أموالك في غضون 5-7 أيام عمل",
+    "EXPECT_COMPLETION_TITLE": "الإتمام",
+    "EXPECT_COMPLETION_DESC": "ستتلقى بريدًا إلكترونيًا نهائيًا بمجرد تحرير الأموال إلى حسابك"
+  },
+  "COMMON": {
+    "ERROR_FETCHING_DATA_TITLE": "خطأ",
+    "ERROR_FETCHING_DATA_TEXT": "تعذر استرداد البيانات اللازمة. يرجى المحاولة مرة أخرى لاحقًا."
   },
 
   "MY_TICKETS": {
@@ -211,13 +233,14 @@
     "VIEW_DETAILS_BUTTON": "عرض تفاصيل الفعالية",
     "REQUEST_REFUND_BUTTON": "طلب استرداد"
   },
-  "MY_WALLET": {
+ "MY_WALLET": {
     "PAGE_TITLE": "محفظتي",
     "AVAILABLE_BALANCE_LABEL": "الرصيد المتاح",
     "LAST_TRANSACTION_LABEL": "آخر معاملة",
     "RECENT_TRANSACTIONS_HEADING": "المعاملات الأخيرة",
     "TX_TYPE_REFUND": "استرداد",
     "TX_TYPE_PURCHASE": "شراء",
+    "TX_TYPE_BOOKING": "حجز", 
     "NO_TRANSACTIONS_HEADING": "لا توجد معاملات بعد",
     "NO_TRANSACTIONS_DESC": "سيظهر سجل معاملاتك هنا"
   },
@@ -249,7 +272,8 @@
       "signupLink": "إنشاء حساب",
       "termsAgree": "بتسجيل الدخول، فإنك توافق على",
       "terms": "الشروط والأحكام",
-      "errorMessage": "حدث خطأ أثناء تسجيل الدخول. يرجى المحاولة مرة أخرى."
+      "errorMessage": "حدث خطأ أثناء تسجيل الدخول. يرجى المحاولة مرة أخرى.",
+      "loadingText": "جاري الدخول..."
     },
     "forgotPassword": {
       "title": "نسيت كلمة المرور",
@@ -257,6 +281,7 @@
       "emailLabel": "البريد الإلكتروني",
       "emailPlaceholder": "name@example.com",
       "submitButton": "إرسال رابط إعادة التعيين",
+      "submitting": "جارٍ الإرسال...",
       "confirmationTitle": "تحقق من بريدك الإلكتروني",
       "confirmationMessage": "لقد أرسلنا رابط إعادة تعيين كلمة المرور إلى {{ email }}",
       "backToForm": "العودة إلى نموذج الإعادة",
@@ -330,7 +355,15 @@
       "agreeWithTerms": "أوافق على",
       "readTerms": "قراءة الشروط والأحكام",
       "readTermsError": "من فضلك إقرء الشروط والأحكام",
-      "submitButton": "تسجيل"
+      
+      "enterName": "أدخل الاسم",
+      "enterLastName": "أدخل اسم العائلة",
+      "enterEmail": "أدخل البريد الإلكتروني",
+      "enterPassword": "أدخل كلمة المرور",
+
+      "submitButton": "إنشاء حساب",
+      "processingText": "جاري المعالجة..."
+
     },
     "emailVerification": {
       "title": "تأكيد البريد الإلكتروني",
@@ -341,8 +374,8 @@
       "resend": "إعادة الإرسال"
     },
     "accountInfo": {
-      "title": "معلومات الحساب",
-      "description": "قم بتحديث معلوماتك الشخصية وتفاصيل الاتصال.",
+      "title": "ملفي الشخصي",
+      "description": "إدارة إعدادات حسابك وتفضيلاتك",
       "profilePhoto": "صورة الملف الشخصي",
       "choosePhoto": "اختر صورة الملف الشخصي",
       "firstName": "الاسم الأول",
@@ -363,8 +396,73 @@
       "city": "المدينة",
       "state": "الولاية / المحافظة",
       "postalCode": "الرمز البريدي",
-      "update": "تحديث"
+      "update": "تحديث",
+      "tabs": {
+        "accountInformation": "معلومات الحساب",
+        "securitySettings": "إعدادات الأمان",
+        "logout": "تسجيل الخروج"
+      },
+       "edit": "تعديل الملف الشخصي",
+      "cancelEdit": "إلغاء التعديل",
+      "contactInformation": "معلومات الاتصال",
+      "notProvided": "لم يتم توفيرها بعد",
+      "socialMedia": "وسائل التواصل الاجتماعي",
+      "socialMediaProfiles": "ملفات التواصل الاجتماعي",
+      "facebook": "فيسبوك",
+      "instagram": "إنستغرام",
+      "twitter": "تويتر",
+      "linkedin": "لينكدإن",
+      "website": "الموقع الإلكتروني",
+      "addressInformation": "معلومات العنوان",
+      "updating": "جاري التحديث..."
+
+    
+    },
+    "security": {
+    "title": "إعدادات الأمان",
+    "changePassword": {
+      "title": "تغيير كلمة المرور",
+      "description": "قم بتحديث كلمة المرور بانتظام للحفاظ على أمان حسابك",
+      "current": "كلمة المرور الحالية",
+      "new": "كلمة المرور الجديدة",
+      "confirm": "تأكيد كلمة المرور",
+      "submit": "تغيير كلمة المرور",
+      "submitting": "جاري التغيير...",
+      "error": "حدث خطأ أثناء تحديث كلمة المرور.",
+      "success": "تم تحديث كلمة المرور بنجاح."
     }
+    },
+    "status": {
+      "title": "حالة الأمان",
+      "passwordStrength": "قوة كلمة المرور",
+      "lastChange": "آخر تغيير لكلمة المرور",
+      "notChanged": "لم يتم تغييرها من قبل",
+      "strength": {
+        "weak": "ضعيفة",
+        "medium": "متوسطة",
+        "strong": "قوية"
+      }
+    },
+    "logout":{
+      "accountAccess": "الوصول إلى الحساب",
+      "logoutTitle": "تسجيل الخروج",
+      "logoutDescription": "أنهِ جلستك الحالية وارجع إلى الصفحة الرئيسية",
+      "logoutInfo1": "سيؤدي تسجيل الخروج إلى إنهاء الجلسة الحالية.",
+      "logoutInfo2": "ستحتاج إلى تسجيل الدخول مرة أخرى للوصول إلى حسابك.",
+      "logoutButton": "تسجيل الخروج",
+    
+      "securityTipsTitle": "نصائح أمان الحساب",
+      "securityTip1": "قم دائمًا بتسجيل الخروج عند استخدام أجهزة مشتركة أو عامة",
+      "securityTip2": "تأكد من أن كلمة المرور قوية وفريدة",
+      "securityTip3": "استخدم مزيجًا من الحروف والأرقام والرموز الخاصة",
+      "securityTip4": "تحقق من الجلسات النشطة بانتظام",
+    
+      "recentActivityTitle": "نشاط الحساب الأخير",
+      "lastLogin": "آخر تسجيل دخول",
+      "lastLoginInfo": "اليوم، 2:45 مساءً من الجيزة، مصر",
+      "suspiciousActivityWarning": "إذا لم تتعرف على هذا النشاط، يرجى تغيير كلمة المرور فورًا والتواصل مع الدعم."
+    }
+    
   },
   "terms": {
     "title": "الشروط والأحكام",

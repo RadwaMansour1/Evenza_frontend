@@ -103,11 +103,11 @@ export class NavBarComponent {
     this.languageService.switchLanguage(this.currentLang);
   }
   toggleUserMenu() {
-    this.isMenuOpen = !this.isMenuOpen;
-    console.log('Menu toggled. isMenuOpen:', this.isMenuOpen);
+    this.isMenuUserOpen = !this.isMenuUserOpen;
+    console.log('Menu toggled. isMenuOpen:', this.isMenuUserOpen);
   }
   closeUserMenu() {
-    this.isMenuOpen = false;
+    this.isMenuUserOpen = false;
     console.log('Menu closed.');
   }
   @HostListener('document:click', ['$event'])
@@ -119,6 +119,7 @@ export class NavBarComponent {
     if (
       menu &&
       menuButton &&
+      !this.isMenuOpen &&
       !menu.contains(event.target as Node) &&
       !menuButton.contains(event.target as Node)
     ) {
@@ -137,6 +138,7 @@ export class NavBarComponent {
       this.router.navigate(['/events'], {
         queryParams: { search: this.searchQuery },
       });
+      this.searchQuery = '';
     }
   }
 }

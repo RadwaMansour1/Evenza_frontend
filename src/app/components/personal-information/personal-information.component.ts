@@ -1,7 +1,5 @@
 import { Component, inject, Input, OnInit, signal } from '@angular/core';
 import { Profile } from '../../models/profile.model';
-
-
 import {
   FormBuilder,
   FormsModule,
@@ -12,39 +10,59 @@ import {
 import { UserService } from '../../services/profile/user.service';
 import { CommonModule } from '@angular/common';
 import { CONSTANTS } from '../../constants';
-import { CustomAlertComponent } from '../shared/custom-alert/custom-alert.component';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { featherFacebook, featherGlobe, featherInstagram, featherLinkedin, featherTwitter, featherUpload } from '@ng-icons/feather-icons';
+import {
+  featherFacebook,
+  featherGlobe,
+  featherInstagram,
+  featherLinkedin,
+  featherTwitter,
+  featherUpload,
+} from '@ng-icons/feather-icons';
+import { NgxSpinnerService, NgxSpinnerModule } from 'ngx-spinner';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-personal-information',
   imports: [
     ReactiveFormsModule,
     CommonModule,
-    FormsModule,  
-    CustomAlertComponent,
+    FormsModule,
     TranslateModule,
     NgIcon,
+    NgxSpinnerModule,
   ],
   templateUrl: './personal-information.component.html',
   styleUrl: './personal-information.component.css',
-  viewProviders:[provideIcons({featherUpload,featherFacebook,featherInstagram,featherTwitter,featherLinkedin,featherGlobe})]
+  viewProviders: [
+    provideIcons({
+      featherUpload,
+      featherFacebook,
+      featherInstagram,
+      featherTwitter,
+      featherLinkedin,
+      featherGlobe,
+    }),
+  ],
 })
 export class PersonalInformationComponent implements OnInit {
   profileForm: FormGroup;
   selectedImagePreview: string | ArrayBuffer | null = null;
   userId: any = '';
   selectedFile: File | null = null;
-  // alert
-  showAlert: boolean = false;
-  alertType: 'success' | 'error' | 'warning' | 'info' = 'success';
-  alertMessage: string = 'profile data updated successfully'; 
+
   // new edit
   @Input() user!: { id: string; name: string; email: string };
   editing = signal(false);
+  direction: 'rtl' | 'ltr' = 'ltr';
+  isLoading: boolean = false;
 
-  constructor(private fb: FormBuilder, private userService: UserService
+  constructor(
+    private fb: FormBuilder,
+    private userService: UserService,
+    private spinner: NgxSpinnerService,
+    private toastr: ToastrService
   ) {
     console.log('user id', this.userId);
     const userDataString = localStorage.getItem(CONSTANTS.userData);
@@ -68,10 +86,9 @@ export class PersonalInformationComponent implements OnInit {
       photo: [null],
       facebook: [''],
       instagram: [''],
-      twitter:[''],
+      twitter: [''],
       linkedin: [''],
       website: [''],
-
     });
   }
 
@@ -99,9 +116,8 @@ export class PersonalInformationComponent implements OnInit {
     { value: 'portSaid', label: 'auth.accountInfo.portSaid' },
     { value: 'ismailia', label: 'auth.accountInfo.ismailia' },
     { value: 'suez', label: 'auth.accountInfo.suez' },
-    { value: 'damietta', label: 'auth.accountInfo.damietta' }
+    { value: 'damietta', label: 'auth.accountInfo.damietta' },
   ];
-  
 
   ngOnInit() {
     this.userService.getProfile().subscribe({
@@ -126,32 +142,32 @@ export class PersonalInformationComponent implements OnInit {
             instagram: data.instagram || '',
             linkedin: data.linkedin || '',
             twitter: data.twitter || '',
-            website: data.website || ''
+            website: data.website || '',
           });
           this.selectedImagePreview = data.photo;
         }
       },
       error: (err) => {
-        this.alertMessage = 'Ops,there is a problem ,please try again later!';
-        this.alertType = 'error';
-        this.showAlert = true;
+        this.toastr.error(
+          'Ops,there is a problem ,please try again later!',
+          'Error'
+        );
       },
     });
   }
   //new edit
-    get profileImageUrl(): string {
-      const firstName = this.profileForm?.value?.firstName || '';
-      const lastName = this.profileForm?.value?.lastName || '';
-      const fullName = `${firstName} ${lastName}`.trim();
-      const encodedName = encodeURIComponent(fullName);
-      return `https://api.dicebear.com/7.x/initials/svg?seed=${encodedName}`;
-    }
+  get profileImageUrl(): string {
+    const firstName = this.profileForm?.value?.firstName || '';
+    const lastName = this.profileForm?.value?.lastName || '';
+    const fullName = `${firstName} ${lastName}`.trim();
+    const encodedName = encodeURIComponent(fullName);
+    return `https://api.dicebear.com/7.x/initials/svg?seed=${encodedName}`;
+  }
 
   //new edit
   toggleEdit() {
     this.editing.update((val) => !val);
   }
-
 
   onFileSelected(event: any) {
     const file =
@@ -175,6 +191,8 @@ export class PersonalInformationComponent implements OnInit {
 
   onSubmit() {
     if (this.profileForm.valid) {
+      this.spinner.show();
+      this.isLoading = true;
       const formData = new FormData();
       Object.entries(this.profileForm.value).forEach(([key, value]) => {
         if (key === 'photo') {
@@ -194,15 +212,15 @@ export class PersonalInformationComponent implements OnInit {
       this.userService.updateProfile(formData).subscribe({
         next: (response) => {
           // console.log('Profile updated successfully', response);
-          this.alertMessage = 'Profile updated successfully';
-          this.alertType = 'success';
-          this.showAlert = true;
+          this.toastr.success('Profile updated successfully', 'Success');
           this.editing.set(false);
+          this.spinner.show();
+          this.isLoading = true;
         },
         error: (error) => {
-          this.alertMessage = 'Ops,there is a problem ,please try again later!';
-          this.alertType = 'error';
-          this.showAlert = true;
+          this.toastr.error('Ops,there is a problem ,please try again later!', 'Error');
+          this.isLoading = false;
+          this.spinner.hide();
         },
       });
     } else {

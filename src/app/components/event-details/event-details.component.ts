@@ -12,9 +12,10 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
 import { EventService } from '../../services/event/event.service';
 import { Event } from '../../models/event.model';
 import { DateFormatPipe } from '../../pipes/date-format.pipe';
-import { CustomAlertComponent } from '../shared/custom-alert/custom-alert.component';
 import { TimeFormatPipe } from '../../pipes/time-format.pipe';
 import { TranslateModule } from '@ngx-translate/core';
+import { ToastrService } from 'ngx-toastr';
+
 @Component({
   selector: 'app-event-details',
   imports: [
@@ -23,7 +24,6 @@ import { TranslateModule } from '@ngx-translate/core';
     RouterModule,
     DateFormatPipe,
     TimeFormatPipe,
-    CustomAlertComponent,
     TranslateModule,
   ],
   templateUrl: './event-details.component.html',
@@ -45,13 +45,11 @@ export class EventDetailsComponent implements OnInit {
   eventId: string = '';
   event!: Event;
   loading: boolean = true;
-  showAlert: boolean = false;
-  alertMessage: string = '';
-  alertType: any = 'success';
 
   constructor(
     private route: ActivatedRoute,
-    private eventService: EventService
+    private eventService: EventService,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -114,9 +112,7 @@ export class EventDetailsComponent implements OnInit {
     } else {
       // Fallback: copy to clipboard
       navigator.clipboard.writeText(shareData.url).then(() => {
-        this.alertMessage = 'Event link copied to clipboard!';
-        this.alertType = 'success';
-        this.showAlert = true;
+        this.toastr.success('Event link copied to clipboard!', 'Success');
       });
     }
   }

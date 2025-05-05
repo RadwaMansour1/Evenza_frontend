@@ -27,10 +27,10 @@
                   <span class="h-8 w-8 text-purple-700">
                     <ng-icon name="featherUser"></ng-icon>
                   </span>
-                  My Profile
+                  {{'auth.accountInfo.title'|translate}}
                 </h1>
                 <p id="title-description" class="text-muted-foreground text-gray-500 mt-2 text-lg tracking-wide">
-                  Manage your account settings and preferences
+                  {{'auth.accountInfo.description'|translate}}
                 </p>
               </div>
         
@@ -47,9 +47,10 @@
 
                     <!-- Dropdown Menu -->
                     <div *ngIf="mobileMenuOpen" class="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-50 transition-transform transform hover:scale-105 hover:shadow-xl duration-300">
-                      <button (click)="selectTab('account')" class="w-full text-left px-4 py-2 hover:bg-purple-100 cursor-pointer transition-transform transform hover:scale-105 hover:shadow-xl hover:rounded duration-300 ">Account Information</button>
-                      <button (click)="selectTab('security')" class="w-full text-left px-4 py-2 hover:bg-purple-100 cursor-pointer transition-transform transform hover:scale-105 hover:shadow-xl hover:rounded duration-300 ">Security Settings</button>
-                      <button (click)="selectTab('logout')" class="w-full text-left px-4 py-2 hover:bg-purple-100 cursor-pointer transition-transform transform hover:scale-105 hover:shadow-xl hover:rounded duration-300">Logout</button>
+                      <button (click)="selectTab('account')" class="w-full text-left px-4 py-2 hover:bg-purple-100 cursor-pointer transition-transform transform hover:scale-105 hover:shadow-xl hover:rounded duration-300 ">{{'auth.accountInfo.tabs.accountInformation'|translate}}
+                      </button>
+                      <button (click)="selectTab('security')" class="w-full text-left px-4 py-2 hover:bg-purple-100 cursor-pointer transition-transform transform hover:scale-105 hover:shadow-xl hover:rounded duration-300 ">{{'auth.accountInfo.tabs.securitySettings'|translate}}</button>
+                      <button (click)="selectTab('logout')" class="w-full text-left px-4 py-2 hover:bg-purple-100 cursor-pointer transition-transform transform hover:scale-105 hover:shadow-xl hover:rounded duration-300">{{'auth.accountInfo.tabs.logout'|translate}}</button>
                     </div>
                   </div>
 
@@ -64,7 +65,7 @@
                       }"
                       (click)="setActiveTab('account')"
                     >
-                      Account Information
+                    {{'auth.accountInfo.tabs.accountInformation'|translate}}
                     </button>
                     <button
                       id="security-settings"
@@ -75,7 +76,7 @@
                       }"
                       (click)="setActiveTab('security')"
                     >
-                      Security Settings
+                    {{'auth.accountInfo.tabs.securitySettings'|translate}}
                     </button>
                     <button
                       id="logout"
@@ -86,7 +87,7 @@
                       }"
                       (click)="setActiveTab('logout')"
                     >
-                      Logout
+                    {{'auth.accountInfo.tabs.logout'|translate}}
                     </button>
                   </div>
                 </div>

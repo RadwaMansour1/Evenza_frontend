@@ -24,6 +24,7 @@ export interface Event {
   ticketsAvailable: Ticket[];
   eventHighlights?: string[];
   isFree: boolean;
+  freeTicketsQuantity?: number;
   imageUrl: string;
   organizerId: number;
   isApproved?: boolean;

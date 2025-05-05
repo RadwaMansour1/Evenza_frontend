@@ -1,19 +1,19 @@
 <!-- <div class="bg-white min-h-screen flex flex-col justify-between"> -->
-  <!-- <app-nav-bar></app-nav-bar> -->
+<!-- <app-nav-bar></app-nav-bar> -->
 
-  <!-- <main class="flex-grow">
+<!-- <main class="flex-grow">
   </main>
   <app-footer></app-footer> -->
 <!-- </div> -->
 <!-- <app-home></app-home> -->
- <!-- <app-event-details></app-event-details> -->
- <!-- <router-outlet></router-outlet> -->
-  <!-- <app-dashboard></app-dashboard> -->
- <!-- <app-payment></app-payment> -->
- <!-- <app-refund></app-refund> -->
- <!-- <app-footer></app-footer> -->
+<!-- <app-event-details></app-event-details> -->
+<!-- <router-outlet></router-outlet> -->
+<!-- <app-dashboard></app-dashboard> -->
+<!-- <app-payment></app-payment> -->
+<!-- <app-refund></app-refund> -->
+<!-- <app-footer></app-footer> -->
 
- <!-- <div class="flex">
+<!-- <div class="flex">
   <app-sidebar></app-sidebar>
   <div class="flex-1 min-h-screen bg-gray-100">
     <app-header></app-header>
@@ -23,64 +23,19 @@
   </div>
 </div> -->
 
-
-<!-- admin -->
-
-<!-- <app-sidebar></app-sidebar>
-
-  
-  <div class="ml-64">
-   
-    <header class="bg-white shadow-sm fixed top-0 right-0 left-64 h-16 flex items-center justify-between px-6 z-10">
-      <div class="relative w-64">
-        <input type="text" placeholder="Search..." 
-               class="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
-        <ng-icon name="heroMagnifyingGlass" class="absolute left-3 top-2.5 text-gray-400"></ng-icon>
-      </div>
-      
-      <div class="flex items-center space-x-4">
-        <button class="p-2 rounded-full hover:bg-gray-100 relative">
-          <ng-icon name="heroBell" class="text-gray-600"></ng-icon>
-          <span class="absolute top-0 right-0 h-2 w-2 rounded-full bg-red-500"></span>
-        </button>
-        <div class="flex items-center">
-          <div class="h-8 w-8 rounded-full bg-blue-500 flex items-center justify-center text-white mr-2">AD</div>
-          <span class="font-medium">Admin</span>
-          <ng-icon name="heroChevronDown" class="ml-1 text-gray-500"></ng-icon>
-        </div>
-      </div>
-    </header> -->
-
-    <!-- Content Area -->
-    <main class="pt-16 p-6">
-      <!-- <app-dashboard></app-dashboard> -->
-      <!-- <app-events></app-events> -->
-      <!-- <app-users></app-users> -->
-      <!-- <app-categories></app-categories> -->
-       <!-- <app-bookings></app-bookings> -->
-        <!-- <app-reviews></app-reviews> -->
-      <!-- <app-analytics></app-analytics> -->
-       <!-- <app-event-edit-page></app-event-edit-page> -->
-      <router-outlet></router-outlet>
-        
-    </main>
-  <!-- </div> -->
-
-
-
-
- 
 <!-- <app-event-details></app-event-details> -->
 <!-- <app-payment></app-payment> -->
 <!-- <app-refund></app-refund> -->
 <app-snackbar></app-snackbar>
 <div class="home-wrapper" [class.blurred]="isChatbotOpenClass">
-@if(!isOrganizer){
-<app-nav-bar></app-nav-bar>
-}
-<router-outlet></router-outlet>
-@if(!isOrganizer){
-<app-footer></app-footer>
-}
+  @if (isAdmin) {
+  <app-admin-layout></app-admin-layout>
+  }@else { @if(!isOrganizer){
+  <app-nav-bar></app-nav-bar>
+  }
+  <router-outlet></router-outlet>
+  @if(!isOrganizer){
+  <app-footer></app-footer>
+  }}
 </div>
 <app-chatbot (openChange)="onChatbotOpenChange($event)"></app-chatbot>

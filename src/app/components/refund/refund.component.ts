@@ -18,7 +18,7 @@ import { CommonModule } from '@angular/common';
 import { RefundService } from '../../services/refund/refund.service';
 import { UserService } from '../../services/profile/user.service';
 import Swal from 'sweetalert2';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { PaymentService } from '../../services/payment/payment.service';
 import { PaymentModel } from '../../models/payment.model';
 import { RefundsRequestsService } from '../../services/refundRequests/refundRequests.service';
@@ -47,6 +47,7 @@ export class RefundComponent implements OnInit{
   refundDeadline: Date | null = null; 
   total:number|null = null;
   userId:string | null = null;
+  serviceFee:number = 0;
   private paymentId:string|null = null;
   private transactionId:string|null = null;
   private isrefunded:boolean =false;
@@ -58,7 +59,8 @@ export class RefundComponent implements OnInit{
     private readonly refundService:RefundService,
     private readonly userService:UserService,
     private readonly paymentService:PaymentService,
-    private readonly refundRequestService:RefundsRequestsService
+    private readonly refundRequestService:RefundsRequestsService,
+    private translate: TranslateService // Inject TranslateService
   ){}
 
   ngOnInit(): void {
@@ -72,7 +74,8 @@ export class RefundComponent implements OnInit{
 
 
           if(this.ticketDetails){
-            this.total = this.ticketDetails?.price * this.ticketDetails?.quantity
+            this.total = this.ticketDetails?.price * this.ticketDetails?.quantity;
+            this.serviceFee = this.total * 0.05;
           }
 
           if (this.ticketDetails?.date) {
@@ -204,20 +207,24 @@ export class RefundComponent implements OnInit{
         const refundsrequests = res.data
         const index = refundsrequests.findIndex((request:any)=>request.paymentId === this.paymentId)
         if (index !== -1){
+          // --- Apply translation here ---
           Swal.fire({
             icon:'error',
-            title: 'Refund Request Already Sent',
-            text: 'You already sent a refund request for this payment.',
+            title: this.translate.instant('REFUND.ALREADY_SENT_TITLE'), // Translate title
+            text: this.translate.instant('REFUND.ALREADY_SENT_TEXT'), // Translate text
             confirmButtonColor: '#9333ea'
           })
+          // --- End translation ---
         }else{
           if(this.refundReason === ""){
+            // --- Apply translation here ---
             Swal.fire({
               icon:'error',
-              title: 'Select the reason for Refund',
-              text: 'You Should select the reason of refund request.',
+              title: this.translate.instant('REFUND.SELECT_REASON_TITLE'), // Translate title
+              text: this.translate.instant('REFUND.SELECT_REASON_TEXT'), // Translate text
               confirmButtonColor: '#9333ea'
             })
+            // --- End translation ---
           }else{
           if(this.refundMethod !== ""){
             console.log({
@@ -225,7 +232,7 @@ export class RefundComponent implements OnInit{
             })
             if(this.userId && this.paymentId && this.ticketDetails?._id){
               this.refundRequestService.createRefundRequest(
-                this.userId , 
+                this.userId ,
                 this.paymentId ,
                 this.ticketDetails?._id,
                 this.refundMethod,
@@ -234,45 +241,63 @@ export class RefundComponent implements OnInit{
                 ).subscribe({
                 next:(res)=>{
                   console.log("refund request created: ",res);
+                  // --- Apply translation here ---
                   Swal.fire({
                     icon:'success',
-                    title: 'Refunded Request has been Sent',
-                    text: 'Your refund request has been processed successfully.',
+                    title: this.translate.instant('REFUND.REQUEST_SENT_TITLE'), // Translate title
+                    text: this.translate.instant('REFUND.REQUEST_SENT_TEXT'), // Translate text
                     confirmButtonColor: '#9333ea'
                   });
+                  // --- End translation ---
                   this.router.navigate(["/my-tickets"]);
                 },
                 error:(err)=>{
+                   // --- Apply translation here ---
                   Swal.fire({
                     icon:'error',
-                    title: 'try again',
-                    text: 'err in sending the request.',
+                    title: this.translate.instant('REFUND.REQUEST_ERROR_TITLE'), // Translate title
+                    text: this.translate.instant('REFUND.REQUEST_ERROR_TEXT'), // Translate text
                     confirmButtonColor: '#9333ea'
                   })
-                  throw new Error(err);
+                   // --- End translation ---
+                  // Consider logging the actual error instead of throwing it here,
+                  // as throwing inside subscribe's error handler might not be caught globally.
+                  console.error("Error creating refund request:", err);
+                  // throw new Error(err); // Avoid throwing here unless specifically handled upstream
                 }
               })
             }else{
+               // --- Apply translation here ---
               Swal.fire({
                 icon:'error',
-                title: 'Missing Parameter For the request',
-                text: 'You Should select the method of refund request.',
+                title: this.translate.instant('REFUND.MISSING_PARAM_TITLE'), // Translate title
+                text: this.translate.instant('REFUND.MISSING_PARAM_TEXT'), // Translate text (reused SELECT_METHOD_TEXT, adjust if needed)
                 confirmButtonColor: '#9333ea'
               })
+               // --- End translation ---
             }
           }else{
+             // --- Apply translation here ---
             Swal.fire({
               icon:'error',
-              title: 'Select Refund Method',
-              text: 'You Should select the method of refund request.',
+              title: this.translate.instant('REFUND.SELECT_METHOD_TITLE'), // Translate title
+              text: this.translate.instant('REFUND.SELECT_METHOD_TEXT'), // Translate text
               confirmButtonColor: '#9333ea'
             })
+             // --- End translation ---
           }
           }
         }
       },
       error:(err)=>{
         console.log("error in getting all requests ",err)
+        // Optionally show a translated error message here too
+        Swal.fire({
+          icon: 'error',
+          title: this.translate.instant('COMMON.ERROR_FETCHING_DATA_TITLE'), // Example generic key
+          text: this.translate.instant('COMMON.ERROR_FETCHING_DATA_TEXT'), // Example generic key
+          confirmButtonColor: '#9333ea'
+        });
       }
     })
     

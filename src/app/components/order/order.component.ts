@@ -10,6 +10,7 @@ import { UserService } from '../../services/profile/user.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { Profile } from '../../models/profile.model';
 import { CreateOrderPayload } from '../../models/order.model';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-order',
@@ -107,7 +108,13 @@ export class OrderComponent implements OnInit {
   createOrder() {
     // if (!this.userProfile || !this.event || !this.selectedTicket) return;
     if (!this.userProfile) {
+       Swal.fire({
+         title: 'Login first',
+         text: 'You need to be logged in to create an order.',
+         icon: 'warning',
+       });
       this.router.navigate(['/login']);
+
       return;
     }
 

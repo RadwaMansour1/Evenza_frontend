@@ -53,6 +53,7 @@ import { NgIconsModule } from '@ng-icons/core';
 import { provideIcons } from '@ng-icons/core';
 import { heroEnvelope, heroLockClosed, heroUser } from '@ng-icons/heroicons/outline';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -104,9 +105,10 @@ export const appConfig: ApplicationConfig = {
         
         
         
-      })
+      }),
     ),
-
+    importProvidersFrom(NgxSpinnerModule),
+    provideAnimations(),
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
@@ -121,7 +123,7 @@ export const appConfig: ApplicationConfig = {
     }),
     // provideStore(appStore),
     // provideEffects([EventEffects]),
-    provideAnimations(), // required animations providers
+    // provideAnimations(), 
     provideToastr({
       timeOut: 3000,
       positionClass: 'toast-bottom-right',

@@ -10,12 +10,13 @@ import { SetNewPasswordComponent } from "../auth/set-new-password/set-new-passwo
 import { ResetPasswordComponent } from "../auth/reset-password/reset-password.component";
 import { LogoutComponent } from "../auth/logout/logout.component";
 import { featherMoreVertical, featherUser } from '@ng-icons/feather-icons';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [CommonModule, RouterModule, NgIcon, PersonalInformationComponent, ResetPasswordComponent, LogoutComponent],
+  imports: [CommonModule, RouterModule, NgIcon, PersonalInformationComponent, ResetPasswordComponent, LogoutComponent,TranslateModule],
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css'],
   viewProviders: [
