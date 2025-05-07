@@ -38,6 +38,7 @@ import { SetNewPasswordComponent } from './components/auth/set-new-password/set-
 import { PersonalInformationComponent } from './components/personal-information/personal-information.component';
 import { ViewEventsComponent } from './components/organizer/view-events/view-events.component';
 import { OrganizerHomeComponent } from './components/organizer/organizer-home/organizer-home.component';
+import { ActivityLogComponent } from './components/activity-log/activity-log.component';
 
 export const routes: Routes = [
   // Public Routes
@@ -185,6 +186,11 @@ export const routes: Routes = [
     component: SelectRoleComponent,
     title: 'Select Role',
     canActivate: [],
+  },
+  {
+    path:'activity-logs',
+    component: ActivityLogComponent,
+    canActivate:[]
   },
   {
     path: 'profile',
