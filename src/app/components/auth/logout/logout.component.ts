@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { featherAlertCircle, featherLogOut, featherShield } from '@ng-icons/feather-icons';
-import { Router } from '@angular/router';
+import { featherAlertCircle, featherClock, featherLogOut, featherShield } from '@ng-icons/feather-icons';
+import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../services/auth/auth.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgxSpinnerService, NgxSpinnerModule } from 'ngx-spinner';
@@ -9,10 +9,10 @@ import { NgxSpinnerService, NgxSpinnerModule } from 'ngx-spinner';
 
 @Component({
   selector: 'app-logout',
-  imports: [NgIcon,TranslateModule,NgxSpinnerModule],
+  imports: [NgIcon,TranslateModule,NgxSpinnerModule,RouterLink],
   templateUrl: './logout.component.html',
   styleUrl: './logout.component.css',
-  viewProviders:[provideIcons({featherShield,featherAlertCircle,featherLogOut})]
+  viewProviders:[provideIcons({featherShield,featherAlertCircle,featherLogOut,featherClock})]
 })
 export class LogoutComponent {
 
