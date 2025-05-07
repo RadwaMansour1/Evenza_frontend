@@ -12,7 +12,6 @@ export class EventService {
 
   constructor(private httpClient: HttpClient) {}
 
-  // Modified to accept filters and pagination
   getEvents(
     page: number = 1,
     limit: number = 6,
@@ -42,6 +41,16 @@ export class EventService {
     if (filters.sortOrder)
       params = params = params.append('sortOrder', filters.sortOrder);
 
+    const token =
+      sessionStorage.getItem(CONSTANTS.token) ||
+      localStorage.getItem(CONSTANTS.token);
+    if (token) {
+      const decodedToken = this.decodeToken(token);
+      console.log(decodedToken);
+      if (decodedToken) {
+        params = params.append('userId', decodedToken.id);
+      }
+    }
     console.log('Fetching events with params:', params.toString());
 
     return this.httpClient.get<any>(`${this.apiUrl}/events`, { params });
@@ -49,6 +58,21 @@ export class EventService {
 
   getEventById(id: string): Observable<any> {
     return this.httpClient.get<any>(`${this.apiUrl}/events/${id}`);
+  }
+
+  getFeaturedEvents(): Observable<any> {
+    const token =
+      sessionStorage.getItem(CONSTANTS.token) ||
+      localStorage.getItem(CONSTANTS.token);
+    if (token) {
+      const decodedToken = this.decodeToken(token);
+      if (decodedToken) {
+        return this.httpClient.get<any>(
+          `${this.apiUrl}/events/featured?userId=${decodedToken.id}`
+        );
+      }
+    }
+    return this.httpClient.get<any>(`${this.apiUrl}/events/featured`);
   }
 
   getFreeTicket(data: any): Observable<any> {
@@ -75,5 +99,9 @@ export class EventService {
         },
       }
     );
+  }
+
+  private decodeToken(token: string): any {
+    return JSON.parse(atob(token.split('.')[1]));
   }
 }
