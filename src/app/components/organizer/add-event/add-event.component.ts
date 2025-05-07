@@ -7,11 +7,10 @@ import {
   heroCheckCircle,
   heroXMark,
 } from '@ng-icons/heroicons/outline';
-import { CustomAlertComponent } from '../../shared/custom-alert/custom-alert.component';
 import { LocationPickerComponent } from './location-picker/location-picker.component';
-import { CONSTANTS } from '../../../constants';
 import { OrganizerService } from '../../../services/organizer/organizer.service';
-import { RouterLink } from '@angular/router';
+import { NgxSpinnerService, NgxSpinnerModule } from 'ngx-spinner';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-add-event',
@@ -20,8 +19,8 @@ import { RouterLink } from '@angular/router';
     CommonModule,
     FormsModule,
     NgIcon,
-    CustomAlertComponent,
     LocationPickerComponent,
+    NgxSpinnerModule,
   ],
   templateUrl: './add-event.component.html',
   providers: [
@@ -42,6 +41,7 @@ export class AddEventComponent {
   city: string = ''; // This will be updated by the LocationPicker
   category: string = '';
   isFreeEvent: boolean = false;
+  freeTicketCount: number = 0;
   selectedImagePreview: string | ArrayBuffer | null = null;
   selectedImageFile: File | null = null;
   latitude: number | null = 29.9792; // Default Latitude (Giza) - Passed to LocationPicker
@@ -57,26 +57,17 @@ export class AddEventComponent {
   currentHighlight: string = ''; // Holds the value of the highlight input field
   eventHighlights: string[] = []; // Holds the list of added highlights
 
-  // alert
-  showAlert: boolean = false;
-  alertMessage: string = '';
-  alertType: any = 'success';
-
   constructor(
     private organizerService: OrganizerService,
-    private location: Location
-  ) {
-    console.log(sessionStorage.getItem(CONSTANTS.token));
-    let token = sessionStorage.getItem(CONSTANTS.token);
-    const payload = this.decodeToken(token!);
-    console.log(payload);
-  }
+    private location: Location,
+    private spinner: NgxSpinnerService,
+    private toastr: ToastrService
+  ) {}
 
   // handle on select image
   onFileSelected(event: Event): void {
     const element = event.currentTarget as HTMLInputElement;
     let fileList: FileList | null = element.files;
-
     if (fileList && fileList[0]) {
       const file = fileList[0];
       this.selectedImageFile = file;
@@ -98,7 +89,6 @@ export class AddEventComponent {
     // console.log(this.eventHighlights);
   }
 
-  // Method to remove a highlight by index
   removeHighlight(index: number): void {
     this.eventHighlights.splice(index, 1);
   }
@@ -119,9 +109,7 @@ export class AddEventComponent {
 
   onSubmit(): void {
     if (this.selectedImageFile == null) {
-      this.alertMessage = 'Please select an image';
-      this.showAlert = true;
-      this.alertType = 'error';
+      this.toastr.error('Please select an image!', 'Error');
       return;
     }
     if (
@@ -129,11 +117,10 @@ export class AddEventComponent {
       this.longitude == null ||
       this.address === ''
     ) {
-      this.alertMessage = 'Please select a location for the event.';
-      this.showAlert = true;
-      this.alertType = 'error';
-      return; // Prevent form submission if no location
+      this.toastr.error('Please select a location!', 'Error');
+      return; 
     }
+    this.spinner.show();
 
     const formData = new FormData();
     formData.append('title', this.eventTitle);
@@ -144,6 +131,7 @@ export class AddEventComponent {
     formData.append('city', this.city);
     formData.append('category', this.category);
     formData.append('isFree', String(this.isFreeEvent)); // Convert to string if boolean
+    formData.append('freeTicketsQuantity', String(this.freeTicketCount));
     formData.append('ticketsAvailable', JSON.stringify(this.ticketTypes)); // Convert array to string
     formData.append('latitude', String(this.latitude)); // Convert number to string
     formData.append('longitude', String(this.longitude)); // Convert number to string
@@ -153,15 +141,13 @@ export class AddEventComponent {
     this.organizerService.addEvent(formData).subscribe({
       next: (response) => {
         console.log('Event created successfully', response);
-        this.alertMessage = 'Event created successfully';
-        this.showAlert = true;
+        this.toastr.success('Event created and waiting to approve!', 'Success');
+        this.spinner.hide();
         this.onCancel();
       },
       error: (err) => {
-        this.alertMessage =
-          'Sorry, we encountered an issue. Please try again later.';
-        this.showAlert = true;
-        this.alertType = 'error';
+        this.toastr.error('Sorry, something went wrong!', 'Error');
+        this.spinner.hide();
         console.error('Error creating event', err);
       },
     });
@@ -177,6 +163,7 @@ export class AddEventComponent {
     this.city = '';
     this.category = '';
     this.isFreeEvent = false;
+    this.freeTicketCount = 0;
     this.selectedImagePreview = null;
     this.selectedImageFile = null; // Reset file too
     this.ticketTypes.forEach((t) => {
@@ -187,19 +174,6 @@ export class AddEventComponent {
     this.longitude = 31.1342;
     this.currentHighlight = '';
     this.eventHighlights = [];
-  }
-
-  private decodeToken(token: string): any {
-    if (!token || typeof token !== 'string' || token.split('.').length !== 3) {
-      console.error('Invalid token format', token);
-      return null;
-    }
-    try {
-      return JSON.parse(atob(token.split('.')[1]));
-    } catch (error) {
-      console.error('Error decoding token', error);
-      return null;
-    }
   }
   goBack(): void {
     this.location.back();
