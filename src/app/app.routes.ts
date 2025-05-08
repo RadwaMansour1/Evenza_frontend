@@ -13,7 +13,6 @@ import { ReviewComponent } from './components/admin-components/reviews/review.co
 import { AnalyticsComponent } from './components/admin-components/analytics/analytics.component';
 import { EventEditPageComponent } from './components/admin-components/event-edit/event-edit-page.component';
 import { UploadDocumentsComponent } from './components/admin-components/documents/upload-documents.component';
-import { OrganizersWalletComponent,} from './components/admin-components/organizer-wallet/organizer-wallet.component';
 import { redirectIfLoggedInGuard } from './guards/redirectIfLoggedIn.guard';
 import { SignupComponent } from './components/auth/signup/signup.component';
 import { VerifyEmailComponent } from './components/auth/verify-email/verify-email.component';
@@ -31,6 +30,7 @@ import { PaymentComponent } from './components/payment/payment.component';
 import { NgModule } from '@angular/core';
 import { RefundComponent } from './components/refund/refund.component';
 import { OrganizerWalletComponent } from './components/organizer/organizer-wallet/organizer-wallet.component';
+import {OrganizersWalletComponent } from './components/admin-components/organizer-wallet/organizer-wallet.component';
 import { AddEventComponent } from './components/organizer/add-event/add-event.component';
 import { ResetPasswordComponent } from './components/auth/reset-password/reset-password.component';
 import { LoginComponent } from './components/auth/login/login.component';
@@ -38,6 +38,7 @@ import { SetNewPasswordComponent } from './components/auth/set-new-password/set-
 import { PersonalInformationComponent } from './components/personal-information/personal-information.component';
 import { ViewEventsComponent } from './components/organizer/view-events/view-events.component';
 import { OrganizerHomeComponent } from './components/organizer/organizer-home/organizer-home.component';
+import { AdminRefundRequestsComponent } from './components/admin-components/refunds/admin-refund-requests.component';
 
 export const routes: Routes = [
   // Public Routes
@@ -117,6 +118,11 @@ export const routes: Routes = [
     path: 'admin/organizer/wallet',
     title: 'Organizer Wallet',
     component: OrganizersWalletComponent,
+  },
+  {
+    path: 'admin/refund-requests',
+    title: 'Refund Requests',
+    component: AdminRefundRequestsComponent,
   },
 
   // Wildcard Route (Page Not Found)

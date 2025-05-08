@@ -1,146 +1,124 @@
 import { Component, OnInit } from '@angular/core';
-import { OrganizerWalletService } from '../../../services/admin/organizer-wallet.service';
+import { OrganizerWalletService, OrganizerBalance, CreateTransactionDto } from '../../../services/admin/organizer-wallet.service';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { NgIconComponent } from '@ng-icons/core';
 
 @Component({
-  selector: 'app-organizers-wallet',
-  imports: [CommonModule, FormsModule, NgIconComponent,ReactiveFormsModule],
+  selector: 'app-organizer-wallet',
+  imports: [CommonModule,FormsModule,ReactiveFormsModule],
   templateUrl: './organizer-wallet.component.html',
   styleUrls: ['./organizer-wallet.component.scss']
 })
 export class OrganizersWalletComponent implements OnInit {
-  walletData: any;
-  transferInfo: any;
-  isLoading = true;
-  isTransferInfoLoading = true;
-  showTransferForm = false;
-  showWithdrawForm = false;
-  withdrawAmount = 0;
-  maxWithdrawAmount = 0;
-
-  transferForm: FormGroup;
-  withdrawForm: FormGroup;
-
-  transferTypes = ['E-Wallet', 'InstaPay', 'Bank'];
-  selectedTransferType = 'E-Wallet';
+  organizers: OrganizerBalance[] = [];
+  loading = true;
+  errorMessage = '';
+  selectedOrganizer: OrganizerBalance | null = null;
+  showWithdrawalModal = false;
+  withdrawalForm: FormGroup;
+  processingWithdrawal = false;
+  withdrawalSuccess = false;
 
   constructor(
-    private walletService: OrganizerWalletService,
+    private organizerWalletService: OrganizerWalletService,
     private fb: FormBuilder
   ) {
-    this.transferForm = this.fb.group({
-      type: ['E-Wallet', Validators.required],
-      walletPhoneNumber: [''],
-      accountNumber: [''],
-      accountName: [''],
-      email: ['', [Validators.email]]
-    });
-
-    this.withdrawForm = this.fb.group({
-      amount: [0, [Validators.required, Validators.min(1)]],
-      description: ['Withdrawal request', Validators.required]
+    this.withdrawalForm = this.fb.group({
+      amount: ['', [Validators.required, Validators.min(1)]],
+      description: ['Withdrawal', [Validators.required]],
+      currency: ['EGP', [Validators.required]]
     });
   }
 
   ngOnInit(): void {
-    this.loadWalletData();
-    this.loadTransferInfo();
+    this.loadOrganizers();
   }
 
-  loadWalletData(): void {
-    this.isLoading = true;
-    this.walletService.getWallet().subscribe({
-      next: (data) => {
-        this.walletData = data;
-        this.maxWithdrawAmount = data.availableBalance;
-        this.isLoading = false;
+  loadOrganizers() {
+    this.loading = true;
+    this.organizerWalletService.getAllOrganizersBalances().subscribe({
+      next: (res) => {
+        // If res is an object, convert it to an array
+        this.organizers = Array.isArray(res) ? res : Object.values(res);
+        this.loading = false;
       },
       error: (err) => {
-        console.error('Error loading wallet data:', err);
-        this.isLoading = false;
+        this.errorMessage = 'Failed to load organizers.';
+        this.loading = false;
       }
     });
   }
 
-  loadTransferInfo(): void {
-    this.isTransferInfoLoading = true;
-    this.walletService.getTransferInfo().subscribe({
-      next: (data) => {
-        this.transferInfo = data;
-        if (data) {
-          this.selectedTransferType = data.type;
-          this.updateTransferForm(data);
-        }
-        this.isTransferInfoLoading = false;
+  selectOrganizer(organizer: OrganizerBalance): void {
+    this.selectedOrganizer = organizer;
+  }
+
+  openWithdrawalModal(organizer: OrganizerBalance): void {
+    this.selectedOrganizer = organizer;
+    this.withdrawalForm.patchValue({
+      amount: organizer.availableBalance > 0 ? organizer.availableBalance : '',
+      description: `Withdrawal for ${organizer.name}`,
+      currency: 'EGP'
+    });
+    this.showWithdrawalModal = true;
+    this.withdrawalSuccess = false;
+  }
+
+  closeWithdrawalModal(): void {
+    this.showWithdrawalModal = false;
+    this.withdrawalForm.reset({
+      description: 'Withdrawal',
+      currency: 'EGP'
+    });
+  }
+
+  processWithdrawal(): void {
+    if (this.withdrawalForm.invalid || !this.selectedOrganizer) {
+      return;
+    }
+
+    const transaction: CreateTransactionDto = {
+      organizerId: this.selectedOrganizer.organizerId,
+      description: this.withdrawalForm.value.description,
+      amount: this.withdrawalForm.value.amount,
+      currency: this.withdrawalForm.value.currency,
+      status: 'completed'
+    };
+
+    this.processingWithdrawal = true;
+    this.organizerWalletService.createTransaction(transaction).subscribe({
+      next: (response) => {
+        console.log('Withdrawal successful', response);
+        this.processingWithdrawal = false;
+        this.withdrawalSuccess = true;
+        // Refresh organizer list to update balances
+        this.loadOrganizers();
+        // Close modal after 2 seconds
+        setTimeout(() => {
+          this.closeWithdrawalModal();
+        }, 2000);
       },
-      error: (err) => {
-        console.error('Error loading transfer info:', err);
-        this.isTransferInfoLoading = false;
+      error: (error) => {
+        console.error('Error processing withdrawal', error);
+        this.processingWithdrawal = false;
+        this.errorMessage = 'Failed to process withdrawal. Please try again.';
       }
     });
   }
 
-  updateTransferForm(data: any): void {
-    this.transferForm.patchValue({
-      type: data.type,
-      walletPhoneNumber: data.walletPhoneNumber || '',
-      accountNumber: data.accountNumber || '',
-      accountName: data.accountName || '',
-      email: data.email || ''
-    });
-  }
-
-  onTransferTypeChange(): void {
-    this.selectedTransferType = this.transferForm.get('type')?.value;
-  }
-
-  submitTransferInfo(): void {
-    if (this.transferForm.invalid) return;
-
-    const formData = this.transferForm.value;
-    this.walletService.updateTransferInfo(formData).subscribe({
-      next: (data) => {
-        this.transferInfo = data;
-        this.showTransferForm = false;
-        this.loadTransferInfo();
-      },
-      error: (err) => {
-        console.error('Error updating transfer info:', err);
-      }
-    });
-  }
-
-  submitWithdrawal(): void {
-    if (this.withdrawForm.invalid || this.withdrawForm.value.amount > this.maxWithdrawAmount) return;
-
-    const formData = this.withdrawForm.value;
-    this.walletService.createTransaction({
-      organizerId: 'current-organizer-id', // This should come from auth service
-      description: formData.description,
-      amount: formData.amount,
-      status: 'pending'
-    }).subscribe({
-      next: () => {
-        this.showWithdrawForm = false;
-        this.loadWalletData();
-        this.withdrawForm.reset({
-          amount: 0,
-          description: 'Withdrawal request'
-        });
-      },
-      error: (err) => {
-        console.error('Error creating withdrawal:', err);
-      }
-    });
-  }
-
-  formatCurrency(amount: number): string {
-    return amount.toLocaleString('en-EG', {
-      style: 'currency',
-      currency: 'EGP',
-      minimumFractionDigits: 2
-    });
+  getTransferInfoLabel(organizer: OrganizerBalance | null): string {
+    if (!organizer || !organizer.TransferInfo) {
+      return 'No transfer info';
+    }
+    
+    const info = organizer.TransferInfo;
+    
+    if (info.type === 'E-Wallet') {
+      return `E-Wallet: ${info.walletPhoneNumber}`;
+    } else if (info.type === 'InstaPay' || info.type === 'Bank') {
+      return `${info.type}: ${info.accountName} (${info.accountNumber})`;
+    }
+    
+    return 'Unknown transfer info';
   }
 }

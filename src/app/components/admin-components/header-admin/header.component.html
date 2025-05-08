@@ -1,12 +1,138 @@
-<nav class="bg-white shadow w-full h-16 flex items-center justify-between px-6">
-    <div class="text-xl font-bold text-gray-800">Event Hive</div>
-    <div class="flex items-center space-x-4">
+<header class="admin-header">
+  <div class="header-left">
+    <div class="search-container">
       <input
         type="text"
-        placeholder="Search"
-        class="px-3 py-1.5 border border-gray-300 rounded-lg focus:outline-none focus:ring"
+        placeholder="Search events, users, tickets..."
+        class="search-input"
       />
-      <div class="w-9 h-9 rounded-full bg-gray-300"></div>
+      <ng-icon
+        name="heroMagnifyingGlass"
+        class="search-icon"
+      ></ng-icon>
     </div>
-  </nav>
-  
+  </div>
+
+  <div class="header-right">
+    <!-- Quick Actions -->
+    <div class="quick-actions">
+      <button class="action-btn" title="Create New Event">
+        <ng-icon name="heroPlus"></ng-icon>
+        <span>New Event</span>
+      </button>
+      
+      <div class="divider"></div>
+
+      <!-- Stats Summary -->
+      <div class="stats-summary">
+        <div class="stat">
+          <span class="stat-value">{{ todayEvents }}</span>
+          <span class="stat-label">Today's Events</span>
+        </div>
+        <div class="stat">
+          <span class="stat-value">{{ pendingApprovals }}</span>
+          <span class="stat-label">Pending</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Notifications -->
+    <div class="notifications-dropdown" [class.active]="isNotificationsOpen">
+      <button class="notification-btn" (click)="toggleNotifications()">
+        <ng-icon name="heroBell"></ng-icon>
+        <span *ngIf="unreadNotifications > 0" class="notification-badge">{{ unreadNotifications }}</span>
+      </button>
+      
+      <div class="dropdown-menu" *ngIf="isNotificationsOpen">
+        <div class="dropdown-header">
+          <h3>Notifications</h3>
+          <!-- <button class="text-btn" (click)="markAllAsRead()" *ngIf="unreadNotifications > 0">
+            Mark all as read
+          </button> -->
+        </div>
+        
+        <div class="notifications-list" *ngIf="notifications.length > 0">
+          <div 
+            *ngFor="let notification of notifications" 
+            class="notification-item"
+            [class.unread]="!notification.read"
+          >
+            <div class="notification-icon" [ngClass]="notification.type">
+              <ng-icon *ngIf="notification.type === 'refund'" name="heroArrowPath"></ng-icon>
+              <ng-icon *ngIf="notification.type === 'event'" name="heroCalendar"></ng-icon>
+              <ng-icon *ngIf="notification.type === 'user'" name="heroUser"></ng-icon>
+            </div>
+            <div class="notification-content">
+              <p class="notification-text">{{ notification.message }}</p>
+              <!-- <span class="notification-time">{{ notification.time | timeAgo }}</span> -->
+            </div>
+            <!-- <button class="notification-action" (click)="handleNotification(notification)">
+              <ng-icon name="heroArrowRight"></ng-icon>
+            </button> -->
+          </div>
+        </div>
+        
+        <div class="empty-notifications" *ngIf="notifications.length === 0">
+          <ng-icon name="heroCheckCircle" class="empty-icon"></ng-icon>
+          <p>No new notifications</p>
+        </div>
+        
+        <div class="dropdown-footer">
+          <button class="text-btn" (click)="viewAllNotifications()">
+            View all notifications
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- User Menu -->
+    <div class="user-dropdown" [class.active]="isUserMenuOpen">
+      <button class="user-menu-btn" (click)="toggleUserMenu()">
+        <div class="user-avatar" *ngIf="!user?.photoURL">
+          {{ userInitials }}
+        </div>
+        <img *ngIf="user?.photoURL" [src]="user.photoURL" alt="User avatar" class="user-avatar-img" />
+        <div class="user-info">
+          <span class="user-name">{{ user?.displayName || 'Admin' }}</span>
+          <span class="user-role">{{ user?.role || 'Administrator' }}</span>
+        </div>
+        <ng-icon name="heroChevronDown" class="dropdown-icon" [class.open]="isUserMenuOpen"></ng-icon>
+      </button>
+      
+      <div class="dropdown-menu user-menu" *ngIf="isUserMenuOpen">
+        <div class="menu-header">
+          <div class="user-details">
+            <div class="user-avatar large" *ngIf="!user?.photoURL">
+              {{ userInitials }}
+            </div>
+            <img *ngIf="user?.photoURL" [src]="user.photoURL" alt="User avatar" class="user-avatar-img large" />
+            <div>
+              <h3>{{ user?.displayName || 'Admin User' }}</h3>
+              <p>{{ user?.email || 'admin@evenza.com' }}</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="menu-items">
+          <a class="menu-item" routerLink="/admin/profile">
+            <ng-icon name="heroUser"></ng-icon>
+            <span>My Profile</span>
+          </a>
+          <a class="menu-item" routerLink="/admin/settings">
+            <ng-icon name="heroCog"></ng-icon>
+            <span>Settings</span>
+          </a>
+          <a class="menu-item" href="/help">
+            <ng-icon name="heroQuestionMarkCircle"></ng-icon>
+            <span>Help Center</span>
+          </a>
+          <div class="menu-divider"></div>
+          <!-- <button class="menu-item logout" (click)="logout()">
+            <ng-icon name="heroArrowRightOnRectangle"></ng-icon>
+            <span>Sign Out</span>
+          </button> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</header>

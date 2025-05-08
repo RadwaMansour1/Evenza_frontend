@@ -1,28 +1,65 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
+
+export interface TransferInfo {
+  _id?: string;
+  organizerId: string;
+  type: 'E-Wallet' | 'InstaPay' | 'Bank';
+  accountNumber?: string;
+  accountName?: string;
+  walletPhoneNumber?: string;
+  email?: string;
+  createdAt?: Date;
+}
+
+export interface Transaction {
+  _id?: string;
+  organizerId: string;
+  description: string;
+  amount: number;
+  currency: string;
+  status: 'pending' | 'completed';
+  createdAt?: Date;
+}
+
+export interface OrganizerBalance {
+  organizerId: string;
+  name: string;
+  availableBalance: number;
+  TransferInfo: TransferInfo | null;
+}
+
+export interface CreateTransactionDto {
+  organizerId: string;
+  description: string;
+  amount: number;
+  currency: string;
+  status: 'pending' | 'completed';
+}
+
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class OrganizerWalletService {
-  private baseUrl = 'http://localhost:3000/organizer/wallet';
+  private apiUrl = `http://localhost:3000/organizer/wallet`;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
-  getWallet(): Observable<any> {
-    return this.http.get(`${this.baseUrl}`);
+  getAllOrganizersBalances(): Observable<OrganizerBalance[]> {
+    return this.http.get<OrganizerBalance[]>(`${this.apiUrl}/all-balances`);
   }
 
-  getTransferInfo(): Observable<any> {
-    return this.http.get(`${this.baseUrl}/transfer-info`);
+  getOrganizerWallet(organizerId: string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/${organizerId}`);
   }
 
-  updateTransferInfo(data: any): Observable<any> {
-    return this.http.post(`${this.baseUrl}/transfer-info`, data);
+  getTransferInfo(organizerId: string): Observable<TransferInfo> {
+    return this.http.get<TransferInfo>(`${this.apiUrl}/transfer-info/${organizerId}`);
   }
 
-  createTransaction(data: any): Observable<any> {
-    return this.http.post(`${this.baseUrl}/transaction`, data);
+  createTransaction(transaction: CreateTransactionDto): Observable<Transaction> {
+    return this.http.post<Transaction>(`${this.apiUrl}/transaction`, transaction);
   }
 }

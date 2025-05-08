@@ -1,0 +1,522 @@
+// Evenza theme variables
+$primary-color: #9333ea;
+$primary-light: #a855f7;
+$primary-dark: #7e22ce;
+$primary-bg: #f5f0ff;
+$text-dark: #1e293b;
+$text-medium: #475569;
+$text-light: #64748b;
+$border-color: #e2e8f0;
+$success-color: #10b981;
+$warning-color: #f59e0b;
+$danger-color: #ef4444;
+$info-color: #0ea5e9;
+
+// Admin header styles
+.admin-header {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 64px;
+  height: 64px;
+  background-color: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.5rem;
+  z-index: 40;
+  transition: left 0.3s ease;
+  
+  @media (min-width: 1024px) {
+    left: 240px; // Adjust based on your sidebar width
+  }
+}
+
+// Left side of header
+.header-left {
+  display: flex;
+  align-items: center;
+  
+  .search-container {
+    position: relative;
+    width: 320px;
+    
+    @media (max-width: 768px) {
+      width: 200px;
+    }
+    
+    .search-input {
+      width: 100%;
+      height: 40px;
+      padding: 0 1rem 0 2.5rem;
+      border-radius: 20px;
+      border: 1px solid $border-color;
+      background-color: #f8fafc;
+      transition: all 0.2s;
+      font-size: 0.875rem;
+      
+      &:focus {
+        outline: none;
+        box-shadow: 0 0 0 2px rgba($primary-color, 0.2);
+        border-color: $primary-light;
+        background-color: white;
+      }
+      
+      &::placeholder {
+        color: $text-light;
+      }
+    }
+    
+    .search-icon {
+      position: absolute;
+      left: 0.75rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: $text-light;
+      font-size: 1rem;
+    }
+  }
+}
+
+// Right side of header
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+// Quick actions section
+.quick-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-right: 0.5rem;
+  
+  @media (max-width: 1023px) {
+    display: none;
+  }
+  
+  .action-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    height: 36px;
+    padding: 0 1rem;
+    border-radius: 18px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    background-color: $primary-color;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    
+    &:hover {
+      background-color: $primary-dark;
+    }
+    
+    ng-icon {
+      font-size: 1rem;
+    }
+  }
+  
+  .divider {
+    height: 24px;
+    width: 1px;
+    background-color: $border-color;
+  }
+}
+
+// Stats summary
+.stats-summary {
+  display: flex;
+  gap: 1.5rem;
+  
+  .stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    .stat-value {
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: $text-dark;
+    }
+    
+    .stat-label {
+      font-size: 0.75rem;
+      color: $text-medium;
+    }
+  }
+}
+
+// Notifications dropdown
+.notifications-dropdown {
+  position: relative;
+  
+  .notification-btn {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    
+    &:hover {
+      background-color: #f8fafc;
+    }
+    
+    ng-icon {
+      color: $text-medium;
+      font-size: 1.25rem;
+    }
+    
+    .notification-badge {
+      position: absolute;
+      top: 0;
+      right: 0;
+      min-width: 18px;
+      height: 18px;
+      border-radius: 9px;
+      background-color: $danger-color;
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 5px;
+      border: 2px solid white;
+    }
+  }
+}
+
+// User dropdown
+.user-dropdown {
+  position: relative;
+  
+  .user-menu-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.25rem;
+    padding-right: 0.5rem;
+    border-radius: 9999px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    
+    &:hover {
+      background-color: #f8fafc;
+    }
+    
+    .user-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background-color: $primary-color;
+      color: white;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.875rem;
+      
+      &.large {
+        width: 48px;
+        height: 48px;
+        font-size: 1rem;
+      }
+    }
+    
+    .user-avatar-img {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      object-fit: cover;
+      
+      &.large {
+        width: 48px;
+        height: 48px;
+      }
+    }
+    
+    .user-info {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      
+      @media (max-width: 768px) {
+        display: none;
+      }
+      
+      .user-name {
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: $text-dark;
+      }
+      
+      .user-role {
+        font-size: 0.75rem;
+        color: $text-medium;
+      }
+    }
+    
+    .dropdown-icon {
+      color: $text-light;
+      transition: transform 0.2s;
+      
+      &.open {
+        transform: rotate(180deg);
+      }
+    }
+  }
+}
+
+// Common dropdown styles
+.dropdown-menu {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  width: 320px;
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  border: 1px solid $border-color;
+  z-index: 50;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  transition: max-height 0.3s, opacity 0.2s, visibility 0.2s;
+  
+  .dropdown-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+    border-bottom: 1px solid $border-color;
+    
+    h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: $text-dark;
+      margin: 0;
+    }
+  }
+  
+  .dropdown-footer {
+    padding: 0.75rem;
+    border-top: 1px solid $border-color;
+    text-align: center;
+  }
+  
+  .text-btn {
+    background: none;
+    border: none;
+    color: $primary-color;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+// When dropdown is active
+.notifications-dropdown.active .dropdown-menu,
+.user-dropdown.active .dropdown-menu {
+  max-height: 400px;
+  opacity: 1;
+  visibility: visible;
+}
+
+// Notifications list
+.notifications-list {
+  max-height: 320px;
+  overflow-y: auto;
+  
+  .notification-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid $border-color;
+    transition: background-color 0.2s;
+    
+    &:hover {
+      background-color: #f8fafc;
+    }
+    
+    &.unread {
+      background-color: $primary-bg;
+      
+      .notification-text {
+        font-weight: 500;
+      }
+    }
+    
+    &:last-child {
+      border-bottom: none;
+    }
+    
+    .notification-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      
+      &.refund {
+        background-color: rgba($warning-color, 0.1);
+        color: $warning-color;
+      }
+      
+      &.event {
+        background-color: rgba($primary-color, 0.1);
+        color: $primary-color;
+      }
+      
+      &.user {
+        background-color: rgba($info-color, 0.1);
+        color: $info-color;
+      }
+    }
+    
+    .notification-content {
+      flex: 1;
+      
+      .notification-text {
+        margin: 0;
+        font-size: 0.875rem;
+        color: $text-dark;
+        line-height: 1.4;
+      }
+      
+      .notification-time {
+        font-size: 0.75rem;
+        color: $text-light;
+      }
+    }
+    
+    .notification-action {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+      color: $text-light;
+      
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.05);
+        color: $text-dark;
+      }
+    }
+  }
+}
+
+// Empty notifications state
+.empty-notifications {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+  
+  .empty-icon {
+    font-size: 2rem;
+    color: $success-color;
+    margin-bottom: 0.5rem;
+  }
+  
+  p {
+    color: $text-medium;
+    font-size: 0.875rem;
+  }
+}
+
+// User menu specific styles
+.user-menu {
+  width: 280px;
+  
+  .menu-header {
+    padding: 1rem;
+    border-bottom: 1px solid $border-color;
+    
+    .user-details {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      
+      h3 {
+        margin: 0 0 0.25rem;
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: $text-dark;
+      }
+      
+      p {
+        margin: 0;
+        font-size: 0.75rem;
+        color: $text-medium;
+      }
+    }
+  }
+  
+  .menu-items {
+    padding: 0.5rem 0;
+    
+    .menu-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem 1rem;
+      color: $text-dark;
+      font-size: 0.875rem;
+      text-decoration: none;
+      transition: background-color 0.2s;
+      cursor: pointer;
+      
+      &:hover {
+        background-color: #f8fafc;
+      }
+      
+      ng-icon {
+        color: $text-medium;
+      }
+      
+      &.logout {
+        color: $danger-color;
+        border: none;
+        background: none;
+        width: 100%;
+        text-align: left;
+        
+        ng-icon {
+          color: $danger-color;
+        }
+      }
+    }
+    
+    .menu-divider {
+      height: 1px;
+      background-color: $border-color;
+      margin: 0.5rem 0;
+    }
+  }
+}

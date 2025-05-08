@@ -1,31 +1,80 @@
-/* You can add custom styles here if needed */
-.transaction-status {
-    @apply px-2 inline-flex text-xs leading-5 font-semibold rounded-full;
-    
-    &.pending {
-      @apply bg-yellow-100 text-yellow-800;
-    }
-    
-    &.completed {
-      @apply bg-green-100 text-green-800;
-    }
+// Custom styling for the Organizer Wallet component
+// Note: Most styling is handled by Tailwind utility classes in the HTML
+
+:host {
+  display: block;
+}
+
+// Optional custom scrollbar styling for the table
+.overflow-x-auto {
+  &::-webkit-scrollbar {
+    height: 8px;
   }
+
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #d1d5db;
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: #9ca3af;
+  }
+}
+
+// Animation for the withdrawal success notification
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+// Enhance modal animations
+.transform {
+  transition-property: transform, opacity;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+// Add a subtle hover effect to table rows
+table tbody tr {
+  transition: background-color 0.2s ease;
+}
+
+// Badge animations
+.inline-flex.items-center.px-2\.5.py-0\.5.rounded-full {
+  transition: all 0.2s ease;
   
-  /* Animation for modal */
-  .modal-enter {
-    opacity: 0;
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
-  
-  .modal-enter-active {
-    opacity: 1;
-    transition: opacity 200ms;
+}
+
+// Button press animation
+button:not(:disabled) {
+  &:active {
+    transform: scale(0.98);
   }
-  
-  .modal-exit {
-    opacity: 1;
+}
+
+// Purple gradient background enhancement
+.bg-gradient-to-br.from-purple-50.to-purple-100 {
+  background-size: 200% 200%;
+  animation: gradientShift 15s ease infinite;
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
   }
-  
-  .modal-exit-active {
-    opacity: 0;
-    transition: opacity 200ms;
+  50% {
+    background-position: 100% 50%;
   }
+  100% {
+    background-position: 0% 50%;
+  }
+}

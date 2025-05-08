@@ -8,7 +8,8 @@ import { Observable } from "rxjs";
 export class RefundService{
     private apiUrl = "http://localhost:3000/refunds"
     private apiOriginalUrl = "http://localhost:3000/payments/refund"
-    private apiWalletUrl = "http://localhost:3000/wallet/refund"
+    private apiWalletUrl = "http://localhost:3000/refunds/wallet";
+
     constructor(private http:HttpClient){}
 
      refundOriginal (transactionId: string, refundAmount:number,ticketId:string, reason?: string):Observable<any>{
@@ -34,5 +35,6 @@ export class RefundService{
             refundAmount
         });
     }
+    
 
 }

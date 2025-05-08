@@ -1,7 +1,9 @@
-<app-sidebar></app-sidebar>
+<!-- <app-sidebar></app-sidebar>
 
-<div class="ml-64">
-  <header
+<app-sidebar [isOpen]="sidebarOpen" (toggleSidebar)="toggleSidebar()"></app-sidebar>
+<div [ngClass]="sidebarOpen ? 'ml-64' : 'ml-0'">
+  <app-admin-header></app-admin-header>
+   <header
     class="bg-white shadow-sm fixed top-0 right-0 left-64 h-16 flex items-center justify-between px-6 z-10"
   >
     <div class="relative w-64">
@@ -33,10 +35,10 @@
         <ng-icon name="heroChevronDown" class="ml-1 text-gray-500"></ng-icon>
       </div>
     </div>
-  </header>
+  </header> -->
 
   <!-- Content Area -->
-  <main class="pt-16">
+  <!-- <main class="pt-16 transition-all duration-300"> -->
     <!-- <app-dashboard></app-dashboard> -->
     <!-- <app-events></app-events> -->
     <!-- <app-users></app-users> -->
@@ -45,6 +47,26 @@
     <!-- <app-reviews></app-reviews> -->
     <!-- <app-analytics></app-analytics> -->
     <!-- <app-event-edit-page></app-event-edit-page> -->
-    <router-outlet></router-outlet>
-  </main>
+    <!-- <router-outlet></router-outlet> -->
+  <!-- </main> -->
+<!-- Layout container -->
+<div class="flex h-screen">
+  <!-- Sidebar -->
+  <app-sidebar 
+    [isSidebarOpen]="sidebarState" 
+    (sidebarStateChange)="updateSidebarState($event)">
+  </app-sidebar>
+  
+  <!-- Main content area -->
+  <div 
+    class="flex-1 transition-all duration-300 ease-in-out"
+    [ngClass]="{
+      'ml-64': sidebarState || sidebarHovered,
+      'ml-0 md:ml-16': !sidebarState && !sidebarHovered
+    }">
+    <app-admin-header></app-admin-header>
+    <main class="pt-16 px-6">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
 </div>

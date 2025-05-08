@@ -13,7 +13,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { LanguageService } from './services/language/language.service';
 import { DashboardComponent } from "./components/admin-components/dashboard/dashboard.component";
 import { SidebarComponent } from "./components/admin-components/sidebar-admin/sidebar.component";
-import { HeaderComponent } from "./components/admin-components/header-admin/header.component";
+import { AdminHeaderComponent } from "./components/admin-components/header-admin/header.component";
 import { NgIconComponent } from '@ng-icons/core';
 import { AdminEventsComponent } from "./components/admin-components/events-page/events.component";
 import { UsersComponent } from "./components/admin-components/users/users.component";

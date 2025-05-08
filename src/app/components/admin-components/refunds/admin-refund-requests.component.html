@@ -1,0 +1,65 @@
+<!-- HTML Template -->
+<div class="refunds-container" *ngIf="!isLoading; else loading">
+  <h1 class="title">Refund Requests</h1>
+  
+  <div class="refunds-grid">
+    <div class="refund-card" *ngFor="let request of refundRequests">
+      <div class="card-header">
+        <h2>User ID: {{ request.userId }}</h2>
+        <span class="status-badge" [ngClass]="request.status">{{ request.status | titlecase }}</span>
+      </div>
+      
+      <div class="card-body">
+        <p><strong>Payment ID:</strong> {{ request.paymentId }}</p>
+        <p><strong>Ticket ID:</strong> {{ request.ticketId }}</p>
+        <p><strong>Method:</strong> {{ request.refundMethod }}</p>
+        <p><strong>Amount:</strong> ${{ request.refundAmount }}</p>
+        <p><strong>Reason:</strong> {{ request.reason }}</p>
+      </div>
+      
+      <div class="card-actions">
+        <button class="approve-btn" [disabled]="request.status !== 'pending'" (click)="openApproveModal(request._id)">
+          Approve Refund
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Empty state -->
+  <div class="empty-state" *ngIf="refundRequests.length === 0">
+    <div class="empty-icon">📭</div>
+    <p>No refund requests found</p>
+  </div>
+</div>
+
+<ng-template #loading>
+  <div class="loading">
+    <div class="spinner"></div>
+    <p>Loading refund requests...</p>
+  </div>
+</ng-template>
+
+<!-- Approve Confirmation Modal -->
+<div *ngIf="isApproveModalOpen" class="modal-overlay">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2>Confirm Refund Approval</h2>
+    </div>
+    <div class="modal-body">
+      <p>Are you sure you want to approve this refund request?</p>
+      <p class="modal-details" *ngIf="selectedRequest">
+        <span><strong>User ID:</strong> {{selectedRequest.userId}}</span>
+        <span><strong>Amount:</strong> ${{selectedRequest.refundAmount}}</span>
+        <span><strong>Method:</strong> {{selectedRequest.refundMethod}}</span>
+      </p>
+    </div>
+    <div class="modal-footer">
+      <button class="cancel-btn" (click)="closeApproveModal()">
+        Cancel
+      </button>
+      <button class="confirm-btn" (click)="confirmApproveRefund()">
+        Approve Refund
+      </button>
+    </div>
+  </div>
+</div>

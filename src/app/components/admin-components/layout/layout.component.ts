@@ -1,47 +1,27 @@
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-
-import {
-  heroChartBar,
-  heroUsers,
-  heroTicket,
-  heroCalendar,
-  heroCog,
-  heroBell,
-  heroMagnifyingGlass,
-  heroChevronDown,
-  heroPencilSquare,
-  heroTrash,
-  heroCheckCircle,
-  heroXCircle,
-  heroArrowPath,
-} from '@ng-icons/heroicons/outline';
-import { NgIcon, provideIcons } from '@ng-icons/core';
+import { AdminHeaderComponent } from "../header-admin/header.component";
 import { SidebarComponent } from "../sidebar-admin/sidebar.component";
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+
 @Component({
   selector: 'app-admin-layout',
-  imports: [RouterOutlet, CommonModule, NgIcon, SidebarComponent],
-
   templateUrl: './layout.component.html',
-  providers: [
-    provideIcons({
-      heroChartBar,
-      heroUsers,
-      heroTicket,
-      heroCalendar,
-      heroCog,
-      heroBell,
-      heroMagnifyingGlass,
-      heroChevronDown,
-      heroPencilSquare,
-      heroTrash,
-      heroCheckCircle,
-      heroXCircle,
-      heroArrowPath,
-    }),
-  ],
+  imports: [AdminHeaderComponent, SidebarComponent,CommonModule,RouterModule],
 })
 export class AdminLayoutComponent {
-  constructor() {}
+  sidebarState = true;
+  sidebarHovered = false;
+
+  updateSidebarState(state: boolean) {
+    // If this is coming from a hover event in the sidebar
+    if (this.sidebarState === false && state === true) {
+      this.sidebarHovered = true;
+    } else if (this.sidebarState === false && state === false) {
+      this.sidebarHovered = false;
+    } else {
+      // This is a regular toggle, not hover
+      this.sidebarState = state;
+    }
+  }
 }
