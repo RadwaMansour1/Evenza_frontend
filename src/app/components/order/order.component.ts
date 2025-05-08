@@ -143,6 +143,20 @@ export class OrderComponent implements OnInit {
       },
       error: (err) => {
         console.error('Error creating order', err);
+
+        if (err.status === 403) {
+          Swal.fire({
+            title: 'Access Denied',
+            text: err.error.message || 'You are not allowed to make a booking.',
+            icon: 'error',
+          });
+        } else {
+          Swal.fire({
+            title: 'Error',
+            text: 'Something went wrong while creating the order.',
+            icon: 'error',
+          });
+        }
       }
     });
   }

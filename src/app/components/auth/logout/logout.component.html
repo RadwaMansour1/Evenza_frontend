@@ -215,7 +215,14 @@
                     </p>
                 </div>
             </div>
-            <div id="card-footer" class="flex items-center p-6 pt-0">
+            <div id="card-footer" class="flex items-center p-6 pt-0 w-fit">
+              
+                <a [routerLink]="['/activity-logs']" routerLinkActive="router-link-active"  class=" inline-flex items-center justify-center gap-2  border rounded p-2 font-display  bg-white hover:text-gray-900 text-orange-700 border-orange-300 hover:bg-orange-100 w-full">
+                    <span class="">
+                        <ng-icon name="featherClock" ></ng-icon>
+                      </span>
+                          View All Activity
+                </a>
             </div>
         </div>
     </div>

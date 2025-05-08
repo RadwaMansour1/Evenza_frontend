@@ -39,6 +39,7 @@ import { PersonalInformationComponent } from './components/personal-information/
 import { ViewEventsComponent } from './components/organizer/view-events/view-events.component';
 import { OrganizerHomeComponent } from './components/organizer/organizer-home/organizer-home.component';
 import { AdminRefundRequestsComponent } from './components/admin-components/refunds/admin-refund-requests.component';
+import { ActivityLogComponent } from './components/activity-log/activity-log.component';
 
 export const routes: Routes = [
   // Public Routes
@@ -191,6 +192,11 @@ export const routes: Routes = [
     component: SelectRoleComponent,
     title: 'Select Role',
     canActivate: [],
+  },
+  {
+    path:'activity-logs',
+    component: ActivityLogComponent,
+    canActivate:[]
   },
   {
     path: 'profile',

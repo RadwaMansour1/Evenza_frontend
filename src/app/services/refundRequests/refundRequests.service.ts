@@ -25,6 +25,10 @@ export class RefundsRequestsService {
     return this.http.get(`${this.apiUrl}/user/${id}`)
   }
 
+  updateStatus(id:string,status:string):Observable<any>{
+    return this.http.patch(`${this.apiUrl}/${id}`,{status})
+  }
+
   createRefundRequest(userId:string , paymentId:string , ticketId:string , refundMethod:string , reason:string ,refundAmount:number):Observable<any>{
     return this.http.post(`${this.apiUrl}`,{
       userId,
