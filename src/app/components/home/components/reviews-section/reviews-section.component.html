@@ -41,11 +41,11 @@
           <!-- User Info -->
           <div class="flex items-center gap-3">
             <img
-              *ngIf="review.userId.photo"
-              [src]="review.userId.photo"
+              [src]="review.profileImageUrl"
               alt="{{ review.userId.firstName }} {{ review.userId.lastName }}"
               class="w-12 h-12 rounded-full"
-            />
+              (error)="review.profileImageUrl = getAvatarUrl(review.user)"
+              />
             <div>
               <p class="text-base font-semibold text-gray-900">
                 {{ review.userId.firstName }} {{ review.userId.lastName }}
