@@ -16,7 +16,7 @@ export interface Category {
 
 @Injectable({ providedIn: 'root' })
 export class CategoriesService {
-  private apiUrl = 'http://localhost:3000/admin/categories';
+  private apiUrl = 'https://evenzabackend-production-2fb4.up.railway.app/admin/categories';
 
   constructor(private http: HttpClient) {}
 

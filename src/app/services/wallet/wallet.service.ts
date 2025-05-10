@@ -6,7 +6,7 @@ import { Observable } from "rxjs";
     providedIn: 'root'
 })
 export class WalletService{
-    private apiUrl:string = "http://localhost:3000/wallet"
+    private apiUrl:string = "https://evenzabackend-production-2fb4.up.railway.app/wallet"
     constructor(private readonly http:HttpClient){}
 
     getTicketByUserId(userId:string):Observable<any>{

@@ -7,7 +7,7 @@ import { PaymentModel } from "../../models/payment.model";
     providedIn:"root"
 })
 export class PaymentService{
-    private apiUrl = "http://localhost:3000/payments"
+    private apiUrl = "https://evenzabackend-production-2fb4.up.railway.app/payments"
     constructor(private readonly http:HttpClient){}
 
     getAllPayments():Observable<PaymentModel[]>{

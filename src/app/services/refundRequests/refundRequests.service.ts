@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 })
 export class RefundsRequestsService {
 
-  private apiUrl = "http://localhost:3000/refundsRequests"
+  private apiUrl = "https://evenzabackend-production-2fb4.up.railway.app/refundsRequests"
 
   constructor(private readonly http:HttpClient) {}
 
@@ -42,7 +42,7 @@ export class RefundsRequestsService {
   approveWalletRefund(id: string) {
     return this.http.post(` ${this.apiUrl}/approve-wallet/${id}`, {});
   }
-  
+
 
 
 }

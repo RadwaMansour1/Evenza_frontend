@@ -10,7 +10,7 @@ import { CONSTANTS } from '../../constants';
   providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:3000'; // Replace with your API URL
+  private apiUrl = 'https://evenzabackend-production-2fb4.up.railway.app'; // Replace with your API URL
   private token: string | null = null; // Store the token here
   private emailSource = new BehaviorSubject<string | null>(null); // BehaviorSubject to store the email
   currentEmail$ = this.emailSource.asObservable(); // Observable to expose the email to other components
@@ -56,7 +56,7 @@ export class AuthService {
   register(name: string, email: string, password: string) {
     //send data to register api
     return this.http
-      .post('http://localhost:3000/register', { name, email, password })
+      .post('https://evenzabackend-production-2fb4.up.railway.app/register', { name, email, password })
       .subscribe((res: any) => {
         console.log(res);
         if (res.success) {
@@ -102,11 +102,11 @@ export class AuthService {
   }
 
   setUserRole(user: any) {
-    return this.http.post('http://localhost:3000/auth/set-role', user);
+    return this.http.post('https://evenzabackend-production-2fb4.up.railway.app/auth/set-role', user);
   }
 
   updateUserRole(data: { email: string; role: string }) {
-    return this.http.post('http://localhost:3000/auth/set-role', data);
+    return this.http.post('https://evenzabackend-production-2fb4.up.railway.app/auth/set-role', data);
   }
 
   signupWithGoogle(user: any): Observable<any> {

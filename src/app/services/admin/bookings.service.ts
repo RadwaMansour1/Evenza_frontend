@@ -30,8 +30,8 @@ export interface Booking {
 
 @Injectable({ providedIn: 'root' })
 export class BookingsService {
-  private apiUrl = 'http://localhost:3000/admin/orders';
-  private eventsUrl = 'http://localhost:3000/events'; 
+  private apiUrl = 'https://evenzabackend-production-2fb4.up.railway.app/admin/orders';
+  private eventsUrl = 'https://evenzabackend-production-2fb4.up.railway.app/events';
 
   constructor(private http: HttpClient) {}
 
@@ -41,7 +41,7 @@ export class BookingsService {
         if (!response || !response.data) {
           return [];
         }
-        
+
         return response.data.map((booking: any) => ({
           ...booking,
           userId: booking.userId ? {
@@ -52,8 +52,8 @@ export class BookingsService {
           } : null,
           orderDetails: booking.orderDetails ? booking.orderDetails.map((detail: any) => ({
             ...detail,
-            eventName: detail.eventId && typeof detail.eventId === 'object' ? 
-              (detail.eventId.title || detail.eventId.name || 'Event not found') : 
+            eventName: detail.eventId && typeof detail.eventId === 'object' ?
+              (detail.eventId.title || detail.eventId.name || 'Event not found') :
               'Event not found'
           })) : []
         }));

@@ -43,7 +43,7 @@ export interface Event {
 
 @Injectable({ providedIn: 'root' })
 export class EventsService {
-  private apiUrl = 'http://localhost:3000/admin/events';
+  private apiUrl = 'https://evenzabackend-production-2fb4.up.railway.app/admin/events';
 
   constructor(private http: HttpClient) {}
 
@@ -69,7 +69,7 @@ export class EventsService {
 
   updateEventStatus(id: string, status: 'approved' | 'rejected'): Observable<Event> {
     return this.http.patch<{ data: Event }>(
-     `http://localhost:3000/admin/events/${id}/approve`, 
+     `https://evenzabackend-production-2fb4.up.railway.app/admin/events/${id}/approve`,
       { status }
     ).pipe(
       map(response => response.data)
@@ -77,7 +77,7 @@ export class EventsService {
   }
 
   deleteEvent(id: string): Observable<void> {
-    return this.http.delete<void>(`http://localhost:3000/admin/events/${id}/delete`);
+    return this.http.delete<void>(`https://evenzabackend-production-2fb4.up.railway.app/admin/events/${id}/delete`);
   }
 
   private getOrganizerName(organizerId: number): string {

@@ -10,7 +10,7 @@ import { firstValueFrom } from 'rxjs'; // Import for converting Observable to Pr
 export class PaypalService {
   private clientId = 'ARf0DlL-Sb3lSN93trFWF59lt_ADTgNHYUJHlIxmANwX3-KWvgBeaSKoky_qAvtOEhGPkvQDLgA0qK4d';
   // Adjust the URL to your NestJS backend endpoint
-  private backendVerifyUrl = 'http://localhost:3000/payments/paypal/verify';
+  private backendVerifyUrl = 'https://evenzabackend-production-2fb4.up.railway.app/payments/paypal/verify';
 
   // Inject HttpClient
   constructor(private http: HttpClient) {}
@@ -46,7 +46,7 @@ export class PaypalService {
           return orderID;
         });
       },
-      
+
       onApprove: async (data: any, actions: any) => {
         console.log('onApprove triggered. Data:', data);
         let order; // Declare order variable outside try block
@@ -82,7 +82,7 @@ export class PaypalService {
 
             // Call your backend to save the payment data
             await firstValueFrom(
-              this.http.post('http://localhost:3000/payments', paymentData)
+              this.http.post('https://evenzabackend-production-2fb4.up.railway.app/payments', paymentData)
             );
 
             Swal.fire({

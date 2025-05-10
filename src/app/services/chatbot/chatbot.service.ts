@@ -7,7 +7,7 @@ import { Chatbot } from '../../models/chatbot.model';
   providedIn: 'root',
 })
 export class ChatbotService {
-  private baseUrl = 'http://localhost:3000/chatbot/chat';
+  private baseUrl = 'https://evenzabackend-production-2fb4.up.railway.app/chatbot/chat';
 
   constructor(private http: HttpClient) {}
 

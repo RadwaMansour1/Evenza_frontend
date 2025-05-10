@@ -28,11 +28,11 @@ export class PaymentSuccessComponent implements OnInit {
       })
 
       // const barcodeUrl =paymentMethod === "stripe" ?
-      // `http://localhost:3000/payments/barcode/${orderId}/${ticketId}?payment_method=${paymentMethod}`
+      // `https://evenzabackend-production-2fb4.up.railway.app/payments/barcode/${orderId}/${ticketId}?payment_method=${paymentMethod}`
       // :
-      // `http://localhost:3000/payments/barcode/${orderId}/${ticketId}?payment_method=${paymentMethod}`;
+      // `https://evenzabackend-production-2fb4.up.railway.app/payments/barcode/${orderId}/${ticketId}?payment_method=${paymentMethod}`;
 
-      const barcodeUrl =`http://localhost:3000/payments/barcode/${orderId}/${ticketId}?payment_method=${paymentMethod}`;
+      const barcodeUrl =`https://evenzabackend-production-2fb4.up.railway.app/payments/barcode/${orderId}/${ticketId}?payment_method=${paymentMethod}`;
 
 
       const blob = await this.http.get(barcodeUrl, { responseType: 'blob' }).toPromise();

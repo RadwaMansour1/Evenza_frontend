@@ -7,7 +7,7 @@ import { CONSTANTS } from '../../constants';
   providedIn: 'root',
 })
 export class UploadDocService {
-  private apiUrl = 'http://localhost:3000/upload-document';
+  private apiUrl = 'https://evenzabackend-production-2fb4.up.railway.app/upload-document';
 
   constructor(private httpClient: HttpClient) {}
 

@@ -9,7 +9,7 @@ import { Profile, ProfileResponse } from '../../models/profile.model';
   providedIn: 'root',
 })
 export class UserService {
-  private apiUrl = 'http://localhost:3000/profile';
+  private apiUrl = 'https://evenzabackend-production-2fb4.up.railway.app/profile';
 
   constructor(private http: HttpClient ) {}
 
@@ -61,7 +61,7 @@ export class UserService {
   //     formData.append('profileImage', profileData.profileImage); // الصورة
   //   }
 
-  //   return this.http.put(`http://localhost:3000/api/profile`, formData);
+  //   return this.http.put(`https://evenzabackend-production-2fb4.up.railway.app/api/profile`, formData);
   // }
 
 }

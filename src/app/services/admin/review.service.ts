@@ -5,7 +5,7 @@ import { map, Observable } from 'rxjs';
 export interface Review {
   _id: string;
   userId: {
-    firstName: any , lastName:any, _id: string 
+    firstName: any , lastName:any, _id: string
 };  // You can extend this later if user data is expanded
   comment: string;
   rating: number;
@@ -17,7 +17,7 @@ export interface Review {
   providedIn: 'root'
 })
 export class ReviewService {
-  private baseUrl = 'http://localhost:3000/admin/reviews'; // adjust your API base if needed
+  private baseUrl = 'https://evenzabackend-production-2fb4.up.railway.app/admin/reviews'; // adjust your API base if needed
 
   constructor(private http: HttpClient) {}
 

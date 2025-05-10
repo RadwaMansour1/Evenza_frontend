@@ -25,7 +25,7 @@ export class ResetPasswordComponent {
   // newPassword = '';
   // confirmPassword = '';
   // token = '';
-  
+
   // olPasswordFocused: boolean = false;
   // oldPassword: string = '';
   // newPasswordFocused: boolean = false;
@@ -102,7 +102,7 @@ export class ResetPasswordComponent {
   //       },
   //     });
   // }
-  
+
 
   passwordForm: FormGroup;
   errorMessage = '';
@@ -130,8 +130,8 @@ export class ResetPasswordComponent {
       sessionTimeout: [15],
     });
   }
-  // new 
-  
+  // new
+
 
   ngOnInit(): void {
     this.passwordForm = this.fb.group({
@@ -173,14 +173,14 @@ export class ResetPasswordComponent {
     const hasNumbers = /\d/.test(password);
     const hasSpecial = /[!@#$%^&*(),.?":{}|<>]/.test(password);
     const lengthValid = password.length >= 8;
-  
+
     let score = 0;
     if (hasUpperCase) score++;
     if (hasLowerCase) score++;
     if (hasNumbers) score++;
     if (hasSpecial) score++;
     if (lengthValid) score++;
-  
+
     if (score <= 2) this.passwordStrength = 'Weak';
     else if (score === 3 || score === 4) this.passwordStrength = 'Medium';
     else if (score === 5) this.passwordStrength = 'Strong';
@@ -195,28 +195,28 @@ export class ResetPasswordComponent {
 
   onSubmit() {
     if (this.passwordForm.invalid) return;
-    this.spinner.show(); 
-    this.isLoading = true; 
+    this.spinner.show();
+    this.isLoading = true;
     const { oldPassword, newPassword } = this.passwordForm.value;
     const token = localStorage.getItem(CONSTANTS.token) || sessionStorage.getItem(CONSTANTS.token);
     console.log('token from storage : ',token);
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
 
-    this.http.post('http://localhost:3000/auth/change-password', { oldPassword, newPassword } , { headers })
+    this.http.post('https://evenzabackend-production-2fb4.up.railway.app/auth/change-password', { oldPassword, newPassword } , { headers })
     .subscribe({
       next: () => {
-        this.spinner.show(); 
-        this.isLoading = true; 
+        this.spinner.show();
+        this.isLoading = true;
         this.successMessage = 'Password changed successfully';
         this.errorMessage = '';
-     
+
         // new
         this.successMessage = 'Password updated successfully.';
         this.lastPasswordChangeDate = new Date(); // أو من backend
         // ended here
         this.passwordForm.reset();
-      }, 
+      },
       error: (err) => {
         this.isLoading = false;
         this.spinner.hide();
@@ -225,21 +225,21 @@ export class ResetPasswordComponent {
       }
     });
 
-   
+
     // if (this.securityForm.valid) {
     //   const securitySettings = this.securityForm.value;
     //   const token = localStorage.getItem(CONSTANTS.token) || sessionStorage.getItem(CONSTANTS.token);
     //   const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
-    //   this.http.post('http://localhost:3000/users/security-settings', securitySettings, { headers }).subscribe({
+    //   this.http.post('https://evenzabackend-production-2fb4.up.railway.app/users/security-settings', securitySettings, { headers }).subscribe({
     //      next: () => {
     //       this.successMessage = 'Security settings updated successfully.';
-    //     },        
+    //     },
     //      error: (err) => {
     //       this.errorMessage = err?.error?.message || 'Failed to update security settings';
     //     }
     //   });
-        
+
     // }
   }
 }
