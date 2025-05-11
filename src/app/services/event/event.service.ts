@@ -8,7 +8,7 @@ import { CONSTANTS } from '../../constants';
   providedIn: 'root',
 })
 export class EventService {
-  private apiUrl = 'http://localhost:3000';
+  private apiUrl = 'https://evenzabackend-production-2fb4.up.railway.app';
 
   constructor(private httpClient: HttpClient) {}
 

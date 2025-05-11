@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class OrganizerService {
-  private apiUrl = 'http://localhost:3000/organizer';
+  private apiUrl = 'https://evenzabackend-production-2fb4.up.railway.app/organizer';
 
   constructor(private http: HttpClient) {}
 

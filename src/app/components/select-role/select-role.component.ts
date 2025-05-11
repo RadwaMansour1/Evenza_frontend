@@ -13,7 +13,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class SelectRoleComponent implements OnInit {
   selectedRole: string | null = null;
   email: string = '';
-  errorMessage: string = ''; 
+  errorMessage: string = '';
   constructor(private http: HttpClient, private route: ActivatedRoute,private router: Router) {}
   ngOnInit(): void {
 
@@ -26,8 +26,8 @@ export class SelectRoleComponent implements OnInit {
   // Check if the user has already selected a role
   selectRole(role: string) {
     console.log('Selected role:', role);
-    this.selectedRole = role;    
-    this.errorMessage = ''; 
+    this.selectedRole = role;
+    this.errorMessage = '';
 
   }
 
@@ -41,9 +41,9 @@ export class SelectRoleComponent implements OnInit {
       this.errorMessage = 'Please select a role first.';
       return;
     }
-  
 
-    this.http.patch('http://localhost:3000/auth/set-role',
+
+    this.http.patch('https://evenzabackend-production-2fb4.up.railway.app/auth/set-role',
       { email: email, role: this.selectedRole }
 
     ).subscribe(
@@ -56,5 +56,5 @@ export class SelectRoleComponent implements OnInit {
       }
     );
   }
-  
+
 }

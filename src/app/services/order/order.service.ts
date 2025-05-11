@@ -7,7 +7,7 @@ import { CreateOrderPayload, Order } from '../../models/order.model';
   providedIn: 'root',
 })
 export class OrderService {
-  private apiUrl = 'http://localhost:3000/orders';
+  private apiUrl = 'https://evenzabackend-production-2fb4.up.railway.app/orders';
 
   constructor(private http: HttpClient) {}
 

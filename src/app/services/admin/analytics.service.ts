@@ -25,7 +25,7 @@ export interface AnalyticsResponse {
   providedIn: 'root',
 })
 export class AnalyticsService {
-  private apiUrl = 'http://localhost:3000/admin/analytics';
+  private apiUrl = 'https://evenzabackend-production-2fb4.up.railway.app/admin/analytics';
 
   constructor(private http: HttpClient) {}
 

@@ -48,7 +48,7 @@
                 <span class="text-purple-600 flex items-center"
                   ><ng-icon name="featherClock"></ng-icon
                 ></span>
-  
+
                 {{ ticket.time }}
               </div>
               <div class="flex items-center gap-2">
@@ -103,7 +103,7 @@
             </div>
 
             </div>
-  
+
           <div class="flex flex-col gap-2 justify-center h-full">
             <button
               (click)="navigateEventDetails(ticket.eventId)"
@@ -113,7 +113,7 @@
               {{ 'MY_TICKETS.VIEW_DETAILS_BUTTON' | translate }}
             </button>
             <button
-              (click)="requestRefund(ticket._id)"
+            (click)="requestRefund(ticket._id, ticket.date.toString())"
               class="w-full bg-gray-50 text-gray-700 border border-gray-200 rounded-lg py-2 font-medium hover:bg-gray-100 hover:border-gray-300"
             >
               <!-- Add translate pipe -->

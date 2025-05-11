@@ -6,8 +6,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ForgotPasswordService {
-  private apiUrl = 'http://localhost:3000/auth/forgot-password';
-  private resetPasswordUrl = 'http://localhost:3000/auth/reset-password';
+  private apiUrl = 'https://evenzabackend-production-2fb4.up.railway.app/auth/forgot-password';
+  private resetPasswordUrl = 'https://evenzabackend-production-2fb4.up.railway.app/auth/reset-password';
 
   constructor(private http: HttpClient) {}
 

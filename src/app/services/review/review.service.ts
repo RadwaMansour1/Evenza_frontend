@@ -13,7 +13,7 @@ export interface CreateReviewDto {
   providedIn: 'root',
 })
 export class ReviewService {
-  private apiUrl = 'http://localhost:3000/user-reviews';
+  private apiUrl = 'https://evenzabackend-production-2fb4.up.railway.app/user-reviews';
 
   constructor(private http: HttpClient) {}
 

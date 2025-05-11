@@ -43,7 +43,7 @@ export interface CreateTransactionDto {
   providedIn: 'root'
 })
 export class OrganizerWalletService {
-  private apiUrl = `http://localhost:3000/organizer/wallet`;
+  private apiUrl = `https://evenzabackend-production-2fb4.up.railway.app/organizer/wallet`;
 
   constructor(private http: HttpClient) { }
 

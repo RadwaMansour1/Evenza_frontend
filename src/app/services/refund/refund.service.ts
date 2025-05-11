@@ -6,9 +6,9 @@ import { Observable } from "rxjs";
   providedIn: 'root'
 })
 export class RefundService{
-    private apiUrl = "http://localhost:3000/refunds"
-    private apiOriginalUrl = "http://localhost:3000/payments/refund"
-    private apiWalletUrl = "http://localhost:3000/refunds/wallet";
+    private apiUrl = "https://evenzabackend-production-2fb4.up.railway.app/refunds"
+    private apiOriginalUrl = "https://evenzabackend-production-2fb4.up.railway.app/payments/refund"
+    private apiWalletUrl = "https://evenzabackend-production-2fb4.up.railway.app/refunds/wallet";
 
     constructor(private http:HttpClient){}
 
@@ -35,6 +35,6 @@ export class RefundService{
             refundAmount
         });
     }
-    
+
 
 }

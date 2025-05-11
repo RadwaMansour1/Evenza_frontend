@@ -12,6 +12,7 @@ import { TicketsService } from '../../services/tickets/tickets.service';
 import { TicketModel } from '../../models/ticket.model';
 import { UserService } from '../../services/profile/user.service';
 import { TranslateModule } from '@ngx-translate/core';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-my-tickets',
   imports: [CommonModule, NgIcon , TranslateModule],
@@ -51,9 +52,27 @@ export class MyTicketsComponent implements OnInit{
   navigateEvents() {
     this.router.navigate(['/events']);
   }
-  requestRefund(ticketId: string) {
-    this.router.navigate(["/refund"],{queryParams:{ticketId}});
+
+  requestRefund(ticketId: string, eventDateStr: string) {
+    const [day, month, year] = eventDateStr.split('/');
+    const eventDate = new Date(Number(year), Number(month) - 1, Number(day));
+
+    const today = new Date();
+    const diffInMs = eventDate.getTime() - today.getTime();
+    const daysDiff = diffInMs / (1000 * 60 * 60 * 24);
+
+    if (daysDiff >= 2) {
+      this.router.navigate(['/refund'], { queryParams: { ticketId } });
+    } else {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Refund Not Allowed',
+        text: 'Refunds must be requested at least 2 days before the event date.',
+      });
+    }
   }
+
+
   navigateEventDetails(eventId: string) {
     this.router.navigate([`/events/${eventId}`]);
 

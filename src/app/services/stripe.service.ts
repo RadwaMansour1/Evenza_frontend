@@ -17,11 +17,11 @@ async checkout(amount: number, userId: string, orderId:string, eventId: string, 
     if (!stripe) return;
 
     // Handle wrapped response format
-    const response = await this.http.post<{ 
-      timestamp: string, 
-      data: { id: string } 
-    }>('http://localhost:3000/payments/create-checkout-session', { 
-       amount, userId,orderId, eventId, ticketType, quantity 
+    const response = await this.http.post<{
+      timestamp: string,
+      data: { id: string }
+    }>('https://evenzabackend-production-2fb4.up.railway.app/payments/create-checkout-session', {
+       amount, userId,orderId, eventId, ticketType, quantity
     }).toPromise();
 
     console.log('Stripe session:', response);

@@ -15,14 +15,14 @@ export interface DocumentUpload {
   providedIn: 'root',
 })
 export class UploadDocumentsService {
-  private baseUrl = 'http://localhost:3000/upload-document';
-  
+  private baseUrl = 'https://evenzabackend-production-2fb4.up.railway.app/upload-document';
+
   constructor(private http: HttpClient) {}
   //the backend wraps the documents array inside a data field.
   getAllDocuments(): Observable<{ data: DocumentUpload[] }> {
     return this.http.get<{ data: DocumentUpload[] }>(`${this.baseUrl}`);
   }
-  
+
 
   approveDocument(documentId: string): Observable<any> {
     return this.http.post(`${this.baseUrl}/approve/${documentId}`, {});

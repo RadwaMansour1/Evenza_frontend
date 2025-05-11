@@ -16,13 +16,13 @@ export interface User {
   googleSignup: boolean;
   isEmailVerified: boolean;
   userRole: string;
-  status: 'active' | 'suspended' | 'banned'; 
+  status: 'active' | 'suspended' | 'banned';
 
 }
 
 @Injectable({ providedIn: 'root' })
 export class UsersService {
-  private apiUrl = 'http://localhost:3000/admin';
+  private apiUrl = 'https://evenzabackend-production-2fb4.up.railway.app/admin';
 
   constructor(private http: HttpClient) {}
 
