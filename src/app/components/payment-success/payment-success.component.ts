@@ -31,6 +31,22 @@ export class PaymentSuccessComponent implements OnInit {
               const tickets = res.data;
               console.log("user tickets ",tickets);
               ticketId = tickets[tickets.length-1]._id;
+              console.log("ticketid: ",ticketId)
+              const barcodeUrl =`https://evenzabackend-production-2fb4.up.railway.app/payments/barcode/${ticketId}?payment_method=${paymentMethod}`;
+  
+  
+             this.http.get(barcodeUrl, { responseType: 'blob' }).subscribe({
+              next:(res:any)=>{
+                if (res) {
+                  this.barcodeImageSrc = window.URL.createObjectURL(res);
+                } else {
+                  console.error('Failed to retrieve QR code image.');
+                }
+              },
+              error:(err)=>{
+                console.log(err)
+              }
+             });
             },
             error:(err)=>{
               console.log(err)
@@ -41,30 +57,30 @@ export class PaymentSuccessComponent implements OnInit {
           console.log(err)
         }
       })
-    }
-
-    try {
-      console.log({
-        tiketId:ticketId
-      })
-
-      // const barcodeUrl =paymentMethod === "stripe" ?
-      // `https://evenzabackend-production-2fb4.up.railway.app/payments/barcode/${orderId}/${ticketId}?payment_method=${paymentMethod}`
-      // :
-      // `https://evenzabackend-production-2fb4.up.railway.app/payments/barcode/${orderId}/${ticketId}?payment_method=${paymentMethod}`;
-
-      const barcodeUrl =`https://evenzabackend-production-2fb4.up.railway.app/payments/barcode/${ticketId}?payment_method=${paymentMethod}`;
-
-
-      const blob = await this.http.get(barcodeUrl, { responseType: 'blob' }).toPromise();
-
-      if (blob) {
-        this.barcodeImageSrc = window.URL.createObjectURL(blob);
-      } else {
-        console.error('Failed to retrieve QR code image.');
+    }else{
+      try {
+        console.log({
+          tiketId:ticketId
+        })
+  
+        // const barcodeUrl =paymentMethod === "stripe" ?
+        // `https://evenzabackend-production-2fb4.up.railway.app/payments/barcode/${orderId}/${ticketId}?payment_method=${paymentMethod}`
+        // :
+        // `https://evenzabackend-production-2fb4.up.railway.app/payments/barcode/${orderId}/${ticketId}?payment_method=${paymentMethod}`;
+  
+        const barcodeUrl =`https://evenzabackend-production-2fb4.up.railway.app/payments/barcode/${ticketId}?payment_method=${paymentMethod}`;
+  
+  
+        const blob = await this.http.get(barcodeUrl, { responseType: 'blob' }).toPromise();
+  
+        if (blob) {
+          this.barcodeImageSrc = window.URL.createObjectURL(blob);
+        } else {
+          console.error('Failed to retrieve QR code image.');
+        }
+      } catch (error) {
+        console.error('Error fetching QR code:', error);
       }
-    } catch (error) {
-      console.error('Error fetching QR code:', error);
     }
   }
 }
