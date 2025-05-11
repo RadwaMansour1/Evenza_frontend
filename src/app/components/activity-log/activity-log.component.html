@@ -6,10 +6,10 @@
                 <span class="h-8 w-8  text-[#8B5CF6]">
                   <ng-icon name="featherClock"></ng-icon>
                 </span>
-                Account Activity Log
+                  {{ 'auth.activityLogs.title' | translate }}
             </h1>
             <p class="text-gray-500 mt-2 poppins-font">
-              View and monitor all activities related to your account
+                 {{ 'auth.activityLogs.description' | translate }}
             </p>
           </div>
 
@@ -23,7 +23,7 @@
                               <span class="absolute left-2.5 top-2.5 h-4 w-4 text-gray-500" >
                                   <ng-icon name="featherSearch"></ng-icon>
                               </span>
-                              <input [(ngModel)]="searchQuery" placeholder="Search activities..." class="l-9 md:w-[200px] lg:w-[300px] pl-8 flex h-10 w-full rounded-md border border-neutral-400/40 border-gray-300 bg-gray-100/90 px-3 py-2 text-base ring-offset-white file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-gray-500 placeholder:text-gray-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm" />
+                              <input [(ngModel)]="searchQuery" placeholder="{{ 'auth.activityLogs.searchPlaceholder' | translate }}" class="l-9 md:w-[200px] lg:w-[300px] pl-8 flex h-10 w-full rounded-md border border-neutral-400/40 border-gray-300 bg-gray-100/90 px-3 py-2 text-base ring-offset-white file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-gray-500 placeholder:text-gray-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm" />
                           </div>
                           <button class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border border-gray-300 bg-white hover:bg-[#F97316] hover:text-gray-900  h-10 w-10" >
                               <span  class="h-4 w-4">
@@ -35,10 +35,10 @@
   <!-- tabs here -->
                   <div id="tabs" class="px-1 py-0.5 poppins-font mt-5  rounded-xl w-fit">
                     <div id="tabs-list" class="inline-flex h-10 items-center justify-center rounded-md  bg-gray-100 p-1 text-gray-500">
-                        <button id="tabs-trigger"  [ngClass]="{'bg-white/70 rounded-xl text-black shadow-sm': currentTab === 'all'}"     (click)="currentTab='all'"   class="inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-md font-medium ring-offset-white transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 " >All Activities</button>
-                        <button id="tabs-trigger"  [ngClass]="{'bg-white/70 rounded-xl text-black shadow-sm': currentTab === 'success'}" (click)="currentTab='success'"  class="inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-md font-medium ring-offset-white transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 " >Successful</button>
-                        <button id="tabs-trigger"  [ngClass]="{'bg-white/70 rounded-xl text-black shadow-sm': currentTab === 'warning'}" (click)="currentTab='warning'"  class="inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-md font-medium ring-offset-white transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 " >Warnings</button>
-                        <button id="tabs-trigger"  [ngClass]="{'bg-white/70 rounded-xl text-black shadow-sm': currentTab === 'failed'}"  (click)="currentTab='failed'"  class="inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-md font-medium ring-offset-white transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 " >Failed</button>
+                        <button id="tabs-trigger"  [ngClass]="{'bg-white/70 rounded-xl text-black shadow-sm': currentTab === 'all'}"     (click)="currentTab='all'"   class="inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-md font-medium ring-offset-white transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 " >{{ 'auth.activityLogs.tabs.all' | translate }}</button>
+                        <button id="tabs-trigger"  [ngClass]="{'bg-white/70 rounded-xl text-black shadow-sm': currentTab === 'success'}" (click)="currentTab='success'"  class="inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-md font-medium ring-offset-white transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 " >{{ 'auth.activityLogs.tabs.success' | translate }}</button>
+                        <button id="tabs-trigger"  [ngClass]="{'bg-white/70 rounded-xl text-black shadow-sm': currentTab === 'warning'}" (click)="currentTab='warning'"  class="inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-md font-medium ring-offset-white transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 " >{{ 'auth.activityLogs.tabs.warning' | translate }}</button>
+                        <button id="tabs-trigger"  [ngClass]="{'bg-white/70 rounded-xl text-black shadow-sm': currentTab === 'failed'}"  (click)="currentTab='failed'"  class="inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-md font-medium ring-offset-white transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 " >{{ 'auth.activityLogs.tabs.failed' | translate }}</button>
                     </div>
                   </div>
   <!-- closed -->
@@ -47,13 +47,13 @@
               <div id="card-content" class="p-0 pt-0">
                 <div class="flex items-center justify-between p-4 border-b bg-gray-200/30">
                     <div class="flex items-center gap-2 w-full">
-                        <p class="font-display text-md font-medium">Filter by type :</p>
+                        <p class="font-display text-md font-medium">{{ 'auth.activityLogs.filterByType' | translate }}</p>
                         <div>
                             <div class="poppins-font bg-gray-100/50 relative inline-block w-full">
 
                               <button (click)="showMenu = !showMenu"
                                       class="relative flex h-10 w-48 items-center rounded-md border border-gray-300 bg-white text-sm pl-4 pr-10 focus:outline-none focus:ring-2 focus:ring-orange-500">
-                                <span class="truncate">{{ filterType || 'All Types' }}</span>
+                                <span class="truncate">{{ filterType || ('auth.activityLogs.allTypes' | translate) }}</span>
                                 <span class="absolute right-3 w-4 h-4 text-md pointer-events-none">
                                   <ng-icon [name]="showMenu ? 'featherChevronUp' : 'featherChevronDown'"></ng-icon>
                                 </span>
@@ -75,8 +75,8 @@
                             </div>
                         </div>
                           <p class="ml-auto text-sm text-gray-600">
-                            Showing 10 of 10 activities
-                          </p>
+                          {{ 'auth.activityLogs.showingCount' | translate: { count: filtered().length } }}                          
+                        </p>
                     </div>
                 </div>
 
@@ -92,8 +92,8 @@
 
                       <!-- Description and device/location -->
                       <div class="flex-1">
-                        <p class="font-semibold">{{ activity.description }}</p>
-                        <p class="text-sm text-gray-500">{{ activity.device }} • {{ activity.location }}</p>
+                        <p class="font-semibold">{{ activity.description | translate  }}</p>
+                        <p class="text-sm text-gray-500">{{ activity.device | translate }} • {{ activity.location | translate }}</p>
                       </div>
 
                     </div>
@@ -127,7 +127,7 @@
                 </div>
 
                 <div *ngIf="filtered().length === 0" class="text-center py-10 text-gray-500">
-                  <p>No activities match your current search and filter.</p>
+                  <p>{{ 'auth.activityLogs.noActivities' | translate }}</p>
                 </div>
               </div>
           </div>
@@ -144,7 +144,7 @@
   <span class="h-4 w-4 mr-2 text-md flex-shrink-0">
     <ng-icon name="featherChevronLeft"></ng-icon>
   </span>
-  Back to Profile
+ {{ 'auth.activityLogs.backToProfile' | translate }}
 </button>
 
 </div>
