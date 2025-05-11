@@ -228,21 +228,36 @@
         <!-- password -->
         <div>
           <label class="text-md font-medium mb-2 block text-[#1A1F2C]"
-            >{{'auth.signUp.password'| translate}}</label
-          >
-          <input
-            name="password"
-            type="password"
-            class="bg-slate-100 w-full text-sm text-slate-800 px-4 py-2.5 rounded border focus:border-blue-600 outline-none transition-all focus:bg-transparent border-[#e9e3ff] focus-visible:ring-[#9b87f5]"
-            formControlName="password"
-            [placeholder]="'auth.signUp.enterPassword' | translate" 
-          />
-          <!-- <div *ngIf="signUpForm.get('password')?.touched && signUpForm.get('password')?.errors" class="text-red-600 font-bold text-sm mt-2 ml-0.5">
-                <ng-container *ngIf="signUpForm.get('password')?.errors?.['required']">Password is required</ng-container>
-                <ng-container *ngIf="signUpForm.get('password')?.errors?.['minlength']">Password must be at least 8 characters long </ng-container>
-                <ng-container *ngIf="signUpForm.get('password')?.errors?.['weakPassword']">Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character</ng-container>
-                <ng-container *ngIf="signUpForm.get('password')?.errors?.['maxlength']">Password cannot exceed 20 characters</ng-container>
-              </div> -->
+            >{{'auth.signUp.password'| translate}}
+          </label>
+          <div class="relative">
+              <input
+                name="password"
+                type="password"
+                class="bg-slate-100 w-full text-sm text-slate-800 px-4 py-2.5 rounded border focus:border-blue-600 outline-none transition-all focus:bg-transparent border-[#e9e3ff] focus-visible:ring-[#9b87f5]"
+                formControlName="password"
+                [type]="showPassword ? 'text' : 'password'"
+                [placeholder]="'auth.signUp.enterPassword' | translate" 
+              />
+              <button
+              type="button"
+              class="absolute right-3 top-1/2 transform -translate-y-1/2 text-[#8E9196]"
+              (click)="showPassword = !showPassword"
+              aria-label="Toggle password visibility"
+            >
+              <ng-icon
+                *ngIf="!showPassword"
+                name="featherEye"
+                class="h-5 w-5"
+              ></ng-icon>
+              <ng-icon
+                *ngIf="showPassword"
+                name="featherEyeOff"
+                class="h-5 w-5"
+              ></ng-icon>
+            </button>
+          </div>
+
           <div
             *ngIf="
               signUpForm.get('password')?.touched &&
@@ -289,13 +304,34 @@
           <label class="text-md font-medium mb-2 block text-[#1A1F2C]"
             > {{'auth.signUp.confirmPassword'| translate}}</label
           >
+          <div class="relative"> 
           <input
             name="cpassword"
-            type="password"
+            [type]="showPassword ? 'text' : 'password'"
             class="bg-slate-100 w-full text-sm text-slate-800 px-4 py-2.5 rounded border focus:border-blue-600 outline-none transition-all focus:bg-transparent border-[#e9e3ff] focus-visible:ring-[#9b87f5]"
             formControlName="confirmPassword"
             [placeholder]="'auth.signUp.confirmPassword' | translate"
           />
+              <button
+              type="button"
+              class="absolute right-3 top-1/2 transform -translate-y-1/2 text-[#8E9196]"
+              (click)="showPassword = !showPassword"
+              aria-label="Toggle password visibility"
+            >
+              <ng-icon
+                *ngIf="!showPassword"
+                name="featherEye"
+                class="h-5 w-5"
+              ></ng-icon>
+              <ng-icon
+                *ngIf="showPassword"
+                name="featherEyeOff"
+                class="h-5 w-5"
+              ></ng-icon>
+            </button>
+          </div>
+
+
           <div
             *ngIf="
               signUpForm.get('cpassword')?.touched &&

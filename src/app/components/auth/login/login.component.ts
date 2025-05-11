@@ -9,12 +9,13 @@ import {
 } from '@angular/forms';
 import { LoginRequest } from '../../../models/login.model';
 import { CommonModule } from '@angular/common';
-import { NgIconsModule } from '@ng-icons/core';
+import { NgIconsModule, provideIcons } from '@ng-icons/core';
 import { AuthService } from '../../../services/auth/auth.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { LanguageService } from '../../../services/language/language.service';
 import { CONSTANTS } from '../../../constants';
 import { NgxSpinnerService, NgxSpinnerModule } from 'ngx-spinner';
+import { featherEye, featherEyeOff } from '@ng-icons/feather-icons';
 
 
 @Component({
@@ -29,6 +30,8 @@ import { NgxSpinnerService, NgxSpinnerModule } from 'ngx-spinner';
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
+  viewProviders:[provideIcons({featherEye,featherEyeOff})]
+  
 })
 export class LoginComponent implements OnInit {
   private router = inject(Router);
@@ -38,6 +41,9 @@ export class LoginComponent implements OnInit {
   currentLang: 'en' | 'ar' = 'en';
   textArray = 'Evenza'.split('');
   isLoading: boolean = false;
+  showPassword: boolean = false;
+
+
 
 
   constructor(

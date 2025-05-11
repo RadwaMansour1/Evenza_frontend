@@ -438,7 +438,10 @@
         "weak": "ضعيفة",
         "medium": "متوسطة",
         "strong": "قوية"
-      }
+      },
+      "success": "نجح",
+      "failed": "فشل",
+      "warning": "تحذير"
     },
     "logout": {
       "accountAccess": "الوصول إلى الحساب",
@@ -458,6 +461,49 @@
       "lastLogin": "آخر تسجيل دخول",
       "lastLoginInfo": "اليوم، 2:45 مساءً من الجيزة، مصر",
       "suspiciousActivityWarning": "إذا لم تتعرف على هذا النشاط، يرجى تغيير كلمة المرور فورًا والتواصل مع الدعم."
+    },
+    "activityLogs": {
+      "title": "سجل نشاط الحساب",
+      "description": "عرض ومراقبة جميع الأنشطة المتعلقة بحسابك",
+      "searchPlaceholder": "ابحث عن الأنشطة...",
+      "tabs": {
+        "all": "جميع الأنشطة",
+        "success": "ناجحة",
+        "warning": "تحذيرات",
+        "failed": "فاشلة"
+      },
+      "filterByType": "تصفية حسب النوع:",
+      "allTypes": "جميع الأنواع",
+      "showingCount": "عرض {{ count }} نشاط",
+      "noActivities": "لا توجد أنشطة تطابق البحث أو الفلاتر الحالية.",
+      "backToProfile": "العودة إلى الملف الشخصي",
+      "activityHistory": "سجل الأنشطة"
+    },
+    "descriptions": {
+    "loggedInSuccess": "تم تسجيل الدخول بنجاح",
+    "failedLogin": "محاولة تسجيل دخول فاشلة",
+    "passwordChanged": "تم تغيير كلمة المرور",
+    "twoFactorEnabled": "تم تفعيل المصادقة الثنائية",
+    "securityUpdated": "تم تحديث إعدادات الأمان",
+    "suspiciousLogin": "محاولة تسجيل دخول مشبوهة",
+    "sessionRevoked": "تم إنهاء الجلسة",
+    "loggedOutAllSessions": "تم تسجيل الخروج من جميع الجلسات"
+    },
+    "device": {
+      "chromeWin": "Chrome على Windows",
+      "firefoxMac": "Firefox على MacOS",
+      "iphoneApp": "تطبيق الهاتف على iPhone",
+      "safariIpad": "Safari على iPad",
+      "unknown": "جهاز غير معروف",
+      "firefoxLinux": "Firefox على Linux"
+    },
+    "location": {
+      "ny": "نيويورك، الولايات المتحدة",
+      "la": "لوس أنجلوس، الولايات المتحدة",
+      "chicago": "شيكاغو، الولايات المتحدة",
+      "miami": "ميامي، الولايات المتحدة",
+      "moscow": "موسكو، روسيا",
+      "seattle": "سياتل، الولايات المتحدة"
     }
   },
   "terms": {

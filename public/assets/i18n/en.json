@@ -465,7 +465,10 @@
           "weak": "Weak",
           "medium": "Medium",
           "strong": "Strong"
-        }
+        },
+         "success": "Success",
+          "failed": "Failed",
+          "warning": "Warning"
     },  
     "logout":{
       "accountAccess": "Account Access",
@@ -485,6 +488,49 @@
       "lastLogin": "Last Login",
       "lastLoginInfo": "Today, 2:45 PM from Giza, Egypt",
       "suspiciousActivityWarning": "If you don't recognize this activity, please change your password immediately and contact support."
+    },
+    "activityLogs": {
+      "title": "Account Activity Log",
+      "description": "View and monitor all activities related to your account",
+      "searchPlaceholder": "Search activities...",
+      "tabs": {
+        "all": "All Activities",
+        "success": "Successful",
+        "warning": "Warnings",
+        "failed": "Failed"
+      },
+      "filterByType": "Filter by type :",
+      "allTypes": "All Types",
+      "showingCount": "Showing {{ count }} activities",
+      "noActivities": "No activities match your current search and filter.",
+      "backToProfile": "Back to Profile",
+      "activityHistory": "Activity History"
+    },
+    "descriptions": {
+    "loggedInSuccess": "Logged in successfully",
+    "failedLogin": "Failed login attempt",
+    "passwordChanged": "Password changed",
+    "twoFactorEnabled": "Two-factor authentication enabled",
+    "securityUpdated": "Security settings updated",
+    "suspiciousLogin": "Suspicious login attempt",
+    "sessionRevoked": "Session revoked",
+    "loggedOutAllSessions": "All sessions logged out"
+    },
+    "device": {
+      "chromeWin": "Chrome on Windows",
+      "firefoxMac": "Firefox on MacOS",
+      "iphoneApp": "Mobile App on iPhone",
+      "safariIpad": "Safari on iPad",
+      "unknown": "Unknown Device",
+      "firefoxLinux": "Firefox on Linux"
+    },
+    "location": {
+      "ny": "New York, USA",
+      "la": "Los Angeles, USA",
+      "chicago": "Chicago, USA",
+      "miami": "Miami, USA",
+      "moscow": "Moscow, Russia",
+      "seattle": "Seattle, USA"
     }
     
   },
