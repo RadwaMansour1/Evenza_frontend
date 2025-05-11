@@ -361,7 +361,7 @@ ticketId:string|null = null;
         this.ticketId = ticketResponse.data._id; 
 
         // انتقال إلى صفحة النجاح مع تمرير ticketId الصحيح
-        const successUrl = `/success?orderId=${this.orderId}&ticketId=${this.ticketId}&payment_method=wallet`;
+        const successUrl = `/success?ticketId=${this.ticketId}&payment_method=wallet`;
         window.location.href = successUrl;
 
       } catch (error) {

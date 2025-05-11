@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
+import { TicketsService } from '../../services/tickets/tickets.service';
+import { UserService } from '../../services/profile/user.service';
 
 @Component({
   selector: 'app-payment-success',
@@ -12,38 +14,73 @@ import { TranslateModule } from '@ngx-translate/core';
 export class PaymentSuccessComponent implements OnInit {
   barcodeImageSrc: string | null = null;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private readonly ticketService:TicketsService,private readonly userService:UserService) {}
 
   async ngOnInit(): Promise<void> {
     const urlParams = new URLSearchParams(window.location.search);
     const sessionId = urlParams.get('session_id');
-    const orderId = urlParams.get('orderId');
-    const ticketId = urlParams.get('ticketId');
+    let ticketId = urlParams.get('ticketId');
     const paymentMethod = urlParams.get('payment_method') || 'stripe';
 
-    try {
-      console.log({
-        orderId:orderId,
-        tiketId:ticketId
+    if(!ticketId){
+      this.userService.getProfile().subscribe({
+        next:(res)=>{
+          const userId = res.data._id;
+          this.ticketService.getTicketByUserId(userId).subscribe({
+            next:(res:any)=>{
+              const tickets = res.data;
+              console.log("user tickets ",tickets);
+              ticketId = tickets[tickets.length-1]._id;
+              console.log("ticketid: ",ticketId)
+              const barcodeUrl =`https://evenzabackend-production-2fb4.up.railway.app/payments/barcode/${ticketId}?payment_method=${paymentMethod}`;
+  
+  
+             this.http.get(barcodeUrl, { responseType: 'blob' }).subscribe({
+              next:(res:any)=>{
+                if (res) {
+                  this.barcodeImageSrc = window.URL.createObjectURL(res);
+                } else {
+                  console.error('Failed to retrieve QR code image.');
+                }
+              },
+              error:(err)=>{
+                console.log(err)
+              }
+             });
+            },
+            error:(err)=>{
+              console.log(err)
+            }
+          })
+        },
+        error:(err)=>{
+          console.log(err)
+        }
       })
-
-      // const barcodeUrl =paymentMethod === "stripe" ?
-      // `https://evenzabackend-production-2fb4.up.railway.app/payments/barcode/${orderId}/${ticketId}?payment_method=${paymentMethod}`
-      // :
-      // `https://evenzabackend-production-2fb4.up.railway.app/payments/barcode/${orderId}/${ticketId}?payment_method=${paymentMethod}`;
-
-      const barcodeUrl =`https://evenzabackend-production-2fb4.up.railway.app/payments/barcode/${orderId}/${ticketId}?payment_method=${paymentMethod}`;
-
-
-      const blob = await this.http.get(barcodeUrl, { responseType: 'blob' }).toPromise();
-
-      if (blob) {
-        this.barcodeImageSrc = window.URL.createObjectURL(blob);
-      } else {
-        console.error('Failed to retrieve QR code image.');
+    }else{
+      try {
+        console.log({
+          tiketId:ticketId
+        })
+  
+        // const barcodeUrl =paymentMethod === "stripe" ?
+        // `https://evenzabackend-production-2fb4.up.railway.app/payments/barcode/${orderId}/${ticketId}?payment_method=${paymentMethod}`
+        // :
+        // `https://evenzabackend-production-2fb4.up.railway.app/payments/barcode/${orderId}/${ticketId}?payment_method=${paymentMethod}`;
+  
+        const barcodeUrl =`https://evenzabackend-production-2fb4.up.railway.app/payments/barcode/${ticketId}?payment_method=${paymentMethod}`;
+  
+  
+        const blob = await this.http.get(barcodeUrl, { responseType: 'blob' }).toPromise();
+  
+        if (blob) {
+          this.barcodeImageSrc = window.URL.createObjectURL(blob);
+        } else {
+          console.error('Failed to retrieve QR code image.');
+        }
+      } catch (error) {
+        console.error('Error fetching QR code:', error);
       }
-    } catch (error) {
-      console.error('Error fetching QR code:', error);
     }
   }
 }
