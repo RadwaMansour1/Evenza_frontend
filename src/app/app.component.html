@@ -28,7 +28,7 @@
 <!-- <app-refund></app-refund> -->
 <app-snackbar></app-snackbar>
 <div class="home-wrapper" [class.blurred]="isChatbotOpenClass">
-  @if (isAdmin) {
+  @if (isAdmin && !isLoginPage() ) {
   <app-admin-layout></app-admin-layout>
   }@else { @if(!isOrganizer){
   <app-nav-bar></app-nav-bar>

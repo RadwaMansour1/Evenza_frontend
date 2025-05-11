@@ -7,6 +7,7 @@ import { NgIconComponent } from '@ng-icons/core';
   selector: 'app-sidebar',
   imports: [CommonModule, NgIconComponent, RouterModule],
   templateUrl: './sidebar.component.html',
+  styleUrls: ['./sidebar.component.scss'],
 })
 export class SidebarComponent {
   @Input() isSidebarOpen = true;
@@ -19,19 +20,4 @@ export class SidebarComponent {
     this.sidebarStateChange.emit(this.isSidebarOpen);
   }
 
-  @HostListener('mouseenter')
-  onMouseEnter() {
-    if (!this.isSidebarOpen) {
-      this.isHovered = true;
-      this.sidebarStateChange.emit(true); // Consider sidebar "open" when hovered
-    }
-  }
-
-  @HostListener('mouseleave')
-  onMouseLeave() {
-    this.isHovered = false;
-    if (!this.isSidebarOpen) {
-      this.sidebarStateChange.emit(false); // Update when hover ends
-    }
-  }
 }

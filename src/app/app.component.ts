@@ -106,4 +106,7 @@ export class AppComponent implements OnInit, AfterViewInit {
       inputElement.focus();
     }
   }
+   isLoginPage(): boolean {
+  return this.router.url.includes('/admin/login');
+}
 }

@@ -40,6 +40,9 @@ import { ViewEventsComponent } from './components/organizer/view-events/view-eve
 import { OrganizerHomeComponent } from './components/organizer/organizer-home/organizer-home.component';
 import { AdminRefundRequestsComponent } from './components/admin-components/refunds/admin-refund-requests.component';
 import { ActivityLogComponent } from './components/activity-log/activity-log.component';
+import { AdminLoginComponent } from './components/admin-components/admin-login/admin-login.component';
+import { AdminLayoutComponent } from './components/admin-components/layout/layout.component';
+import { SimpleLayoutComponent } from './components/admin-components/layout/login-layout.component';
 
 export const routes: Routes = [
   // Public Routes
@@ -124,6 +127,12 @@ export const routes: Routes = [
     path: 'admin/refund-requests',
     title: 'Refund Requests',
     component: AdminRefundRequestsComponent,
+  },
+  {
+    path: 'admin/login',
+    title: 'Admin Login',
+    component: AdminLoginComponent,
+    
   },
 
   // Wildcard Route (Page Not Found)
