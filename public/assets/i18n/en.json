@@ -23,7 +23,9 @@
       "findEventsButton": "Find Events",
       "concerts": "Concerts",
       "conferences": "Conferences",
-      "theater": "Theater"
+      "theater": "Theater",
+      "Egp":"EGP",
+      "bookTickets":"Book Tickets"
     },
     "featuredEvents": {
       "title": "Featured Events",
@@ -242,7 +244,7 @@
     "RECENT_TRANSACTIONS_HEADING": "Recent Transactions",
     "TX_TYPE_REFUND": "Refund",
     "TX_TYPE_PURCHASE": "Purchase",
-    "TX_TYPE_BOOKING": "Booking", 
+    "TX_TYPE_BOOKING": "Booking",
     "NO_TRANSACTIONS_HEADING": "No Transactions Yet",
     "NO_TRANSACTIONS_DESC": "Your transaction history will appear here"
   },
@@ -469,7 +471,7 @@
          "success": "Success",
           "failed": "Failed",
           "warning": "Warning"
-    },  
+    },
     "logout":{
       "accountAccess": "Account Access",
       "logoutTitle": "Logout",
@@ -477,13 +479,13 @@
       "logoutInfo1": "Logging out will end your current session.",
       "logoutInfo2": "You'll need to sign in again to access your account.",
       "logoutButton": "Log Out",
-    
+
       "securityTipsTitle": "Account Security Tips",
       "securityTip1": "Always log out when using shared or public devices",
       "securityTip2": "Ensure your password is strong and unique",
       "securityTip3": "Use a combination of letters, numbers, and special characters",
       "securityTip4": "Check your active sessions regularly",
-    
+
       "recentActivityTitle": "Recent Account Activity",
       "lastLogin": "Last Login",
       "lastLoginInfo": "Today, 2:45 PM from Giza, Egypt",
@@ -532,7 +534,7 @@
       "moscow": "Moscow, Russia",
       "seattle": "Seattle, USA"
     }
-    
+
   },
   "terms": {
     "title": "Terms & Conditions",

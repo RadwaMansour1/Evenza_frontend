@@ -23,7 +23,9 @@
       "findEventsButton": "ابحث",
       "concerts": "الحفلات الموسيقية",
       "conferences": "المؤتمرات",
-      "theater": "المسرح"
+      "theater": "المسرح",
+      "Egp":"ج.م",
+      "bookTickets":"احجز التذاكر"
     },
     "featuredEvents": {
       "title": "الفعاليات المميزة",
