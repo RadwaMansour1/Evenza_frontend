@@ -10,7 +10,7 @@ import {throwError} from 'rxjs';
   providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:3000';
+  private apiUrl = 'https://evenzabackend-production-2fb4.up.railway.app';
 
   constructor(
     private http: HttpClient,
