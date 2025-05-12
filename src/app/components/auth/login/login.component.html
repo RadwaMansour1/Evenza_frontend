@@ -60,8 +60,39 @@
             <div class="relative">
               <label class='text-sm font-medium mb-2 block text-[#1A1F2C]'>{{"auth.signIn.passwordLabel"| translate}}</label>
               <ng-icon name="heroLockClosed" class="h-5 w-5 text-[#8E9196] absolute left-3 top-1/2 transform mt-1.5" />
-              <input name="password" formControlName="password" type="password" required class="bg-slate-100 w-full text-sm text-slate-800 px-4 py-3 pl-10 rounded-md outline-none border focus:border-purple-500 focus:bg-transparent border-[#e9e3ff] focus-visible:ring-[#9b87f5]" [placeholder]="'auth.signUp.password' | translate" />
+              <input 
+              name="password"
+              formControlName="password"
+              [type]="showPassword ? 'text' : 'password'"
+              required 
+              class="bg-slate-100 w-full text-sm text-slate-800 px-4 py-3 pl-10 pr-10 rounded-md outline-none border focus:border-purple-500 focus:bg-transparent border-[#e9e3ff] focus-visible:ring-[#9b87f5]"
+              [placeholder]="'auth.signUp.password' | translate" />
+
+              <button
+            type="button"
+            class="absolute right-3 mt-1 top-1/2 transform  text-[#8E9196]"
+            (click)="showPassword = !showPassword"
+            aria-label="Toggle password visibility"
+          >
+          <span class="">
+            <ng-icon
+              *ngIf="!showPassword"
+              name="featherEye"
+              class="h-5 w-5"
+            ></ng-icon>
+          </span>
+            
+            <ng-icon
+              *ngIf="showPassword"
+              name="featherEyeOff"
+              class="h-5 w-5"
+            ></ng-icon>
+              </button>
+
             </div>
+
+
+            
             <div *ngIf="signInForm.get('password')?.touched && signInForm.get('password')?.errors" class="text-red-600 font-bold text-sm mt-2 ml-0.5">
               <ng-container *ngIf="signInForm.get('password')?.errors?.['required']">
                 {{"auth.signIn.passwordRequired"| translate}}
@@ -162,6 +193,7 @@
               <p class="text-sm text-slate-500 text-center mt-4"> {{"auth.signIn.termsAgree"| translate}}  <a routerLink="/terms-condition" target="_blank" class="font-medium text-[#9b87f5] hover:text-[#7E69AB]">{{"auth.signIn.terms"| translate}} </a></p>
             </div>
         </form>
+
       <!-- </div> -->
 </div>
 

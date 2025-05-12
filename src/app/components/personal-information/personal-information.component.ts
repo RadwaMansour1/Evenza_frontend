@@ -203,19 +203,13 @@ export class PersonalInformationComponent implements OnInit {
           formData.append(key, value as any);
         }
       });
-
-      // for (const [key, value] of formData.entries()) {
-      //   console.log('Adding to formData:', key, value);
-      //   console.log(key, value);
-      // }
-
       this.userService.updateProfile(formData).subscribe({
         next: (response) => {
           // console.log('Profile updated successfully', response);
           this.toastr.success('Profile updated successfully', 'Success');
           this.editing.set(false);
-          this.spinner.show();
-          this.isLoading = true;
+          this.spinner.hide();
+          this.isLoading = false;
         },
         error: (error) => {
           this.toastr.error('Ops,there is a problem ,please try again later!', 'Error');

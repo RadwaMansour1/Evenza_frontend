@@ -53,25 +53,41 @@ export class MyTicketsComponent implements OnInit{
     this.router.navigate(['/events']);
   }
 
-  requestRefund(ticketId: string, eventDateStr: string) {
-    const [day, month, year] = eventDateStr.split('/');
-    const eventDate = new Date(Number(year), Number(month) - 1, Number(day));
 
+  isRefundBlocked(eventDate: string | Date): boolean {
+    const event = this.parseDate(eventDate);
     const today = new Date();
-    const diffInMs = eventDate.getTime() - today.getTime();
-    const daysDiff = diffInMs / (1000 * 60 * 60 * 24);
+    today.setHours(0, 0, 0, 0);
 
-    if (daysDiff >= 2) {
-      this.router.navigate(['/refund'], { queryParams: { ticketId } });
-    } else {
+    const timeDiff = event.getTime() - today.getTime();
+    const daysDiff = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+
+    return daysDiff < 2;
+  }
+
+  private parseDate(dateInput: string | Date): Date {
+    if (dateInput instanceof Date) return dateInput;
+
+    if (dateInput.includes('/')) {
+      const parts = dateInput.split('/');
+      return new Date(Number(parts[2]), Number(parts[1]) - 1, Number(parts[0]));
+    }
+
+    return new Date(dateInput);
+  }
+
+  onRefundClick(ticketId: string, eventDate: string | Date) {
+    if (this.isRefundBlocked(eventDate)) {
       Swal.fire({
         icon: 'warning',
         title: 'Refund Not Allowed',
         text: 'Refunds must be requested at least 2 days before the event date.',
+        confirmButtonColor: '#3b82f6'
       });
+      return;
     }
+    this.router.navigate(['/refund'], { queryParams: { ticketId } });
   }
-
 
   navigateEventDetails(eventId: string) {
     this.router.navigate([`/events/${eventId}`]);

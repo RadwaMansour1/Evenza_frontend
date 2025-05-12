@@ -4,11 +4,12 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { featherCheck, featherChevronDown, featherChevronLeft, featherChevronRight, featherChevronUp, featherClock, featherFilter, featherSearch } from '@ng-icons/feather-icons';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-activity-log',
   standalone: true,
-  imports: [CommonModule, FormsModule, NgIcon],
+  imports: [CommonModule, FormsModule, NgIcon , TranslateModule],
   templateUrl: './activity-log.component.html',
   styleUrls: ['./activity-log.component.css'],
   providers: [
@@ -48,18 +49,30 @@ selectOption(option: any) {
 
 
 
+  // activities = [
+  //   { id: '1', type: 'login', description: 'Logged in successfully', device: 'Chrome on Windows', location: 'New York, USA', ip: '192.168.1.1', timestamp: '2025-05-03T14:30:00', status: 'success' },
+  //   { id: '2', type: 'login', description: 'Failed login attempt', device: 'Firefox on MacOS', location: 'Los Angeles, USA', ip: '192.168.1.2', timestamp: '2025-05-03T10:15:00', status: 'failed' },
+  //   { id: '3', type: 'password', description: 'Password changed', device: 'Chrome on Windows', location: 'New York, USA', ip: '192.168.1.1', timestamp: '2025-05-02T09:45:00', status: 'success' },
+  //   { id: '4', type: 'security', description: 'Two-factor authentication enabled', device: 'Mobile App on iPhone', location: 'Chicago, USA', ip: '192.168.1.3', timestamp: '2025-05-01T16:20:00', status: 'success' },
+  //   { id: '5', type: 'login', description: 'Logged in successfully', device: 'Safari on iPad', location: 'Miami, USA', ip: '192.168.1.4', timestamp: '2025-04-30T11:05:00', status: 'success' },
+  //   { id: '6', type: 'security', description: 'Security settings updated', device: 'Chrome on Windows', location: 'New York, USA', ip: '192.168.1.1', timestamp: '2025-04-29T15:40:00', status: 'success' },
+  //   { id: '7', type: 'login', description: 'Suspicious login attempt', device: 'Unknown Device', location: 'Moscow, Russia', ip: '192.168.1.5', timestamp: '2025-04-28T03:25:00', status: 'warning' },
+  //   { id: '8', type: 'session', description: 'Session revoked', device: 'Firefox on Linux', location: 'Seattle, USA', ip: '192.168.1.6', timestamp: '2025-04-27T18:10:00', status: 'success' },
+  //   { id: '9', type: 'login', description: 'Logged in successfully', device: 'Chrome on Windows', location: 'New York, USA', ip: '192.168.1.1', timestamp: '2025-04-26T09:35:00', status: 'success' },
+  //   { id: '10', type: 'session', description: 'All sessions logged out', device: 'Chrome on Windows', location: 'New York, USA', ip: '192.168.1.1', timestamp: '2025-04-25T14:50:00', status: 'success' }
+  // ];
   activities = [
-    { id: '1', type: 'login', description: 'Logged in successfully', device: 'Chrome on Windows', location: 'New York, USA', ip: '192.168.1.1', timestamp: '2025-05-03T14:30:00', status: 'success' },
-    { id: '2', type: 'login', description: 'Failed login attempt', device: 'Firefox on MacOS', location: 'Los Angeles, USA', ip: '192.168.1.2', timestamp: '2025-05-03T10:15:00', status: 'failed' },
-    { id: '3', type: 'password', description: 'Password changed', device: 'Chrome on Windows', location: 'New York, USA', ip: '192.168.1.1', timestamp: '2025-05-02T09:45:00', status: 'success' },
-    { id: '4', type: 'security', description: 'Two-factor authentication enabled', device: 'Mobile App on iPhone', location: 'Chicago, USA', ip: '192.168.1.3', timestamp: '2025-05-01T16:20:00', status: 'success' },
-    { id: '5', type: 'login', description: 'Logged in successfully', device: 'Safari on iPad', location: 'Miami, USA', ip: '192.168.1.4', timestamp: '2025-04-30T11:05:00', status: 'success' },
-    { id: '6', type: 'security', description: 'Security settings updated', device: 'Chrome on Windows', location: 'New York, USA', ip: '192.168.1.1', timestamp: '2025-04-29T15:40:00', status: 'success' },
-    { id: '7', type: 'login', description: 'Suspicious login attempt', device: 'Unknown Device', location: 'Moscow, Russia', ip: '192.168.1.5', timestamp: '2025-04-28T03:25:00', status: 'warning' },
-    { id: '8', type: 'session', description: 'Session revoked', device: 'Firefox on Linux', location: 'Seattle, USA', ip: '192.168.1.6', timestamp: '2025-04-27T18:10:00', status: 'success' },
-    { id: '9', type: 'login', description: 'Logged in successfully', device: 'Chrome on Windows', location: 'New York, USA', ip: '192.168.1.1', timestamp: '2025-04-26T09:35:00', status: 'success' },
-    { id: '10', type: 'session', description: 'All sessions logged out', device: 'Chrome on Windows', location: 'New York, USA', ip: '192.168.1.1', timestamp: '2025-04-25T14:50:00', status: 'success' }
-  ];
+  { id: '1', type: 'login', description: 'auth.descriptions.loggedInSuccess', device: 'auth.device.chromeWin', location: 'auth.location.ny', ip: '192.168.1.1', timestamp: '2025-05-03T14:30:00', status: 'success' },
+  { id: '2', type: 'login', description: 'auth.descriptions.failedLogin', device: 'auth.device.firefoxMac', location: 'auth.location.la', ip: '192.168.1.2', timestamp: '2025-05-03T10:15:00', status: 'failed' },
+  { id: '3', type: 'password', description: 'auth.descriptions.passwordChanged', device: 'auth.device.chromeWin', location: 'auth.location.ny', ip: '192.168.1.1', timestamp: '2025-05-02T09:45:00', status: 'success' },
+  { id: '4', type: 'security', description: 'auth.descriptions.twoFactorEnabled', device: 'auth.device.iphoneApp', location: 'auth.location.chicago', ip: '192.168.1.3', timestamp: '2025-05-01T16:20:00', status: 'success' },
+  { id: '5', type: 'login', description: 'auth.descriptions.loggedInSuccess', device: 'auth.device.safariIpad', location: 'auth.location.miami', ip: '192.168.1.4', timestamp: '2025-04-30T11:05:00', status: 'success' },
+  { id: '6', type: 'security', description: 'auth.descriptions.securityUpdated', device: 'auth.device.chromeWin', location: 'auth.location.ny', ip: '192.168.1.1', timestamp: '2025-04-29T15:40:00', status: 'success' },
+  { id: '7', type: 'login', description: 'auth.descriptions.suspiciousLogin', device: 'auth.device.unknown', location: 'auth.location.moscow', ip: '192.168.1.5', timestamp: '2025-04-28T03:25:00', status: 'warning' },
+  { id: '8', type: 'session', description: 'auth.descriptions.sessionRevoked', device: 'auth.device.firefoxLinux', location: 'auth.location.seattle', ip: '192.168.1.6', timestamp: '2025-04-27T18:10:00', status: 'success' },
+  { id: '9', type: 'login', description: 'auth.descriptions.loggedInSuccess', device: 'auth.device.chromeWin', location: 'auth.location.ny', ip: '192.168.1.1', timestamp: '2025-04-26T09:35:00', status: 'success' },
+  { id: '10', type: 'session', description: 'auth.descriptions.loggedOutAllSessions', device: 'auth.device.chromeWin', location: 'auth.location.ny', ip: '192.168.1.1', timestamp: '2025-04-25T14:50:00', status: 'success' }
+];
 
   constructor(public router: Router) {}
 
