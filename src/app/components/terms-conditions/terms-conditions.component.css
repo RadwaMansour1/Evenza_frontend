@@ -1,3 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit&display=swap');
+
+.font-display {
+  font-family: 'Outfit', sans-serif;
+}
+
+
+.poppins-font {
+  font-family: 'Poppins', sans-serif;
+}
+
+
 section {
     transition: all 0.3s ease-in-out;
   }

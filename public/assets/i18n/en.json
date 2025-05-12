@@ -535,52 +535,30 @@
     
   },
   "terms": {
-    "title": "Terms and Conditions",
-    "one.title": "1. Acceptance of Terms",
-    "one.content": "By accessing and using this website, you agree to be bound by these terms and conditions. If you do not agree, you should not use the site.",
-
-    "two.title": "2. Event Booking",
-    "two.content": "Event bookings are subject to availability. All booking requests must be completed with accurate information, and payment must be confirmed for the booking to be valid.",
-
-    "three.title": "3. Payment Terms",
-    "three.content": "Payments for event bookings must be made through approved payment methods only. We do not accept other payment methods. All prices are in the local currency and include applicable taxes.",
-
-    "four.title": "4. Cancellation and Refund",
-    "four.content": "You may cancel your booking up to 48 hours before the event for a full refund. Cancellations after this period will incur a cancellation fee according to the event provider’s policy.",
-
-    "five.title": "5. User Responsibilities",
-    "five.content": "Users are responsible for ensuring the accuracy of all information provided during registration and booking. You are also responsible for all activity conducted through your account.",
-
-    "six.title": "6. Prohibited Activities",
-    "six.content": "Users are prohibited from engaging in any illegal activities including but not limited to fraud, impersonation, or harassment of users or event organizers. Any violation will result in account termination.",
-
-    "seven.title": "7. Privacy and Data Protection",
-    "seven.content": "We are committed to protecting your privacy. We collect and process your personal data in accordance with our privacy policy available on our website. By using this service, you agree to our data practices.",
-
-    "eight.title": "8. Event Changes",
-    "eight.content": "We reserve the right to make changes to event details, including dates, times, and locations, due to unforeseen circumstances. We will notify you of such changes and offer alternatives if necessary.",
-
-    "nine.title": "9. Limitation of Liability",
-    "nine.content": "We are not liable for any direct, indirect, or consequential damages resulting from your use of the site or participation in events. Participation is at your own risk, and we disclaim any liability for injuries or losses.",
-
-    "ten.title": "10. Force Majeure",
-    "ten.content": "We are not responsible for delays or failure to fulfill our obligations due to causes beyond our control, including natural disasters, government actions, or unforeseen events.",
-
-    "eleven.title": "11. Account Termination",
-    "eleven.content": "We reserve the right to suspend or terminate your account if we believe you have violated any of these terms and conditions. Termination may occur without prior notice, and unused bookings may be forfeited.",
-
-    "twelve.title": "12. Governing Law",
-    "twelve.content": "These terms and conditions are governed by the laws of the Arab Republic of Egypt and international regulations. Any disputes will be resolved before the competent courts in Egypt.",
-
-    "thirteen.title": "13. Amendments to Terms",
-    "thirteen.content": "We reserve the right to update or modify these terms and conditions at any time. Changes become effective once posted on this page. We will notify users of major updates via email or site notifications.",
-
-    "fourteen.title": "14. Contact",
-    "fourteen.content": "If you have any questions about these terms or need help with booking, contact us through the support section of our website or at: {{supportEmail}}.",
-
-    "fifteen.title": "15. User Acknowledgment",
-    "fifteen.content": "By using our services, you acknowledge that you have read and understood these terms and conditions, and agree to comply with them. You also agree to follow all applicable laws during your use of the services."
-  },
+    "title": "Terms & Conditions",
+    "intro": "Please read these terms carefully before using our platform. By accessing or using Evenza, you agree to be bound by these terms and conditions.",
+    "last_updated": "Last Updated: May 10, 2025",
+    "summary": "These terms constitute a legally binding agreement between you and Evenza.",
+    "back_to_signin": "Back to Sign In",
+    "go_to_home": "Go to Home",
+    "sections": {
+      "account_registration": "Account Registration",
+      "event_creation": "Event Creation & Listing",
+      "payments": "Payments & Fees",
+      "refunds": "Refunds & Cancellations",
+      "intellectual_property": "Intellectual Property Rights",
+      "user_conduct": "User Conduct & Community Guidelines",
+      "privacy": "Privacy & Data Usage",
+      "liability": "Liability Limitations",
+      "dispute": "Dispute Resolution",
+      "platform_mod": "Platform Modifications",
+      "termination": "Term & Termination",
+      "communication": "Communications & Notifications",
+      "international": "International Usage",
+      "third_party": "Third-Party Services",
+      "amendments": "Amendments to Terms"
+    }
+    },
   "events": {
     "title": "All Events",
     "previous": "Previous",
