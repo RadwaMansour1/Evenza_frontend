@@ -54,36 +54,46 @@ export class CategoriesService {
     return name.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]+/g, '');
   }
 
-  private generateDescription(name: string): string {
-    const descriptions: Record<string, string> = {
-      'Sports': 'Sporting events and competitions',
-      'Concerts': 'Music concerts and performances',
-      'Conferences': 'Business and tech conferences',
-      'Exhibitions': 'Art and cultural exhibitions',
-      'Workshops': 'Educational workshops and classes',
-      'Festivals': 'Cultural and seasonal festivals',
-      'Live Concert': 'Live music performances and shows',
-      'Theater': 'Theatrical performances and plays',
-      'Comedy': 'Comedy shows and stand-up performances',
-      'Food': 'Food and culinary events',
-      'Travel': 'Travel and adventure events',
-      'Networking': 'Networking events and meetups',
-      'Charity': 'Charity events and fundraisers',
-      'Family': 'Family-friendly events and activities',
-      'Outdoor': 'Outdoor activities and adventures',
-      'Indoor': 'Indoor activities and events',
-      'Health': 'Health and wellness events',
-      'Fitness': 'Fitness and exercise events',
-      'Art': 'Art and creative events',
-      'Technology': 'Technology and innovation events',
-      'Business': 'Business and entrepreneurship events',
-      'Education': 'Educational events and seminars',
-      'Lifestyle': 'Lifestyle and personal development events',
-      'Music': 'Music events and activities',
-      'Dance': 'Dance events and performances',
-      'Photography': 'Photography events and workshops',
-      'workshop': 'Hands-on workshops and training sessions',
-    };
-    return descriptions[name] || `${name} events and activities`;
-  }
+ private generateDescription(name: string): string {
+  const descriptions: Record<string, string> = {
+    'Sports': 'Sporting events and competitions',
+    'Concerts': 'Music concerts and performances',
+    'Conferences': 'Business and tech conferences',
+    'Exhibitions': 'Art and cultural exhibitions',
+    'Workshops': 'Educational workshops and classes',
+    'Festivals': 'Cultural and seasonal festivals',
+    'Live Concert': 'Live music performances and shows',
+    'Theater': 'Theatrical performances and plays',
+    'Comedy': 'Comedy shows and stand-up performances',
+    'Food': 'Food and culinary events',
+    'Travel': 'Travel and adventure events',
+    'Networking': 'Networking events and meetups',
+    'Charity': 'Charity events and fundraisers',
+    'Family': 'Family-friendly events and activities',
+    'Outdoor': 'Outdoor activities and adventures',
+    'Indoor': 'Indoor activities and events',
+    'Health': 'Health and wellness events',
+    'Fitness': 'Fitness and exercise events',
+    'Art': 'Art and creative events',
+    'Technology': 'Technology and innovation events',
+    'Business': 'Business and entrepreneurship events',
+    'Education': 'Educational events and seminars',
+    'Lifestyle': 'Lifestyle and personal development events',
+    'Music': 'Music events and activities',
+    'Dance': 'Dance events and performances',
+    'Photography': 'Photography events and workshops',
+    'workshop': 'Hands-on workshops and training sessions',
+    // Add categories from your events
+    'Film Festival': 'International film screenings and events',
+    'Cultural Show': 'Cultural performances and shows',
+    'Music and Arts Festival': 'Celebration of music and arts',
+    'Food Festival': 'Culinary events and food tastings',
+    'Book Fair': 'Literary events and book exhibitions',
+    'Tech': 'Technology conferences and events',
+    'Gaming': 'Gaming conventions and tournaments',
+    'Conference': 'Professional conferences and meetings',
+    'Exhibition': 'Art and product exhibitions'
+  };
+  return descriptions[name] || `${name} events and activities`;
+}
 }
