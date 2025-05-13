@@ -41,8 +41,6 @@ import { RefundsRequestsService } from '../../services/refundRequests/refundRequ
   ],
 })
 export class RefundComponent implements OnInit{
-  // Add loading state
-  isLoading: boolean = true;
   refundReason: string = '';
   refundMethod:string = "";
   ticketDetails:TicketModel | null = null;
@@ -66,11 +64,12 @@ export class RefundComponent implements OnInit{
   ){}
 
   ngOnInit(): void {
-    this.isLoading = true; // Start loading
     this.route.queryParams.subscribe((params) => {
       const ticketId = params['ticketId'];
+      console.log("ticket id: ", ticketId);
       this.ticketService.getTicketById(ticketId).subscribe({
         next: (ticket:any) => {
+          console.log("ticket details: ", ticket);
           this.ticketDetails = ticket.data;
 
 
@@ -90,7 +89,6 @@ export class RefundComponent implements OnInit{
         }
       });
     });
-    
     this.userService.getProfile().subscribe({
       next:(res)=>{
         console.log("user profile: ",res)
@@ -261,25 +259,32 @@ export class RefundComponent implements OnInit{
                     text: this.translate.instant('REFUND.REQUEST_ERROR_TEXT'), // Translate text
                     confirmButtonColor: '#9333ea'
                   })
-                  
+                   // --- End translation ---
+                  // Consider logging the actual error instead of throwing it here,
+                  // as throwing inside subscribe's error handler might not be caught globally.
                   console.error("Error creating refund request:", err);
+                  // throw new Error(err); // Avoid throwing here unless specifically handled upstream
                 }
               })
             }else{
+               // --- Apply translation here ---
               Swal.fire({
                 icon:'error',
-                title: this.translate.instant('REFUND.MISSING_PARAM_TITLE'),
-                text: this.translate.instant('REFUND.MISSING_PARAM_TEXT'),
+                title: this.translate.instant('REFUND.MISSING_PARAM_TITLE'), // Translate title
+                text: this.translate.instant('REFUND.MISSING_PARAM_TEXT'), // Translate text (reused SELECT_METHOD_TEXT, adjust if needed)
                 confirmButtonColor: '#9333ea'
               })
+               // --- End translation ---
             }
           }else{
+             // --- Apply translation here ---
             Swal.fire({
               icon:'error',
               title: this.translate.instant('REFUND.SELECT_METHOD_TITLE'), // Translate title
               text: this.translate.instant('REFUND.SELECT_METHOD_TEXT'), // Translate text
               confirmButtonColor: '#9333ea'
             })
+             // --- End translation ---
           }
           }
         }
@@ -306,13 +311,5 @@ export class RefundComponent implements OnInit{
     //           }
     //         });
     // }
-  }
-
-  // Add this new method
-  private checkLoadingComplete(): void {
-    // Check if both main data sources have completed
-    if (this.ticketDetails !== null && this.paymentId !== null) {
-      this.isLoading = false;
-    }
   }
 }

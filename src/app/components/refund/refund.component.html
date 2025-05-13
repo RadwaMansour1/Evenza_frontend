@@ -1,293 +1,287 @@
 
-  @if (isLoading) {
-    div class="fixed inset-0 bg-white bg-opacity-80 z-50 flex items-center justify-center">
-  <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-purple-500"></div>
-  }@else {
-    <div class="flex flex-col gap-6 px-24 py-26 min-h-screen bg-gray-50">
-      <!-- Add translate pipe -->
-      <h1 class="text-4xl font-bold">{{ 'REFUND.PAGE_TITLE' | translate }}</h1>
-      <div class="flex flex-col lg:flex-row gap-6">
-        <div class="flex flex-col gap-4 pb-10 h-full w-full lg:w-3/5">
-          <!-- ------------------------ First Part--------------------------- -->
-          <div class="flex flex-col gap-6 bg-white rounded-lg p-6 shadow-lg">
-            <span class="flex items-center gap-1.5">
-              <ng-icon name="heroCurrencyDollar" class="text-2xl" color="#9333ea" />
+<div class="flex flex-col gap-6 px-24 py-26 min-h-screen bg-gray-50">
+  <!-- Add translate pipe -->
+  <h1 class="text-4xl font-bold">{{ 'REFUND.PAGE_TITLE' | translate }}</h1>
+  <div class="flex flex-col lg:flex-row gap-6">
+    <div class="flex flex-col gap-4 pb-10 h-full w-full lg:w-3/5">
+      <!-- ------------------------ First Part--------------------------- -->
+      <div class="flex flex-col gap-6 bg-white rounded-lg p-6 shadow-lg">
+        <span class="flex items-center gap-1.5">
+          <ng-icon name="heroCurrencyDollar" class="text-2xl" color="#9333ea" />
+          <!-- Add translate pipe -->
+          <h1 class="text-2xl font-bold">{{ 'REFUND.REQUEST_HEADING' | translate }}</h1>
+        </span>
+        <!-- Add translate pipe -->
+        <h3 class="text-lg font-semibold">{{ 'REFUND.REASON_SUBHEADING' | translate }}</h3>
+        <label
+          for="conflict"
+          class="flex gap-2.5 w-full border border-gray-200 rounded-lg py-2 px-3"
+        >
+          <input
+            type="radio"
+            id="conflict"
+            name="refundReason"
+            value="Schedule Conflict"
+            class="accent-purple-500"
+            [(ngModel)]="refundReason"
+          />
+          <!-- Add translate pipe -->
+          <span class="font-semibold">{{ 'REFUND.REASON_CONFLICT' | translate }}</span>
+        </label>
+        <label
+          for="plans"
+          class="flex gap-2.5 w-full border border-gray-200 rounded-lg py-2 px-3"
+        >
+          <input
+            type="radio"
+            id="plans"
+            name="refundReason"
+            value="Change of Plans"
+            class="accent-purple-500"
+            [(ngModel)]="refundReason"
+          />
+          <!-- Add translate pipe -->
+          <span class="font-semibold">{{ 'REFUND.REASON_PLANS' | translate }}</span>
+        </label>
+        <label
+          for="mistake"
+          class="flex gap-2.5 w-full border border-gray-200 rounded-lg py-2 px-3"
+        >
+          <input
+            type="radio"
+            id="mistake"
+            name="refundReason"
+            value="Purchased by Mistake"
+            class="accent-purple-500"
+            [(ngModel)]="refundReason"
+          />
+          <!-- Add translate pipe -->
+          <span class="font-semibold">{{ 'REFUND.REASON_MISTAKE' | translate }}</span>
+        </label>
+        <label
+          for="other"
+          class="flex gap-2.5 w-full border border-gray-200 rounded-lg py-2 px-3"
+        >
+          <input
+            type="radio"
+            id="other"
+            name="refundReason"
+            value="Other"
+            class="accent-purple-500"
+            [(ngModel)]="refundReason"
+          />
+          <!-- Add translate pipe -->
+          <span class="font-semibold">{{ 'REFUND.REASON_OTHER' | translate }}</span>
+        </label>
+
+        <!-- Refund Method Selection -->
+        <div class="flex flex-col gap-1.5">
+          <!-- Add translate pipe -->
+          <h3 class="text-lg font-semibold">{{ 'REFUND.METHOD_SUBHEADING' | translate }}</h3>
+          <label class="flex flex-col border border-gray-200 rounded-lg p-4 cursor-pointer">
+            <span class="flex items-center gap-3">
+              <input
+                type="radio"
+                name="refundMethod"
+                value="original"
+                class="accent-purple-500"
+                [(ngModel)]="refundMethod"
+              />
+              <ng-icon name="heroCreditCard" class="text-xl" color="gray" />
               <!-- Add translate pipe -->
-              <h1 class="text-2xl font-bold">{{ 'REFUND.REQUEST_HEADING' | translate }}</h1>
+              <h2 class="text-xl font-semibold">{{ 'REFUND.METHOD_ORIGINAL' | translate }}</h2>
             </span>
             <!-- Add translate pipe -->
-            <h3 class="text-lg font-semibold">{{ 'REFUND.REASON_SUBHEADING' | translate }}</h3>
-            <label
-              for="conflict"
-              class="flex gap-2.5 w-full border border-gray-200 rounded-lg py-2 px-3"
-            >
-              <input
-                type="radio"
-                id="conflict"
-                name="refundReason"
-                value="Schedule Conflict"
-                class="accent-purple-500"
-                [(ngModel)]="refundReason"
-              />
-              <!-- Add translate pipe -->
-              <span class="font-semibold">{{ 'REFUND.REASON_CONFLICT' | translate }}</span>
-            </label>
-            <label
-              for="plans"
-              class="flex gap-2.5 w-full border border-gray-200 rounded-lg py-2 px-3"
-            >
-              <input
-                type="radio"
-                id="plans"
-                name="refundReason"
-                value="Change of Plans"
-                class="accent-purple-500"
-                [(ngModel)]="refundReason"
-              />
-              <!-- Add translate pipe -->
-              <span class="font-semibold">{{ 'REFUND.REASON_PLANS' | translate }}</span>
-            </label>
-            <label
-              for="mistake"
-              class="flex gap-2.5 w-full border border-gray-200 rounded-lg py-2 px-3"
-            >
-              <input
-                type="radio"
-                id="mistake"
-                name="refundReason"
-                value="Purchased by Mistake"
-                class="accent-purple-500"
-                [(ngModel)]="refundReason"
-              />
-              <!-- Add translate pipe -->
-              <span class="font-semibold">{{ 'REFUND.REASON_MISTAKE' | translate }}</span>
-            </label>
-            <label
-              for="other"
-              class="flex gap-2.5 w-full border border-gray-200 rounded-lg py-2 px-3"
-            >
-              <input
-                type="radio"
-                id="other"
-                name="refundReason"
-                value="Other"
-                class="accent-purple-500"
-                [(ngModel)]="refundReason"
-              />
-              <!-- Add translate pipe -->
-              <span class="font-semibold">{{ 'REFUND.REASON_OTHER' | translate }}</span>
-            </label>
-    
-            <!-- Refund Method Selection -->
-            <div class="flex flex-col gap-1.5">
-              <!-- Add translate pipe -->
-              <h3 class="text-lg font-semibold">{{ 'REFUND.METHOD_SUBHEADING' | translate }}</h3>
-              <label class="flex flex-col border border-gray-200 rounded-lg p-4 cursor-pointer">
-                <span class="flex items-center gap-3">
-                  <input
-                    type="radio"
-                    name="refundMethod"
-                    value="original"
-                    class="accent-purple-500"
-                    [(ngModel)]="refundMethod"
-                  />
-                  <ng-icon name="heroCreditCard" class="text-xl" color="gray" />
-                  <!-- Add translate pipe -->
-                  <h2 class="text-xl font-semibold">{{ 'REFUND.METHOD_ORIGINAL' | translate }}</h2>
-                </span>
-                <!-- Add translate pipe -->
-                <h3 class="text-gray-700">
-                  {{ 'REFUND.METHOD_ORIGINAL_DESC' | translate }}
-                </h3>
-              </label>
-              <label class="flex flex-col border border-gray-200 rounded-lg p-4 cursor-pointer">
-                <span class="flex items-center gap-3">
-                  <input
-                    type="radio"
-                    name="refundMethod"
-                    value="wallet"
-                    class="accent-purple-500"
-                    [(ngModel)]="refundMethod"
-                  />
-                  <ng-icon name="heroCreditCard" class="text-xl" color="gray" />
-                  <!-- Add translate pipe -->
-                  <h2 class="text-xl font-semibold">{{ 'REFUND.METHOD_WALLET' | translate }}</h2>
-                </span>
-                <!-- Add translate pipe -->
-                <h3 class="text-gray-700">
-                  {{ 'REFUND.METHOD_WALLET_DESC' | translate }}
-                </h3>
-              </label>
-            </div>
-            <span
-              class="flex flex-col border-1 border-gray-200 rounded-lg p-4 bg-gray-100"
-            >
-              <span class="flex items-center gap-3">
-                <ng-icon
-                  name="heroInformationCircle"
-                  class="text-3xl"
-                  color="purple"
-                />
-                <!-- Add translate pipe -->
-                <h2 class="text-xl font-semibold">{{ 'REFUND.NOTES_HEADING' | translate }}</h2>
-              </span>
-              <ul class="list-disc pl-16 text-gray-600 text-md">
-                <!-- Add translate pipe with interpolation -->
-                <li>
-                  {{ 'REFUND.NOTE_PROCESSING_TIME' | translate: { amount: total } }}
-                </li>
-                <li>{{ 'REFUND.NOTE_FEES' | translate : {serviceFee} }}</li>
-                <li>
-                  {{ 'REFUND.NOTE_CONFIRMATION' | translate }}
-                </li>
-              </ul>
-            </span>
-            <button class="p-2 rounded-lg bg-purple-500 hover:bg-purple-700 text-white w-full lg:w-1/3 ms-auto cursor-pointer" (click)="submitRefund()">{{ 'REFUND.SUBMIT_BUTTON' | translate }}</button>
-          </div>
-    
-          <!---------------------------- Second Part -------------------------- -->
-          <div class="flex flex-col gap-6 bg-white rounded-lg p-6 shadow-lg">
+            <h3 class="text-gray-700">
+              {{ 'REFUND.METHOD_ORIGINAL_DESC' | translate }}
+            </h3>
+          </label>
+          <label class="flex flex-col border border-gray-200 rounded-lg p-4 cursor-pointer">
             <span class="flex items-center gap-3">
-              <ng-icon name="heroCheckCircle" class="text-3xl" color="green" />
+              <input
+                type="radio"
+                name="refundMethod"
+                value="wallet"
+                class="accent-purple-500"
+                [(ngModel)]="refundMethod"
+              />
+              <ng-icon name="heroCreditCard" class="text-xl" color="gray" />
               <!-- Add translate pipe -->
-              <h2 class="text-3xl font-semibold">{{ 'REFUND.EXPECT_NEXT_HEADING' | translate }}</h2>
+              <h2 class="text-xl font-semibold">{{ 'REFUND.METHOD_WALLET' | translate }}</h2>
             </span>
-    
-            <div class="flex flex-col lg:flex-row gap-3">
-              <span
-                class="flex flex-col items-center gap-2 p-6 w-full lg:w-1/3 border border-gray-200 rounded-lg"
-              >
-                <div
-                  class="flex justify-center items-center w-16 h-16 rounded-full p-6 bg-fuchsia-100"
-                >
-                  <h1 class="font-semibold text-2xl text-fuchsia-600">1</h1>
-                </div>
-                <!-- Apply translation pipe -->
-                <h2 class="font-semibold text-lg">{{ 'REFUND.EXPECT_CONFIRMATION_TITLE' | translate }}</h2>
-                <!-- Apply translation pipe -->
-                <h4 class="font-semibold text-gray-500 text-center">
-                  {{ 'REFUND.EXPECT_CONFIRMATION_DESC' | translate }}
-                </h4>
-              </span>
-              <span
-                class="flex flex-col items-center gap-2 p-6 w-full lg:w-1/3 border border-gray-200 rounded-lg"
-              >
-                <div
-                  class="flex justify-center items-center w-16 h-16 rounded-full p-6 bg-fuchsia-100"
-                >
-                  <h1 class="font-semibold text-2xl text-fuchsia-600">2</h1>
-                </div>
-                 <!-- Apply translation pipe -->
-                <h2 class="font-semibold text-lg">{{ 'REFUND.EXPECT_PROCESSING_TITLE' | translate }}</h2>
-                 <!-- Apply translation pipe -->
-                <h4 class="font-semibold text-gray-500 text-center">
-                  {{ 'REFUND.EXPECT_PROCESSING_DESC' | translate }}
-                </h4>
-              </span>
-              <span
-                class="flex flex-col items-center gap-2 p-6 w-full lg:w-1/3 border border-gray-200 rounded-lg"
-              >
-                <div
-                  class="flex justify-center items-center w-16 h-16 rounded-full p-6 bg-fuchsia-100"
-                >
-                  <h1 class="font-semibold text-2xl text-fuchsia-600">3</h1>
-                </div>
-                 <!-- Apply translation pipe -->
-                <h2 class="font-semibold text-lg">{{ 'REFUND.EXPECT_COMPLETION_TITLE' | translate }}</h2>
-                 <!-- Apply translation pipe -->
-                <h4 class="font-semibold text-gray-500 text-center">
-                  {{ 'REFUND.EXPECT_COMPLETION_DESC' | translate }}
-                </h4>
-              </span>
-            </div>
-          </div>
+            <!-- Add translate pipe -->
+            <h3 class="text-gray-700">
+              {{ 'REFUND.METHOD_WALLET_DESC' | translate }}
+            </h3>
+          </label>
         </div>
-    
-        <!-------------------------- Order Summary------------------------>
-        <div
-          class="flex flex-col gap-6 bg-white rounded-lg p-6 h-fit w-full lg:w-2/6 shadow-lg"
+        <span
+          class="flex flex-col border-1 border-gray-200 rounded-lg p-4 bg-gray-100"
         >
           <span class="flex items-center gap-3">
-            <ng-icon name="heroTicket" class="text-3xl" color="purple" />
+            <ng-icon
+              name="heroInformationCircle"
+              class="text-3xl"
+              color="purple"
+            />
             <!-- Add translate pipe -->
-            <h1 class="text-2xl font-bold">{{ 'REFUND.TICKET_DETAILS_HEADING' | translate }}</h1>
+            <h2 class="text-xl font-semibold">{{ 'REFUND.NOTES_HEADING' | translate }}</h2>
           </span>
-    
-          <span class="py-1 px-10 rounded-full w-fit bg-purple-500">
-            <h2 class="font-semibold text-white">{{ticketDetails?.ticketType}}</h2>
+          <ul class="list-disc pl-16 text-gray-600 text-md">
+            <!-- Add translate pipe with interpolation -->
+            <li>
+              {{ 'REFUND.NOTE_PROCESSING_TIME' | translate: { amount: total } }}
+            </li>
+            <li>{{ 'REFUND.NOTE_FEES' | translate : {serviceFee} }}</li>
+            <li>
+              {{ 'REFUND.NOTE_CONFIRMATION' | translate }}
+            </li>
+          </ul>
+        </span>
+        <button class="p-2 rounded-lg bg-purple-500 hover:bg-purple-700 text-white w-full lg:w-1/3 ms-auto cursor-pointer" (click)="submitRefund()">{{ 'REFUND.SUBMIT_BUTTON' | translate }}</button>
+      </div>
+
+      <!---------------------------- Second Part -------------------------- -->
+      <div class="flex flex-col gap-6 bg-white rounded-lg p-6 shadow-lg">
+        <span class="flex items-center gap-3">
+          <ng-icon name="heroCheckCircle" class="text-3xl" color="green" />
+          <!-- Add translate pipe -->
+          <h2 class="text-3xl font-semibold">{{ 'REFUND.EXPECT_NEXT_HEADING' | translate }}</h2>
+        </span>
+
+        <div class="flex flex-col lg:flex-row gap-3">
+          <span
+            class="flex flex-col items-center gap-2 p-6 w-full lg:w-1/3 border border-gray-200 rounded-lg"
+          >
+            <div
+              class="flex justify-center items-center w-16 h-16 rounded-full p-6 bg-fuchsia-100"
+            >
+              <h1 class="font-semibold text-2xl text-fuchsia-600">1</h1>
+            </div>
+            <!-- Apply translation pipe -->
+            <h2 class="font-semibold text-lg">{{ 'REFUND.EXPECT_CONFIRMATION_TITLE' | translate }}</h2>
+            <!-- Apply translation pipe -->
+            <h4 class="font-semibold text-gray-500 text-center">
+              {{ 'REFUND.EXPECT_CONFIRMATION_DESC' | translate }}
+            </h4>
           </span>
-    
-          <span class="flex flex-col">
-            <h2 class="text-xl font-bold">{{ticketDetails?.eventName}}</h2>
-            <span class="flex gap-2 items-center text-gray-600">
-              <ng-icon name="heroCalendar" />
-              <h3>{{ ticketDetails?.date | date:'dd/MM/yyyy'}}</h3>
-            </span>
-            <span class="flex gap-2 items-center text-gray-600">
-              <ng-icon name="heroClock" />
-              <h3>{{ ticketDetails?.time }}</h3>
-            </span>
-            <span class="flex gap-2 items-center text-gray-600">
-              <ng-icon name="heroMapPin" />
-              <h3>{{ ticketDetails?.location }}</h3>
-            </span>
+          <span
+            class="flex flex-col items-center gap-2 p-6 w-full lg:w-1/3 border border-gray-200 rounded-lg"
+          >
+            <div
+              class="flex justify-center items-center w-16 h-16 rounded-full p-6 bg-fuchsia-100"
+            >
+              <h1 class="font-semibold text-2xl text-fuchsia-600">2</h1>
+            </div>
+             <!-- Apply translation pipe -->
+            <h2 class="font-semibold text-lg">{{ 'REFUND.EXPECT_PROCESSING_TITLE' | translate }}</h2>
+             <!-- Apply translation pipe -->
+            <h4 class="font-semibold text-gray-500 text-center">
+              {{ 'REFUND.EXPECT_PROCESSING_DESC' | translate }}
+            </h4>
           </span>
-    
-          <hr class="text-gray-300" />
-    
-          <div class="flex flex-col gap-3">
-            <span class="flex justify-between">
-              <!-- Add translate pipe -->
-              <h3 class="font-semibold text-gray-400 text-md">{{ 'REFUND.TICKET_ID_LABEL' | translate }}</h3>
-              <h3 class="font-semibold text-md">{{ ticketDetails?._id }}</h3>
-            </span>
-            <span class="flex justify-between">
-              <!-- Add translate pipe -->
-              <h3 class="font-semibold text-gray-400 text-md">{{ 'REFUND.PURCHASE_DATE_LABEL' | translate }}</h3>
-              <h3 class="font-semibold text-md">{{ ticketDetails?.purchaseDate | date:'dd/MM/yyyy - hh:mm aa' }}</h3>
-            </span>
-            <!-- <span class="flex justify-between">
-              <h3 class="font-semibold text-gray-400 text-md">Status</h3>
-              <h3 class="font-semibold text-md">{{ status }}</h3>
-            </span> -->
-          </div>
-          <hr class="text-gray-300" />
-    
-          <span class="flex justify-between">
-            <!-- Add translate pipe -->
-            <h3 class="font-semibold text-md">{{ 'REFUND.TICKET_PRICE_LABEL' | translate }}</h3>
-            <h3 class="font-medium text-gray-600 text-lg">{{ ticketDetails?.price!.toFixed(2) }} EGP</h3>
-          </span>
-          <span class="flex justify-between">
-            <!-- Add translate pipe -->
-            <h3 class="font-semibold text-md">{{ 'REFUND.QUANTITY_LABEL' | translate }}</h3>
-            <h3 class="font-medium text-gray-600 text-lg">x{{ ticketDetails?.quantity }}</h3>
-          </span>
-          <span class="flex justify-between">
-            <!-- Add translate pipe -->
-            <h3 class="font-semibold text-md">{{ 'REFUND.TOTAL_PRICE_LABEL' | translate }}</h3>
-            <h3 class="font-medium text-gray-600 text-lg">{{ total!.toFixed(2) }} EGP</h3>
-          </span>
-          <span class="flex justify-between">
-            <!-- Add translate pipe -->
-            <h3 class="font-semibold text-gray-400 text-md">
-              {{ 'REFUND.SERVICE_FEE_LABEL' | translate }}
-            </h3>
-            <h3 class="font-medium text-gray-400 text-lg">{{serviceFee.toFixed(2)}} EGP</h3> <!-- Assuming fee is fixed -->
-          </span>
-          <hr class="text-gray-300" />
-          <span class="flex justify-between">
-            <!-- Add translate pipe -->
-            <h3 class="font-semibold text-xl">{{ 'REFUND.REFUNDABLE_AMOUNT_LABEL' | translate }}</h3>
-            <h3 class="font-semibold text-purple-500 text-lg">{{ ticketDetails?.price }} EGP</h3>
-          </span>
-          <span class="flex gap-2 items-center font-semibold text-gray-600">
-            <ng-icon name="heroCalendar" />
-            <!-- Add translate pipe -->
-            <h3>{{ 'REFUND.DEADLINE_LABEL' | translate }}: {{ refundDeadline | date:'dd/MM/yyyy' }}</h3>
+          <span
+            class="flex flex-col items-center gap-2 p-6 w-full lg:w-1/3 border border-gray-200 rounded-lg"
+          >
+            <div
+              class="flex justify-center items-center w-16 h-16 rounded-full p-6 bg-fuchsia-100"
+            >
+              <h1 class="font-semibold text-2xl text-fuchsia-600">3</h1>
+            </div>
+             <!-- Apply translation pipe -->
+            <h2 class="font-semibold text-lg">{{ 'REFUND.EXPECT_COMPLETION_TITLE' | translate }}</h2>
+             <!-- Apply translation pipe -->
+            <h4 class="font-semibold text-gray-500 text-center">
+              {{ 'REFUND.EXPECT_COMPLETION_DESC' | translate }}
+            </h4>
           </span>
         </div>
       </div>
     </div>
-  }
 
+    <!-------------------------- Order Summary------------------------>
+    <div
+      class="flex flex-col gap-6 bg-white rounded-lg p-6 h-fit w-full lg:w-2/6 shadow-lg"
+    >
+      <span class="flex items-center gap-3">
+        <ng-icon name="heroTicket" class="text-3xl" color="purple" />
+        <!-- Add translate pipe -->
+        <h1 class="text-2xl font-bold">{{ 'REFUND.TICKET_DETAILS_HEADING' | translate }}</h1>
+      </span>
+
+      <span class="py-1 px-10 rounded-full w-fit bg-purple-500">
+        <h2 class="font-semibold text-white">{{ticketDetails?.ticketType}}</h2>
+      </span>
+
+      <span class="flex flex-col">
+        <h2 class="text-xl font-bold">{{ticketDetails?.eventName}}</h2>
+        <span class="flex gap-2 items-center text-gray-600">
+          <ng-icon name="heroCalendar" />
+          <h3>{{ ticketDetails?.date | date:'dd/MM/yyyy'}}</h3>
+        </span>
+        <span class="flex gap-2 items-center text-gray-600">
+          <ng-icon name="heroClock" />
+          <h3>{{ ticketDetails?.time }}</h3>
+        </span>
+        <span class="flex gap-2 items-center text-gray-600">
+          <ng-icon name="heroMapPin" />
+          <h3>{{ ticketDetails?.location }}</h3>
+        </span>
+      </span>
+
+      <hr class="text-gray-300" />
+
+      <div class="flex flex-col gap-3">
+        <span class="flex justify-between">
+          <!-- Add translate pipe -->
+          <h3 class="font-semibold text-gray-400 text-md">{{ 'REFUND.TICKET_ID_LABEL' | translate }}</h3>
+          <h3 class="font-semibold text-md">{{ ticketDetails?._id }}</h3>
+        </span>
+        <span class="flex justify-between">
+          <!-- Add translate pipe -->
+          <h3 class="font-semibold text-gray-400 text-md">{{ 'REFUND.PURCHASE_DATE_LABEL' | translate }}</h3>
+          <h3 class="font-semibold text-md">{{ ticketDetails?.purchaseDate | date:'dd/MM/yyyy - hh:mm aa' }}</h3>
+        </span>
+        <!-- <span class="flex justify-between">
+          <h3 class="font-semibold text-gray-400 text-md">Status</h3>
+          <h3 class="font-semibold text-md">{{ status }}</h3>
+        </span> -->
+      </div>
+      <hr class="text-gray-300" />
+
+      <span class="flex justify-between">
+        <!-- Add translate pipe -->
+        <h3 class="font-semibold text-md">{{ 'REFUND.TICKET_PRICE_LABEL' | translate }}</h3>
+        <h3 class="font-medium text-gray-600 text-lg">{{ ticketDetails?.price!.toFixed(2) }} EGP</h3>
+      </span>
+      <span class="flex justify-between">
+        <!-- Add translate pipe -->
+        <h3 class="font-semibold text-md">{{ 'REFUND.QUANTITY_LABEL' | translate }}</h3>
+        <h3 class="font-medium text-gray-600 text-lg">x{{ ticketDetails?.quantity }}</h3>
+      </span>
+      <span class="flex justify-between">
+        <!-- Add translate pipe -->
+        <h3 class="font-semibold text-md">{{ 'REFUND.TOTAL_PRICE_LABEL' | translate }}</h3>
+        <h3 class="font-medium text-gray-600 text-lg">{{ total!.toFixed(2) }} EGP</h3>
+      </span>
+      <span class="flex justify-between">
+        <!-- Add translate pipe -->
+        <h3 class="font-semibold text-gray-400 text-md">
+          {{ 'REFUND.SERVICE_FEE_LABEL' | translate }}
+        </h3>
+        <h3 class="font-medium text-gray-400 text-lg">{{serviceFee.toFixed(2)}} EGP</h3> <!-- Assuming fee is fixed -->
+      </span>
+      <hr class="text-gray-300" />
+      <span class="flex justify-between">
+        <!-- Add translate pipe -->
+        <h3 class="font-semibold text-xl">{{ 'REFUND.REFUNDABLE_AMOUNT_LABEL' | translate }}</h3>
+        <h3 class="font-semibold text-purple-500 text-lg">{{ ticketDetails?.price }} EGP</h3>
+      </span>
+      <span class="flex gap-2 items-center font-semibold text-gray-600">
+        <ng-icon name="heroCalendar" />
+        <!-- Add translate pipe -->
+        <h3>{{ 'REFUND.DEADLINE_LABEL' | translate }}: {{ refundDeadline | date:'dd/MM/yyyy' }}</h3>
+      </span>
+    </div>
+  </div>
+</div>
