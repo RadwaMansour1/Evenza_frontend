@@ -53,8 +53,9 @@ export class SelectRoleComponent implements OnInit {
           if (this.selectedRole?.toLowerCase() == 'organizer') {
             this.router.navigate(['/organizer/home']);
           } else {
-            this.router.navigate(['/profile']);
-            window.location.reload();
+            this.router.navigate(['/profile']).then(() => {
+              window.location.reload();
+            });
           }
         },
         (error) => {
