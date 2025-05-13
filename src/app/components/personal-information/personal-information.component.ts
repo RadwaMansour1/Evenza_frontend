@@ -64,12 +64,12 @@ export class PersonalInformationComponent implements OnInit {
     private spinner: NgxSpinnerService,
     private toastr: ToastrService
   ) {
-    console.log('user id', this.userId);
-    const userDataString = localStorage.getItem(CONSTANTS.userData);
-    if (userDataString) {
-      const userData = JSON.parse(userDataString);
-      this.userId = userData.id;
-    }
+    // console.log('user id', this.userId);
+    // const userDataString = localStorage.getItem(CONSTANTS.userData);
+    // if (userDataString) {
+    //   const userData = JSON.parse(userDataString);
+    //   this.userId = userData.id;
+    // }
 
     this.profileForm = this.fb.group({
       firstName: ['', Validators.required],
@@ -120,6 +120,12 @@ export class PersonalInformationComponent implements OnInit {
   ];
 
   ngOnInit() {
+    console.log('user id', this.userId);
+    const userDataString = localStorage.getItem(CONSTANTS.userData);
+    if (userDataString) {
+      const userData = JSON.parse(userDataString);
+      this.userId = userData.id;
+    }
     this.userService.getProfile().subscribe({
       next: (res: any) => {
         console.log('data', res.data);
@@ -134,7 +140,7 @@ export class PersonalInformationComponent implements OnInit {
             email: data.email || '',
             country: data.country || '',
             gender: data.gender || '',
-            streetAddress: data.streetAddress || '',
+            streetAddress: data.address || '',
             city: data.city || '',
             state: data.state || '',
             postalCode: data.postalCode || '',
@@ -203,22 +209,19 @@ export class PersonalInformationComponent implements OnInit {
           formData.append(key, value as any);
         }
       });
-
-      // for (const [key, value] of formData.entries()) {
-      //   console.log('Adding to formData:', key, value);
-      //   console.log(key, value);
-      // }
-
       this.userService.updateProfile(formData).subscribe({
         next: (response) => {
           // console.log('Profile updated successfully', response);
           this.toastr.success('Profile updated successfully', 'Success');
           this.editing.set(false);
-          this.spinner.show();
-          this.isLoading = true;
+          this.spinner.hide();
+          this.isLoading = false;
         },
         error: (error) => {
-          this.toastr.error('Ops,there is a problem ,please try again later!', 'Error');
+          this.toastr.error(
+            'Ops,there is a problem ,please try again later!',
+            'Error'
+          );
           this.isLoading = false;
           this.spinner.hide();
         },

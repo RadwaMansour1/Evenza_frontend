@@ -1,4 +1,4 @@
-// Evenza theme variables
+// Evenza theme variables (from your existing code)
 $primary-color: #9333ea;
 $primary-light: #a855f7;
 $primary-dark: #7e22ce;
@@ -17,7 +17,6 @@ $info-color: #0ea5e9;
   position: fixed;
   top: 0;
   right: 0;
-  left: 64px;
   height: 64px;
   background-color: white;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
@@ -26,11 +25,10 @@ $info-color: #0ea5e9;
   justify-content: space-between;
   padding: 0 1.5rem;
   z-index: 40;
-  transition: left 0.3s ease;
+  transition: all 0.3s ease;
   
-  @media (min-width: 1024px) {
-    left: 240px; // Adjust based on your sidebar width
-  }
+  // Dynamic left position controlled by parent container
+  left: 64px; // Default for collapsed sidebar
 }
 
 // Left side of header
@@ -291,11 +289,10 @@ $info-color: #0ea5e9;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
   border: 1px solid $border-color;
   z-index: 50;
-  max-height: 0;
-  overflow: hidden;
   opacity: 0;
   visibility: hidden;
-  transition: max-height 0.3s, opacity 0.2s, visibility 0.2s;
+  transform: translateY(-10px);
+  transition: opacity 0.2s, transform 0.2s, visibility 0.2s;
   
   .dropdown-header {
     display: flex;
@@ -335,9 +332,9 @@ $info-color: #0ea5e9;
 // When dropdown is active
 .notifications-dropdown.active .dropdown-menu,
 .user-dropdown.active .dropdown-menu {
-  max-height: 400px;
   opacity: 1;
   visibility: visible;
+  transform: translateY(0);
 }
 
 // Notifications list
@@ -409,24 +406,6 @@ $info-color: #0ea5e9;
         color: $text-light;
       }
     }
-    
-    .notification-action {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      background-color: transparent;
-      border: none;
-      cursor: pointer;
-      color: $text-light;
-      
-      &:hover {
-        background-color: rgba(0, 0, 0, 0.05);
-        color: $text-dark;
-      }
-    }
   }
 }
 
@@ -491,6 +470,10 @@ $info-color: #0ea5e9;
       text-decoration: none;
       transition: background-color 0.2s;
       cursor: pointer;
+      width: 100%;
+      text-align: left;
+      border: none;
+      background: none;
       
       &:hover {
         background-color: #f8fafc;
@@ -502,10 +485,6 @@ $info-color: #0ea5e9;
       
       &.logout {
         color: $danger-color;
-        border: none;
-        background: none;
-        width: 100%;
-        text-align: left;
         
         ng-icon {
           color: $danger-color;

@@ -38,7 +38,7 @@
 
     <!-- Notifications -->
     <div class="notifications-dropdown" [class.active]="isNotificationsOpen">
-      <button class="notification-btn" (click)="toggleNotifications()">
+      <button class="notification-btn" (click)="toggleNotifications($event)">
         <ng-icon name="heroBell"></ng-icon>
         <span *ngIf="unreadNotifications > 0" class="notification-badge">{{ unreadNotifications }}</span>
       </button>
@@ -46,9 +46,6 @@
       <div class="dropdown-menu" *ngIf="isNotificationsOpen">
         <div class="dropdown-header">
           <h3>Notifications</h3>
-          <!-- <button class="text-btn" (click)="markAllAsRead()" *ngIf="unreadNotifications > 0">
-            Mark all as read
-          </button> -->
         </div>
         
         <div class="notifications-list" *ngIf="notifications.length > 0">
@@ -64,11 +61,7 @@
             </div>
             <div class="notification-content">
               <p class="notification-text">{{ notification.message }}</p>
-              <!-- <span class="notification-time">{{ notification.time | timeAgo }}</span> -->
             </div>
-            <!-- <button class="notification-action" (click)="handleNotification(notification)">
-              <ng-icon name="heroArrowRight"></ng-icon>
-            </button> -->
           </div>
         </div>
         
@@ -87,7 +80,7 @@
 
     <!-- User Menu -->
     <div class="user-dropdown" [class.active]="isUserMenuOpen">
-      <button class="user-menu-btn" (click)="toggleUserMenu()">
+      <button class="user-menu-btn" (click)="toggleUserMenu($event)">
         <div class="user-avatar" *ngIf="!user?.photoURL">
           {{ userInitials }}
         </div>
@@ -127,10 +120,10 @@
             <span>Help Center</span>
           </a>
           <div class="menu-divider"></div>
-          <!-- <button class="menu-item logout" (click)="logout()">
+          <button class="menu-item logout">
             <ng-icon name="heroArrowRightOnRectangle"></ng-icon>
             <span>Sign Out</span>
-          </button> -->
+          </button>
         </div>
       </div>
     </div>

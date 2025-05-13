@@ -3,25 +3,26 @@ import { AdminHeaderComponent } from "../header-admin/header.component";
 import { SidebarComponent } from "../sidebar-admin/sidebar.component";
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { NavBarComponent } from "../../nav-bar/nav-bar.component";
 
 @Component({
   selector: 'app-admin-layout',
   templateUrl: './layout.component.html',
-  imports: [AdminHeaderComponent, SidebarComponent,CommonModule,RouterModule],
+  styleUrls: ['./layout.component.scss'],
+  imports: [AdminHeaderComponent, SidebarComponent, CommonModule, RouterModule, NavBarComponent],
 })
 export class AdminLayoutComponent {
   sidebarState = true;
   sidebarHovered = false;
 
   updateSidebarState(state: boolean) {
-    // If this is coming from a hover event in the sidebar
-    if (this.sidebarState === false && state === true) {
-      this.sidebarHovered = true;
-    } else if (this.sidebarState === false && state === false) {
-      this.sidebarHovered = false;
-    } else {
-      // This is a regular toggle, not hover
-      this.sidebarState = state;
-    }
+    this.sidebarState = state;
+    // Force layout recalculation
+    setTimeout(() => {
+      window.dispatchEvent(new Event('resize'));
+    }, 300);
+  }
+    get sidebarClass() {
+    return this.sidebarState || this.sidebarHovered ? 'sidebar-expanded' : 'sidebar-collapsed';
   }
 }

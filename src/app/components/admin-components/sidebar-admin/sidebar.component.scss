@@ -1,0 +1,154 @@
+// Evenza theme variables (from your existing code)
+$primary-color: #9333ea;
+$primary-light: #a855f7;
+$primary-dark: #7e22ce;
+$primary-bg: #f5f0ff;
+$text-dark: #1e293b;
+$text-medium: #475569;
+$text-light: #64748b;
+$border-color: #e2e8f0;
+
+// Sidebar component styles
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  height: 100vh;
+  background-color: white;
+  box-shadow: 1px 0 3px rgba(0, 0, 0, 0.05);
+  z-index: 50;
+  transition: all 0.3s ease;
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  // Expanded state
+  &.sidebar-expanded {
+    width: 240px;
+  }
+
+  // Collapsed state
+  &.sidebar-collapsed {
+    width: 64px;
+  }
+
+  // Sidebar header
+  .sidebar-header {
+    padding: 1rem;
+    border-bottom: 1px solid $border-color;
+    
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .toggle-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: none;
+      border: none;
+      color: $text-medium;
+      cursor: pointer;
+      
+      &:hover {
+        background-color: $primary-bg;
+        color: $primary-color;
+      }
+    }
+    
+    .logo-text {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: $primary-color;
+      margin: 0;
+      white-space: nowrap;
+      transition: opacity 0.2s ease;
+    }
+  }
+
+  // Navigation section
+  .sidebar-nav {
+    padding: 1.5rem 1rem;
+    
+    .nav-section-title {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: $text-light;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      padding-left: 0.5rem;
+      transition: opacity 0.2s ease;
+    }
+    
+    .nav-menu {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      
+      li {
+        a {
+          display: flex;
+          align-items: center;
+          padding: 0.75rem 0.5rem;
+          border-radius: 8px;
+          text-decoration: none;
+          color: $text-medium;
+          transition: all 0.2s ease;
+          
+          &:hover {
+            background-color: $primary-bg;
+            color: $primary-color;
+            
+            .nav-icon {
+              color: $primary-color;
+            }
+          }
+          
+          &.active {
+            color: $primary-color;
+            background-color: $primary-bg;
+            font-weight: 500;
+            
+            .nav-icon {
+              color: $primary-color;
+            }
+          }
+          
+          &.center-icon {
+            justify-content: center;
+          }
+          
+          .nav-icon {
+            width: 20px;
+            height: 20px;
+            margin-right: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: $text-medium;
+            transition: color 0.2s ease;
+          }
+          
+          .nav-text {
+            white-space: nowrap;
+            transition: opacity 0.2s ease;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Helper class for hiding elements
+.hidden {
+  opacity: 0;
+  pointer-events: none;
+}

@@ -140,6 +140,9 @@ export class EventDetailsComponent implements OnInit {
         );
         this.hasFreeTicketAlready = true;
         this.spinner.hide();
+        const ticketId=res.data._id;
+        const successUrl = `/success?ticketId=${ticketId}`;
+        window.location.href = successUrl;
       },
       error: (err) => {
         console.error('Error booking ticket:', err);

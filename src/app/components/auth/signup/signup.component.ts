@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, type OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -18,6 +18,8 @@ import { SnackbarService } from '../../../services/notification/snackbar.service
 import { CONSTANTS } from '../../../constants';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgxSpinnerService, NgxSpinnerModule } from 'ngx-spinner';
+import { NgIconsModule, provideIcons } from '@ng-icons/core';
+import { featherEye, featherEyeOff } from '@ng-icons/feather-icons';
 
 @Component({
   selector: 'app-signup',
@@ -28,15 +30,19 @@ import { NgxSpinnerService, NgxSpinnerModule } from 'ngx-spinner';
     GoogleAuthButtonComponent,
     RouterModule,
     TranslateModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    NgIconsModule
   ],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.css',
+  viewProviders:[provideIcons({featherEye,featherEyeOff})]
 })
 export class SignupComponent {
   signUpForm: FormGroup;
   isLoading: boolean = false;
   emailExistsError: string | null = null;
+  showPassword:boolean = false;
+
   googleClientId =
     '153826849194-115il10f9m3v1ddcdb0bd161t2v70pih.apps.googleusercontent.com';
   googleCallback = (response: any) => this.signupWithGoogle(response);
@@ -114,7 +120,8 @@ export class SignupComponent {
       // formData.append('imageURL', user.imageURL);  // إرسال الصورة الافتراضية أو الحقيقية
 
 
-      this.authService.signupWithGoogle(formData).subscribe({
+      // this.authService.signupWithGoogle(formData).subscribe({
+      this.authService.signupWithGoogle(user).subscribe({
         next: (res) => {
           console.log('Google Signup Successfully', res);
           // localStorage.setItem('token', JSON.stringify(payload));

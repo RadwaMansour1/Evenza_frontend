@@ -206,8 +206,8 @@ export class ResetPasswordComponent {
     this.http.post('https://evenzabackend-production-2fb4.up.railway.app/auth/change-password', { oldPassword, newPassword } , { headers })
     .subscribe({
       next: () => {
-        this.spinner.show();
-        this.isLoading = true;
+        this.spinner.hide();
+        this.isLoading = false;
         this.successMessage = 'Password changed successfully';
         this.errorMessage = '';
 

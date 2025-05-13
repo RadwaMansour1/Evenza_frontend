@@ -1,130 +1,111 @@
-<aside class="fixed inset-y-0 left-0 z-20 transition-all duration-300 ease-in-out shadow-lg bg-white"
-  [ngClass]="{
-    'w-64': isSidebarOpen || isHovered,
-    'w-0 md:w-16': !isSidebarOpen && !isHovered
-  }">
+<aside class="sidebar" 
+       [class.sidebar-expanded]="isSidebarOpen "
+       [class.sidebar-collapsed]="!isSidebarOpen "
+>
   
   <!-- Header with toggle button -->
-  <div class="p-4 border-b border-gray-200 flex justify-between items-center">
-    <div class="flex items-center">
+  <div class="sidebar-header">
+    <div class="logo-container">
       <button 
         (click)="toggleSidebar()" 
-        class="p-2 rounded-lg text-gray-600 hover:bg-gray-100 mr-2">
+        class="toggle-btn">
         <ng-icon 
-          [name]="isSidebarOpen ? 'heroChevronLeft' : 'heroChevronRight'" 
-          class="w-5 h-5">
+          [name]="isSidebarOpen ? 'heroChevronLeft' : 'heroChevronRight'">
         </ng-icon>
       </button>
-      <h1 class="text-xl font-bold text-purple-600" [ngClass]="{'hidden': !isSidebarOpen && !isHovered}">
+      <h1 class="logo-text" [class.hidden]="!isSidebarOpen && !isHovered">
         Evenza
       </h1>
     </div>
   </div>
 
   <!-- Navigation -->
-  <div class="mt-6 px-4">
-    <div class="text-sm uppercase text-gray-500 font-medium mb-4" [ngClass]="{'hidden': !isSidebarOpen && !isHovered}">ADMIN</div>
+  <div class="sidebar-nav">
+    <div class="nav-section-title" [class.hidden]="!isSidebarOpen && !isHovered">ADMIN</div>
     <nav>
-      <ul class="space-y-5">
+      <ul class="nav-menu">
         <li>
-          <a routerLink="/admin/analytics" routerLinkActive="text-purple-600" 
-             class="flex items-center py-1 text-gray-600 hover:text-purple-600 transition-colors cursor-pointer "
-             [ngClass]="{'justify-center': !isSidebarOpen && !isHovered}">
-            <span class="inline-block w-5 h-5 mr-3 text-gray-500">
+          <a routerLink="/admin/analytics" routerLinkActive="active" 
+             [class.center-icon]="!isSidebarOpen && !isHovered">
+            <span class="nav-icon">
               <ng-icon name="heroSquare2Stack"></ng-icon>
             </span>
-            <span [ngClass]="{'hidden': !isSidebarOpen && !isHovered}">Dashboard</span>
+            <span class="nav-text" [class.hidden]="!isSidebarOpen && !isHovered">Dashboard</span>
           </a>
         </li>
         <li>
-          <a routerLink="/admin/events" routerLinkActive="text-purple-600" 
-             class="flex items-center py-1 text-gray-600 hover:text-purple-600 transition-colors cursor-pointer"
-             [ngClass]="{'justify-center': !isSidebarOpen && !isHovered}">
-            <span class="inline-block w-5 h-5 mr-3 text-gray-500">
+          <a routerLink="/admin/events" routerLinkActive="active" 
+             [class.center-icon]="!isSidebarOpen && !isHovered">
+            <span class="nav-icon">
               <ng-icon name="heroCalendar"></ng-icon>
             </span>
-            <span [ngClass]="{'hidden': !isSidebarOpen && !isHovered}">Events</span>
+            <span class="nav-text" [class.hidden]="!isSidebarOpen && !isHovered">Events</span>
           </a>
         </li>
         <li>
-          <a routerLink="/admin/categories" routerLinkActive="text-purple-600" 
-             class="flex items-center py-1 text-gray-600 hover:text-purple-600 transition-colors cursor-pointer"
-             [ngClass]="{'justify-center': !isSidebarOpen && !isHovered}">
-            <span class="inline-block w-5 h-5 mr-3 text-gray-500">
+          <a routerLink="/admin/categories" routerLinkActive="active" 
+             [class.center-icon]="!isSidebarOpen && !isHovered">
+            <span class="nav-icon">
               <ng-icon name="heroTag"></ng-icon>
             </span>
-            <span [ngClass]="{'hidden': !isSidebarOpen && !isHovered}">Categories</span>
+            <span class="nav-text" [class.hidden]="!isSidebarOpen && !isHovered">Categories</span>
           </a>
         </li>
         <li>
-          <a routerLink="/admin/users" routerLinkActive="text-purple-600" 
-             class="flex items-center py-1 text-gray-600 hover:text-purple-600 transition-colors cursor-pointer"
-             [ngClass]="{'justify-center': !isSidebarOpen && !isHovered}">
-            <span class="inline-block w-5 h-5 mr-3 text-gray-500">
+          <a routerLink="/admin/users" routerLinkActive="active" 
+             [class.center-icon]="!isSidebarOpen && !isHovered">
+            <span class="nav-icon">
               <ng-icon name="heroUsers"></ng-icon>
             </span>
-            <span [ngClass]="{'hidden': !isSidebarOpen && !isHovered}">Users</span>
+            <span class="nav-text" [class.hidden]="!isSidebarOpen && !isHovered">Users</span>
           </a>
         </li>
         <li>
-          <a routerLink="/admin/orders" routerLinkActive="text-purple-600" 
-             class="flex items-center py-1 text-gray-600 hover:text-purple-600 transition-colors cursor-pointer"
-             [ngClass]="{'justify-center': !isSidebarOpen && !isHovered}">
-            <span class="inline-block w-5 h-5 mr-3 text-gray-500">
+          <a routerLink="/admin/orders" routerLinkActive="active" 
+             [class.center-icon]="!isSidebarOpen && !isHovered">
+            <span class="nav-icon">
               <ng-icon name="heroTicket"></ng-icon>
             </span>
-            <span [ngClass]="{'hidden': !isSidebarOpen && !isHovered}">Bookings</span>
+            <span class="nav-text" [class.hidden]="!isSidebarOpen && !isHovered">Bookings</span>
           </a>
         </li>
         <li>
-          <a routerLink="admin/upload-documents" routerLinkActive="text-purple-600" 
-             class="flex items-center py-1 text-gray-600 hover:text-purple-600 transition-colors cursor-pointer"
-             [ngClass]="{'justify-center': !isSidebarOpen && !isHovered}">
-            <span class="inline-block w-5 h-5 mr-3 text-gray-500">
-              <ng-icon name="heroTicket"></ng-icon>
-            </span>
-            <span [ngClass]="{'hidden': !isSidebarOpen && !isHovered}">Documents</span>
-          </a>
-        </li>
-        <li>
-          <a routerLink="admin/refund-requests" routerLinkActive="text-purple-600" 
-             class="flex items-center py-1 text-gray-600 hover:text-purple-600 transition-colors cursor-pointer"
-             [ngClass]="{'justify-center': !isSidebarOpen && !isHovered}">
-            <span class="inline-block w-5 h-5 mr-3 text-gray-500">
-              <ng-icon name="heroTicket"></ng-icon>
-            </span>
-            <span [ngClass]="{'hidden': !isSidebarOpen && !isHovered}">Refund Requests</span>
-          </a>
-        </li>
-        <li>
-          <a routerLink="admin/organizer/wallet" routerLinkActive="text-purple-600" 
-             class="flex items-center py-1 text-gray-600 hover:text-purple-600 transition-colors cursor-pointer"
-             [ngClass]="{'justify-center': !isSidebarOpen && !isHovered}">
-            <span class="inline-block w-5 h-5 mr-3 text-gray-500">
-              <ng-icon name="heroTicket"></ng-icon>
-            </span>
-            <span [ngClass]="{'hidden': !isSidebarOpen && !isHovered}">Organizer's Wallet</span>
-          </a>
-        </li>
-        <li>
-          <a routerLink="/admin/reviews" routerLinkActive="text-purple-600" 
-             class="flex items-center py-1 text-gray-600 hover:text-purple-600 transition-colors cursor-pointer"  
-             [ngClass]="{'justify-center': !isSidebarOpen && !isHovered}">
-            <span class="inline-block w-5 h-5 mr-3 text-gray-500">
+          <a routerLink="/admin/upload-documents" routerLinkActive="active" 
+             [class.center-icon]="!isSidebarOpen && !isHovered">
+            <span class="nav-icon">
               <ng-icon name="heroDocument"></ng-icon>
             </span>
-            <span [ngClass]="{'hidden': !isSidebarOpen && !isHovered}">Reviews</span>
+            <span class="nav-text" [class.hidden]="!isSidebarOpen && !isHovered">Documents</span>
+          </a>
+        </li>
+        <li>
+          <a routerLink="/admin/refund-requests" routerLinkActive="active" 
+             [class.center-icon]="!isSidebarOpen && !isHovered">
+            <span class="nav-icon">
+              <ng-icon name="heroArrowPath"></ng-icon>
+            </span>
+            <span class="nav-text" [class.hidden]="!isSidebarOpen && !isHovered">Refund Requests</span>
+          </a>
+        </li>
+        <li>
+          <a routerLink="/admin/organizer/wallet" routerLinkActive="active" 
+             [class.center-icon]="!isSidebarOpen && !isHovered">
+            <span class="nav-icon">
+              <ng-icon name="heroBanknotes"></ng-icon>
+            </span>
+            <span class="nav-text" [class.hidden]="!isSidebarOpen && !isHovered">Organizer's Wallet</span>
+          </a>
+        </li>
+        <li>
+          <a routerLink="/admin/reviews" routerLinkActive="active" 
+             [class.center-icon]="!isSidebarOpen && !isHovered">
+            <span class="nav-icon">
+              <ng-icon name="heroStar"></ng-icon>
+            </span>
+            <span class="nav-text" [class.hidden]="!isSidebarOpen && !isHovered">Reviews</span>
           </a>
         </li>
       </ul>
     </nav>
   </div>
 </aside>
-
-<!-- Toggle button for collapsed state -->
-<button 
-  *ngIf="!isSidebarOpen && !isHovered"
-  (click)="toggleSidebar()" 
-  class="fixed left-4 top-4 z-30 p-2 rounded-md bg-white shadow-md text-gray-600 hover:text-purple-600">
-  <ng-icon name="heroChevronRight" class="w-4 h-4"></ng-icon>
-</button>

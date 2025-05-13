@@ -5,7 +5,7 @@ import { featherMapPin, featherCalendar } from '@ng-icons/feather-icons';
 import { TranslateModule } from '@ngx-translate/core';
 @Component({
   selector: 'app-hero-section',
-  imports: [NgIcon,TranslateModule],
+  imports: [NgIcon, TranslateModule],
   templateUrl: './hero-section.component.html',
   providers: [provideIcons({ featherMapPin, featherCalendar })],
 })
@@ -17,5 +17,8 @@ export class HeroSectionComponent {
         queryParams: { search: query.trim() },
       });
     }
+  }
+  navigateToEvents() {
+    this.router.navigate(['/events']);
   }
 }

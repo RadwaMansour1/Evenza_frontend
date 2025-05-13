@@ -113,7 +113,9 @@
               {{ 'MY_TICKETS.VIEW_DETAILS_BUTTON' | translate }}
             </button>
             <button
-            (click)="requestRefund(ticket._id, ticket.date.toString())"
+              (click)="onRefundClick(ticket._id, ticket.date)"
+              [class.opacity-50]="isRefundBlocked(ticket.date)"
+              [class.cursor-not-allowed]="isRefundBlocked(ticket.date)"
               class="w-full bg-gray-50 text-gray-700 border border-gray-200 rounded-lg py-2 font-medium hover:bg-gray-100 hover:border-gray-300"
             >
               <!-- Add translate pipe -->
