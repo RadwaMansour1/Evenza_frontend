@@ -45,7 +45,7 @@ export class AdminEventsComponent implements OnInit {
     imageUrl: '',
     organizerId: 0,
     status: 'pending',
-    
+
     createdAt: '',
     updatedAt: ''
   };
@@ -162,10 +162,10 @@ export class AdminEventsComponent implements OnInit {
 
   formatDate(dateString: string): string {
     const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', { 
-      month: 'short', 
-      day: 'numeric', 
-      year: 'numeric' 
+    return date.toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric'
     });
   }
 
@@ -188,7 +188,7 @@ export class AdminEventsComponent implements OnInit {
   getCheapestTicketPrice(tickets: TicketLevel[]): string {
     if (!tickets || tickets.length === 0) return 'Free';
     const cheapest = Math.min(...tickets.map(t => t.price));
-    return `$${cheapest.toFixed(2)}+`;
+    return `EGP ${cheapest.toFixed(2)}+`;
   }
 
   openEditModal(event: Event): void {

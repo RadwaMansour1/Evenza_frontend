@@ -1,22 +1,22 @@
 <!-- HTML Template -->
 <div class="refunds-container" *ngIf="!isLoading; else loading">
   <h1 class="title">Refund Requests</h1>
-  
+
   <div class="refunds-grid">
     <div class="refund-card" *ngFor="let request of refundRequests">
       <div class="card-header">
         <h2>User ID: {{ request.userId }}</h2>
         <span class="status-badge" [ngClass]="request.status">{{ request.status | titlecase }}</span>
       </div>
-      
+
       <div class="card-body">
         <p><strong>Payment ID:</strong> {{ request.paymentId }}</p>
         <p><strong>Ticket ID:</strong> {{ request.ticketId }}</p>
         <p><strong>Method:</strong> {{ request.refundMethod }}</p>
-        <p><strong>Amount:</strong> ${{ request.refundAmount }}</p>
+        <p><strong>Amount:</strong> EGP {{ request.refundAmount }}</p>
         <p><strong>Reason:</strong> {{ request.reason }}</p>
       </div>
-      
+
       <div class="card-actions">
         <button class="approve-btn" [disabled]="request.status !== 'pending'" (click)="openApproveModal(request._id)">
           Approve Refund
@@ -24,7 +24,7 @@
       </div>
     </div>
   </div>
-  
+
   <!-- Empty state -->
   <div class="empty-state" *ngIf="refundRequests.length === 0">
     <div class="empty-icon">📭</div>

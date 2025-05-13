@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, type OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -46,7 +46,6 @@ export class SignupComponent {
   googleClientId =
     '153826849194-115il10f9m3v1ddcdb0bd161t2v70pih.apps.googleusercontent.com';
   googleCallback = (response: any) => this.signupWithGoogle(response);
-
 
   constructor(
     private fb: FormBuilder,
@@ -121,7 +120,8 @@ export class SignupComponent {
       // formData.append('imageURL', user.imageURL);  // إرسال الصورة الافتراضية أو الحقيقية
 
 
-      this.authService.signupWithGoogle(formData).subscribe({
+      // this.authService.signupWithGoogle(formData).subscribe({
+      this.authService.signupWithGoogle(user).subscribe({
         next: (res) => {
           console.log('Google Signup Successfully', res);
           // localStorage.setItem('token', JSON.stringify(payload));

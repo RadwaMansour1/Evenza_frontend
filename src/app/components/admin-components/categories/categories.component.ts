@@ -1,9 +1,9 @@
-
 import { Component, OnInit } from '@angular/core';
 import { CategoriesService, Category } from '../../../services/admin/categories.service';
 import { NgIconComponent } from '@ng-icons/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-categories',
@@ -21,7 +21,16 @@ export class CategoriesComponent implements OnInit {
   newCategoryName = '';
   isAdding = false;
 
-  constructor(private categoriesService: CategoriesService) {}
+  // Modals
+  isEditModalOpen = false;
+  isDeleteModalOpen = false;
+  selectedCategory: Category | null = null;
+  editCategoryName = '';
+
+  constructor(
+    private categoriesService: CategoriesService,
+    private toastr: ToastrService
+  ) {}
 
   ngOnInit(): void {
     this.loadCategories();
@@ -38,63 +47,77 @@ export class CategoriesComponent implements OnInit {
       error: (err) => {
         this.error = 'Failed to load categories';
         this.isLoading = false;
+        this.toastr.error('Failed to load categories', 'Error');
         console.error(err);
       }
     });
   }
 
-  filterCategories(): void {
-    this.filteredCategories = this.categories.filter(category =>
-      category.name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
-      (category.description && category.description.toLowerCase().includes(this.searchTerm.toLowerCase()))
-    );
+  // Edit Modal Handlers
+  openEditModal(category: Category): void {
+    this.selectedCategory = category;
+    this.editCategoryName = category.name;
+    this.isEditModalOpen = true;
   }
 
-  addCategory(): void {
-    if (!this.newCategoryName.trim()) return;
+  closeEditModal(): void {
+    this.isEditModalOpen = false;
+    this.selectedCategory = null;
+    this.editCategoryName = '';
+  }
 
-    this.categoriesService.createCategory(this.newCategoryName.trim()).subscribe({
-      next: (newCategory) => {
-        this.categories = [newCategory, ...this.categories];
-        this.filterCategories();
-        this.newCategoryName = '';
-        this.isAdding = false;
+  updateCategory(): void {
+    if (!this.selectedCategory || !this.editCategoryName.trim()) return;
+
+    this.categoriesService.updateCategory(
+      this.selectedCategory._id, 
+      this.editCategoryName.trim()
+    ).subscribe({
+      next: (updatedCategory) => {
+        const index = this.categories.findIndex(c => c._id === this.selectedCategory?._id);
+        if (index !== -1) {
+          this.categories[index] = updatedCategory;
+          this.filterCategories();
+          this.toastr.success('Category updated successfully', 'Success');
+        }
+        this.closeEditModal();
       },
       error: (err) => {
-        console.error('Failed to create category:', err);
+        this.toastr.error('Failed to update category', 'Error');
+        console.error('Failed to update category:', err);
       }
     });
   }
 
-  updateCategory(category: Category): void {
-    const newName = prompt('Enter new category name:', category.name);
-    if (newName && newName !== category.name) {
-      this.categoriesService.updateCategory(category._id, newName).subscribe({
-        next: (updatedCategory) => {
-          const index = this.categories.findIndex(c => c._id === category._id);
-          if (index !== -1) {
-            this.categories[index] = updatedCategory;
-            this.filterCategories();
-          }
-        },
-        error: (err) => {
-          console.error('Failed to update category:', err);
-        }
-      });
-    }
+  // Delete Modal Handlers
+  openDeleteModal(category: Category): void {
+    this.selectedCategory = category;
+    this.isDeleteModalOpen = true;
   }
 
-  deleteCategory(categoryId: string): void {
-    if (confirm('Are you sure you want to delete this category?')) {
-      this.categoriesService.deleteCategory(categoryId).subscribe({
-        next: () => {
-          this.categories = this.categories.filter(c => c._id !== categoryId);
-          this.filterCategories();
-        },
-        error: (err) => {
-          console.error('Failed to delete category:', err);
-        }
-      });
-    }
+  closeDeleteModal(): void {
+    this.isDeleteModalOpen = false;
+    this.selectedCategory = null;
   }
+
+  confirmDelete(): void {
+    if (!this.selectedCategory) return;
+
+    this.categoriesService.deleteCategory(this.selectedCategory._id).subscribe({
+      next: () => {
+        this.categories = this.categories.filter(c => c._id !== this.selectedCategory?._id);
+        this.filterCategories();
+        this.toastr.success('Category deleted successfully', 'Success');
+        this.closeDeleteModal();
+      },
+      error: (err) => {
+        this.toastr.error('Failed to delete category', 'Error');
+        console.error('Failed to delete category:', err);
+      }
+    });
+  }
+
+  // Rest of your existing methods...
+  filterCategories(): void { /* ... */ }
+  addCategory(): void { /* ... */ }
 }
