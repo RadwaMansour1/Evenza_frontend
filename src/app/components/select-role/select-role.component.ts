@@ -49,7 +49,13 @@ export class SelectRoleComponent implements OnInit {
     ).subscribe(
       response => {
         console.log('Role updated successfully:', response);
-        this.router.navigate(['/profile']);
+        if (this.selectedRole?.toLowerCase() == 'organizer') {
+          this.router.navigate(['/organizer/home']);
+        } else {
+          this.router.navigate(['/profile']);
+          window.location.reload();
+
+        }
       },
       error => {
         console.error('Error updating role:', error);
