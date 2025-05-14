@@ -60,7 +60,16 @@ export class LoginComponent implements OnInit {
     });
   }
 
+
   ngOnInit(): void {
+    const reloaded = localStorage.getItem('signin_reloaded');
+  if (!reloaded) {
+    localStorage.setItem('signin_reloaded', 'true');
+    window.location.reload();
+  } else {
+    localStorage.removeItem('signin_reloaded');
+  }
+
     const userData =
       localStorage.getItem(CONSTANTS.userData) ||
       sessionStorage.getItem(CONSTANTS.userData);
