@@ -16,7 +16,7 @@ import { NgIconComponent } from '@ng-icons/core';
   styleUrls: ['./bookings.component.scss']
 })
 export class BookingsComponent implements OnInit {
-  
+
   bookings: Booking[] = [];
   filteredBookings: Booking[] = [];
   searchTerm: string = '';
@@ -45,7 +45,7 @@ export class BookingsComponent implements OnInit {
         // Create an array of user detail requests
         const userRequests = bookings
           .filter(booking => booking.userId?._id)
-          .map(booking => 
+          .map(booking =>
             this.usersService.getUserById(booking.userId!._id).pipe(
               map(user => ({
                 bookingId: booking._id,
@@ -100,7 +100,7 @@ export class BookingsComponent implements OnInit {
 
   filterBookings(): void {
     this.filteredBookings = this.bookings.filter(booking => {
-      const matchesSearch = 
+      const matchesSearch =
         (booking.userId?.firstName?.toLowerCase().includes(this.searchTerm.toLowerCase()) || '') ||
         (booking.userId?.lastName?.toLowerCase().includes(this.searchTerm.toLowerCase()) || '') ||
         (booking.userId?.email?.toLowerCase().includes(this.searchTerm.toLowerCase()) || '') ||
@@ -143,17 +143,17 @@ export class BookingsComponent implements OnInit {
 
   formatDate(dateString: string): string {
     const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', { 
-      month: 'short', 
-      day: 'numeric', 
-      year: 'numeric' 
+    return date.toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric'
     });
   }
 
   formatCurrency(amount: number): string {
     return new Intl.NumberFormat('en-US', {
       style: 'currency',
-      currency: 'USD',
+      currency: 'EGP',
       minimumFractionDigits: 2
     }).format(amount);
   }

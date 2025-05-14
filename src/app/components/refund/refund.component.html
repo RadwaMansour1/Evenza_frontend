@@ -252,7 +252,7 @@
       <span class="flex justify-between">
         <!-- Add translate pipe -->
         <h3 class="font-semibold text-md">{{ 'REFUND.TICKET_PRICE_LABEL' | translate }}</h3>
-        <h3 class="font-medium text-gray-600 text-lg">{{ ticketDetails?.price }} EGP</h3>
+        <h3 class="font-medium text-gray-600 text-lg">{{ ticketDetails?.price!.toFixed(2) }} EGP</h3>
       </span>
       <span class="flex justify-between">
         <!-- Add translate pipe -->
@@ -262,14 +262,14 @@
       <span class="flex justify-between">
         <!-- Add translate pipe -->
         <h3 class="font-semibold text-md">{{ 'REFUND.TOTAL_PRICE_LABEL' | translate }}</h3>
-        <h3 class="font-medium text-gray-600 text-lg">{{ total }} EGP</h3>
+        <h3 class="font-medium text-gray-600 text-lg">{{ total!.toFixed(2) }} EGP</h3>
       </span>
       <span class="flex justify-between">
         <!-- Add translate pipe -->
         <h3 class="font-semibold text-gray-400 text-md">
           {{ 'REFUND.SERVICE_FEE_LABEL' | translate }}
         </h3>
-        <h3 class="font-medium text-gray-400 text-lg">{{serviceFee}} EGP</h3> <!-- Assuming fee is fixed -->
+        <h3 class="font-medium text-gray-400 text-lg">{{serviceFee.toFixed(2)}} EGP</h3> <!-- Assuming fee is fixed -->
       </span>
       <hr class="text-gray-300" />
       <span class="flex justify-between">
