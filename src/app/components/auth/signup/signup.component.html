@@ -15,16 +15,18 @@
       [formGroup]="signUpForm"
       (ngSubmit)="onSubmit()"
     >
-      <div class="grid sm:grid-cols-2 gap-6">
+
+      <div class="grid sm:grid-cols-1 gap-6 w-full">
         <div class="flex justify-center items-center w-full">
           <app-google-auth-button
             [clientId]="googleClientId"
             [callback]="signupWithGoogle.bind(this)"
+
           >
           </app-google-auth-button>
         </div>
 
-        <button
+        <!-- <button
           (click)="signupWithFacebook()"
           class="flex justify-center items-center bg-white border text-[#4460A0] border-gray-300 rounded-lg shadow-md px-6 py-2 text-sm font-medium hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
         >
@@ -56,8 +58,9 @@
           </svg>
 
           <span>{{'auth.signUp.continueWithFacebook'| translate}}</span>
-        </button>
+        </button> -->
       </div>
+
       <div class="relative flex items-center py-5">
         <div class="flex-grow border-t border-[#e9e3ff]"></div>
         <span class="flex-shrink mx-4 text-[#8E9196]"

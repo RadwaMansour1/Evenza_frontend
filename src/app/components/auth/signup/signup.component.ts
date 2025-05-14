@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, type OnInit } from '@angular/core';
+import { Component,  OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -37,7 +37,7 @@ import { featherEye, featherEyeOff } from '@ng-icons/feather-icons';
   styleUrl: './signup.component.css',
   viewProviders:[provideIcons({featherEye,featherEyeOff})]
 })
-export class SignupComponent {
+export class SignupComponent implements OnInit {
   signUpForm: FormGroup;
   isLoading: boolean = false;
   emailExistsError: string | null = null;
@@ -46,6 +46,19 @@ export class SignupComponent {
   googleClientId =
     '153826849194-115il10f9m3v1ddcdb0bd161t2v70pih.apps.googleusercontent.com';
   googleCallback = (response: any) => this.signupWithGoogle(response);
+
+
+  ngOnInit(): void {
+  const reloaded = localStorage.getItem('signin_reloaded');
+  if (!reloaded) {
+    localStorage.setItem('signin_reloaded', 'true');
+    window.location.reload();
+  } else {
+    localStorage.removeItem('signin_reloaded');
+  }
+}
+
+
 
   constructor(
     private fb: FormBuilder,

@@ -31,7 +31,7 @@ import { featherEye, featherEyeOff } from '@ng-icons/feather-icons';
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
   viewProviders:[provideIcons({featherEye,featherEyeOff})]
-  
+
 })
 export class LoginComponent implements OnInit {
   private router = inject(Router);
@@ -60,7 +60,16 @@ export class LoginComponent implements OnInit {
     });
   }
 
+
   ngOnInit(): void {
+    const reloaded = localStorage.getItem('signin_reloaded');
+  if (!reloaded) {
+    localStorage.setItem('signin_reloaded', 'true');
+    window.location.reload();
+  } else {
+    localStorage.removeItem('signin_reloaded');
+  }
+
     const userData =
       localStorage.getItem(CONSTANTS.userData) ||
       sessionStorage.getItem(CONSTANTS.userData);
@@ -221,6 +230,7 @@ export class LoginComponent implements OnInit {
           );
 
           this.router.navigate(['/home']);
+          window.location.reload();
           return;
         } else {
           console.log('user not found go to signup');
@@ -270,8 +280,8 @@ export class LoginComponent implements OnInit {
         email: this.signInForm.value.email,
         password: this.signInForm.value.password,
       };
-      this.spinner.show(); 
-      this.isLoading = true; 
+      this.spinner.show();
+      this.isLoading = true;
 
       this.authService.login(loginData).subscribe(
         (response) => {
@@ -307,7 +317,7 @@ export class LoginComponent implements OnInit {
         (error) => {
           this.isLoading = false;
           this.spinner.hide();
-          
+
           if (error.status === 401) {
             this.errorMessage = 'The Email or password is incorrect.';
           } else {
