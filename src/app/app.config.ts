@@ -46,7 +46,9 @@ import {
   heroExclamationTriangle,
   heroEye,
   heroXMark,
-  heroBanknotes
+  heroBanknotes,
+  heroQuestionMarkCircle,
+  heroArrowRightOnRectangle
 
   
 } from '@ng-icons/heroicons/outline';
@@ -104,6 +106,8 @@ export const appConfig: ApplicationConfig = {
         heroEye,
         heroXMark,
         heroBanknotes,
+        heroQuestionMarkCircle,
+        heroArrowRightOnRectangle
         
         
         
