@@ -20,7 +20,7 @@ export class GoogleAuthButtonComponent implements OnInit {
     google.accounts.id.renderButton(document.getElementById('google-btn'), {
       theme: 'filled_blue',
       size: 'large',
-      width: 300,
+      width: 600,
       text: 'continue_with',
       shape: 'rectangular',
       logo_alignment: 'left'
