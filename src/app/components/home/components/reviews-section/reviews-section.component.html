@@ -11,12 +11,12 @@
     <div class="relative">
       <div
         #slider
-        class="flex flex-col justify-between overflow-x-auto gap-6 scroll-smooth snap-x snap-mandatory py-10 [scrollbar-width:none] [-ms-overflow-style:none]"
+        class="flex overflow-x-auto gap-6 scroll-smooth snap-x snap-mandatory py-10 [scrollbar-width:none] [-ms-overflow-style:none]"
         style="scrollbar-width: none; -ms-overflow-style: none"
       >
         <div
           *ngFor="let review of reviews"
-          class="min-w-[300px] max-w-sm bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 text-left snap-start shrink-0"
+          class="flex flex-col justify-between min-w-[300px] max-w-sm bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 text-left snap-start shrink-0"
         >
           <!-- Rating -->
           <div>
