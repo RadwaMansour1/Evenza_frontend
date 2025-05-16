@@ -25,40 +25,6 @@
           >
           </app-google-auth-button>
         </div>
-
-        <!-- <button
-          (click)="signupWithFacebook()"
-          class="flex justify-center items-center bg-white border text-[#4460A0] border-gray-300 rounded-lg shadow-md px-6 py-2 text-sm font-medium hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
-        >
-          <svg
-            class="h-6 w-6 mr-2"
-            xmlns="http://www.w3.org/2000/svg"
-            xmlns:xlink="http://www.w3.org/1999/xlink"
-            viewBox="0 0 48 48"
-            version="1.1"
-          >
-            <g
-              id="Icons"
-              stroke="none"
-              stroke-width="1"
-              fill="none"
-              fill-rule="evenodd"
-            >
-              <g
-                id="Color-"
-                transform="translate(-200.000000, -160.000000)"
-                fill="#4460A0"
-              >
-                <path
-                  d="M225.638355,208 L202.649232,208 C201.185673,208 200,206.813592 200,205.350603 L200,162.649211 C200,161.18585 201.185859,160 202.649232,160 L245.350955,160 C246.813955,160 248,161.18585 248,162.649211 L248,205.350603 C248,206.813778 246.813769,208 245.350955,208 L233.119305,208 L233.119305,189.411755 L239.358521,189.411755 L240.292755,182.167586 L233.119305,182.167586 L233.119305,177.542641 C233.119305,175.445287 233.701712,174.01601 236.70929,174.01601 L240.545311,174.014333 L240.545311,167.535091 C239.881886,167.446808 237.604784,167.24957 234.955552,167.24957 C229.424834,167.24957 225.638355,170.625526 225.638355,176.825209 L225.638355,182.167586 L219.383122,182.167586 L219.383122,189.411755 L225.638355,189.411755 L225.638355,208 L225.638355,208 Z"
-                  id="Facebook"
-                ></path>
-              </g>
-            </g>
-          </svg>
-
-          <span>{{'auth.signUp.continueWithFacebook'| translate}}</span>
-        </button> -->
       </div>
 
       <div class="relative flex items-center py-5">
@@ -75,10 +41,11 @@
           <label class="text-md font-medium mb-2 block text-[#1A1F2C]"
             >{{'auth.signUp.firstName'| translate}}</label
           >
+        <!-- class="bg-slate-100 w-full text-sm text-slate-800 px-4 py-2.5 rounded border focus:border-blue-600  outline-none transition-all focus:bg-transparent border-[#e9e3ff] focus-visible:ring-purple-400 focus-visible:ring-offset-2"  -->
           <input
             name="name"
             type="text"
-            class="bg-slate-100 w-full text-sm text-slate-800 px-4 py-2.5 rounded border focus:border-blue-600 outline-none transition-all focus:bg-transparent border-[#e9e3ff] focus-visible:ring-[#9b87f5]"
+            class="flex h-10 w-full rounded-md border border-input border-gray-300 bg-background bg-slate-100 px-3 py-2 text-base focus:bg-white ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground file:text-gray-500 placeholder:text-muted-foreground placeholder:text-gray-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-purple-400 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
             formControlName="firstName"
             [placeholder]="'auth.signUp.enterName' | translate"/>
           <div
@@ -115,10 +82,11 @@
           <input
             name="lname"
             type="text"
-            class="bg-slate-100 w-full text-sm text-slate-800 px-4 py-2.5 rounded border focus:border-blue-600 outline-none transition-all focus:bg-transparent border-[#e9e3ff] focus-visible:ring-[#9b87f5]"
+            class="flex h-10 w-full rounded-md border border-input border-gray-300 bg-background bg-slate-100 px-3 py-2 text-base focus:bg-white ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground file:text-gray-500 placeholder:text-muted-foreground placeholder:text-gray-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-purple-400 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
             formControlName="lastName"
             [placeholder]="'auth.signUp.enterLastName' | translate"
-          />
+            />
+            <!-- class="bg-slate-100 w-full text-sm text-slate-800 px-4 py-2.5 rounded border focus:border-blue-600 outline-none transition-all focus:bg-transparent border-[#e9e3ff] focus-visible:ring-purple-400 focus-visible:ring-offset-2" -->
           <div
             *ngIf="
               signUpForm.get('lastName')?.touched &&
@@ -153,10 +121,11 @@
           <input
             name="email"
             type="text"
-            class="bg-slate-100 w-full text-sm text-slate-800 px-4 py-2.5 rounded border focus:border-blue-600 outline-none transition-all focus:bg-transparent border-[#e9e3ff] focus-visible:ring-[#9b87f5]"
+            class="flex h-10 w-full rounded-md border border-input border-gray-300 bg-background bg-slate-100 px-3 py-2 text-base focus:bg-white ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground file:text-gray-500 placeholder:text-muted-foreground placeholder:text-gray-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-purple-400 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
             formControlName="email"
             [placeholder]="'auth.signUp.enterEmail' | translate"
-          />
+            />
+            <!-- class="bg-slate-100 w-full text-sm text-slate-800 px-4 py-2.5 rounded border focus:border-blue-600 outline-none transition-all focus:bg-transparent border-[#e9e3ff] focus-visible:ring-purple-400 focus-visible:ring-offset-2" -->
           <div
             *ngIf="
               signUpForm.get('email')?.touched &&
@@ -186,31 +155,16 @@
             >
           </div>
         </div>
-        <!-- mobile number -->
-        <!-- <div>
-              <label class="text-md font-medium mb-2 block text-[#1A1F2C]">Mobile No.</label>
-              <input name="number" type="text" class="bg-slate-100 w-full text-sm text-slate-800 px-4 py-2.5 rounded border focus:border-blue-600 outline-none transition-all focus:bg-transparent border-[#e9e3ff] focus-visible:ring-[#9b87f5]"
-                      formControlName="mobileNumber" placeholder="Enter mobile number" />
-              <div *ngIf="signUpForm.get('mobileNumber')?.touched && signUpForm.get('mobileNumber')?.errors" class="text-red-600 font-bold text-sm mt-2 ml-0.5">
-                <ng-container *ngIf="signUpForm.get('mobileNumber')?.errors?.['required']">Mobile number is required.</ng-container>
-                <ng-container *ngIf="signUpForm.get('mobileNumber')?.errors?.['pattern']">Enter a valid Egyptian mobile number (e.g. 010xxxxxxxx).</ng-container>
-                <ng-container *ngIf="signUpForm.get('mobileNumber')?.errors?.['minlength']">Mobile number must be at least 11 digits long.</ng-container>
-                <ng-container *ngIf="signUpForm.get('mobileNumber')?.errors?.['maxlength']">Mobile number cannot exceed 15 digits.</ng-container>
-                <ng-container *ngIf="signUpForm.get('mobileNumber')?.errors?.['mobileExists']">Mobile number already exists.</ng-container>
-                <ng-container *ngIf="signUpForm.get('mobileNumber')?.errors?.['mobileDomain']">Mobile number domain is not allowed.</ng-container>
-                <ng-container *ngIf="signUpForm.get('mobileNumber')?.errors?.['mobilePattern']">Mobile number must start with 010, 011, 012, 015.</ng-container>
-              </div>
-            </div> -->
-
         <!-- Select role -->
         <div>
           <label class="text-md font-medium mb-2 block text-[#1A1F2C]"
             >{{'auth.signUp.selectRoleLabel'| translate}}</label
           >
           <select
-            class="bg-slate-100 w-full text-sm text-slate-800 px-4 py-2.5 rounded border focus:border-blue-600 outline-none transition-all focus:bg-transparent border-[#e9e3ff] focus-visible:ring-[#9b87f5]"
+            class=" flex h-10 w-full rounded-md border border-input border-gray-300 bg-background bg-slate-100 px-3 py-2 text-base focus:bg-white ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground file:text-gray-500 placeholder:text-muted-foreground placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-purple-400 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm" 
             formControlName="userRole"
-          >
+            >
+            <!-- class="bg-slate-100 w-full text-sm text-slate-800 px-4 py-2.5 rounded border focus:border-blue-600 outline-none transition-all focus:bg-transparent border-[#e9e3ff] focus-visible:ring-purple-400 focus-visible:ring-offset-2" -->
             <option value="" disabled selected>{{'auth.signUp.selectRole'| translate}}</option>
             <option value="user">{{'auth.signUp.roleUser'| translate}}</option>
             <option value="organizer">{{'auth.signUp.roleOrganizer'| translate}}</option>
@@ -237,11 +191,12 @@
               <input
                 name="password"
                 type="password"
-                class="bg-slate-100 w-full text-sm text-slate-800 px-4 py-2.5 rounded border focus:border-blue-600 outline-none transition-all focus:bg-transparent border-[#e9e3ff] focus-visible:ring-[#9b87f5]"
+                class=" flex h-10 w-full rounded-md border border-input border-gray-300 bg-background bg-slate-100 px-3 py-2 text-base focus:bg-white ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground file:text-gray-500 placeholder:text-muted-foreground placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-purple-400 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm" 
                 formControlName="password"
                 [type]="showPassword ? 'text' : 'password'"
                 [placeholder]="'auth.signUp.enterPassword' | translate" 
-              />
+                />
+                <!-- class="bg-slate-100 w-full text-sm text-slate-800 px-4 py-2.5 rounded border focus:border-blue-600 outline-none transition-all focus:bg-transparent border-[#e9e3ff] focus-visible:ring-purple-400 focus-visible:ring-offset-2" -->
               <button
               type="button"
               class="absolute right-3 top-1/2 transform -translate-y-1/2 text-[#8E9196]"
@@ -311,10 +266,11 @@
           <input
             name="cpassword"
             [type]="showPassword ? 'text' : 'password'"
-            class="bg-slate-100 w-full text-sm text-slate-800 px-4 py-2.5 rounded border focus:border-blue-600 outline-none transition-all focus:bg-transparent border-[#e9e3ff] focus-visible:ring-[#9b87f5]"
+            class=" flex h-10 w-full rounded-md border border-input border-gray-300 bg-background bg-slate-100 px-3 py-2 text-base focus:bg-white ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground file:text-gray-500 placeholder:text-muted-foreground placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-purple-400 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm" 
             formControlName="confirmPassword"
             [placeholder]="'auth.signUp.confirmPassword' | translate"
-          />
+            />
+            <!-- class="bg-slate-100 w-full text-sm text-slate-800 px-4 py-2.5 rounded border focus:border-blue-600 outline-none transition-all focus:bg-transparent border-[#e9e3ff] focus-visible:ring-purple-400 focus-visible:ring-offset-2" -->
               <button
               type="button"
               class="absolute right-3 top-1/2 transform -translate-y-1/2 text-[#8E9196]"
